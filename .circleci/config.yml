@@ -121,6 +121,7 @@ workflows:
             only: master
     jobs:
       - checkout_code
+      - dead_links_dependencies
       - check_for_dead_links_on_dev:
           requires:
             - dead_links_dependencies
@@ -134,6 +135,7 @@ workflows:
             only: master
     jobs:
       - checkout_code
+      - dead_links_dependencies
       - check_for_dead_links_on_stage:
           requires:
             - dead_links_dependencies
@@ -147,6 +149,7 @@ workflows:
             only: master
     jobs:
       - checkout_code
+      - dead_links_dependencies
       - check_for_dead_links_on_prod:
           requires:
             - dead_links_dependencies
