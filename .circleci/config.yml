@@ -101,7 +101,6 @@ jobs:
             . venv/bin/activate
             TEST_ENV=PROD make dead_links_check
 
-
 workflows:
   version: 2
 
@@ -125,7 +124,7 @@ workflows:
               only:
               - master
     jobs:
-      - check_for_dead_links_on_dev
+      - check_for_dead_links_on_dev:
         requires:
           - dead_links_dependencies
 
@@ -138,7 +137,7 @@ workflows:
               only:
               - master
     jobs:
-      - check_for_dead_links_on_stage
+      - check_for_dead_links_on_stage:
         requires:
           - dead_links_dependencies
 
@@ -151,7 +150,7 @@ workflows:
               only:
               - master
     jobs:
-      - check_for_dead_links_on_prod
+      - check_for_dead_links_on_prod:
         requires:
           - dead_links_dependencies
 
