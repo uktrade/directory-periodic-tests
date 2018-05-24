@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import math
 import os
@@ -20,7 +21,7 @@ JIRA_PASSWORD = os.environ['JIRA_PASSWORD']
 CIRCLE_CI_API_TOKEN = os.environ['CIRCLE_CI_API_TOKEN']
 
 # Instantiate clients
-JIRA_CLIENT = JiraClient(JIRA_HOST, basic_auth=(JIRA_USERNAME, JIRA_PASSWORD))
+JIRA_CLIENT = JiraClient(JIRA_HOST, auth=(JIRA_USERNAME, JIRA_PASSWORD))
 GECKO_CLIENT = GeckoClient(GECKOBOARD_API_KEY)
 CIRCLE_CI_CLIENT = circleclient.CircleClient(CIRCLE_CI_API_TOKEN)
 
