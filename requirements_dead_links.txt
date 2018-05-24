@@ -5,4 +5,5 @@
 #    pip-compile --output-file requirements_dead_links.txt requirements_dead_links.in
 #
 beautifulsoup4==4.6.0     # via pylinkvalidator
+lxml==4.2.1
 pylinkvalidator==0.3
