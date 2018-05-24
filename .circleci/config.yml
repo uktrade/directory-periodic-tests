@@ -1,0 +1,157 @@
+version: 2.0
+
+jobs:
+  checkout_code:
+    docker:
+      - image: circleci/python:3.5.3
+    working_directory: ~/directory-periodical-tests
+    steps:
+      - checkout
+      - save_cache:
+          key: cached-repo-{{ .Revision }}
+          paths:
+            - ~/directory-periodical-tests
+
+  refresh_geckoboard:
+    docker:
+      - image: circleci/python:3.5.3
+    working_directory: ~/directory-periodical-tests
+    steps:
+      - restore_cache:
+          keys:
+            - cached-repo-{{ .Revision }}
+      - run:
+          name: Refresh Geckoboard
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements_geckoboard_updater.txt
+            python geckoboard_updater/geckoboard_updater.py
+
+  dead_links_dependencies:
+    docker:
+      - image: circleci/python:3.5.3
+    working_directory: ~/directory-periodical-tests
+    steps:
+      - restore_cache:
+          keys:
+            - cached-repo-{{ .Revision }}
+      - run:
+          name: Create virtualenv and install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements_dead_links.txt
+      - save_cache:
+          key: dead-links-dependencies-cache-{{ .Revision }}
+          paths:
+            - ~/directory-periodical-tests/venv
+
+  check_for_dead_links_on_dev:
+    docker:
+      - image: circleci/python:3.5.3
+    working_directory: ~/directory-periodical-tests
+    steps:
+      - restore_cache:
+          keys:
+            - cached-repo-{{ .Revision }}
+      - restore_cache:
+          keys:
+            - dead-links-dependencies-cache-{{ .Revision }}
+      - run:
+          name: Check for dead links
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            TEST_ENV=DEV make dead_links_check
+
+  check_for_dead_links_on_stage:
+    docker:
+      - image: circleci/python:3.5.3
+    working_directory: ~/directory-periodical-tests
+    steps:
+      - restore_cache:
+          keys:
+            - cached-repo-{{ .Revision }}
+      - restore_cache:
+          keys:
+            - dead-links-dependencies-cache-{{ .Revision }}
+      - run:
+          name: Check for dead links
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            TEST_ENV=STAGE make dead_links_check
+
+  check_for_dead_links_on_prod:
+    docker:
+      - image: circleci/python:3.5.3
+    working_directory: ~/directory-periodical-tests
+    steps:
+      - restore_cache:
+          keys:
+            - cached-repo-{{ .Revision }}
+      - restore_cache:
+          keys:
+            - dead-links-dependencies-cache-{{ .Revision }}
+      - run:
+          name: Check for dead links
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            TEST_ENV=PROD make dead_links_check
+
+
+workflows:
+  version: 2
+
+  refresh_geckoboard_periodically:
+    triggers:
+      - schedule:
+          cron: "0,15,30,45 8-17 * * 1-5"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - refresh_geckoboard
+
+  dev_check_for_dead_links:
+    triggers:
+      - schedule:
+          cron: "0,30 8-17 * * 1-5"
+          filters:
+          branches:
+              only:
+              - master
+    jobs:
+      - check_for_dead_links_on_dev
+        requires:
+          - dead_links_dependencies
+
+  stage_check_for_dead_links:
+    triggers:
+      - schedule:
+          cron: "10,40 8-17 * * 1-5"
+          filters:
+          branches:
+              only:
+              - master
+    jobs:
+      - check_for_dead_links_on_stage
+        requires:
+          - dead_links_dependencies
+
+  prod_check_for_dead_links:
+    triggers:
+      - schedule:
+          cron: "20,50 8-17 * * 1-5"
+          filters:
+          branches:
+              only:
+              - master
+    jobs:
+      - check_for_dead_links_on_prod
+        requires:
+          - dead_links_dependencies
+
