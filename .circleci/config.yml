@@ -17,9 +17,7 @@ jobs:
       - image: circleci/python:3.5.3
     working_directory: ~/directory-periodical-tests
     steps:
-      - restore_cache:
-          keys:
-            - cached-repo-{{ .Revision }}
+      - checkout
       - run:
           name: Refresh Geckoboard
           command: |
@@ -112,7 +110,6 @@ workflows:
           branches:
             only: master
     jobs:
-      - checkout_code
       - refresh_geckoboard
 
   dev_check_for_dead_links:
