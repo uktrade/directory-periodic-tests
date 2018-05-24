@@ -3,7 +3,6 @@ Periodical tests & tasks
 
 This repository contains simple tests & tasks that have to be run periodically.
 
-
 # Dead links
 
 This script will look for internal and external links that return status codes
