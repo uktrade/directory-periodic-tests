@@ -110,8 +110,7 @@ workflows:
         cron: "0,15,30,45 8-17 * * 1-5"
         filters:
           branches:
-            only:
-              - master
+            only: master
     jobs:
       - refresh_geckoboard
 
@@ -121,8 +120,7 @@ workflows:
         cron: "0,30 8-17 * * 1-5"
         filters:
           branches:
-            only:
-              - master
+            only: master
     jobs:
       - checkout_code
       - check_for_dead_links_on_dev:
@@ -135,8 +133,7 @@ workflows:
         cron: "10,40 8-17 * * 1-5"
         filters:
           branches:
-            only:
-              - master
+            only: master
     jobs:
       - checkout_code
       - check_for_dead_links_on_stage:
@@ -149,8 +146,7 @@ workflows:
         cron: "20,50 8-17 * * 1-5"
         filters:
           branches:
-            only:
-              - master
+            only: master
     jobs:
       - checkout_code
       - check_for_dead_links_on_prod:
