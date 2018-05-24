@@ -112,6 +112,7 @@ workflows:
           branches:
             only: master
     jobs:
+      - checkout_code
       - refresh_geckoboard
 
   dev_check_for_dead_links:
