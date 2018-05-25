@@ -18,11 +18,14 @@ dead_links_check:
 	echo "Running pylinkvalidate against: $${TEST_URLS} environment" && \
 	pylinkvalidate.py \
 	    --progress \
+	    --console \
 	    --timeout=55 \
 	    --depth=5 \
 	    --workers=10 \
 	    --test-outside \
 	    --parser=lxml \
+	    --format=junit \
+	    --output=report.xml \
 	    --header="Connection: keep-alive" \
 	    --header="Pragma: no-cache" \
 	    --header="Cache-Control: no-cache" \
