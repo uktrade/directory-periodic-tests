@@ -1,16 +1,6 @@
 version: 2.0
 
 jobs:
-  checkout_code:
-    docker:
-      - image: circleci/python:3.5.3
-    working_directory: ~/directory-periodical-tests
-    steps:
-      - checkout
-      - save_cache:
-          key: cached-repo-{{ .Revision }}
-          paths:
-            - ~/directory-periodical-tests
 
   refresh_geckoboard:
     docker:
@@ -25,25 +15,6 @@ jobs:
             . venv/bin/activate
             pip install -r requirements_geckoboard_updater.txt
             python geckoboard_updater/geckoboard_updater.py
-
-  dead_links_dependencies:
-    docker:
-      - image: circleci/python:3.5.3
-    working_directory: ~/directory-periodical-tests
-    steps:
-      - restore_cache:
-          keys:
-            - cached-repo-{{ .Revision }}
-      - run:
-          name: Create virtualenv and install dependencies
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -r requirements_dead_links.txt
-      - save_cache:
-          key: dead-links-dependencies-cache-{{ .Revision }}
-          paths:
-            - ~/directory-periodical-tests/venv
 
   check_for_dead_links_on_dev:
     docker:
