@@ -105,3 +105,8 @@ Temporary Items
 # NodeJS (nodeenv)
 package-lock.json
 node_modules/
+
+# Reports & logs
+*.log
+*.xml
+*.json
