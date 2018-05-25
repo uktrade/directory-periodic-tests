@@ -13,7 +13,7 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip install -r requirements_geckoboard_updater.txt
+            pip install -q -r requirements_geckoboard_updater.txt
             python geckoboard_updater/geckoboard_updater.py
 
   check_for_dead_links_on_dev:
@@ -27,7 +27,7 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip install -r requirements_dead_links.txt
+            pip install -q -r requirements_dead_links.txt
             TEST_ENV=DEV make dead_links_check
 
   check_for_dead_links_on_stage:
@@ -41,7 +41,7 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip install -r requirements_dead_links.txt
+            pip install -q -r requirements_dead_links.txt
             TEST_ENV=STAGE make dead_links_check
 
   check_for_dead_links_on_prod:
@@ -55,7 +55,7 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip install -r requirements_dead_links.txt
+            pip install -q -r requirements_dead_links.txt
             TEST_ENV=PROD make dead_links_check
 
 workflows:
