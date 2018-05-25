@@ -102,7 +102,6 @@ CIRCLE_CI_WORKFLOW_JOB_NAME_MAPPINGS = {
     'fab_functional_tests': 'FAB',
     'fas_functional_tests': 'FAS',
     'smoke_tests': 'Smoke',
-    'smoke_tests_links_checker': 'URLs',
     'sso_functional_tests': 'SSO',
     'sud_functional_tests': 'SUD'
 }
@@ -530,10 +529,8 @@ def circle_ci_get_last_test_results(
 
 
 def circle_ci_get_last_test_results_per_project() -> dict:
-    ignored_workflows = ['refresh_geckoboard_periodically']
     return {
-        'Tests': circle_ci_get_last_test_results(
-            'directory-tests', ignored_workflows=ignored_workflows, limit=100),
+        'Tests': circle_ci_get_last_test_results('directory-tests'),
         'API': circle_ci_get_last_test_results('directory-api'),
         'FAS': circle_ci_get_last_test_results('directory-ui-supplier'),
         'FAB': circle_ci_get_last_test_results('directory-ui-buyer'),
@@ -576,7 +573,6 @@ def geckoboard_generate_table_rows_for_test_results(
             <td>{last_build_date}</td>
             <td></td>
             <td><a target="_blank" href="{smoke_build_url}" style="color:{smoke_status_color}" title="{smoke_build_summary}">{smoke_status}</a></td>
-            <td><a target="_blank" href="{urls_build_url}" style="color:{urls_status_color}" title="{urls_build_summary}">{urls_status}</td>
             <td><a target="_blank" href="{fab_build_url}" style="color:{fab_status_color}" title="{fab_build_summary}">{fab_status}</td>
             <td><a target="_blank" href="{fas_build_url}" style="color:{fas_status_color}" title="{fas_build_summary}">{fas_status}</td>
             <td><a target="_blank" href="{sso_build_url}" style="color:{sso_status_color}" title="{sso_build_summary}">{sso_status}</td>
@@ -616,7 +612,6 @@ def geckoboard_generate_table_rows_for_test_results(
             )
             continue
         smoke = test_results['Smoke']
-        urls = test_results['URLs']
         fab = test_results['FAB']
         fas = test_results['FAS']
         sso = test_results['SSO']
@@ -634,11 +629,6 @@ def geckoboard_generate_table_rows_for_test_results(
             smoke_status_color=geckoboard_get_job_color(smoke['status']),
             smoke_build_summary=geckoboard_get_build_summary(smoke),
             smoke_status=smoke['status'].capitalize(),
-
-            urls_build_url=urls['build_url'],
-            urls_status_color=geckoboard_get_job_color(urls['status']),
-            urls_build_summary=geckoboard_get_build_summary(urls),
-            urls_status=urls['status'].capitalize(),
 
             fab_build_url=fab['build_url'],
             fab_status_color=geckoboard_get_job_color(fab['status']),
@@ -683,7 +673,6 @@ def geckoboard_generate_content_for_test_results_widget_update(
         <th>When</th>
         <th>Build</th>
         <th>Smoke</th>
-        <th>URLs</th>
         <th>FAB</th>
         <th>FAS</th>
         <th>SSO</th>
