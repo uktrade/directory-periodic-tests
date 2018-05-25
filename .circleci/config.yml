@@ -50,17 +50,13 @@ jobs:
       - image: circleci/python:3.5.3
     working_directory: ~/directory-periodical-tests
     steps:
-      - restore_cache:
-          keys:
-            - cached-repo-{{ .Revision }}
-      - restore_cache:
-          keys:
-            - dead-links-dependencies-cache-{{ .Revision }}
+      - checkout
       - run:
           name: Check for dead links
           command: |
             python3 -m venv venv
             . venv/bin/activate
+            pip install -r requirements_dead_links.txt
             TEST_ENV=DEV make dead_links_check
 
   check_for_dead_links_on_stage:
@@ -68,17 +64,13 @@ jobs:
       - image: circleci/python:3.5.3
     working_directory: ~/directory-periodical-tests
     steps:
-      - restore_cache:
-          keys:
-            - cached-repo-{{ .Revision }}
-      - restore_cache:
-          keys:
-            - dead-links-dependencies-cache-{{ .Revision }}
+      - checkout
       - run:
           name: Check for dead links
           command: |
             python3 -m venv venv
             . venv/bin/activate
+            pip install -r requirements_dead_links.txt
             TEST_ENV=STAGE make dead_links_check
 
   check_for_dead_links_on_prod:
@@ -86,17 +78,13 @@ jobs:
       - image: circleci/python:3.5.3
     working_directory: ~/directory-periodical-tests
     steps:
-      - restore_cache:
-          keys:
-            - cached-repo-{{ .Revision }}
-      - restore_cache:
-          keys:
-            - dead-links-dependencies-cache-{{ .Revision }}
+      - checkout
       - run:
           name: Check for dead links
           command: |
             python3 -m venv venv
             . venv/bin/activate
+            pip install -r requirements_dead_links.txt
             TEST_ENV=PROD make dead_links_check
 
 workflows:
@@ -120,13 +108,7 @@ workflows:
           branches:
             only: master
     jobs:
-      - checkout_code
-      - dead_links_dependencies:
-          requires:
-            - checkout_code
-      - check_for_dead_links_on_dev:
-          requires:
-            - dead_links_dependencies
+      - check_for_dead_links_on_dev
 
   stage_check_for_dead_links:
     triggers:
@@ -136,13 +118,7 @@ workflows:
           branches:
             only: master
     jobs:
-      - checkout_code
-      - dead_links_dependencies:
-          requires:
-            - checkout_code
-      - check_for_dead_links_on_stage:
-          requires:
-            - dead_links_dependencies
+      - check_for_dead_links_on_stage
 
   prod_check_for_dead_links:
     triggers:
@@ -152,11 +128,5 @@ workflows:
           branches:
             only: master
     jobs:
-      - checkout_code
-      - dead_links_dependencies:
-          requires:
-            - checkout_code
-      - check_for_dead_links_on_prod:
-          requires:
-            - dead_links_dependencies
+      - check_for_dead_links_on_prod
 
