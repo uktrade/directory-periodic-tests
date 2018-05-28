@@ -25,7 +25,7 @@ dead_links_check:
 	    --test-outside \
 	    --parser=lxml \
 	    --format=junit \
-	    --output=report.xml \
+	    --output=./reports/dead_links_report.xml \
 	    --header="Connection: keep-alive" \
 	    --header="Pragma: no-cache" \
 	    --header="Cache-Control: no-cache" \

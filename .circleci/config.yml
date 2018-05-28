@@ -30,9 +30,9 @@ jobs:
             pip install -q -r requirements_dead_links.txt
             TEST_ENV=DEV make dead_links_check
       - store_test_results:
-          path: ./report.xml
+          path: ./reports
       - store_artifacts:
-          path: ./report.xml
+          path: ./reports
 
   check_for_dead_links_on_stage:
     docker:
@@ -48,9 +48,9 @@ jobs:
             pip install -q -r requirements_dead_links.txt
             TEST_ENV=STAGE make dead_links_check
       - store_test_results:
-          path: ./report.xml
+          path: ./reports
       - store_artifacts:
-          path: ./report.xml
+          path: ./reports
 
   check_for_dead_links_on_prod:
     docker:
@@ -66,9 +66,9 @@ jobs:
             pip install -q -r requirements_dead_links.txt
             TEST_ENV=PROD make dead_links_check
       - store_test_results:
-          path: ./report.xml
+          path: ./reports
       - store_artifacts:
-          path: ./report.xml
+          path: ./reports
 
 workflows:
   version: 2
