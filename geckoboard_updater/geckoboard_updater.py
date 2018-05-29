@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import math
 import os
+import xml.etree.ElementTree as ET
 from collections import namedtuple, Counter
 from datetime import date, datetime
 from typing import List
@@ -204,6 +205,17 @@ DATASET_BUGS_PER_SERVICE_FIELDS = {
 }
 DATASET_BUGS_PER_SERVICE_UNIQUE_BY = ['date', 'service']
 
+# Number of bad (dead or invalid) links per environment
+DATASET_BAD_LINKS_PER_ENVIRONMENT_NAME = 'export.bad_links_per_environment'
+DATASET_BAD_LINKS_PER_ENVIRONMENT_FIELDS = {
+    'date': {'type': 'date', 'name': 'Date', 'optional': False},
+    'environment': {'type': 'string', 'name': 'Environment', 'optional': False},
+    'errors': {'type': 'number', 'name': 'Errors', 'optional': False},
+    'failures': {'type': 'number', 'name': 'Failures', 'optional': False},
+    'scanned_urls': {'type': 'number', 'name': 'Scanned URLs', 'optional': False},
+}
+DATASET_BAD_LINKS_PER_ENVIRONMENT_UNIQUE_BY = ['date', 'environment']
+
 
 DataSets = namedtuple('DataSets',
                       [
@@ -211,7 +223,8 @@ DataSets = namedtuple('DataSets',
                           'AUTO_VS_MANUAL', 'TO_AUTOMATE',
                           'UNLABELLED_ON_KANBAN', 'UNLABELLED_IN_BACKLOG',
                           'IN_BACKLOG_BY_LABELS', 'TICKETS_CLOSED_TODAY',
-                          'BUGS_CLOSED_TODAY', 'BUGS_PER_SERVICE'
+                          'BUGS_CLOSED_TODAY', 'BUGS_PER_SERVICE',
+                          'BAD_LINKS_PER_ENVIRONMENT'
                       ])
 
 
@@ -265,11 +278,16 @@ def create_datasets(gecko_client: GeckoClient) -> DataSets:
         DATASET_BUGS_PER_SERVICE_FIELDS,
         DATASET_BUGS_PER_SERVICE_UNIQUE_BY)
 
+    bad_links_per_environment = gecko_client.datasets.find_or_create(
+        DATASET_BAD_LINKS_PER_ENVIRONMENT_NAME,
+        DATASET_BAD_LINKS_PER_ENVIRONMENT_FIELDS,
+        DATASET_BAD_LINKS_PER_ENVIRONMENT_UNIQUE_BY)
 
     return DataSets(
         on_kanban_by_labels, in_backlog, auto_vs_manual, to_automate,
         unlabelled_on_kanban, unlabelled_in_backlog, in_backlog_by_labels,
-        tickets_closed_today, bugs_closed_today, bugs_per_service)
+        tickets_closed_today, bugs_closed_today, bugs_per_service,
+        bad_links_per_environment)
 
 
 def find_issues(
@@ -509,6 +527,74 @@ def circle_ci_get_last_build_results(build: dict) -> dict:
     return test_results
 
 
+def circle_ci_get_xml_build_artifact(build: dict) -> str:
+    build_number = build['build_num']
+    username = build['username']
+    project_name = build['reponame']
+    build_artifacts = CIRCLE_CI_CLIENT.build.artifacts(
+        username, project_name, build_number)
+    xml_artifact_urls = [artifact['url'] for artifact in build_artifacts
+                         if artifact['url'].endswith('.xml')]
+    assert len(xml_artifact_urls) == 1, ("Expected only 1 xml artifact got {}"
+                                         .format(len(xml_artifact_urls)))
+    response = requests.get(xml_artifact_urls[0])
+    return response.content.decode('utf-8')
+
+
+def dead_links_get_xml_report_summary(xml_report: str) -> dict:
+    """Extract root level attributes from XML (Junit) report
+
+    JUnit report should contain following attributes:
+        {'disabled': '0',
+         'errors': '0',
+         'failures': '9',
+         'tests': '1421',
+         'time': '655.9097394943237'}
+    Only a subset of those attributes will be returned.
+    """
+    root = ET.fromstring(xml_report)
+    attributes = root.attrib
+    return {
+        'errors': int(attributes['errors']),
+        'failures': int(attributes['failures']),
+        'scanned_urls': int(attributes['tests'])
+    }
+
+
+def circle_ci_get_test_results_for_multi_workflow_project(
+        project_name: str, *, ignored_workflows: List[str] = None,
+        workflows_name_mappings: dict = None) -> List[dict]:
+
+    job_statuses_without_artifacts = ['not_run', 'queued', 'running']
+    recent_builds = circle_ci_get_recent_builds(project_name, limit=10)
+    if ignored_workflows:
+        recent_builds = [build for build in recent_builds
+                         if build['workflows']['workflow_name']
+                         not in ignored_workflows]
+    workflow_names = set(
+        [build['workflows']['workflow_name'] for build in recent_builds])
+    results = []
+    for workflow_name in workflow_names:
+        for build in recent_builds:
+            if build['status'] not in job_statuses_without_artifacts:
+                if build['workflows']['workflow_name'] == workflow_name:
+                    report = circle_ci_get_xml_build_artifact(build)
+                    report_summary = dead_links_get_xml_report_summary(report)
+                    result = {
+                        'date': TODAY,
+                        'environment': workflow_name,
+                        'errors': report_summary['errors'],
+                        'failures': report_summary['failures'],
+                        'scanned_urls': report_summary['scanned_urls'],
+                    }
+                    if workflows_name_mappings:
+                        friendly_name = workflows_name_mappings[workflow_name]
+                        result['environment'] = friendly_name
+                    results.append(result)
+                    break
+    return results
+
+
 def circle_ci_get_last_test_results(
         project_name: str, *, ignored_workflows: List[str] = None,
         limit: int = None) -> dict:
@@ -526,6 +612,18 @@ def circle_ci_get_last_test_results(
         most_recent_build = recent_builds[0]
         result = circle_ci_get_last_build_results(most_recent_build)
     return result
+
+
+def circle_ci_get_last_dead_urls_tests_results() -> List[dict]:
+    ignored_workflows = ['refresh_geckoboard_periodically']
+    workflows_name_mappings = {
+        'dev_check_for_dead_links': 'dev',
+        'stage_check_for_dead_links': 'stage',
+        'prod_check_for_dead_links': 'prod'
+    }
+    return circle_ci_get_test_results_for_multi_workflow_project(
+        'directory-periodic-tests', ignored_workflows=ignored_workflows,
+        workflows_name_mappings=workflows_name_mappings)
 
 
 def circle_ci_get_last_test_results_per_project() -> dict:
@@ -717,6 +815,7 @@ if __name__ == '__main__':
     tickets_closed_today = get_number_of_tickets_closed_today()
     bugs_closed_today = get_number_of_bugs_closed_today()
     bugs_per_service = get_number_of_bugs_per_service()
+    bad_urls = circle_ci_get_last_dead_urls_tests_results()
 
     print('Bugs by labels on the Kanban board: ', kanban_bugs_by_labels)
     print('Unlabelled bugs on the Kanban board: ', unlabelled_on_kanban)
@@ -728,6 +827,7 @@ if __name__ == '__main__':
     print('Number of tickets closed today: ', tickets_closed_today)
     print('Number of bugs closed today: ', bugs_closed_today)
     print('Number of bugs per service: ', bugs_per_service)
+    print('CMS - bad URLs per environment: ', bad_urls)
 
     print('Creating datasets in Geckoboard...')
     datasets = create_datasets(GECKO_CLIENT)
@@ -744,6 +844,7 @@ if __name__ == '__main__':
     datasets.TICKETS_CLOSED_TODAY.post(tickets_closed_today)
     datasets.BUGS_CLOSED_TODAY.post(bugs_closed_today)
     datasets.BUGS_PER_SERVICE.post(bugs_per_service)
+    datasets.BAD_LINKS_PER_ENVIRONMENT.post(bad_urls)
     print('All datasets pushed')
 
     print('Pushing tests results to Geckoboard widget')
