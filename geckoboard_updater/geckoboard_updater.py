@@ -526,6 +526,20 @@ def circle_ci_get_last_build_results(build: dict) -> dict:
     return test_results
 
 
+def circle_ci_get_xml_build_artifact(build: dict) -> str:
+    build_number = build['build_num']
+    username = build['username']
+    project_name = build['reponame']
+    build_artifacts = CIRCLE_CI_CLIENT.build.artifacts(
+        username, project_name, build_number)
+    xml_artifact_urls = [artifact['url'] for artifact in build_artifacts
+                         if artifact['url'].endswith('.xml')]
+    assert len(xml_artifact_urls) == 1, ("Expected only 1 xml artifact got {}"
+                                         .format(len(xml_artifact_urls)))
+    response = requests.get(xml_artifact_urls[0])
+    return response.content.decode('utf-8')
+
+
 def circle_ci_get_last_test_results(
         project_name: str, *, ignored_workflows: List[str] = None,
         limit: int = None) -> dict:
