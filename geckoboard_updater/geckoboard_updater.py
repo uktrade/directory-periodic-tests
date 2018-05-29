@@ -204,6 +204,17 @@ DATASET_BUGS_PER_SERVICE_FIELDS = {
 }
 DATASET_BUGS_PER_SERVICE_UNIQUE_BY = ['date', 'service']
 
+# Number of bad (dead or invalid) links per environment
+DATASET_BAD_LINKS_PER_ENVIRONMENT_NAME = 'export.bad_links_per_environment'
+DATASET_BAD_LINKS_PER_ENVIRONMENT_FIELDS = {
+    'date': {'type': 'date', 'name': 'Date', 'optional': False},
+    'environment': {'type': 'string', 'name': 'Environment', 'optional': False},
+    'errors': {'type': 'number', 'name': 'Errors', 'optional': False},
+    'failures': {'type': 'number', 'name': 'Failures', 'optional': False},
+    'scanned_urls': {'type': 'number', 'name': 'Scanned URLs', 'optional': False},
+}
+DATASET_BAD_LINKS_PER_ENVIRONMENT_UNIQUE_BY = ['date', 'environment']
+
 
 DataSets = namedtuple('DataSets',
                       [
@@ -211,7 +222,8 @@ DataSets = namedtuple('DataSets',
                           'AUTO_VS_MANUAL', 'TO_AUTOMATE',
                           'UNLABELLED_ON_KANBAN', 'UNLABELLED_IN_BACKLOG',
                           'IN_BACKLOG_BY_LABELS', 'TICKETS_CLOSED_TODAY',
-                          'BUGS_CLOSED_TODAY', 'BUGS_PER_SERVICE'
+                          'BUGS_CLOSED_TODAY', 'BUGS_PER_SERVICE',
+                          'BAD_LINKS_PER_ENVIRONMENT'
                       ])
 
 
@@ -265,11 +277,16 @@ def create_datasets(gecko_client: GeckoClient) -> DataSets:
         DATASET_BUGS_PER_SERVICE_FIELDS,
         DATASET_BUGS_PER_SERVICE_UNIQUE_BY)
 
+    bad_links_per_environment = gecko_client.datasets.find_or_create(
+        DATASET_BAD_LINKS_PER_ENVIRONMENT_NAME,
+        DATASET_BAD_LINKS_PER_ENVIRONMENT_FIELDS,
+        DATASET_BAD_LINKS_PER_ENVIRONMENT_UNIQUE_BY)
 
     return DataSets(
         on_kanban_by_labels, in_backlog, auto_vs_manual, to_automate,
         unlabelled_on_kanban, unlabelled_in_backlog, in_backlog_by_labels,
-        tickets_closed_today, bugs_closed_today, bugs_per_service)
+        tickets_closed_today, bugs_closed_today, bugs_per_service,
+        bad_links_per_environment)
 
 
 def find_issues(
