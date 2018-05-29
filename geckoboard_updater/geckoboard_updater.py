@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import math
 import os
+import xml.etree.ElementTree as ET
 from collections import namedtuple, Counter
 from datetime import date, datetime
 from typing import List
@@ -538,6 +539,26 @@ def circle_ci_get_xml_build_artifact(build: dict) -> str:
                                          .format(len(xml_artifact_urls)))
     response = requests.get(xml_artifact_urls[0])
     return response.content.decode('utf-8')
+
+
+def dead_links_get_xml_report_summary(xml_report: str) -> dict:
+    """Extract root level attributes from XML (Junit) report
+
+    JUnit report should contain following attributes:
+        {'disabled': '0',
+         'errors': '0',
+         'failures': '9',
+         'tests': '1421',
+         'time': '655.9097394943237'}
+    Only a subset of those attributes will be returned.
+    """
+    root = ET.fromstring(xml_report)
+    attributes = root.attrib
+    return {
+        'errors': int(attributes['errors']),
+        'failures': int(attributes['failures']),
+        'scanned_urls': int(attributes['tests'])
+    }
 
 
 def circle_ci_get_last_test_results(
