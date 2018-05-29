@@ -561,6 +561,40 @@ def dead_links_get_xml_report_summary(xml_report: str) -> dict:
     }
 
 
+def circle_ci_get_test_results_for_multi_workflow_project(
+        project_name: str, *, ignored_workflows: List[str] = None,
+        workflows_name_mappings: dict = None) -> List[dict]:
+
+    job_statuses_without_artifacts = ['not_run', 'queued', 'running']
+    recent_builds = circle_ci_get_recent_builds(project_name, limit=10)
+    if ignored_workflows:
+        recent_builds = [build for build in recent_builds
+                         if build['workflows']['workflow_name']
+                         not in ignored_workflows]
+    workflow_names = set(
+        [build['workflows']['workflow_name'] for build in recent_builds])
+    results = []
+    for workflow_name in workflow_names:
+        for build in recent_builds:
+            if build['status'] not in job_statuses_without_artifacts:
+                if build['workflows']['workflow_name'] == workflow_name:
+                    report = circle_ci_get_xml_build_artifact(build)
+                    report_summary = dead_links_get_xml_report_summary(report)
+                    result = {
+                        'date': TODAY,
+                        'environment': workflow_name,
+                        'errors': report_summary['errors'],
+                        'failures': report_summary['failures'],
+                        'scanned_urls': report_summary['scanned_urls'],
+                    }
+                    if workflows_name_mappings:
+                        friendly_name = workflows_name_mappings[workflow_name]
+                        result['environment'] = friendly_name
+                    results.append(result)
+                    break
+    return results
+
+
 def circle_ci_get_last_test_results(
         project_name: str, *, ignored_workflows: List[str] = None,
         limit: int = None) -> dict:
