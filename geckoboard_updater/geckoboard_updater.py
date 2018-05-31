@@ -648,6 +648,8 @@ def geckoboard_get_job_color(status: str) -> str:
         'queued': 'purple',
         'running': 'blue',
         'success': 'green',
+        'timedout': 'red',
+        'cancelled': 'grey',
     }
     return status_colors[status]
 
