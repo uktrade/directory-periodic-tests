@@ -1,10 +1,10 @@
 PYLINKVALIDATE_ENV_VARS_PROD := \
 	export IGNORED_PREFIXES="https://trade.great.gov.uk/search/,https://www.linkedin.com,https://twitter.com,https://public-directory-supplier-gds.s3.amazonaws.com,https://www.facebook.com,https://directory-cms-public.s3.amazonaws.com,https://uk.linkedin.com/,http://www.linkedin.com" && \
-	export TEST_URLS="https://www.great.gov.uk/ https://trade.great.gov.uk/ https://find-a-buyer.export.great.gov.uk/ https://sso.trade.great.gov.uk/accounts/login/ https://profile.great.gov.uk/about/"
+	export TEST_URLS="https://www.great.gov.uk/ https://trade.great.gov.uk/ https://find-a-buyer.export.great.gov.uk/ https://sso.trade.great.gov.uk/accounts/login/ https://profile.great.gov.uk/about/ https://invest.great.gov.uk/ https://opportunities.export.great.gov.uk/ https://selling-online-overseas.export.great.gov.uk/"
 
 PYLINKVALIDATE_ENV_VARS_STAGE := \
 	export IGNORED_PREFIXES="https://www.contactus.trade.gov.uk,https://stage.supplier.directory.uktrade.io/search/,https://stage.supplier.directory.uktrade.io/suppliers/,https://www.linkedin.com,https://uk.linkedin.com/,http://www.linkedin.com,https://twitter.com,https://www.facebook.com" && \
-	export TEST_URLS="https://stage.exportreadiness.directory.uktrade.io/ https://stage.supplier.directory.uktrade.io/ https://stage.buyer.directory.uktrade.io/ https://stage.sso.uktrade.io/accounts/login/ https://stage.profile.uktrade.io/about/"
+	export TEST_URLS="https://stage.exportreadiness.directory.uktrade.io/ https://stage.supplier.directory.uktrade.io/ https://stage.buyer.directory.uktrade.io/ https://stage.sso.uktrade.io/accounts/login/ https://stage.profile.uktrade.io/about/ https://invest.great.uat.uktrade.io/ https://selling-online-overseas.export.staging.uktrade.io/ https://opportunities.export.staging.uktrade.io/"
 
 PYLINKVALIDATE_ENV_VARS_DEV := \
 	export IGNORED_PREFIXES="https://www.contactus.trade.gov.uk,https://dev.supplier.directory.uktrade.io/search/,https://dev.supplier.directory.uktrade.io/suppliers/,https://www.linkedin.com,https://uk.linkedin.com/,http://www.linkedin.com,https://twitter.com,https://www.facebook.com" && \
