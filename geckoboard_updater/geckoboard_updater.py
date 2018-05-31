@@ -13,13 +13,17 @@ from jira import JIRA as JiraClient
 from circleclient import circleclient
 
 # Get credentials from env variables
-GECKOBOARD_API_KEY = os.environ['GECKOBOARD_API_KEY']
-GECKOBOARD_TEST_RESULTS_WIDGET_KEY = os.environ['GECKOBOARD_TEST_RESULTS_WIDGET_KEY']
-GECKOBOARD_PUSH_URL = os.getenv('GECKOBOARD_PUSH_URL', 'https://push.geckoboard.com/v1/send/')
-JIRA_HOST = os.environ['JIRA_HOST']
-JIRA_USERNAME = os.environ['JIRA_USERNAME']
-JIRA_PASSWORD = os.environ['JIRA_PASSWORD']
-CIRCLE_CI_API_TOKEN = os.environ['CIRCLE_CI_API_TOKEN']
+GECKOBOARD_API_KEY = os.environ["GECKOBOARD_API_KEY"]
+GECKOBOARD_TEST_RESULTS_WIDGET_KEY = os.environ[
+    "GECKOBOARD_TEST_RESULTS_WIDGET_KEY"
+]
+GECKOBOARD_PUSH_URL = os.getenv(
+    "GECKOBOARD_PUSH_URL", "https://push.geckoboard.com/v1/send/"
+)
+JIRA_HOST = os.environ["JIRA_HOST"]
+JIRA_USERNAME = os.environ["JIRA_USERNAME"]
+JIRA_PASSWORD = os.environ["JIRA_PASSWORD"]
+CIRCLE_CI_API_TOKEN = os.environ["CIRCLE_CI_API_TOKEN"]
 
 # Instantiate clients
 JIRA_CLIENT = JiraClient(JIRA_HOST, auth=(JIRA_USERNAME, JIRA_PASSWORD))
@@ -31,9 +35,22 @@ TODAY = date.today().isoformat()
 
 # Service tags used in Jira to indicate service affected by given bug
 SERVICE_TAGS = [
-    'admin', 'api', 'cms', 'contact-us', 'css-components', 'exopps', 'exred',
-    'fab', 'fas', 'gds', 'header-footer', 'soo', 'sso', 'sso-profile', 
-    'sso-proxy', 'sud' 
+    "admin",
+    "api",
+    "cms",
+    "contact-us",
+    "css-components",
+    "exopps",
+    "exred",
+    "fab",
+    "fas",
+    "gds",
+    "header-footer",
+    "soo",
+    "sso",
+    "sso-profile",
+    "sso-proxy",
+    "sud",
 ]
 
 # Jira JQL queries
@@ -93,18 +110,20 @@ AND issuetype = Bug
 AND labels IN ({service_tags})
 AND created >= "-90d"
 ORDER BY labels DESC, priority DESC, updated DESC
-""".format(service_tags=', '.join(SERVICE_TAGS))
+""".format(
+    service_tags=", ".join(SERVICE_TAGS)
+)
 
 
 # Mapping of CircleCI job names to more human friendly ones
 CIRCLE_CI_WORKFLOW_JOB_NAME_MAPPINGS = {
-    'exred_tests_chrome': 'ER Chrome',
-    'exred_tests_firefox': 'ER Firefox',
-    'fab_functional_tests': 'FAB',
-    'fas_functional_tests': 'FAS',
-    'smoke_tests': 'Smoke',
-    'sso_functional_tests': 'SSO',
-    'sud_functional_tests': 'SUD'
+    "exred_tests_chrome": "ER Chrome",
+    "exred_tests_firefox": "ER Firefox",
+    "fab_functional_tests": "FAB",
+    "fas_functional_tests": "FAS",
+    "smoke_tests": "Smoke",
+    "sso_functional_tests": "SSO",
+    "sud_functional_tests": "SUD",
 }
 
 # Geckoboard datasets
@@ -113,119 +132,142 @@ CIRCLE_CI_WORKFLOW_JOB_NAME_MAPPINGS = {
 # KANBAN BOARD
 ###############################################################################
 # Number of bugs on the Kanban board grouped by label (not in Backlog or Done)
-DATASET_ON_KANBAN_BY_LABELS_NAME = 'export.bugs_wip_by_labels'
+DATASET_ON_KANBAN_BY_LABELS_NAME = "export.bugs_wip_by_labels"
 DATASET_ON_KANBAN_BY_LABELS_FIELDS = {
-    'date': {'type': 'date', 'name': 'Date', 'optional': False},
-    'label': {'type': 'string', 'name': 'Label', 'optional': False},
-    'quantity': {'type': 'number', 'name': 'Quantity', 'optional': False}
+    "date": {"type": "date", "name": "Date", "optional": False},
+    "label": {"type": "string", "name": "Label", "optional": False},
+    "quantity": {"type": "number", "name": "Quantity", "optional": False},
 }
-DATASET_ON_KANBAN_BY_LABELS_UNIQUE_BY = ['date', 'label']
+DATASET_ON_KANBAN_BY_LABELS_UNIQUE_BY = ["date", "label"]
 
 # Number of bugs on Kanban board without a `qa_*` label
-DATASET_UNLABELLED_ON_KANBAN_NAME = 'export.bugs_unlabelled'
+DATASET_UNLABELLED_ON_KANBAN_NAME = "export.bugs_unlabelled"
 DATASET_UNLABELLED_ON_KANBAN_FIELDS = {
-    'date': {'type': 'date', 'name': 'Date', 'optional': False},
-    'quantity': {'type': 'number', 'name': 'Quantity', 'optional': False}
+    "date": {"type": "date", "name": "Date", "optional": False},
+    "quantity": {"type": "number", "name": "Quantity", "optional": False},
 }
-DATASET_UNLABELLED_ON_KANBAN_UNIQUE_BY = ['date']
+DATASET_UNLABELLED_ON_KANBAN_UNIQUE_BY = ["date"]
 
 ###############################################################################
 # BACKLOG
 ###############################################################################
 
 # Number of bugs in the Backlog board grouped by label (not in Backlog or Done)
-DATASET_BUGS_IN_BACKLOG_BY_LABELS_NAME = 'export.bugs_in_backlog_by_labels'
+DATASET_BUGS_IN_BACKLOG_BY_LABELS_NAME = "export.bugs_in_backlog_by_labels"
 DATASET_BUGS_IN_BACKLOG_BY_LABELS_FIELDS = {
-    'date': {'type': 'date', 'name': 'Date', 'optional': False},
-    'label': {'type': 'string', 'name': 'Label', 'optional': False},
-    'quantity': {'type': 'number', 'name': 'Quantity', 'optional': False}
+    "date": {"type": "date", "name": "Date", "optional": False},
+    "label": {"type": "string", "name": "Label", "optional": False},
+    "quantity": {"type": "number", "name": "Quantity", "optional": False},
 }
-DATASET_BUGS_IN_BACKLOG_BY_LABELS_UNIQUE_BY = ['date', 'label']
+DATASET_BUGS_IN_BACKLOG_BY_LABELS_UNIQUE_BY = ["date", "label"]
 
 # Number of bugs in Backlog without a `qa_*` label
-DATASET_UNLABELLED_IN_BACKLOG_NAME = 'export.bugs_unlabelled_in_backlog'
+DATASET_UNLABELLED_IN_BACKLOG_NAME = "export.bugs_unlabelled_in_backlog"
 DATASET_UNLABELLED_IN_BACKLOG_FIELDS = {
-    'date': {'type': 'date', 'name': 'Date', 'optional': False},
-    'quantity': {'type': 'number', 'name': 'Quantity', 'optional': False}
+    "date": {"type": "date", "name": "Date", "optional": False},
+    "quantity": {"type": "number", "name": "Quantity", "optional": False},
 }
-DATASET_UNLABELLED_IN_BACKLOG_UNIQUE_BY = ['date']
+DATASET_UNLABELLED_IN_BACKLOG_UNIQUE_BY = ["date"]
 
 # Number of bugs in the Backlog
-DATASET_BUGS_IN_BACKLOG_NAME = 'export.bugs_in_backlog'
+DATASET_BUGS_IN_BACKLOG_NAME = "export.bugs_in_backlog"
 DATASET_BUGS_IN_BACKLOG_FIELDS = {
-    'date': {'type': 'date', 'name': 'Date', 'optional': False},
-    'quantity': {'type': 'number', 'name': 'Quantity', 'optional': False}
+    "date": {"type": "date", "name": "Date", "optional": False},
+    "quantity": {"type": "number", "name": "Quantity", "optional": False},
 }
-DATASET_BUGS_IN_BACKLOG_UNIQUE_BY = ['date']
+DATASET_BUGS_IN_BACKLOG_UNIQUE_BY = ["date"]
 
 ###############################################################################
 # OTHER
 ###############################################################################
 
 # Number of scenarios to automate (tagged with `qa_automated_scenario`)
-DATASET_TO_AUTOMATE_NAME = 'export.scenarios_to_automate'
+DATASET_TO_AUTOMATE_NAME = "export.scenarios_to_automate"
 DATASET_TO_AUTOMATE_FIELDS = {
-    'date': {'type': 'date', 'name': 'Date', 'optional': False},
-    'quantity': {'type': 'number', 'name': 'Quantity', 'optional': False}
-    }
-DATASET_TO_AUTOMATE_UNIQUE_BY = ['date']
+    "date": {"type": "date", "name": "Date", "optional": False},
+    "quantity": {"type": "number", "name": "Quantity", "optional": False},
+}
+DATASET_TO_AUTOMATE_UNIQUE_BY = ["date"]
 
 # Number of bugs on the Kanban board discovered manually or by automated tests
-DATASET_VS_NAME = 'export.bugs_auto_vs_manual'
+DATASET_VS_NAME = "export.bugs_auto_vs_manual"
 DATASET_VS_FIELDS = {
-    'date': {'type': 'date', 'name': 'Date', 'optional': False},
-    'auto': {'type': 'number', 'name': 'automated tests', 'optional': False},
-    'manual': {'type': 'number', 'name': 'manually', 'optional': False}
+    "date": {"type": "date", "name": "Date", "optional": False},
+    "auto": {"type": "number", "name": "automated tests", "optional": False},
+    "manual": {"type": "number", "name": "manually", "optional": False},
 }
-DATASET_VS_UNIQUE_BY = ['date']
+DATASET_VS_UNIQUE_BY = ["date"]
 
 # Number of bugs closed today (moved to Close, Release or Release Candidate)
-DATASET_BUGS_CLOSED_TODAY_NAME = 'export.bugs_closed_today'
+DATASET_BUGS_CLOSED_TODAY_NAME = "export.bugs_closed_today"
 DATASET_BUGS_CLOSED_TODAY_FIELDS = {
-    'date': {'type': 'date', 'name': 'Date', 'optional': False},
-    'closed': {'type': 'number', 'name': 'Bugs closed today', 'optional': False}
+    "date": {"type": "date", "name": "Date", "optional": False},
+    "closed": {
+        "type": "number",
+        "name": "Bugs closed today",
+        "optional": False,
+    },
 }
-DATASET_BUGS_CLOSED_TODAY_UNIQUE_BY = ['date']
+DATASET_BUGS_CLOSED_TODAY_UNIQUE_BY = ["date"]
 
-# Number of tickets (without bugs) closed today (moved to Close, Release 
+# Number of tickets (without bugs) closed today (moved to Close, Release
 # or Release Candidate)
-DATASET_TICKETS_CLOSED_TODAY_NAME = 'export.tickets_closed_today'
+DATASET_TICKETS_CLOSED_TODAY_NAME = "export.tickets_closed_today"
 DATASET_TICKETS_CLOSED_TODAY_FIELDS = {
-    'date': {'type': 'date', 'name': 'Date', 'optional': False},
-    'closed': {'type': 'number', 'name': 'Tickets closed today', 'optional': False}
+    "date": {"type": "date", "name": "Date", "optional": False},
+    "closed": {
+        "type": "number",
+        "name": "Tickets closed today",
+        "optional": False,
+    },
 }
-DATASET_TICKETS_CLOSED_TODAY_UNIQUE_BY = ['date']
+DATASET_TICKETS_CLOSED_TODAY_UNIQUE_BY = ["date"]
 
 # Number of bugs per service (only counts tickets with appropriate tags)
-DATASET_BUGS_PER_SERVICE_NAME = 'export.bugs_per_service'
+DATASET_BUGS_PER_SERVICE_NAME = "export.bugs_per_service"
 DATASET_BUGS_PER_SERVICE_FIELDS = {
-    'date': {'type': 'date', 'name': 'Date', 'optional': False},
-    'service': {'type': 'string', 'name': 'Service', 'optional': False},
-    'quantity': {'type': 'number', 'name': 'Quantity', 'optional': False}
+    "date": {"type": "date", "name": "Date", "optional": False},
+    "service": {"type": "string", "name": "Service", "optional": False},
+    "quantity": {"type": "number", "name": "Quantity", "optional": False},
 }
-DATASET_BUGS_PER_SERVICE_UNIQUE_BY = ['date', 'service']
+DATASET_BUGS_PER_SERVICE_UNIQUE_BY = ["date", "service"]
 
 # Number of bad (dead or invalid) links per environment
-DATASET_BAD_LINKS_PER_ENVIRONMENT_NAME = 'export.bad_links_per_environment'
+DATASET_BAD_LINKS_PER_ENVIRONMENT_NAME = "export.bad_links_per_environment"
 DATASET_BAD_LINKS_PER_ENVIRONMENT_FIELDS = {
-    'date': {'type': 'date', 'name': 'Date', 'optional': False},
-    'environment': {'type': 'string', 'name': 'Environment', 'optional': False},
-    'errors': {'type': 'number', 'name': 'Errors', 'optional': False},
-    'failures': {'type': 'number', 'name': 'Failures', 'optional': False},
-    'scanned_urls': {'type': 'number', 'name': 'Scanned URLs', 'optional': False},
+    "date": {"type": "date", "name": "Date", "optional": False},
+    "environment": {
+        "type": "string",
+        "name": "Environment",
+        "optional": False,
+    },
+    "errors": {"type": "number", "name": "Errors", "optional": False},
+    "failures": {"type": "number", "name": "Failures", "optional": False},
+    "scanned_urls": {
+        "type": "number",
+        "name": "Scanned URLs",
+        "optional": False,
+    },
 }
-DATASET_BAD_LINKS_PER_ENVIRONMENT_UNIQUE_BY = ['date', 'environment']
+DATASET_BAD_LINKS_PER_ENVIRONMENT_UNIQUE_BY = ["date", "environment"]
 
 
-DataSets = namedtuple('DataSets',
-                      [
-                          'ON_KANBAN_BY_LABELS', 'IN_BACKLOG',
-                          'AUTO_VS_MANUAL', 'TO_AUTOMATE',
-                          'UNLABELLED_ON_KANBAN', 'UNLABELLED_IN_BACKLOG',
-                          'IN_BACKLOG_BY_LABELS', 'TICKETS_CLOSED_TODAY',
-                          'BUGS_CLOSED_TODAY', 'BUGS_PER_SERVICE',
-                          'BAD_LINKS_PER_ENVIRONMENT'
-                      ])
+DataSets = namedtuple(
+    "DataSets",
+    [
+        "ON_KANBAN_BY_LABELS",
+        "IN_BACKLOG",
+        "AUTO_VS_MANUAL",
+        "TO_AUTOMATE",
+        "UNLABELLED_ON_KANBAN",
+        "UNLABELLED_IN_BACKLOG",
+        "IN_BACKLOG_BY_LABELS",
+        "TICKETS_CLOSED_TODAY",
+        "BUGS_CLOSED_TODAY",
+        "BUGS_PER_SERVICE",
+        "BAD_LINKS_PER_ENVIRONMENT",
+    ],
+)
 
 
 def create_datasets(gecko_client: GeckoClient) -> DataSets:
@@ -234,80 +276,113 @@ def create_datasets(gecko_client: GeckoClient) -> DataSets:
     https://developer.geckoboard.com/api-reference/python/#findorcreate
     """
     on_kanban_by_labels = gecko_client.datasets.find_or_create(
-        DATASET_ON_KANBAN_BY_LABELS_NAME, DATASET_ON_KANBAN_BY_LABELS_FIELDS,
-        DATASET_ON_KANBAN_BY_LABELS_UNIQUE_BY)
+        DATASET_ON_KANBAN_BY_LABELS_NAME,
+        DATASET_ON_KANBAN_BY_LABELS_FIELDS,
+        DATASET_ON_KANBAN_BY_LABELS_UNIQUE_BY,
+    )
 
     in_backlog = gecko_client.datasets.find_or_create(
-        DATASET_BUGS_IN_BACKLOG_NAME, DATASET_BUGS_IN_BACKLOG_FIELDS,
-        DATASET_BUGS_IN_BACKLOG_UNIQUE_BY)
+        DATASET_BUGS_IN_BACKLOG_NAME,
+        DATASET_BUGS_IN_BACKLOG_FIELDS,
+        DATASET_BUGS_IN_BACKLOG_UNIQUE_BY,
+    )
 
     in_backlog_by_labels = gecko_client.datasets.find_or_create(
         DATASET_BUGS_IN_BACKLOG_BY_LABELS_NAME,
         DATASET_BUGS_IN_BACKLOG_BY_LABELS_FIELDS,
-        DATASET_BUGS_IN_BACKLOG_BY_LABELS_UNIQUE_BY
-        )
+        DATASET_BUGS_IN_BACKLOG_BY_LABELS_UNIQUE_BY,
+    )
 
     auto_vs_manual = gecko_client.datasets.find_or_create(
-        DATASET_VS_NAME, DATASET_VS_FIELDS, DATASET_VS_UNIQUE_BY)
+        DATASET_VS_NAME, DATASET_VS_FIELDS, DATASET_VS_UNIQUE_BY
+    )
 
     to_automate = gecko_client.datasets.find_or_create(
-        DATASET_TO_AUTOMATE_NAME, DATASET_TO_AUTOMATE_FIELDS,
-        DATASET_TO_AUTOMATE_UNIQUE_BY)
+        DATASET_TO_AUTOMATE_NAME,
+        DATASET_TO_AUTOMATE_FIELDS,
+        DATASET_TO_AUTOMATE_UNIQUE_BY,
+    )
 
     unlabelled_on_kanban = gecko_client.datasets.find_or_create(
-        DATASET_UNLABELLED_ON_KANBAN_NAME, DATASET_UNLABELLED_ON_KANBAN_FIELDS,
-        DATASET_UNLABELLED_ON_KANBAN_UNIQUE_BY)
+        DATASET_UNLABELLED_ON_KANBAN_NAME,
+        DATASET_UNLABELLED_ON_KANBAN_FIELDS,
+        DATASET_UNLABELLED_ON_KANBAN_UNIQUE_BY,
+    )
 
     unlabelled_in_backlog = gecko_client.datasets.find_or_create(
         DATASET_UNLABELLED_IN_BACKLOG_NAME,
         DATASET_UNLABELLED_IN_BACKLOG_FIELDS,
-        DATASET_UNLABELLED_IN_BACKLOG_UNIQUE_BY)
+        DATASET_UNLABELLED_IN_BACKLOG_UNIQUE_BY,
+    )
 
     tickets_closed_today = gecko_client.datasets.find_or_create(
         DATASET_TICKETS_CLOSED_TODAY_NAME,
         DATASET_TICKETS_CLOSED_TODAY_FIELDS,
-        DATASET_TICKETS_CLOSED_TODAY_UNIQUE_BY)
+        DATASET_TICKETS_CLOSED_TODAY_UNIQUE_BY,
+    )
 
     bugs_closed_today = gecko_client.datasets.find_or_create(
         DATASET_BUGS_CLOSED_TODAY_NAME,
         DATASET_BUGS_CLOSED_TODAY_FIELDS,
-        DATASET_BUGS_CLOSED_TODAY_UNIQUE_BY)
+        DATASET_BUGS_CLOSED_TODAY_UNIQUE_BY,
+    )
 
     bugs_per_service = gecko_client.datasets.find_or_create(
         DATASET_BUGS_PER_SERVICE_NAME,
         DATASET_BUGS_PER_SERVICE_FIELDS,
-        DATASET_BUGS_PER_SERVICE_UNIQUE_BY)
+        DATASET_BUGS_PER_SERVICE_UNIQUE_BY,
+    )
 
     bad_links_per_environment = gecko_client.datasets.find_or_create(
         DATASET_BAD_LINKS_PER_ENVIRONMENT_NAME,
         DATASET_BAD_LINKS_PER_ENVIRONMENT_FIELDS,
-        DATASET_BAD_LINKS_PER_ENVIRONMENT_UNIQUE_BY)
+        DATASET_BAD_LINKS_PER_ENVIRONMENT_UNIQUE_BY,
+    )
 
     return DataSets(
-        on_kanban_by_labels, in_backlog, auto_vs_manual, to_automate,
-        unlabelled_on_kanban, unlabelled_in_backlog, in_backlog_by_labels,
-        tickets_closed_today, bugs_closed_today, bugs_per_service,
-        bad_links_per_environment)
+        on_kanban_by_labels,
+        in_backlog,
+        auto_vs_manual,
+        to_automate,
+        unlabelled_on_kanban,
+        unlabelled_in_backlog,
+        in_backlog_by_labels,
+        tickets_closed_today,
+        bugs_closed_today,
+        bugs_per_service,
+        bad_links_per_environment,
+    )
 
 
 def find_issues(
-        jql: str, *, max_results: int = 100,
-        fields: str = 'key,labels,summary', start_at: int = 0) -> dict:
+    jql: str,
+    *,
+    max_results: int = 100,
+    fields: str = "key,labels,summary",
+    start_at: int = 0
+) -> dict:
     """Run Jira JQL and return result as JSON."""
     return JIRA_CLIENT.search_issues(
-        jql_str=jql, maxResults=max_results, json_result=True, fields=fields,
-        startAt=start_at)
+        jql_str=jql,
+        maxResults=max_results,
+        json_result=True,
+        fields=fields,
+        startAt=start_at,
+    )
 
 
 def find_all_issues(jql: str) -> dict:
     """Iterate over all search result pages and return result as JSON."""
     results = find_issues(jql)
     current_page = 1
-    total_pages = math.ceil(results['total'] / len(results['issues']))
-    while len(results['issues']) < results['total'] and current_page < total_pages:
-        start_at = current_page * results['maxResults']
+    total_pages = math.ceil(results["total"] / len(results["issues"]))
+    while (
+        len(results["issues"]) < results["total"]
+        and current_page < total_pages
+    ):
+        start_at = current_page * results["maxResults"]
         next_page_results = find_issues(jql, start_at=start_at)
-        results['issues'] += next_page_results['issues']
+        results["issues"] += next_page_results["issues"]
         current_page += 1
     return results
 
@@ -315,22 +390,26 @@ def find_all_issues(jql: str) -> dict:
 def count_labels(issues: list) -> Counter:
     counter = Counter()
     for issue in issues:
-        for label in issue['fields']['labels']:
+        for label in issue["fields"]["labels"]:
             counter[label] += 1
     return counter
 
 
 def filter_labels_by_prefix(
-        labels: Counter, prefix: str, *, remove_prefix: bool = True) -> Counter:
+    labels: Counter, prefix: str, *, remove_prefix: bool = True
+) -> Counter:
     if prefix:
-        labels = dict(filter(lambda x: x[0].startswith(prefix), labels.items()))
+        labels = dict(
+            filter(lambda x: x[0].startswith(prefix), labels.items())
+        )
         if remove_prefix:
-            labels = {k.replace(prefix, ''): v for k, v in labels.items()}
+            labels = {k.replace(prefix, ""): v for k, v in labels.items()}
     return Counter(labels)
 
 
 def filter_out_ignored_labels(
-        counter: Counter, ignored_labels: List[str]) -> Counter:
+    counter: Counter, ignored_labels: List[str]
+) -> Counter:
     if not ignored_labels:
         return counter
     filtered = filter(lambda x: x[0] not in ignored_labels, counter.items())
@@ -338,7 +417,8 @@ def filter_out_ignored_labels(
 
 
 def filter_by_sought_labels(
-        counter: Counter, sought_labels: List[str]) -> Counter:
+    counter: Counter, sought_labels: List[str]
+) -> Counter:
     if not sought_labels:
         return counter
     filtered = filter(lambda x: x[0] in sought_labels, counter.items())
@@ -346,13 +426,18 @@ def filter_by_sought_labels(
 
 
 def get_quantity_per_label(
-        jql_query_result: dict, *, label_prefix: str = 'qa_',
-        remove_label_prefix: bool = True, ignored_labels: List[str] = None,
-        look_for: List[str] = None) -> dict:
-    issues = jql_query_result['issues']
+    jql_query_result: dict,
+    *,
+    label_prefix: str = "qa_",
+    remove_label_prefix: bool = True,
+    ignored_labels: List[str] = None,
+    look_for: List[str] = None
+) -> dict:
+    issues = jql_query_result["issues"]
     all_labels = count_labels(issues)
     by_prefix = filter_labels_by_prefix(
-        all_labels, label_prefix, remove_prefix=remove_label_prefix)
+        all_labels, label_prefix, remove_prefix=remove_label_prefix
+    )
     without_ignored = filter_out_ignored_labels(by_prefix, ignored_labels)
     sought = filter_by_sought_labels(without_ignored, look_for)
     return dict(sought)
@@ -361,10 +446,11 @@ def get_quantity_per_label(
 def get_number_of_bugs_on_kanban_board_by_labels() -> List[dict]:
     kanban_bugs = find_issues(JQL_KANBAN_BUGS)
     types = get_quantity_per_label(
-            kanban_bugs, ignored_labels=['auto', 'manual'])
+        kanban_bugs, ignored_labels=["auto", "manual"]
+    )
     result = []
     for bug_type in types:
-        item = {'date': TODAY, 'label': bug_type, 'quantity': types[bug_type]}
+        item = {"date": TODAY, "label": bug_type, "quantity": types[bug_type]}
         result.append(item)
     return result
 
@@ -372,173 +458,205 @@ def get_number_of_bugs_on_kanban_board_by_labels() -> List[dict]:
 def get_number_of_bugs_in_backlog_by_labels() -> List[dict]:
     backlog_bugs = find_issues(JQL_BACKLOG_BUGS)
     types = get_quantity_per_label(
-            backlog_bugs, ignored_labels=['auto', 'manual'])
+        backlog_bugs, ignored_labels=["auto", "manual"]
+    )
     result = []
     for bug_type in types:
-        item = {'date': TODAY, 'label': bug_type, 'quantity': types[bug_type]}
+        item = {"date": TODAY, "label": bug_type, "quantity": types[bug_type]}
         result.append(item)
     return result
 
 
 def get_number_of_unlabelled_bugs_on_kanban_board() -> List[dict]:
     unlabelled = find_issues(JQL_KANBAN_BUGS)
-    number = len([issue for issue in unlabelled['issues']
-                  if not issue['fields']['labels']])
-    return [{'date': TODAY, 'quantity': number}]
+    number = len(
+        [
+            issue
+            for issue in unlabelled["issues"]
+            if not issue["fields"]["labels"]
+        ]
+    )
+    return [{"date": TODAY, "quantity": number}]
 
 
 def get_number_of_unlabelled_bugs_in_backlog() -> List[dict]:
     unlabelled = find_issues(JQL_BACKLOG_BUGS)
-    number = len([issue for issue in unlabelled['issues']
-                  if not issue['fields']['labels']])
-    return [{'date': TODAY, 'quantity': number}]
+    number = len(
+        [
+            issue
+            for issue in unlabelled["issues"]
+            if not issue["fields"]["labels"]
+        ]
+    )
+    return [{"date": TODAY, "quantity": number}]
 
 
 def get_number_of_automated_vs_manual() -> List[dict]:
     vs = find_issues(JQL_MANUAL_VS_AUTOMATED)
-    labels = get_quantity_per_label(vs, look_for=['auto', 'manual'])
-    auto = labels['auto']
-    manual = labels['manual']
-    return [{'date': TODAY, 'auto': auto, 'manual': manual}]
+    labels = get_quantity_per_label(vs, look_for=["auto", "manual"])
+    auto = labels["auto"]
+    manual = labels["manual"]
+    return [{"date": TODAY, "auto": auto, "manual": manual}]
 
 
 def get_number_of_bugs_in_backlog() -> List[dict]:
     bugs_in_backlog = find_issues(JQL_BACKLOG_BUGS)
-    dataset = [{'date': TODAY, 'quantity': bugs_in_backlog['total']}]
+    dataset = [{"date": TODAY, "quantity": bugs_in_backlog["total"]}]
     return dataset
 
 
 def get_number_of_scenarios_to_automate() -> List[dict]:
     scenarios_to_automate = find_issues(JQL_SCENARIOS_TO_AUTOMATE)
-    return [{'date': TODAY, 'quantity': scenarios_to_automate['total']}]
+    return [{"date": TODAY, "quantity": scenarios_to_automate["total"]}]
 
 
 def get_number_of_bugs_closed_today() -> List[dict]:
     closed = find_issues(JQL_BUGS_CLOSED_TODAY)
-    return [{'date': TODAY, 'closed': closed['total']}]
+    return [{"date": TODAY, "closed": closed["total"]}]
 
 
 def get_number_of_tickets_closed_today() -> List[dict]:
     closed = find_issues(JQL_TICKETS_CLOSED_TODAY)
-    return [{'date': TODAY, 'closed': closed['total']}]
+    return [{"date": TODAY, "closed": closed["total"]}]
 
 
 def get_number_of_bugs_per_service() -> List[dict]:
     found_bugs = find_all_issues(JQL_BUGS_PER_SERVICE)
     bugs_per_service = get_quantity_per_label(
-            found_bugs, label_prefix=None, look_for=SERVICE_TAGS)
+        found_bugs, label_prefix=None, look_for=SERVICE_TAGS
+    )
     result = []
     for service_tag in bugs_per_service:
         item = {
-                'date': TODAY, 
-                'service': service_tag, 
-                'quantity': bugs_per_service[service_tag]
-                }
+            "date": TODAY,
+            "service": service_tag,
+            "quantity": bugs_per_service[service_tag],
+        }
         result.append(item)
     return result
 
 
 def circle_ci_get_recent_builds(
-        project: str, *, username: str = 'uktrade', limit: int = 20,
-        branch: str = 'master') -> List[dict]:
+    project: str,
+    *,
+    username: str = "uktrade",
+    limit: int = 20,
+    branch: str = "master"
+) -> List[dict]:
     return CIRCLE_CI_CLIENT.build.recent(
-        username=username, project=project, limit=limit, branch=branch)
+        username=username, project=project, limit=limit, branch=branch
+    )
 
 
 def circle_ci_get_last_workflow_id(recent_builds: List[dict]) -> str:
-    result = ''
+    result = ""
     for build in recent_builds:
-        if build['status'] == 'not_run':
+        if build["status"] == "not_run":
             print(
-                'Ignoring skipped {} build: {}'
-                .format(build['reponame'], build['build_num']))
+                "Ignoring skipped {} build: {}".format(
+                    build["reponame"], build["build_num"]
+                )
+            )
             continue
-        if 'workflows' in build:
-            result = build['workflows']['workflow_id']
+        if "workflows" in build:
+            result = build["workflows"]["workflow_id"]
             break
     return result
 
 
-def circle_ci_get_builds_for_workflow(recent_circle_ci_builds: List[dict],
-                                      last_workflow_id: str) -> List[dict]:
-    return [build for build in recent_circle_ci_builds
-            if build['workflows']['workflow_id'] == last_workflow_id]
+def circle_ci_get_builds_for_workflow(
+    recent_circle_ci_builds: List[dict], last_workflow_id: str
+) -> List[dict]:
+    return [
+        build
+        for build in recent_circle_ci_builds
+        if build["workflows"]["workflow_id"] == last_workflow_id
+    ]
 
 
 def circle_ci_get_last_workflow_test_results(
-        last_workflow_builds: List[dict], *,
-        job_name_mappings: dict = CIRCLE_CI_WORKFLOW_JOB_NAME_MAPPINGS
+    last_workflow_builds: List[dict],
+    *,
+    job_name_mappings: dict = CIRCLE_CI_WORKFLOW_JOB_NAME_MAPPINGS
 ) -> dict:
     most_recent_build = last_workflow_builds[0]
-    frmt = '%Y-%m-%dT%H:%M:%S.%fZ'
+    frmt = "%Y-%m-%dT%H:%M:%S.%fZ"
     last_build_date = ""
-    if most_recent_build['start_time']:
+    if most_recent_build["start_time"]:
         datetime_object = datetime.strptime(
-            most_recent_build['start_time'], frmt)
-        last_build_date = datetime_object.strftime('%d %b %H:%M')
-    skipped = True if last_workflow_builds[0]['status'] == 'not_run' else False
+            most_recent_build["start_time"], frmt
+        )
+        last_build_date = datetime_object.strftime("%d %b %H:%M")
+    skipped = True if last_workflow_builds[0]["status"] == "not_run" else False
     test_results = {
-        'user_avatar': most_recent_build['user']['avatar_url'],
-        'user_name': most_recent_build['user']['name'],
-        'user_login': most_recent_build['user']['login'],
-        'workflow_id': most_recent_build['workflows']['workflow_id'],
-        'last_build_date': last_build_date,
-        'skipped': skipped
+        "user_avatar": most_recent_build["user"]["avatar_url"],
+        "user_name": most_recent_build["user"]["name"],
+        "user_login": most_recent_build["user"]["login"],
+        "workflow_id": most_recent_build["workflows"]["workflow_id"],
+        "last_build_date": last_build_date,
+        "skipped": skipped,
     }
     for build in last_workflow_builds:
-        job_name = build['workflows']['job_name']
+        job_name = build["workflows"]["job_name"]
         if job_name in job_name_mappings.keys():
             friendly_name = job_name_mappings[job_name]
             build_time = 0
-            if build['build_time_millis']:
-                build_time = round(build['build_time_millis'] / 1000)
+            if build["build_time_millis"]:
+                build_time = round(build["build_time_millis"] / 1000)
             test_results[friendly_name] = {
-                'start_time': build['start_time'],
-                'stop_time': build['stop_time'],
-                'build_time': build_time,
-                'build_num': build['build_num'],
-                'build_url': build['build_url'],
-                'status': build['status']
+                "start_time": build["start_time"],
+                "stop_time": build["stop_time"],
+                "build_time": build_time,
+                "build_num": build["build_num"],
+                "build_url": build["build_url"],
+                "status": build["status"],
             }
     return test_results
 
 
 def circle_ci_get_last_build_results(build: dict) -> dict:
-    frmt = '%Y-%m-%dT%H:%M:%S.%fZ'
+    frmt = "%Y-%m-%dT%H:%M:%S.%fZ"
     last_build_date = ""
-    if build['start_time']:
-        datetime_object = datetime.strptime(build['start_time'], frmt)
-        last_build_date = datetime_object.strftime('%d %b %H:%M')
+    if build["start_time"]:
+        datetime_object = datetime.strptime(build["start_time"], frmt)
+        last_build_date = datetime_object.strftime("%d %b %H:%M")
     build_time = None
-    if build['build_time_millis']:
-        build_time = round(build['build_time_millis'] / 1000)
+    if build["build_time_millis"]:
+        build_time = round(build["build_time_millis"] / 1000)
     test_results = {
-        'user_avatar': build['user']['avatar_url'],
-        'user_name': build['user']['name'],
-        'user_login': build['user']['login'],
-        'last_build_date': last_build_date,
-        'start_time': build['start_time'],
-        'stop_time': build['stop_time'],
-        'build_time': build_time,
-        'build_num': build['build_num'],
-        'build_url': build['build_url'],
-        'status': build['status']
+        "user_avatar": build["user"]["avatar_url"],
+        "user_name": build["user"]["name"],
+        "user_login": build["user"]["login"],
+        "last_build_date": last_build_date,
+        "start_time": build["start_time"],
+        "stop_time": build["stop_time"],
+        "build_time": build_time,
+        "build_num": build["build_num"],
+        "build_url": build["build_url"],
+        "status": build["status"],
     }
     return test_results
 
 
 def circle_ci_get_xml_build_artifact(build: dict) -> str:
-    build_number = build['build_num']
-    username = build['username']
-    project_name = build['reponame']
+    build_number = build["build_num"]
+    username = build["username"]
+    project_name = build["reponame"]
     build_artifacts = CIRCLE_CI_CLIENT.build.artifacts(
-        username, project_name, build_number)
-    xml_artifact_urls = [artifact['url'] for artifact in build_artifacts
-                         if artifact['url'].endswith('.xml')]
-    assert len(xml_artifact_urls) == 1, ("Expected only 1 xml artifact got {}"
-                                         .format(len(xml_artifact_urls)))
+        username, project_name, build_number
+    )
+    xml_artifact_urls = [
+        artifact["url"]
+        for artifact in build_artifacts
+        if artifact["url"].endswith(".xml")
+    ]
+    assert (
+        len(xml_artifact_urls) == 1
+    ), "Expected only 1 xml artifact got {}".format(
+        len(xml_artifact_urls)
+    )
     response = requests.get(xml_artifact_urls[0])
-    return response.content.decode('utf-8')
+    return response.content.decode("utf-8")
 
 
 def dead_links_get_xml_report_summary(xml_report: str) -> dict:
@@ -555,58 +673,70 @@ def dead_links_get_xml_report_summary(xml_report: str) -> dict:
     root = ET.fromstring(xml_report)
     attributes = root.attrib
     return {
-        'errors': int(attributes['errors']),
-        'failures': int(attributes['failures']),
-        'scanned_urls': int(attributes['tests'])
+        "errors": int(attributes["errors"]),
+        "failures": int(attributes["failures"]),
+        "scanned_urls": int(attributes["tests"]),
     }
 
 
 def circle_ci_get_test_results_for_multi_workflow_project(
-        project_name: str, *, ignored_workflows: List[str] = None,
-        workflows_name_mappings: dict = None) -> List[dict]:
+    project_name: str,
+    *,
+    ignored_workflows: List[str] = None,
+    workflows_name_mappings: dict = None
+) -> List[dict]:
 
-    job_statuses_without_artifacts = ['not_run', 'queued', 'running']
+    job_statuses_without_artifacts = ["not_run", "queued", "running"]
     recent_builds = circle_ci_get_recent_builds(project_name, limit=10)
     if ignored_workflows:
-        recent_builds = [build for build in recent_builds
-                         if build['workflows']['workflow_name']
-                         not in ignored_workflows]
+        recent_builds = [
+            build
+            for build in recent_builds
+            if build["workflows"]["workflow_name"] not in ignored_workflows
+        ]
     workflow_names = set(
-        [build['workflows']['workflow_name'] for build in recent_builds])
+        [build["workflows"]["workflow_name"] for build in recent_builds]
+    )
     results = []
     for workflow_name in workflow_names:
         for build in recent_builds:
-            if build['status'] not in job_statuses_without_artifacts:
-                if build['workflows']['workflow_name'] == workflow_name:
+            if build["status"] not in job_statuses_without_artifacts:
+                if build["workflows"]["workflow_name"] == workflow_name:
                     report = circle_ci_get_xml_build_artifact(build)
                     report_summary = dead_links_get_xml_report_summary(report)
                     result = {
-                        'date': TODAY,
-                        'environment': workflow_name,
-                        'errors': report_summary['errors'],
-                        'failures': report_summary['failures'],
-                        'scanned_urls': report_summary['scanned_urls'],
+                        "date": TODAY,
+                        "environment": workflow_name,
+                        "errors": report_summary["errors"],
+                        "failures": report_summary["failures"],
+                        "scanned_urls": report_summary["scanned_urls"],
                     }
                     if workflows_name_mappings:
                         friendly_name = workflows_name_mappings[workflow_name]
-                        result['environment'] = friendly_name
+                        result["environment"] = friendly_name
                     results.append(result)
                     break
     return results
 
 
 def circle_ci_get_last_test_results(
-        project_name: str, *, ignored_workflows: List[str] = None,
-        limit: int = None) -> dict:
+    project_name: str,
+    *,
+    ignored_workflows: List[str] = None,
+    limit: int = None
+) -> dict:
     recent_builds = circle_ci_get_recent_builds(project_name, limit=limit)
     if ignored_workflows:
-        recent_builds = [build for build in recent_builds
-                         if build['workflows']['workflow_name']
-                         not in ignored_workflows]
+        recent_builds = [
+            build
+            for build in recent_builds
+            if build["workflows"]["workflow_name"] not in ignored_workflows
+        ]
     last_workflow_id = circle_ci_get_last_workflow_id(recent_builds)
     if last_workflow_id:
         last_workflow_builds = circle_ci_get_builds_for_workflow(
-            recent_builds, last_workflow_id)
+            recent_builds, last_workflow_id
+        )
         result = circle_ci_get_last_workflow_test_results(last_workflow_builds)
     else:
         most_recent_build = recent_builds[0]
@@ -615,41 +745,47 @@ def circle_ci_get_last_test_results(
 
 
 def circle_ci_get_last_dead_urls_tests_results() -> List[dict]:
-    ignored_workflows = ['refresh_geckoboard_periodically']
+    ignored_workflows = ["refresh_geckoboard_periodically"]
     workflows_name_mappings = {
-        'dev_check_for_dead_links': 'dev',
-        'stage_check_for_dead_links': 'stage',
-        'prod_check_for_dead_links': 'prod'
+        "dev_check_for_dead_links": "dev",
+        "stage_check_for_dead_links": "stage",
+        "prod_check_for_dead_links": "prod",
     }
     return circle_ci_get_test_results_for_multi_workflow_project(
-        'directory-periodic-tests', ignored_workflows=ignored_workflows,
-        workflows_name_mappings=workflows_name_mappings)
+        "directory-periodic-tests",
+        ignored_workflows=ignored_workflows,
+        workflows_name_mappings=workflows_name_mappings,
+    )
 
 
 def circle_ci_get_last_test_results_per_project() -> dict:
     return {
-        'Tests': circle_ci_get_last_test_results('directory-tests'),
-        'API': circle_ci_get_last_test_results('directory-api'),
-        'FAS': circle_ci_get_last_test_results('directory-ui-supplier'),
-        'FAB': circle_ci_get_last_test_results('directory-ui-buyer'),
-        'ExRed': circle_ci_get_last_test_results('directory-ui-export-readiness'),
-        'SSO': circle_ci_get_last_test_results('directory-sso'),
-        'SUD': circle_ci_get_last_test_results('directory-sso-profile'),
-        'SSO Proxy': circle_ci_get_last_test_results('directory-sso-proxy'),
-        'CH Search': circle_ci_get_last_test_results('directory-companies-house-search'),
+        "Tests": circle_ci_get_last_test_results("directory-tests"),
+        "API": circle_ci_get_last_test_results("directory-api"),
+        "FAS": circle_ci_get_last_test_results("directory-ui-supplier"),
+        "FAB": circle_ci_get_last_test_results("directory-ui-buyer"),
+        "ExRed": circle_ci_get_last_test_results(
+            "directory-ui-export-readiness"
+        ),
+        "SSO": circle_ci_get_last_test_results("directory-sso"),
+        "SUD": circle_ci_get_last_test_results("directory-sso-profile"),
+        "SSO Proxy": circle_ci_get_last_test_results("directory-sso-proxy"),
+        "CH Search": circle_ci_get_last_test_results(
+            "directory-companies-house-search"
+        ),
     }
 
 
 def circle_ci_get_job_status_color(status: str) -> str:
     status_colors = {
-        'failed': 'red',
-        'fixed': 'green',
-        'not_run': 'grey',
-        'queued': 'purple',
-        'running': 'blue',
-        'success': 'green',
-        'timedout': 'red',
-        'cancelled': 'grey',
+        "failed": "red",
+        "fixed": "green",
+        "not_run": "grey",
+        "queued": "purple",
+        "running": "blue",
+        "success": "green",
+        "timedout": "red",
+        "cancelled": "grey",
     }
     return status_colors[status]
 
@@ -660,10 +796,12 @@ def geckoboard_get_build_summary(test_results: dict) -> str:
             "start": test_results["start_time"],
             "stop": test_results["stop_time"],
             "seconds": test_results["build_time"],
-            "number": test_results["build_num"]
+            "number": test_results["build_num"],
         }
-        msg = ("Build #{number} took {seconds} seconds to run. It started at "
-               "{start} and finished at {stop}".format(**details))
+        msg = (
+            "Build #{number} took {seconds} seconds to run. It started at "
+            "{start} and finished at {stop}".format(**details)
+        )
     else:
         msg = "The build was not executed"
 
@@ -671,7 +809,8 @@ def geckoboard_get_build_summary(test_results: dict) -> str:
 
 
 def geckoboard_generate_table_rows_for_test_results(
-        services_test_results: dict) -> str:
+    services_test_results: dict
+) -> str:
     workflow_row_template = """
         <tr style="font-size:20pt">
             <td>{service_name}<img src="{user_avatar_url}" alt="{user_name}" width="25" height="25"/></td>
@@ -702,82 +841,80 @@ def geckoboard_generate_table_rows_for_test_results(
         </tr>
     """
     empty_result = {
-        'build_url': '',
-        'status': 'not_run',
-        'start': None,
-        'stop': None,
-        'seconds': None,
-        'number': None
+        "build_url": "",
+        "status": "not_run",
+        "start": None,
+        "stop": None,
+        "seconds": None,
+        "number": None,
     }
-    result = ''
+    result = ""
     for service_name, test_results in services_test_results.items():
-        if ('workflow_id' not in test_results) or (test_results['skipped']):
+        if ("workflow_id" not in test_results) or (test_results["skipped"]):
             result += build_row_template.format(
                 service_name=service_name,
-                user_avatar_url=test_results['user_avatar'],
-                user_name=test_results['user_name'],
-
-                last_build_date=test_results['last_build_date'],
-                build_url=test_results['build_url'],
-                status_color=circle_ci_get_job_status_color(test_results['status']),
+                user_avatar_url=test_results["user_avatar"],
+                user_name=test_results["user_name"],
+                last_build_date=test_results["last_build_date"],
+                build_url=test_results["build_url"],
+                status_color=circle_ci_get_job_status_color(
+                    test_results["status"]
+                ),
                 summary=geckoboard_get_build_summary(test_results),
-                status=test_results['status'].capitalize(),
+                status=test_results["status"].capitalize(),
             )
             continue
-        smoke = test_results.get('Smoke', empty_result)
-        fab = test_results.get('FAB', empty_result)
-        fas = test_results.get('FAS', empty_result)
-        sso = test_results.get('SSO', empty_result)
-        sud = test_results.get('SUD', empty_result)
-        chrome = test_results.get('ER Chrome', empty_result)
-        firefox = test_results.get('ER Firefox', empty_result)
+        smoke = test_results.get("Smoke", empty_result)
+        fab = test_results.get("FAB", empty_result)
+        fas = test_results.get("FAS", empty_result)
+        sso = test_results.get("SSO", empty_result)
+        sud = test_results.get("SUD", empty_result)
+        chrome = test_results.get("ER Chrome", empty_result)
+        firefox = test_results.get("ER Firefox", empty_result)
         result += workflow_row_template.format(
             service_name=service_name,
-            user_avatar_url=test_results['user_avatar'],
-            user_name=test_results['user_name'],
-
-            last_build_date=test_results['last_build_date'],
-
-            smoke_build_url=smoke['build_url'],
-            smoke_status_color=circle_ci_get_job_status_color(smoke['status']),
+            user_avatar_url=test_results["user_avatar"],
+            user_name=test_results["user_name"],
+            last_build_date=test_results["last_build_date"],
+            smoke_build_url=smoke["build_url"],
+            smoke_status_color=circle_ci_get_job_status_color(smoke["status"]),
             smoke_build_summary=geckoboard_get_build_summary(smoke),
-            smoke_status=smoke['status'].capitalize(),
-
-            fab_build_url=fab['build_url'],
-            fab_status_color=circle_ci_get_job_status_color(fab['status']),
+            smoke_status=smoke["status"].capitalize(),
+            fab_build_url=fab["build_url"],
+            fab_status_color=circle_ci_get_job_status_color(fab["status"]),
             fab_build_summary=geckoboard_get_build_summary(fab),
-            fab_status=fab['status'].capitalize(),
-
-            fas_build_url=fas['build_url'],
-            fas_status_color=circle_ci_get_job_status_color(fas['status']),
+            fab_status=fab["status"].capitalize(),
+            fas_build_url=fas["build_url"],
+            fas_status_color=circle_ci_get_job_status_color(fas["status"]),
             fas_build_summary=geckoboard_get_build_summary(fas),
-            fas_status=fas['status'].capitalize(),
-
-            sso_build_url=sso['build_url'],
-            sso_status_color=circle_ci_get_job_status_color(sso['status']),
+            fas_status=fas["status"].capitalize(),
+            sso_build_url=sso["build_url"],
+            sso_status_color=circle_ci_get_job_status_color(sso["status"]),
             sso_build_summary=geckoboard_get_build_summary(sso),
-            sso_status=sso['status'].capitalize(),
-
-            sud_build_url=sud['build_url'],
-            sud_status_color=circle_ci_get_job_status_color(sud['status']),
+            sso_status=sso["status"].capitalize(),
+            sud_build_url=sud["build_url"],
+            sud_status_color=circle_ci_get_job_status_color(sud["status"]),
             sud_build_summary=geckoboard_get_build_summary(sud),
-            sud_status=sud['status'].capitalize(),
-
-            exred_chrome_build_url=chrome['build_url'],
-            exred_chrome_status_color=circle_ci_get_job_status_color(chrome['status']),
+            sud_status=sud["status"].capitalize(),
+            exred_chrome_build_url=chrome["build_url"],
+            exred_chrome_status_color=circle_ci_get_job_status_color(
+                chrome["status"]
+            ),
             exred_chrome_build_summary=geckoboard_get_build_summary(chrome),
-            exred_chrome_status=chrome['status'].capitalize(),
-
-            exred_firefox_build_url=firefox['build_url'],
-            exred_firefox_status_color=circle_ci_get_job_status_color(firefox['status']),
+            exred_chrome_status=chrome["status"].capitalize(),
+            exred_firefox_build_url=firefox["build_url"],
+            exred_firefox_status_color=circle_ci_get_job_status_color(
+                firefox["status"]
+            ),
             exred_firefox_build_summary=geckoboard_get_build_summary(firefox),
-            exred_firefox_status=firefox['status'].capitalize(),
+            exred_firefox_status=firefox["status"].capitalize(),
         )
     return result
 
 
 def geckoboard_generate_content_for_test_results_widget_update(
-        test_results: dict) -> dict:
+    test_results: dict
+) -> dict:
     table_template = """
     <table width="100%">
     <thead>
@@ -803,9 +940,7 @@ def geckoboard_generate_content_for_test_results_widget_update(
     text = table_template.format(rows=rows)
     message = {
         "api_key": GECKOBOARD_API_KEY,
-        "data": {
-            "item": [{"text": text, "type": 0}]
-        }
+        "data": {"item": [{"text": text, "type": 0}]},
     }
     return message
 
@@ -813,13 +948,14 @@ def geckoboard_generate_content_for_test_results_widget_update(
 def geckoboard_push_test_results():
     last_test_results = circle_ci_get_last_test_results_per_project()
     message = geckoboard_generate_content_for_test_results_widget_update(
-        last_test_results)
+        last_test_results
+    )
     url = GECKOBOARD_PUSH_URL + GECKOBOARD_TEST_RESULTS_WIDGET_KEY
     response = requests.post(url, json=message)
     assert response.status_code == 200
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     kanban_bugs_by_labels = get_number_of_bugs_on_kanban_board_by_labels()
     backlog_bugs_by_labels = get_number_of_bugs_in_backlog_by_labels()
     unlabelled_on_kanban = get_number_of_unlabelled_bugs_on_kanban_board()
@@ -832,23 +968,23 @@ if __name__ == '__main__':
     bugs_per_service = get_number_of_bugs_per_service()
     bad_urls = circle_ci_get_last_dead_urls_tests_results()
 
-    print('Bugs by labels on the Kanban board: ', kanban_bugs_by_labels)
-    print('Unlabelled bugs on the Kanban board: ', unlabelled_on_kanban)
-    print('Number of bugs in Backlog', in_backlog)
-    print('Bugs by labels in the Backlog: ', backlog_bugs_by_labels)
-    print('Unlabelled bugs in Backlog: ', unlabelled_in_backlog)
-    print('Automated vs Manual: ', auto_vs_manual)
-    print('Number of scenarios to automate: ', to_automate)
-    print('Number of tickets closed today: ', tickets_closed_today)
-    print('Number of bugs closed today: ', bugs_closed_today)
-    print('Number of bugs per service: ', bugs_per_service)
-    print('CMS - bad URLs per environment: ', bad_urls)
+    print("Bugs by labels on the Kanban board: ", kanban_bugs_by_labels)
+    print("Unlabelled bugs on the Kanban board: ", unlabelled_on_kanban)
+    print("Number of bugs in Backlog", in_backlog)
+    print("Bugs by labels in the Backlog: ", backlog_bugs_by_labels)
+    print("Unlabelled bugs in Backlog: ", unlabelled_in_backlog)
+    print("Automated vs Manual: ", auto_vs_manual)
+    print("Number of scenarios to automate: ", to_automate)
+    print("Number of tickets closed today: ", tickets_closed_today)
+    print("Number of bugs closed today: ", bugs_closed_today)
+    print("Number of bugs per service: ", bugs_per_service)
+    print("CMS - bad URLs per environment: ", bad_urls)
 
-    print('Creating datasets in Geckoboard...')
+    print("Creating datasets in Geckoboard...")
     datasets = create_datasets(GECKO_CLIENT)
     print("All datasets properly created.")
 
-    print('Pushing all datasets to Geckoboard')
+    print("Pushing all datasets to Geckoboard")
     datasets.ON_KANBAN_BY_LABELS.post(kanban_bugs_by_labels)
     datasets.IN_BACKLOG_BY_LABELS.post(backlog_bugs_by_labels)
     datasets.UNLABELLED_ON_KANBAN.post(unlabelled_on_kanban)
@@ -860,8 +996,8 @@ if __name__ == '__main__':
     datasets.BUGS_CLOSED_TODAY.post(bugs_closed_today)
     datasets.BUGS_PER_SERVICE.post(bugs_per_service)
     datasets.BAD_LINKS_PER_ENVIRONMENT.post(bad_urls)
-    print('All datasets pushed')
+    print("All datasets pushed")
 
-    print('Pushing tests results to Geckoboard widget')
+    print("Pushing tests results to Geckoboard widget")
     geckoboard_push_test_results()
-    print('Tests results successfully pushed to Geckoboard widget')
+    print("Tests results successfully pushed to Geckoboard widget")
