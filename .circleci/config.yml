@@ -4,7 +4,7 @@ jobs:
 
   refresh_geckoboard:
     docker:
-      - image: circleci/python:3.5.3
+      - image: circleci/python:3.6.5
     working_directory: ~/directory-periodical-tests
     steps:
       - checkout
@@ -18,7 +18,7 @@ jobs:
 
   check_for_dead_links_on_dev:
     docker:
-      - image: circleci/python:3.5.3
+      - image: circleci/python:3.6.5
     working_directory: ~/directory-periodical-tests
     steps:
       - checkout
@@ -36,7 +36,7 @@ jobs:
 
   check_for_dead_links_on_stage:
     docker:
-      - image: circleci/python:3.5.3
+      - image: circleci/python:3.6.5
     working_directory: ~/directory-periodical-tests
     steps:
       - checkout
@@ -54,7 +54,7 @@ jobs:
 
   check_for_dead_links_on_prod:
     docker:
-      - image: circleci/python:3.5.3
+      - image: circleci/python:3.6.5
     working_directory: ~/directory-periodical-tests
     steps:
       - checkout
