@@ -655,14 +655,19 @@ def geckoboard_get_job_color(status: str) -> str:
 
 
 def geckoboard_get_build_summary(test_results: dict) -> str:
-    details = {
-        'start': test_results['start_time'],
-        'stop': test_results['stop_time'],
-        'seconds': test_results['build_time'],
-        'number': test_results['build_num']
-    }
-    return ("Build #{number} took {seconds} seconds to run. It started at "
-            "{start} and finished at {stop}".format(**details))
+    if test_results["build_num"]:
+        details = {
+            "start": test_results["start_time"],
+            "stop": test_results["stop_time"],
+            "seconds": test_results["build_time"],
+            "number": test_results["build_num"]
+        }
+        msg = ("Build #{number} took {seconds} seconds to run. It started at "
+               "{start} and finished at {stop}".format(**details))
+    else:
+        msg = "The build was not executed"
+
+    return msg
 
 
 def geckoboard_generate_table_rows_for_test_results(
@@ -696,6 +701,14 @@ def geckoboard_generate_table_rows_for_test_results(
             <td></td>
         </tr>
     """
+    empty_result = {
+        'build_url': '',
+        'status': 'not_run',
+        'start': None,
+        'stop': None,
+        'seconds': None,
+        'number': None
+    }
     result = ''
     for service_name, test_results in services_test_results.items():
         if ('workflow_id' not in test_results) or (test_results['skipped']):
@@ -706,18 +719,18 @@ def geckoboard_generate_table_rows_for_test_results(
 
                 last_build_date=test_results['last_build_date'],
                 build_url=test_results['build_url'],
-                status_color=geckoboard_get_job_color(test_results['status']),
+                status_color=circle_ci_get_job_status_color(test_results['status']),
                 summary=geckoboard_get_build_summary(test_results),
                 status=test_results['status'].capitalize(),
             )
             continue
-        smoke = test_results['Smoke']
-        fab = test_results['FAB']
-        fas = test_results['FAS']
-        sso = test_results['SSO']
-        sud = test_results['SUD']
-        chrome = test_results['ER Chrome']
-        firefox = test_results['ER Firefox']
+        smoke = test_results.get('Smoke', empty_result)
+        fab = test_results.get('FAB', empty_result)
+        fas = test_results.get('FAS', empty_result)
+        sso = test_results.get('SSO', empty_result)
+        sud = test_results.get('SUD', empty_result)
+        chrome = test_results.get('ER Chrome', empty_result)
+        firefox = test_results.get('ER Firefox', empty_result)
         result += workflow_row_template.format(
             service_name=service_name,
             user_avatar_url=test_results['user_avatar'],
