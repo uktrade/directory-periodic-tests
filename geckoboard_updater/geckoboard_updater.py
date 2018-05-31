@@ -640,7 +640,7 @@ def circle_ci_get_last_test_results_per_project() -> dict:
     }
 
 
-def geckoboard_get_job_color(status: str) -> str:
+def circle_ci_get_job_status_color(status: str) -> str:
     status_colors = {
         'failed': 'red',
         'fixed': 'green',
@@ -739,37 +739,37 @@ def geckoboard_generate_table_rows_for_test_results(
             last_build_date=test_results['last_build_date'],
 
             smoke_build_url=smoke['build_url'],
-            smoke_status_color=geckoboard_get_job_color(smoke['status']),
+            smoke_status_color=circle_ci_get_job_status_color(smoke['status']),
             smoke_build_summary=geckoboard_get_build_summary(smoke),
             smoke_status=smoke['status'].capitalize(),
 
             fab_build_url=fab['build_url'],
-            fab_status_color=geckoboard_get_job_color(fab['status']),
+            fab_status_color=circle_ci_get_job_status_color(fab['status']),
             fab_build_summary=geckoboard_get_build_summary(fab),
             fab_status=fab['status'].capitalize(),
 
             fas_build_url=fas['build_url'],
-            fas_status_color=geckoboard_get_job_color(fas['status']),
+            fas_status_color=circle_ci_get_job_status_color(fas['status']),
             fas_build_summary=geckoboard_get_build_summary(fas),
             fas_status=fas['status'].capitalize(),
 
             sso_build_url=sso['build_url'],
-            sso_status_color=geckoboard_get_job_color(sso['status']),
+            sso_status_color=circle_ci_get_job_status_color(sso['status']),
             sso_build_summary=geckoboard_get_build_summary(sso),
             sso_status=sso['status'].capitalize(),
 
             sud_build_url=sud['build_url'],
-            sud_status_color=geckoboard_get_job_color(sud['status']),
+            sud_status_color=circle_ci_get_job_status_color(sud['status']),
             sud_build_summary=geckoboard_get_build_summary(sud),
             sud_status=sud['status'].capitalize(),
 
             exred_chrome_build_url=chrome['build_url'],
-            exred_chrome_status_color=geckoboard_get_job_color(chrome['status']),
+            exred_chrome_status_color=circle_ci_get_job_status_color(chrome['status']),
             exred_chrome_build_summary=geckoboard_get_build_summary(chrome),
             exred_chrome_status=chrome['status'].capitalize(),
 
             exred_firefox_build_url=firefox['build_url'],
-            exred_firefox_status_color=geckoboard_get_job_color(firefox['status']),
+            exred_firefox_status_color=circle_ci_get_job_status_color(firefox['status']),
             exred_firefox_build_summary=geckoboard_get_build_summary(firefox),
             exred_firefox_status=firefox['status'].capitalize(),
         )
