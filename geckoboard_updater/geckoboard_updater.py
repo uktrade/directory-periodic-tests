@@ -785,7 +785,7 @@ def circle_ci_get_job_status_color(status: str) -> str:
         "running": "blue",
         "success": "green",
         "timedout": "red",
-        "cancelled": "grey",
+        "canceled": "grey",
     }
     return status_colors[status]
 
