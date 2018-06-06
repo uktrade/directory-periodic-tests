@@ -1,5 +1,5 @@
 PYLINKVALIDATE_ENV_VARS_PROD := \
-	export IGNORED_PREFIXES="https://trade.great.gov.uk/search/,https://www.linkedin.com,https://twitter.com,https://public-directory-supplier-gds.s3.amazonaws.com,https://www.facebook.com,https://directory-cms-public.s3.amazonaws.com,https://uk.linkedin.com/,http://www.linkedin.com" && \
+	export IGNORED_PREFIXES="https://www.contactus.trade.gov.uk/enquiry/topic,https://trade.great.gov.uk/search/,https://www.linkedin.com,https://twitter.com,https://public-directory-supplier-gds.s3.amazonaws.com,https://www.facebook.com,https://directory-cms-public.s3.amazonaws.com,https://uk.linkedin.com/,http://www.linkedin.com" && \
 	export TEST_URLS="https://www.great.gov.uk/ https://trade.great.gov.uk/ https://find-a-buyer.export.great.gov.uk/ https://sso.trade.great.gov.uk/accounts/login/ https://profile.great.gov.uk/about/ https://invest.great.gov.uk/ https://opportunities.export.great.gov.uk/ https://selling-online-overseas.export.great.gov.uk/"
 
 PYLINKVALIDATE_ENV_VARS_STAGE := \
