@@ -137,7 +137,8 @@ DIRECTORY_PROJECTS_WITH_WORKFLOW = [
     "ExRed",
     "FAB",
     "FAS",
-    "SSO Proxy" "SSO",
+    "SSO Proxy",
+    "SSO",
     "SUD",
 ]
 
