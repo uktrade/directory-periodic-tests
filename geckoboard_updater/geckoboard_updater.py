@@ -570,7 +570,8 @@ def circle_ci_get_builds_for_workflow(
     return [
         build
         for build in recent_circle_ci_builds
-        if build["workflows"]["workflow_id"] == last_workflow_id
+        if "workflows" in build
+        and build["workflows"]["workflow_id"] == last_workflow_id
     ]
 
 
