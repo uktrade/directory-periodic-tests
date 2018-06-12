@@ -132,6 +132,16 @@ CIRCLE_CI_DIRECTORY_WORKFLOW_JOB_NAME_MAPPINGS = {
     "integration_tests": "Integration Tests",
 }
 
+DIRECTORY_PROJECTS_WITH_WORKFLOW = [
+    "API",
+    "ExRed",
+    "FAB",
+    "FAS",
+    "SSO Proxy" "SSO",
+    "SUD",
+]
+
+
 # Geckoboard datasets
 
 ###############################################################################
