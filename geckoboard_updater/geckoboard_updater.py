@@ -55,33 +55,33 @@ SERVICE_TAGS = [
 
 # Jira JQL queries
 JQL_KANBAN_BUGS = """
-project = ED 
+project = TT 
 AND issuetype = Bug 
 AND status != Backlog 
 AND status != Done 
 ORDER BY created DESC"""
 
 JQL_BACKLOG_BUGS = """
-project = ED 
+project = TT 
 AND issuetype = Bug 
 AND status = Backlog 
 ORDER BY created DESC"""
 
 JQL_MANUAL_VS_AUTOMATED = """
-project = ED 
+project = TT 
 AND resolution = Unresolved 
 AND labels in (qa_auto, qa_manual) 
 ORDER BY priority DESC, updated DESC"""
 
 JQL_SCENARIOS_TO_AUTOMATE = """
-project = ED 
+project = TT 
 AND issuetype in (Task, Sub-task) 
 AND resolution = Unresolved 
 AND labels = qa_automated_scenario 
 ORDER BY created DESC"""
 
 JQL_BUGS_CLOSED_TODAY = """
-PROJECT in (ED) 
+PROJECT in (TT) 
 AND issuetype = Bug 
 AND Status CHANGED FROM (Backlog, Planning, "Blocked!", "Design To Do", 
 "Design - ready", "Design - in Progress", "Sign-off", "User research", 
@@ -93,7 +93,7 @@ ORDER BY key ASC, updated DESC
 """
 
 JQL_TICKETS_CLOSED_TODAY = """
-PROJECT in (ED) 
+PROJECT in (TT) 
 AND issuetype != Bug 
 AND Status CHANGED FROM (Backlog, Planning, "Blocked!", "Design To Do", 
 "Design - ready", "Design - in Progress", "Sign-off", "User research", 
@@ -105,7 +105,7 @@ ORDER BY key ASC, updated DESC
 """
 
 JQL_BUGS_PER_SERVICE = """
-project = ED 
+project = TT 
 AND issuetype = Bug 
 AND labels IN ({service_tags})
 AND created >= "-90d"
