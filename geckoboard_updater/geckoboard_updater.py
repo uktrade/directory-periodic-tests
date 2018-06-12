@@ -853,9 +853,11 @@ def geckoboard_generate_table_rows_for_test_results(
     services_test_results: dict
 ) -> str:
     workflow_row_template = """
-        <tr style="font-size:20pt">
+        <tr style="font-size:14pt">
             <td>{service_name}<img src="{user_avatar_url}" alt="{user_name}" width="25" height="25"/></td>
             <td>{last_build_date}</td>
+            <td></td>
+            <td></td>
             <td></td>
             <td><a target="_blank" href="{smoke_build_url}" style="color:{smoke_status_color}" title="{smoke_build_summary}">{smoke_status}</a></td>
             <td><a target="_blank" href="{fab_build_url}" style="color:{fab_status_color}" title="{fab_build_summary}">{fab_status}</td>
@@ -867,9 +869,10 @@ def geckoboard_generate_table_rows_for_test_results(
         </tr>
     """
     build_row_template = """
-        <tr style="font-size:20pt">
+        <tr style="font-size:14pt">
             <td>{service_name}<img src="{user_avatar_url}" alt="{user_name}" width="25" height="25"/></td>
             <td>{last_build_date}</td>
+            <td></td>
             <td><a target="_blank" href="{build_url}" style="color:{status_color}" title="{summary}">{status}</a></td>
             <td></td>
             <td></td>
@@ -881,16 +884,61 @@ def geckoboard_generate_table_rows_for_test_results(
             <td></td>
         </tr>
     """
+    director_build_row_template = """
+        <tr style="font-size:14pt">
+            <td>{service_name}<img src="{user_avatar_url}" alt="{user_name}" width="25" height="25"/></td>
+            <td>{last_build_date}</td>
+            <td><a target="_blank" href="{unit_build_url}" style="color:{unit_status_color}" title="{unit_summary}">{unit_status}</a></td>
+            <td><a target="_blank" href="{deploy_build_url}" style="color:{deploy_status_color}" title="{deploy_summary}">{deploy_status}</a></td>
+            <td><a target="_blank" href="{integration_build_url}" style="color:{integration_status_color}" title="{integration_summary}">{integration_status}</a></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    """
     empty_result = {
+        "build_num": None,
         "build_url": "",
+        "build_time": None,
+        "start_time": None,
         "status": "not_run",
-        "start": None,
-        "stop": None,
-        "seconds": None,
-        "number": None,
+        "stop_time": None,
     }
     result = ""
     for service_name, test_results in services_test_results.items():
+        if service_name in DIRECTORY_PROJECTS_WITH_WORKFLOW:
+            unit = test_results.get("Unit Tests", empty_result)
+            deploy = test_results.get("Deploy to Dev", empty_result)
+            integration = test_results.get("Integration Tests", empty_result)
+            result += director_build_row_template.format(
+                service_name=service_name,
+                user_avatar_url=test_results["user_avatar"],
+                user_name=test_results["user_name"],
+                last_build_date=test_results["last_build_date"],
+                unit_build_url=unit["build_url"],
+                unit_status_color=circle_ci_get_job_status_color(
+                    unit["status"]
+                ),
+                unit_summary=geckoboard_get_build_summary(unit),
+                unit_status=unit["status"].capitalize(),
+                deploy_build_url=deploy["build_url"],
+                deploy_status_color=circle_ci_get_job_status_color(
+                    deploy["status"]
+                ),
+                deploy_summary=geckoboard_get_build_summary(deploy),
+                deploy_status=deploy["status"].capitalize(),
+                integration_build_url=integration["build_url"],
+                integration_status_color=circle_ci_get_job_status_color(
+                    integration["status"]
+                ),
+                integration_summary=geckoboard_get_build_summary(integration),
+                integration_status=integration["status"].capitalize(),
+            )
+            continue
         if ("workflow_id" not in test_results) or (test_results["skipped"]):
             result += build_row_template.format(
                 service_name=service_name,
@@ -959,10 +1007,12 @@ def geckoboard_generate_content_for_test_results_widget_update(
     table_template = """
     <table width="100%">
     <thead>
-    <tr style="font-size:20pt">
+    <tr style="font-size:14pt">
         <th>Project</th>
         <th>When</th>
-        <th>Build</th>
+        <th>Unit</th>
+        <th>Deploy</th>
+        <th>Integration</th>
         <th>Smoke</th>
         <th>FAB</th>
         <th>FAS</th>
