@@ -116,7 +116,7 @@ ORDER BY labels DESC, priority DESC, updated DESC
 
 
 # Mapping of CircleCI job names to more human friendly ones
-CIRCLE_CI_WORKFLOW_JOB_NAME_MAPPINGS = {
+CIRCLE_CI_DIRECTORY_TESTS_WORKFLOW_JOB_NAME_MAPPINGS = {
     "exred_tests_chrome": "ER Chrome",
     "exred_tests_firefox": "ER Firefox",
     "fab_functional_tests": "FAB",
@@ -778,16 +778,38 @@ def circle_ci_get_last_dead_urls_tests_results() -> List[dict]:
 
 def circle_ci_get_last_test_results_per_project() -> dict:
     return {
-        "Tests": circle_ci_get_last_test_results("directory-tests"),
-        "API": circle_ci_get_last_test_results("directory-api"),
-        "FAS": circle_ci_get_last_test_results("directory-ui-supplier"),
-        "FAB": circle_ci_get_last_test_results("directory-ui-buyer"),
-        "ExRed": circle_ci_get_last_test_results(
-            "directory-ui-export-readiness"
+        "Tests": circle_ci_get_last_test_results(
+            "directory-tests",
+            job_name_mappings=CIRCLE_CI_DIRECTORY_TESTS_WORKFLOW_JOB_NAME_MAPPINGS,
         ),
-        "SSO": circle_ci_get_last_test_results("directory-sso"),
-        "SUD": circle_ci_get_last_test_results("directory-sso-profile"),
-        "SSO Proxy": circle_ci_get_last_test_results("directory-sso-proxy"),
+        "API": circle_ci_get_last_test_results(
+            "directory-api",
+            job_name_mappings=CIRCLE_CI_DIRECTORY_WORKFLOW_JOB_NAME_MAPPINGS,
+        ),
+        "FAS": circle_ci_get_last_test_results(
+            "directory-ui-supplier",
+            job_name_mappings=CIRCLE_CI_DIRECTORY_WORKFLOW_JOB_NAME_MAPPINGS,
+        ),
+        "FAB": circle_ci_get_last_test_results(
+            "directory-ui-buyer",
+            job_name_mappings=CIRCLE_CI_DIRECTORY_WORKFLOW_JOB_NAME_MAPPINGS,
+        ),
+        "ExRed": circle_ci_get_last_test_results(
+            "directory-ui-export-readiness",
+            job_name_mappings=CIRCLE_CI_DIRECTORY_WORKFLOW_JOB_NAME_MAPPINGS,
+        ),
+        "SSO": circle_ci_get_last_test_results(
+            "directory-sso",
+            job_name_mappings=CIRCLE_CI_DIRECTORY_WORKFLOW_JOB_NAME_MAPPINGS,
+        ),
+        "SUD": circle_ci_get_last_test_results(
+            "directory-sso-profile",
+            job_name_mappings=CIRCLE_CI_DIRECTORY_WORKFLOW_JOB_NAME_MAPPINGS,
+        ),
+        "SSO Proxy": circle_ci_get_last_test_results(
+            "directory-sso-proxy",
+            job_name_mappings=CIRCLE_CI_DIRECTORY_WORKFLOW_JOB_NAME_MAPPINGS,
+        ),
         "CH Search": circle_ci_get_last_test_results(
             "directory-companies-house-search"
         ),
