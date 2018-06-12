@@ -126,6 +126,12 @@ CIRCLE_CI_WORKFLOW_JOB_NAME_MAPPINGS = {
     "sud_functional_tests": "SUD",
 }
 
+CIRCLE_CI_DIRECTORY_WORKFLOW_JOB_NAME_MAPPINGS = {
+    "test": "Unit Tests",
+    "deploy_to_dev": "Deploy to Dev",
+    "integration_tests": "Integration Tests",
+}
+
 # Geckoboard datasets
 
 ###############################################################################
