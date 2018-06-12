@@ -55,33 +55,33 @@ SERVICE_TAGS = [
 
 # Jira JQL queries
 JQL_KANBAN_BUGS = """
-project = ED 
+project = TT 
 AND issuetype = Bug 
 AND status != Backlog 
 AND status != Done 
 ORDER BY created DESC"""
 
 JQL_BACKLOG_BUGS = """
-project = ED 
+project = TT 
 AND issuetype = Bug 
 AND status = Backlog 
 ORDER BY created DESC"""
 
 JQL_MANUAL_VS_AUTOMATED = """
-project = ED 
+project = TT 
 AND resolution = Unresolved 
 AND labels in (qa_auto, qa_manual) 
 ORDER BY priority DESC, updated DESC"""
 
 JQL_SCENARIOS_TO_AUTOMATE = """
-project = ED 
+project = TT 
 AND issuetype in (Task, Sub-task) 
 AND resolution = Unresolved 
 AND labels = qa_automated_scenario 
 ORDER BY created DESC"""
 
 JQL_BUGS_CLOSED_TODAY = """
-PROJECT in (ED) 
+PROJECT in (TT) 
 AND issuetype = Bug 
 AND Status CHANGED FROM (Backlog, Planning, "Blocked!", "Design To Do", 
 "Design - ready", "Design - in Progress", "Sign-off", "User research", 
@@ -93,7 +93,7 @@ ORDER BY key ASC, updated DESC
 """
 
 JQL_TICKETS_CLOSED_TODAY = """
-PROJECT in (ED) 
+PROJECT in (TT) 
 AND issuetype != Bug 
 AND Status CHANGED FROM (Backlog, Planning, "Blocked!", "Design To Do", 
 "Design - ready", "Design - in Progress", "Sign-off", "User research", 
@@ -105,7 +105,7 @@ ORDER BY key ASC, updated DESC
 """
 
 JQL_BUGS_PER_SERVICE = """
-project = ED 
+project = TT 
 AND issuetype = Bug 
 AND labels IN ({service_tags})
 AND created >= "-90d"
@@ -116,7 +116,7 @@ ORDER BY labels DESC, priority DESC, updated DESC
 
 
 # Mapping of CircleCI job names to more human friendly ones
-CIRCLE_CI_WORKFLOW_JOB_NAME_MAPPINGS = {
+CIRCLE_CI_DIRECTORY_TESTS_WORKFLOW_JOB_NAME_MAPPINGS = {
     "exred_tests_chrome": "ER Chrome",
     "exred_tests_firefox": "ER Firefox",
     "fab_functional_tests": "FAB",
@@ -125,6 +125,22 @@ CIRCLE_CI_WORKFLOW_JOB_NAME_MAPPINGS = {
     "sso_functional_tests": "SSO",
     "sud_functional_tests": "SUD",
 }
+
+CIRCLE_CI_DIRECTORY_WORKFLOW_JOB_NAME_MAPPINGS = {
+    "test": "Unit Tests",
+    "deploy_to_dev": "Deploy to Dev",
+    "integration_tests": "Integration Tests",
+}
+
+DIRECTORY_PROJECTS_WITH_WORKFLOW = [
+    "API",
+    "ExRed",
+    "FAB",
+    "FAS",
+    "SSO Proxy" "SSO",
+    "SUD",
+]
+
 
 # Geckoboard datasets
 
@@ -570,14 +586,13 @@ def circle_ci_get_builds_for_workflow(
     return [
         build
         for build in recent_circle_ci_builds
-        if build["workflows"]["workflow_id"] == last_workflow_id
+        if "workflows" in build
+        and build["workflows"]["workflow_id"] == last_workflow_id
     ]
 
 
 def circle_ci_get_last_workflow_test_results(
-    last_workflow_builds: List[dict],
-    *,
-    job_name_mappings: dict = CIRCLE_CI_WORKFLOW_JOB_NAME_MAPPINGS
+    last_workflow_builds: List[dict], job_name_mappings: dict
 ) -> dict:
     most_recent_build = last_workflow_builds[0]
     frmt = "%Y-%m-%dT%H:%M:%S.%fZ"
@@ -703,6 +718,7 @@ def circle_ci_get_test_results_for_multi_workflow_project(
             if build["status"] not in job_statuses_without_artifacts:
                 if build["workflows"]["workflow_name"] == workflow_name:
                     report = circle_ci_get_xml_build_artifact(build)
+                    print("Parsing XML report for build", build["build_num"])
                     report_summary = dead_links_get_xml_report_summary(report)
                     result = {
                         "date": TODAY,
@@ -723,7 +739,8 @@ def circle_ci_get_last_test_results(
     project_name: str,
     *,
     ignored_workflows: List[str] = None,
-    limit: int = None
+    limit: int = None,
+    job_name_mappings: dict = None
 ) -> dict:
     recent_builds = circle_ci_get_recent_builds(project_name, limit=limit)
     if ignored_workflows:
@@ -737,7 +754,9 @@ def circle_ci_get_last_test_results(
         last_workflow_builds = circle_ci_get_builds_for_workflow(
             recent_builds, last_workflow_id
         )
-        result = circle_ci_get_last_workflow_test_results(last_workflow_builds)
+        result = circle_ci_get_last_workflow_test_results(
+            last_workflow_builds, job_name_mappings
+        )
     else:
         most_recent_build = recent_builds[0]
         result = circle_ci_get_last_build_results(most_recent_build)
@@ -760,16 +779,38 @@ def circle_ci_get_last_dead_urls_tests_results() -> List[dict]:
 
 def circle_ci_get_last_test_results_per_project() -> dict:
     return {
-        "Tests": circle_ci_get_last_test_results("directory-tests"),
-        "API": circle_ci_get_last_test_results("directory-api"),
-        "FAS": circle_ci_get_last_test_results("directory-ui-supplier"),
-        "FAB": circle_ci_get_last_test_results("directory-ui-buyer"),
-        "ExRed": circle_ci_get_last_test_results(
-            "directory-ui-export-readiness"
+        "Tests": circle_ci_get_last_test_results(
+            "directory-tests",
+            job_name_mappings=CIRCLE_CI_DIRECTORY_TESTS_WORKFLOW_JOB_NAME_MAPPINGS,
         ),
-        "SSO": circle_ci_get_last_test_results("directory-sso"),
-        "SUD": circle_ci_get_last_test_results("directory-sso-profile"),
-        "SSO Proxy": circle_ci_get_last_test_results("directory-sso-proxy"),
+        "API": circle_ci_get_last_test_results(
+            "directory-api",
+            job_name_mappings=CIRCLE_CI_DIRECTORY_WORKFLOW_JOB_NAME_MAPPINGS,
+        ),
+        "FAS": circle_ci_get_last_test_results(
+            "directory-ui-supplier",
+            job_name_mappings=CIRCLE_CI_DIRECTORY_WORKFLOW_JOB_NAME_MAPPINGS,
+        ),
+        "FAB": circle_ci_get_last_test_results(
+            "directory-ui-buyer",
+            job_name_mappings=CIRCLE_CI_DIRECTORY_WORKFLOW_JOB_NAME_MAPPINGS,
+        ),
+        "ExRed": circle_ci_get_last_test_results(
+            "directory-ui-export-readiness",
+            job_name_mappings=CIRCLE_CI_DIRECTORY_WORKFLOW_JOB_NAME_MAPPINGS,
+        ),
+        "SSO": circle_ci_get_last_test_results(
+            "directory-sso",
+            job_name_mappings=CIRCLE_CI_DIRECTORY_WORKFLOW_JOB_NAME_MAPPINGS,
+        ),
+        "SUD": circle_ci_get_last_test_results(
+            "directory-sso-profile",
+            job_name_mappings=CIRCLE_CI_DIRECTORY_WORKFLOW_JOB_NAME_MAPPINGS,
+        ),
+        "SSO Proxy": circle_ci_get_last_test_results(
+            "directory-sso-proxy",
+            job_name_mappings=CIRCLE_CI_DIRECTORY_WORKFLOW_JOB_NAME_MAPPINGS,
+        ),
         "CH Search": circle_ci_get_last_test_results(
             "directory-companies-house-search"
         ),
@@ -812,9 +853,11 @@ def geckoboard_generate_table_rows_for_test_results(
     services_test_results: dict
 ) -> str:
     workflow_row_template = """
-        <tr style="font-size:20pt">
+        <tr style="font-size:14pt">
             <td>{service_name}<img src="{user_avatar_url}" alt="{user_name}" width="25" height="25"/></td>
             <td>{last_build_date}</td>
+            <td></td>
+            <td></td>
             <td></td>
             <td><a target="_blank" href="{smoke_build_url}" style="color:{smoke_status_color}" title="{smoke_build_summary}">{smoke_status}</a></td>
             <td><a target="_blank" href="{fab_build_url}" style="color:{fab_status_color}" title="{fab_build_summary}">{fab_status}</td>
@@ -826,9 +869,10 @@ def geckoboard_generate_table_rows_for_test_results(
         </tr>
     """
     build_row_template = """
-        <tr style="font-size:20pt">
+        <tr style="font-size:14pt">
             <td>{service_name}<img src="{user_avatar_url}" alt="{user_name}" width="25" height="25"/></td>
             <td>{last_build_date}</td>
+            <td></td>
             <td><a target="_blank" href="{build_url}" style="color:{status_color}" title="{summary}">{status}</a></td>
             <td></td>
             <td></td>
@@ -840,16 +884,61 @@ def geckoboard_generate_table_rows_for_test_results(
             <td></td>
         </tr>
     """
+    director_build_row_template = """
+        <tr style="font-size:14pt">
+            <td>{service_name}<img src="{user_avatar_url}" alt="{user_name}" width="25" height="25"/></td>
+            <td>{last_build_date}</td>
+            <td><a target="_blank" href="{unit_build_url}" style="color:{unit_status_color}" title="{unit_summary}">{unit_status}</a></td>
+            <td><a target="_blank" href="{deploy_build_url}" style="color:{deploy_status_color}" title="{deploy_summary}">{deploy_status}</a></td>
+            <td><a target="_blank" href="{integration_build_url}" style="color:{integration_status_color}" title="{integration_summary}">{integration_status}</a></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    """
     empty_result = {
+        "build_num": None,
         "build_url": "",
+        "build_time": None,
+        "start_time": None,
         "status": "not_run",
-        "start": None,
-        "stop": None,
-        "seconds": None,
-        "number": None,
+        "stop_time": None,
     }
     result = ""
     for service_name, test_results in services_test_results.items():
+        if service_name in DIRECTORY_PROJECTS_WITH_WORKFLOW:
+            unit = test_results.get("Unit Tests", empty_result)
+            deploy = test_results.get("Deploy to Dev", empty_result)
+            integration = test_results.get("Integration Tests", empty_result)
+            result += director_build_row_template.format(
+                service_name=service_name,
+                user_avatar_url=test_results["user_avatar"],
+                user_name=test_results["user_name"],
+                last_build_date=test_results["last_build_date"],
+                unit_build_url=unit["build_url"],
+                unit_status_color=circle_ci_get_job_status_color(
+                    unit["status"]
+                ),
+                unit_summary=geckoboard_get_build_summary(unit),
+                unit_status=unit["status"].capitalize(),
+                deploy_build_url=deploy["build_url"],
+                deploy_status_color=circle_ci_get_job_status_color(
+                    deploy["status"]
+                ),
+                deploy_summary=geckoboard_get_build_summary(deploy),
+                deploy_status=deploy["status"].capitalize(),
+                integration_build_url=integration["build_url"],
+                integration_status_color=circle_ci_get_job_status_color(
+                    integration["status"]
+                ),
+                integration_summary=geckoboard_get_build_summary(integration),
+                integration_status=integration["status"].capitalize(),
+            )
+            continue
         if ("workflow_id" not in test_results) or (test_results["skipped"]):
             result += build_row_template.format(
                 service_name=service_name,
@@ -918,10 +1007,12 @@ def geckoboard_generate_content_for_test_results_widget_update(
     table_template = """
     <table width="100%">
     <thead>
-    <tr style="font-size:20pt">
+    <tr style="font-size:14pt">
         <th>Project</th>
         <th>When</th>
-        <th>Build</th>
+        <th>Unit</th>
+        <th>Deploy</th>
+        <th>Integration</th>
         <th>Smoke</th>
         <th>FAB</th>
         <th>FAS</th>
