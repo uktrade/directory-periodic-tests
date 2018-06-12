@@ -576,9 +576,7 @@ def circle_ci_get_builds_for_workflow(
 
 
 def circle_ci_get_last_workflow_test_results(
-    last_workflow_builds: List[dict],
-    *,
-    job_name_mappings: dict = CIRCLE_CI_WORKFLOW_JOB_NAME_MAPPINGS
+    last_workflow_builds: List[dict], job_name_mappings: dict
 ) -> dict:
     most_recent_build = last_workflow_builds[0]
     frmt = "%Y-%m-%dT%H:%M:%S.%fZ"
@@ -724,7 +722,8 @@ def circle_ci_get_last_test_results(
     project_name: str,
     *,
     ignored_workflows: List[str] = None,
-    limit: int = None
+    limit: int = None,
+    job_name_mappings: dict = None
 ) -> dict:
     recent_builds = circle_ci_get_recent_builds(project_name, limit=limit)
     if ignored_workflows:
@@ -738,7 +737,9 @@ def circle_ci_get_last_test_results(
         last_workflow_builds = circle_ci_get_builds_for_workflow(
             recent_builds, last_workflow_id
         )
-        result = circle_ci_get_last_workflow_test_results(last_workflow_builds)
+        result = circle_ci_get_last_workflow_test_results(
+            last_workflow_builds, job_name_mappings
+        )
     else:
         most_recent_build = recent_builds[0]
         result = circle_ci_get_last_build_results(most_recent_build)
