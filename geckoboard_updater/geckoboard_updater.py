@@ -604,14 +604,24 @@ def circle_ci_get_last_workflow_test_results(
         )
         last_build_date = datetime_object.strftime("%d %b %H:%M")
     skipped = True if last_workflow_builds[0]["status"] == "not_run" else False
-    test_results = {
-        "user_avatar": most_recent_build["user"]["avatar_url"],
-        "user_name": most_recent_build["user"]["name"],
-        "user_login": most_recent_build["user"]["login"],
-        "workflow_id": most_recent_build["workflows"]["workflow_id"],
-        "last_build_date": last_build_date,
-        "skipped": skipped,
-    }
+    if most_recent_build["user"]["is_user"]:
+        test_results = {
+            "user_avatar": most_recent_build["user"]["avatar_url"],
+            "user_name": most_recent_build["user"]["name"],
+            "user_login": most_recent_build["user"]["login"],
+            "workflow_id": most_recent_build["workflows"]["workflow_id"],
+            "last_build_date": last_build_date,
+            "skipped": skipped,
+        }
+    else:
+        test_results = {
+            "user_avatar": "https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png",
+            "user_name": "github",
+            "user_login": "github",
+            "workflow_id": most_recent_build["workflows"]["workflow_id"],
+            "last_build_date": last_build_date,
+            "skipped": skipped,
+        }
     for build in last_workflow_builds:
         job_name = build["workflows"]["job_name"]
         if job_name in job_name_mappings.keys():
