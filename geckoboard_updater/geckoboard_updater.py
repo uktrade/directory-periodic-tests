@@ -117,8 +117,8 @@ ORDER BY labels DESC, priority DESC, updated DESC
 
 # Mapping of CircleCI job names to more human friendly ones
 CIRCLE_CI_DIRECTORY_TESTS_WORKFLOW_JOB_NAME_MAPPINGS = {
-    "exred_tests_chrome": "ER Chrome",
-    "exred_tests_firefox": "ER Firefox",
+    "browser_tests_chrome": "Chrome",
+    "browser_tests_firefox": "Firefox",
     "fab_functional_tests": "FAB",
     "fas_functional_tests": "FAS",
     "smoke_tests": "Smoke",
@@ -875,8 +875,8 @@ def geckoboard_generate_table_rows_for_test_results(
             <td><a target="_blank" href="{fas_build_url}" style="color:{fas_status_color}" title="{fas_build_summary}">{fas_status}</td>
             <td><a target="_blank" href="{sso_build_url}" style="color:{sso_status_color}" title="{sso_build_summary}">{sso_status}</td>
             <td><a target="_blank" href="{sud_build_url}" style="color:{sud_status_color}" title="{sud_build_summary}">{sud_status}</td>
-            <td><a target="_blank" href="{exred_chrome_build_url}" style="color:{exred_chrome_status_color}" title="{exred_chrome_build_summary}">{exred_chrome_status}</td>
-            <td><a target="_blank" href="{exred_firefox_build_url}" style="color:{exred_firefox_status_color}" title="{exred_firefox_build_summary}">{exred_firefox_status}</td>
+            <td><a target="_blank" href="{chrome_build_url}" style="color:{chrome_status_color}" title="{chrome_build_summary}">{chrome_status}</td>
+            <td><a target="_blank" href="{firefox_build_url}" style="color:{firefox_status_color}" title="{firefox_build_summary}">{firefox_status}</td>
         </tr>
     """
     build_row_template = """
@@ -969,8 +969,8 @@ def geckoboard_generate_table_rows_for_test_results(
         fas = test_results.get("FAS", empty_result)
         sso = test_results.get("SSO", empty_result)
         sud = test_results.get("SUD", empty_result)
-        chrome = test_results.get("ER Chrome", empty_result)
-        firefox = test_results.get("ER Firefox", empty_result)
+        chrome = test_results.get("Chrome", empty_result)
+        firefox = test_results.get("Firefox", empty_result)
         result += workflow_row_template.format(
             service_name=service_name,
             user_avatar_url=test_results["user_avatar"],
@@ -996,18 +996,18 @@ def geckoboard_generate_table_rows_for_test_results(
             sud_status_color=circle_ci_get_job_status_color(sud["status"]),
             sud_build_summary=geckoboard_get_build_summary(sud),
             sud_status=sud["status"].capitalize(),
-            exred_chrome_build_url=chrome["build_url"],
-            exred_chrome_status_color=circle_ci_get_job_status_color(
+            chrome_build_url=chrome["build_url"],
+            chrome_status_color=circle_ci_get_job_status_color(
                 chrome["status"]
             ),
-            exred_chrome_build_summary=geckoboard_get_build_summary(chrome),
-            exred_chrome_status=chrome["status"].capitalize(),
-            exred_firefox_build_url=firefox["build_url"],
-            exred_firefox_status_color=circle_ci_get_job_status_color(
+            chrome_build_summary=geckoboard_get_build_summary(chrome),
+            chrome_status=chrome["status"].capitalize(),
+            firefox_build_url=firefox["build_url"],
+            firefox_status_color=circle_ci_get_job_status_color(
                 firefox["status"]
             ),
-            exred_firefox_build_summary=geckoboard_get_build_summary(firefox),
-            exred_firefox_status=firefox["status"].capitalize(),
+            firefox_build_summary=geckoboard_get_build_summary(firefox),
+            firefox_status=firefox["status"].capitalize(),
         )
     return result
 
@@ -1029,8 +1029,8 @@ def geckoboard_generate_content_for_test_results_widget_update(
         <th>FAS</th>
         <th>SSO</th>
         <th>SUD</th>
-        <th>ER Chrome</th>
-        <th>ER Firefox</th>
+        <th>Chrome</th>
+        <th>Firefox</th>
     </tr>
     </thead>
     <tbody>
