@@ -81,9 +81,21 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install latest version of parallel
+          command: |
+            echo "Downloading and installing Gnu parallel..."
+            wget https://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 -O parallel.tar.bz2
+            tar -xvjf parallel.tar.bz2
+            cd parallel
+            ./configure
+            make
+            sudo make install
+            cd ..
+            echo "Gnu parallel was successfully installed.
+      - run:
           name: Install dependencies
           command: |
-            sudo apt-get -qq install --yes --force-yes xmlstarlet parallel python-pip
+            sudo apt-get -qq install --yes --force-yes xmlstarlet python-pip
             sudo pip install beautifulsoup4
             sudo npm install -g pa11y pa11y-reporter-html --unsafe-perm=true --allow-root
       - run:
