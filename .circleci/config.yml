@@ -75,8 +75,9 @@ jobs:
       - image: circleci/node:8.11
     working_directory: ~/directory-periodical-tests
     environment:
-      SHELL:/bin/bash
-      PARALLEL_SHELL:bash
+      BASH_ENV: ~/.bashrc
+      SHELL: /bin/bash
+      PARALLEL_SHELL: bash
     steps:
       - checkout
       - run:
