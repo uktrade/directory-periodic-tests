@@ -79,9 +79,9 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apt-get install -y xmlstarlet parallel
-            pip install beautifulsoup4
-            npm install -g pa11y pa11y-reporter-html
+            sudo apt-get install --yes --force-yes xmlstarlet parallel
+            sudo pip install beautifulsoup4
+            sudo npm install -g pa11y pa11y-reporter-html
       - run:
           name: Get XML sitemap
           command: |
