@@ -84,8 +84,8 @@ jobs:
           name: Install latest version of parallel
           command: |
             echo "Downloading and installing Gnu parallel..."
-            wget https://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 -O parallel.tar.bz2
-            tar -xvjf parallel.tar.bz2
+            wget --quiet https://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 -O parallel.tar.bz2
+            mkdir parallel && tar -xvjf parallel.tar.bz2 --strip-components=1 -C parallel
             cd parallel
             ./configure
             make
