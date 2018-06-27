@@ -86,26 +86,16 @@ jobs:
           name: Get XML sitemap
           command: |
             wget -q https://dev.exportreadiness.directory.uktrade.io/sitemap.xml
-            xmlstarlet sel -N x="http://www.sitemaps.org/schemas/sitemap/0.9" -t -v "/x:urlset/x:url/x:loc" sitemap.xml > sitemap.txt
-            echo "Pa11y will scan following URLs:"
-            cat sitemap.txt
-            parallel 'pa11y --reporter=html {} > {= s:[/\:\?\&\=]:-:g; =}.html' < sitemap.txt
-            python3 pa11y/generate-report-index.py
       - run:
           name: Convert XML sitemap to a TXT sitemap
           command: |
             xmlstarlet sel -N x="http://www.sitemaps.org/schemas/sitemap/0.9" -t -v "/x:urlset/x:url/x:loc" sitemap.xml > sitemap.txt
-            echo "Pa11y will scan following URLs:"
-            cat sitemap.txt
-            parallel 'pa11y --reporter=html {} > {= s:[/\:\?\&\=]:-:g; =}.html' < sitemap.txt
-            python3 pa11y/generate-report-index.py
       - run:
           name: Scan URLs from TXT sitemap with Pa11y
           command: |
             echo "Pa11y will scan following URLs:"
             cat sitemap.txt
             parallel 'pa11y --reporter=html {} > {= s:[/\:\?\&\=]:-:g; =}.html' < sitemap.txt
-            python3 pa11y/generate-report-index.py
       - run:
           name: Generate an index file for Pa11y html reports
           command: |
