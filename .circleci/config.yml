@@ -84,7 +84,7 @@ jobs:
           name: Install latest version of parallel
           command: |
             echo "Downloading and installing Gnu parallel..."
-            wget -O - http://pi.dk/3 | sudo bash
+            wget -O - http://pi.dk/3/ | bash
             echo "Gnu parallel was successfully installed."
       - run:
           name: Install dependencies
