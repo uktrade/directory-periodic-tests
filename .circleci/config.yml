@@ -79,7 +79,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            sudo apt-get install --yes --force-yes xmlstarlet parallel
+            sudo apt-get install --yes --force-yes xmlstarlet parallel python-pip
             sudo pip install beautifulsoup4
             sudo npm install -g pa11y pa11y-reporter-html
       - run:
