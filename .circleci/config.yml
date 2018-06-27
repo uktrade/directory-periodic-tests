@@ -149,11 +149,6 @@ workflows:
       - check_for_dead_links_on_prod
 
   dev_ex_read_accessibility_tests:
-    triggers:
-    - schedule:
-        cron: "0,10,20,30,40,50 8-17 * * 1-5"
-        filters:
-          branches:
-            only: master
     jobs:
+      - checkout_code
       - accessibility_tests_export_readiness_dev
