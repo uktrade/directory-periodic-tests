@@ -96,7 +96,7 @@ jobs:
           name: Install dependencies
           command: |
             sudo apt-get -qq install --yes --force-yes xmlstarlet python-pip \
-              libx11-xcb1 libx11composite1 libx11cursor1 libx11damage1 \
+              libx11-xcb1 libxcomposite1 libxcursor1 libxdamage1 \
               libcups2 libxss1 libxrandr2 libpangocairo-1.0-0 libatk1.0-0 \
               libatk-bridge2.0-0 libgtk-3-0
             sudo pip --quiet install beautifulsoup4
