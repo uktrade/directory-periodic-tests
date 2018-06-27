@@ -105,6 +105,10 @@ jobs:
               fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils
             sudo pip --quiet install beautifulsoup4
             sudo npm install -g pa11y pa11y-reporter-html --unsafe-perm=true --allow-root
+            cd /usr/local/lib/node_modules/pa11y/node_modules/puppeteer/.local-chromium
+            find . -type d | xargs -L1 -Ixx sudo chmod 755 circleci
+            find . -type f -perm /u+x | xargs -L1 -Ixx sudo chmod 755 circleci
+            find . -type f -not -perm /u+x | xargs -L1 -Ixx sudo chmod 644 circleci
       - run:
           name: Get XML sitemap
           command: |
