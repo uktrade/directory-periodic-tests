@@ -72,7 +72,7 @@ jobs:
 
   accessibility_tests_export_readiness_dev:
     docker:
-      - image: circleci/node:8.11
+      - image: circleci/node:8.11.3-stretch
     working_directory: ~/directory-periodical-tests
     environment:
       BASH_ENV: ~/.bashrc
