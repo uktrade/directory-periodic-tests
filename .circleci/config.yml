@@ -91,6 +91,10 @@ jobs:
           command: |
             xmlstarlet sel -N x="http://www.sitemaps.org/schemas/sitemap/0.9" -t -v "/x:urlset/x:url/x:loc" sitemap.xml > sitemap.txt
       - run:
+          name: Remove non-html URLS from TXT sitemap
+          command: |
+            sed -i '/sitemap.xml\|robots.txt\|\.pdf/d' sitemap.txt
+      - run:
           name: Scan URLs from TXT sitemap with Pa11y
           command: |
             echo "Pa11y will scan following URLs:"
