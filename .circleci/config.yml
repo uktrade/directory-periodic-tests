@@ -93,7 +93,7 @@ jobs:
           name: update-npm
           command: 'sudo npm install -g npm'
       - run:
-          name: Install dependencies
+          name: Install Chromium (puppeterr) dependencies
           command: |
             sudo apt-get -qq install --yes xmlstarlet python-pip \
               gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 \
@@ -103,7 +103,13 @@ jobs:
               libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 \
               libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates \
               fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils
+      - run:
+          name: Install Python dependencies
+          command: |
             sudo pip --quiet install beautifulsoup4
+      - run:
+          name: Install NodeJS dependencies
+          command: |
             sudo npm install -g pa11y pa11y-reporter-html --unsafe-perm=true --allow-root
       - run:
           name: Fix puppeteer file permissions
