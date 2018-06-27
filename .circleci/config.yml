@@ -150,5 +150,4 @@ workflows:
 
   dev_ex_read_accessibility_tests:
     jobs:
-      - checkout_code
       - accessibility_tests_export_readiness_dev
