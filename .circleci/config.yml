@@ -90,6 +90,9 @@ jobs:
             ./configure && make && sudo make install
             echo "Gnu parallel was successfully installed."
       - run:
+          name: update-npm
+          command: 'sudo npm install -g npm'
+      - run:
           name: Install dependencies
           command: |
             sudo apt-get -qq install --yes --force-yes xmlstarlet python-pip
