@@ -96,7 +96,7 @@ jobs:
             echo "Pa11y will scan following URLs:"
             cat sitemap.txt
             echo
-            SHELL=$(which bash) parallel 'pa11y --reporter=html {} > {= s:[/\:\?\&\=]:-:g; =}.html' < sitemap.txt
+            PARALLEL_SHELL=bash parallel 'pa11y --reporter=html {} > {= s:[/\:\?\&\=]:-:g; =}.html' < sitemap.txt
       - run:
           name: Generate an index file for Pa11y html reports
           command: |
