@@ -74,6 +74,9 @@ jobs:
     docker:
       - image: circleci/node:8.11
     working_directory: ~/directory-periodical-tests
+    environment:
+      SHELL:/bin/bash
+      PARALLEL_SHELL:bash
     steps:
       - checkout
       - run:
@@ -100,7 +103,7 @@ jobs:
             echo "Pa11y will scan following URLs:"
             cat sitemap.txt
             echo
-            SHELL=`which bash` PARALLEL_SHELL=bash parallel 'pa11y --reporter=html {} > {= s:[/\:\?\&\=]:-:g; =}.html' < sitemap.txt
+            parallel 'pa11y --reporter=html {} > {= s:[/\:\?\&\=]:-:g; =}.html' < sitemap.txt
       - run:
           name: Generate an index file for Pa11y html reports
           command: |
