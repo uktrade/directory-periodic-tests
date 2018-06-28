@@ -81,7 +81,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install latest version of parallel
+          name: Install GNU Parallel
           command: |
             echo "Downloading and installing Gnu parallel..."
             wget ftp://ftp.gnu.org/gnu/parallel/parallel-20180622.tar.bz2
@@ -90,8 +90,9 @@ jobs:
             ./configure && make && sudo make install
             echo "Gnu parallel was successfully installed."
       - run:
-          name: update-npm
-          command: 'sudo npm install -g npm'
+          name: Update npm
+          command: |
+            sudo npm install -g npm
       - run:
           name: Install Chromium (puppeterr) dependencies
           command: |
@@ -112,7 +113,7 @@ jobs:
           command: |
             sudo npm install -g pa11y pa11y-reporter-html --unsafe-perm=true --allow-root
       - run:
-          name: Fix puppeteer file permissions
+          name: Fix Puppeteer file permissions
           command: |
             cd /usr/local/lib/node_modules/pa11y/node_modules/puppeteer/.local-chromium
             find . -type d | xargs -L1 -Ixx sudo chmod 755 xx
