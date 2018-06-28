@@ -84,7 +84,7 @@ jobs:
           name: Install latest version of parallel
           command: |
             echo "Downloading and installing Gnu parallel..."
-            wget https://ftpmirror.gnu.org/parallel/parallel-20180622.tar.bz2
+            wget ftp://ftp.gnu.org/gnu/parallel/parallel-20180622.tar.bz2
             bzip2 -dc parallel-20180622.tar.bz2 | tar xf -
             cd parallel-20180622
             ./configure && make && sudo make install
