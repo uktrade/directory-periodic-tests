@@ -44,10 +44,10 @@ def extract_summary_from_report_file(file_path: str) -> Summary:
     return Summary(file_name, url, errors, warnings, notices)
 
 
-def get_report_summaries(html_report_file_names: List[str]) -> List[Summary]:
+def get_report_summaries(html_report_file_paths: List[str]) -> List[Summary]:
     summaries = []
-    for report_filename in html_report_file_names:
-        summaries.append(extract_summary_from_report_file(report_filename))
+    for report_file_path in html_report_file_paths:
+        summaries.append(extract_summary_from_report_file(report_file_path))
 
     return sorted(summaries, key=lambda summary: summary.url)
 
@@ -99,8 +99,8 @@ def save_report_index(html: str):
 
 
 if __name__ == "__main__":
-    html_report_file_names = find_html_report_files()
-    summaries = get_report_summaries(html_report_file_names)
+    html_report_file_paths = find_html_report_files()
+    summaries = get_report_summaries(html_report_file_paths)
     html = generate_report_index(summaries)
     save_report_index(html)
     number_of_errors = sum(summary.errors for summary in summaries)
