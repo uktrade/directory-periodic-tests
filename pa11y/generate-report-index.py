@@ -25,8 +25,8 @@ def find_html_report_files() -> List[str]:
     return files
 
 
-def extract_summary_from_report_file(filename: str) -> Summary:
-    with open(filename, "r") as f:
+def extract_summary_from_report_file(file_path: str) -> Summary:
+    with open(file_path, "r") as f:
         html = f.read()
     soup = BeautifulSoup(html, "html.parser")
     h1 = soup.div.h1.text
@@ -39,8 +39,9 @@ def extract_summary_from_report_file(filename: str) -> Summary:
     url_start = h1.find('"') + 1
     url_stop = h1.rfind('"')
     url = h1[url_start:url_stop]
+    file_name = os.path.basename(file_path)
 
-    return Summary(filename, url, errors, warnings, notices)
+    return Summary(file_name, url, errors, warnings, notices)
 
 
 def get_report_summaries(html_report_file_names: List[str]) -> List[Summary]:
