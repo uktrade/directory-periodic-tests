@@ -138,7 +138,6 @@ jobs:
             echo "Pa11y will scan following URLs:"
             cat sitemap.txt
             echo -e "\n\nStarting pa11y in parallel:\n"
-            mkdir reports
             parallel --jobs 2 --verbose 'pa11y --reporter=html {} > ./reports/{= s:[/\:\?\&\=]:-:g; =}.html' < sitemap.txt || echo "Pa11y found some issues."
       - run:
           name: Generate an index file for Pa11y html reports
