@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import glob
 import os
+import sys
 from collections import namedtuple
 from typing import List, Tuple
 
@@ -98,3 +99,12 @@ if __name__ == "__main__":
     summaries = get_report_summaries(html_report_file_names)
     html = generate_report_index(summaries)
     save_report_index(html)
+    number_of_errors = sum(summary.errors for summary in summaries)
+    if number_of_errors > 0:
+        sys.stderr.write(
+            "Pa11y found {} issues on {} pages. Please check the index.html"
+            .format(number_of_errors, len(summaries))
+        )
+        sys.exit(number_of_errors)
+    else:
+        sys.stdout.write("Pa11y found no errors")
