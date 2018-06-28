@@ -8,6 +8,7 @@ from typing import List, Tuple
 from bs4 import BeautifulSoup
 
 REPORT_FILE = os.getenv("REPORT_FILE", "index.html")
+REPORT_DIRECTORY = os.getenv("REPORT_DIRECTORY", "./reports")
 
 Summary = namedtuple(
     "Summary", ["filename", "url", "errors", "warnings", "notices"]
@@ -15,9 +16,10 @@ Summary = namedtuple(
 
 
 def find_html_report_files() -> List[str]:
-    files = glob.glob("*.html")
+    path = os.path.join(REPORT_DIRECTORY, "*.html")
+    files = glob.glob(path)
     try:
-        files.remove(REPORT_FILE)
+        files.remove(os.path.join(REPORT_DIRECTORY, REPORT_FILE))
     except ValueError:
         pass
     return files
@@ -90,7 +92,8 @@ def generate_report_index(summaries: List[Summary]) -> str:
 
 
 def save_report_index(html: str):
-    with open(REPORT_FILE, "w") as report:
+    path = os.path.join(REPORT_DIRECTORY, REPORT_FILE)
+    with open(path, "w") as report:
         report.write(html)
 
 
@@ -102,7 +105,7 @@ if __name__ == "__main__":
     number_of_errors = sum(summary.errors for summary in summaries)
     if number_of_errors > 0:
         sys.stderr.write(
-            "Pa11y found {} issues on {} pages. Please check the index.html"
+            "Pa11y found {} issues on {} pages. Please check the index.html\n"
             .format(number_of_errors, len(summaries))
         )
         sys.exit(number_of_errors)
