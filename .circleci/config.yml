@@ -138,13 +138,14 @@ jobs:
             echo "Pa11y will scan following URLs:"
             cat sitemap.txt
             echo -e "\n\nStarting pa11y in parallel:\n"
-            parallel --jobs 2 --verbose 'pa11y --reporter=html {} > {= s:[/\:\?\&\=]:-:g; =}.html' < sitemap.txt || echo "Pa11y found some issues."
+            mkdir reports
+            parallel --jobs 2 --verbose 'pa11y --reporter=html {} > ./reports/{= s:[/\:\?\&\=]:-:g; =}.html' < sitemap.txt || echo "Pa11y found some issues."
       - run:
           name: Generate an index file for Pa11y html reports
           command: |
             python3 pa11y/generate-report-index.py
       - store_artifacts:
-          path: ./*.html
+          path: ./reports
 
 workflows:
   version: 2
