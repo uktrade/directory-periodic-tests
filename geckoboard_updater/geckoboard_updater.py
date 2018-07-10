@@ -1115,6 +1115,7 @@ if __name__ == "__main__":
     bugs_closed_today = get_number_of_bugs_closed_today()
     bugs_per_service = get_number_of_bugs_per_service()
     bad_urls = circle_ci_get_last_dead_urls_tests_results()
+    bad_cms_pages = circle_ci_get_last_cms_pages_tests_results()
 
     print("Bugs by labels on the Kanban board: ", kanban_bugs_by_labels)
     print("Unlabelled bugs on the Kanban board: ", unlabelled_on_kanban)
@@ -1127,6 +1128,7 @@ if __name__ == "__main__":
     print("Number of bugs closed today: ", bugs_closed_today)
     print("Number of bugs per service: ", bugs_per_service)
     print("CMS - bad URLs per environment: ", bad_urls)
+    print("CMS - bad pages on production: ", bad_cms_pages)
 
     print("Creating datasets in Geckoboard...")
     datasets = create_datasets(GECKO_CLIENT)
@@ -1144,6 +1146,7 @@ if __name__ == "__main__":
     datasets.BUGS_CLOSED_TODAY.post(bugs_closed_today)
     datasets.BUGS_PER_SERVICE.post(bugs_per_service)
     datasets.BAD_LINKS_PER_ENVIRONMENT.post(bad_urls)
+    datasets.BAD_CMS_PAGES_PER_ENVIRONMENT.post(bad_cms_pages)
     print("All datasets pushed")
 
     print("Pushing tests results to Geckoboard widget")
