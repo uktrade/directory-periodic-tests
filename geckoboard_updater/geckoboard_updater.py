@@ -817,6 +817,23 @@ def circle_ci_get_last_dead_urls_tests_results() -> List[dict]:
     )
 
 
+def circle_ci_get_last_cms_pages_tests_results() -> List[dict]:
+    ignored_workflows = [
+        "refresh_geckoboard_periodically", 
+        "dev_check_for_dead_links",
+        "stage_check_for_dead_links",
+        "prod_check_for_dead_links",
+    ]
+    workflows_name_mappings = {
+        "prod_check_cms_pages": "prod"
+    }
+    return circle_ci_get_test_results_for_multi_workflow_project(
+        "directory-periodic-tests",
+        ignored_workflows=ignored_workflows,
+        workflows_name_mappings=workflows_name_mappings,
+    )
+
+
 def circle_ci_get_last_test_results_per_project() -> dict:
     return {
         "Tests": circle_ci_get_last_test_results(
