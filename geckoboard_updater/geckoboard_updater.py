@@ -269,6 +269,27 @@ DATASET_BAD_LINKS_PER_ENVIRONMENT_FIELDS = {
 DATASET_BAD_LINKS_PER_ENVIRONMENT_UNIQUE_BY = ["date", "environment"]
 
 
+
+# Number of bad CMS pages per environment
+DATASET_BAD_CMS_PAGES_PER_ENVIRONMENT_NAME = "export.bad_cms_pages_per_environment"
+DATASET_BAD_CMS_PAGES_PER_ENVIRONMENT_FIELDS = {
+    "date": {"type": "date", "name": "Date", "optional": False},
+    "environment": {
+        "type": "string",
+        "name": "Environment",
+        "optional": False,
+    },
+    "errors": {"type": "number", "name": "Errors", "optional": False},
+    "failures": {"type": "number", "name": "Failures", "optional": False},
+    "scanned_pages": {
+        "type": "number",
+        "name": "Scanned pages",
+        "optional": False,
+    },
+}
+DATASET_BAD_CMS_PAGES_PER_ENVIRONMENT_UNIQUE_BY = ["date", "environment"]
+
+
 DataSets = namedtuple(
     "DataSets",
     [
@@ -283,6 +304,7 @@ DataSets = namedtuple(
         "BUGS_CLOSED_TODAY",
         "BUGS_PER_SERVICE",
         "BAD_LINKS_PER_ENVIRONMENT",
+        "BAD_CMS_PAGES_PER_ENVIRONMENT",
     ],
 )
 
@@ -356,6 +378,12 @@ def create_datasets(gecko_client: GeckoClient) -> DataSets:
         DATASET_BAD_LINKS_PER_ENVIRONMENT_UNIQUE_BY,
     )
 
+    bad_cms_pages_per_environment = gecko_client.datasets.find_or_create(
+        DATASET_BAD_CMS_PAGES_PER_ENVIRONMENT_NAME,
+        DATASET_BAD_CMS_PAGES_PER_ENVIRONMENT_FIELDS,
+        DATASET_BAD_CMS_PAGES_PER_ENVIRONMENT_UNIQUE_BY,
+    )
+
     return DataSets(
         on_kanban_by_labels,
         in_backlog,
@@ -368,6 +396,7 @@ def create_datasets(gecko_client: GeckoClient) -> DataSets:
         bugs_closed_today,
         bugs_per_service,
         bad_links_per_environment,
+        bad_cms_pages_per_environment,
     )
 
 
