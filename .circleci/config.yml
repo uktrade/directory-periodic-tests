@@ -206,7 +206,7 @@ workflows:
   prod_check_cms_pages:
     triggers:
     - schedule:
-        cron: "20,50 8-17 * * 1-5"
+        cron: "0,30 8-17 * * 1-5"
         filters:
           branches:
             only: master
