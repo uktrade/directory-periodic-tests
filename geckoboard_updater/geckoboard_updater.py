@@ -707,8 +707,8 @@ def circle_ci_get_xml_build_artifact(build: dict) -> str:
     ]
     assert (
         len(xml_artifact_urls) == 1
-    ), "Expected only 1 xml artifact got {}. Build artifacts:\n{}".format(
-        len(xml_artifact_urls), build_artifacts
+    ), "Expected only 1 xml artifact but found {} in build: #{} - {}".format(
+        len(xml_artifact_urls), build["build_num"], build["workflows"]["workflow_name"]
     )
     response = requests.get(xml_artifact_urls[0])
     return response.content.decode("utf-8")
