@@ -281,9 +281,9 @@ DATASET_BAD_CMS_PAGES_PER_ENVIRONMENT_FIELDS = {
     },
     "errors": {"type": "number", "name": "Errors", "optional": False},
     "failures": {"type": "number", "name": "Failures", "optional": False},
-    "scanned_pages": {
+    "scanned_urls": {
         "type": "number",
-        "name": "Scanned pages",
+        "name": "Scanned URLs",
         "optional": False,
     },
 }
