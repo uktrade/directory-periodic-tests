@@ -138,6 +138,24 @@ jobs:
       - store_artifacts:
           path: ./reports
 
+  check_cms_pages_on_production:
+    docker:
+      - image: circleci/python:3.6.5
+    working_directory: ~/directory-periodical-tests
+    steps:
+      - checkout
+      - run:
+          name: Check CMS pages
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -q -r requirements_cms_pages.txt
+            make cms_pages_check
+      - store_test_results:
+          path: ./reports
+      - store_artifacts:
+          path: ./reports
+
 workflows:
   version: 2
 
@@ -184,3 +202,13 @@ workflows:
   dev_ex_read_accessibility_tests:
     jobs:
       - accessibility_tests_export_readiness_dev
+
+  prod_check_cms_pages:
+    triggers:
+    - schedule:
+        cron: "0,30 8-17 * * 1-5"
+        filters:
+          branches:
+            only: master
+    jobs:
+      - check_cms_pages_on_production

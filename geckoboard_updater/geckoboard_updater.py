@@ -269,6 +269,27 @@ DATASET_BAD_LINKS_PER_ENVIRONMENT_FIELDS = {
 DATASET_BAD_LINKS_PER_ENVIRONMENT_UNIQUE_BY = ["date", "environment"]
 
 
+
+# Number of bad CMS pages per environment
+DATASET_BAD_CMS_PAGES_PER_ENVIRONMENT_NAME = "export.bad_cms_pages_per_environment"
+DATASET_BAD_CMS_PAGES_PER_ENVIRONMENT_FIELDS = {
+    "date": {"type": "date", "name": "Date", "optional": False},
+    "environment": {
+        "type": "string",
+        "name": "Environment",
+        "optional": False,
+    },
+    "errors": {"type": "number", "name": "Errors", "optional": False},
+    "failures": {"type": "number", "name": "Failures", "optional": False},
+    "scanned_pages": {
+        "type": "number",
+        "name": "Scanned pages",
+        "optional": False,
+    },
+}
+DATASET_BAD_CMS_PAGES_PER_ENVIRONMENT_UNIQUE_BY = ["date", "environment"]
+
+
 DataSets = namedtuple(
     "DataSets",
     [
@@ -283,6 +304,7 @@ DataSets = namedtuple(
         "BUGS_CLOSED_TODAY",
         "BUGS_PER_SERVICE",
         "BAD_LINKS_PER_ENVIRONMENT",
+        "BAD_CMS_PAGES_PER_ENVIRONMENT",
     ],
 )
 
@@ -356,6 +378,12 @@ def create_datasets(gecko_client: GeckoClient) -> DataSets:
         DATASET_BAD_LINKS_PER_ENVIRONMENT_UNIQUE_BY,
     )
 
+    bad_cms_pages_per_environment = gecko_client.datasets.find_or_create(
+        DATASET_BAD_CMS_PAGES_PER_ENVIRONMENT_NAME,
+        DATASET_BAD_CMS_PAGES_PER_ENVIRONMENT_FIELDS,
+        DATASET_BAD_CMS_PAGES_PER_ENVIRONMENT_UNIQUE_BY,
+    )
+
     return DataSets(
         on_kanban_by_labels,
         in_backlog,
@@ -368,6 +396,7 @@ def create_datasets(gecko_client: GeckoClient) -> DataSets:
         bugs_closed_today,
         bugs_per_service,
         bad_links_per_environment,
+        bad_cms_pages_per_environment,
     )
 
 
@@ -788,6 +817,23 @@ def circle_ci_get_last_dead_urls_tests_results() -> List[dict]:
     )
 
 
+def circle_ci_get_last_cms_pages_tests_results() -> List[dict]:
+    ignored_workflows = [
+        "refresh_geckoboard_periodically", 
+        "dev_check_for_dead_links",
+        "stage_check_for_dead_links",
+        "prod_check_for_dead_links",
+    ]
+    workflows_name_mappings = {
+        "prod_check_cms_pages": "prod"
+    }
+    return circle_ci_get_test_results_for_multi_workflow_project(
+        "directory-periodic-tests",
+        ignored_workflows=ignored_workflows,
+        workflows_name_mappings=workflows_name_mappings,
+    )
+
+
 def circle_ci_get_last_test_results_per_project() -> dict:
     return {
         "Tests": circle_ci_get_last_test_results(
@@ -1069,6 +1115,7 @@ if __name__ == "__main__":
     bugs_closed_today = get_number_of_bugs_closed_today()
     bugs_per_service = get_number_of_bugs_per_service()
     bad_urls = circle_ci_get_last_dead_urls_tests_results()
+    bad_cms_pages = circle_ci_get_last_cms_pages_tests_results()
 
     print("Bugs by labels on the Kanban board: ", kanban_bugs_by_labels)
     print("Unlabelled bugs on the Kanban board: ", unlabelled_on_kanban)
@@ -1081,6 +1128,7 @@ if __name__ == "__main__":
     print("Number of bugs closed today: ", bugs_closed_today)
     print("Number of bugs per service: ", bugs_per_service)
     print("CMS - bad URLs per environment: ", bad_urls)
+    print("CMS - bad pages on production: ", bad_cms_pages)
 
     print("Creating datasets in Geckoboard...")
     datasets = create_datasets(GECKO_CLIENT)
@@ -1098,6 +1146,7 @@ if __name__ == "__main__":
     datasets.BUGS_CLOSED_TODAY.post(bugs_closed_today)
     datasets.BUGS_PER_SERVICE.post(bugs_per_service)
     datasets.BAD_LINKS_PER_ENVIRONMENT.post(bad_urls)
+    datasets.BAD_CMS_PAGES_PER_ENVIRONMENT.post(bad_cms_pages)
     print("All datasets pushed")
 
     print("Pushing tests results to Geckoboard widget")
