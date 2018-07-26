@@ -32,7 +32,7 @@ def generate_report_index(file_paths: List[str]) -> str:
     </html>
     """
     rows = []
-    for path in file_paths:
+    for path in sorted(file_paths):
         file_name = path.replace("./reports/", "")
         row = f"""
         <tr>
