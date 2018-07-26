@@ -45,3 +45,7 @@ cms_pages_check:
 
 invest_compare_content:
 	behave -k -t ~wip --junit  --junit-directory=./reports/ invest_migration/
+
+
+clean:
+	rm -fr  ./reports/*.html ./reports/*.xml ./reports/*.log
