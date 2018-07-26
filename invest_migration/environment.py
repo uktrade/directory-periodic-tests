@@ -50,7 +50,7 @@ def get_report_summaries(html_report_file_paths: List[str]) -> List[Summary]:
     for report_file_path in html_report_file_paths:
         summaries.append(extract_summary_from_report_file(report_file_path))
 
-    return sorted(summaries, key=lambda summary: summary.result)
+    return sorted(summaries, key=lambda summary: (summary.result, summary.file_name))
 
 
 def generate_report_index(summaries: List[Summary]) -> str:
