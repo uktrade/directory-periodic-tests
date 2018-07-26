@@ -1,0 +1,5 @@
+behave
+beautifulsoup4
+lxml
+requests
+retrying
