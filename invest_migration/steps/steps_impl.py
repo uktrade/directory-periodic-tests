@@ -95,4 +95,6 @@ def look_for_differences(context):
     with open(report_name, "w") as file:
         file.write(html)
     no_differences = "No Differences Found" in html
+    not_found = "This page cannot be found" in html.replace("&nbsp;", " ")
+    assert not not_found, f"{endpoint} was not found see {report_name}"
     assert no_differences, f"Found differences on {endpoint} see {report_name}"
