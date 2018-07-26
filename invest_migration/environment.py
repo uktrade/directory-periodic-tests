@@ -57,10 +57,10 @@ def generate_report_index(summaries: List[Summary]) -> str:
 
     doc_template = """<html>
     <body>
-        <table> 
+        <table style="border: 1px solid black;width:50%;margin-left:25%;margin-right:25%;"> 
         <tr>
-            <th>Report</th>
-            <th>Result</th>
+            <th style="padding:5px;">Result</th>
+            <th style="padding:5px;">Report</th>
         </tr>
         {rows}
         </table> 
@@ -73,9 +73,9 @@ def generate_report_index(summaries: List[Summary]) -> str:
         result = summary.result
         color = summary.color
         row = f"""
-        <tr>
+        <tr style="border: 1px solid black;">
+            <td style="padding:5px;background-color:{color};text-align:center">{result}</td>
             <td><a href="{file_name}">{file_name}</a></td>
-            <td style="background-color:{color};text-align:center">{result}</td>
         </tr>
         """
         rows.append(row)
