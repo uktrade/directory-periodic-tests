@@ -90,5 +90,6 @@ def save_report_index(html: str):
 
 def after_all(context: Context):
     html_report_file_paths = find_html_report_files()
-    html = generate_report_index(html_report_file_paths)
+    summaries = get_report_summaries(html_report_file_paths)
+    html = generate_report_index(summaries)
     save_report_index(html)
