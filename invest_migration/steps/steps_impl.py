@@ -28,6 +28,8 @@ def get_text(content: str, section_name: str) -> List[str]:
         element.extract()
     for element in section.select("#beta-bar"):
         element.extract()
+    for element in section.select("#error-reporting-section-contact-us"):
+        element.extract()
 
     lines = [
         line.strip()
