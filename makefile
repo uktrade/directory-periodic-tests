@@ -41,3 +41,11 @@ dead_links_check:
 cms_pages_check:
 	echo "Running CMS pages check against: $(CMS_URL)" && \
 	pytest --junit-xml=./reports/cms_pages.xml cms_pages/
+
+
+invest_compare_content:
+	behave -k -t ~wip --junit  --junit-directory=./reports/ invest_migration/
+
+
+clean:
+	rm -fr  ./reports/*.html ./reports/*.xml ./reports/*.log

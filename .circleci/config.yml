@@ -156,6 +156,24 @@ jobs:
       - store_artifacts:
           path: ./reports
 
+  invest_compare_prod_and_dev_pages:
+    docker:
+      - image: circleci/python:3.6.5
+    working_directory: ~/directory-periodical-tests
+    steps:
+      - checkout
+      - run:
+          name: Compare pages on Prod and Dev Invest sites
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -q -r requirements_invest_migration.txt
+            make invest_compare_content
+      - store_test_results:
+          path: ./reports
+      - store_artifacts:
+          path: ./reports
+
 workflows:
   version: 2
 
@@ -212,3 +230,7 @@ workflows:
             only: master
     jobs:
       - check_cms_pages_on_production
+
+  invest_compare_content:
+    jobs:
+      - invest_compare_prod_and_dev_pages
