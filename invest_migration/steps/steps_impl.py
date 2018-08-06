@@ -49,12 +49,20 @@ def get_text(content: str, section_name: str) -> List[str]:
         element.extract()
     for element in section.select("#error-reporting-section-contact-us"):
         element.extract()
+    data_section_lines = [
+        line
+        for span in section.findAll("div", class_="data")
+        for line in span.get_text().splitlines()
+        if line
+    ]
 
     lines = [
         line.strip()
         for line in section.get_text().splitlines()
         if line.strip()
     ]
+
+    merge_data_section_lines(lines, data_section_lines)
 
     return lines
 
