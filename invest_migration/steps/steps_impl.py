@@ -20,6 +20,25 @@ def retry_if_network_error(exception: Exception) -> bool:
     return isinstance(exception, (Timeout, ConnectionError, TooManyRedirects))
 
 
+def merge_data_section_lines(lines, data_section_lines):
+    """Merge data section lines into one line.
+
+    This is because:
+    on current invest:
+    <p><span>168 Milliarden GBP</span> Beitrag zur britischen Wirtschaftsleistung</p>
+
+    and on new invest (dev):
+    <div class="data">
+    <span class="data-item font-xlarge">168 Milliarden GBP</span>
+    <span>Beitrag zur britischen Wirtschaftsleistung</span>
+    </div>
+    """
+    if data_section_lines:
+        index = lines.index(data_section_lines[0])
+        lines[index] = " ".join(data_section_lines)
+        lines.pop(index + 1)
+
+
 def get_text(content: str, section_name: str) -> List[str]:
     soup = BeautifulSoup(content, "lxml")
     section = soup.find(section_name)
@@ -30,12 +49,20 @@ def get_text(content: str, section_name: str) -> List[str]:
         element.extract()
     for element in section.select("#error-reporting-section-contact-us"):
         element.extract()
+    data_section_lines = [
+        line
+        for span in section.findAll("div", class_="data")
+        for line in span.get_text().splitlines()
+        if line
+    ]
 
     lines = [
         line.strip()
         for line in section.get_text().splitlines()
         if line.strip()
     ]
+
+    merge_data_section_lines(lines, data_section_lines)
 
     return lines
 
