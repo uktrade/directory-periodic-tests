@@ -813,6 +813,7 @@ def circle_ci_get_last_dead_urls_tests_results() -> List[dict]:
         "refresh_geckoboard_periodically",
         "prod_check_cms_pages",
         "dev_ex_read_accessibility_tests",
+        "invest_compare_content",
     ]
     workflows_name_mappings = {
         "dev_check_for_dead_links": "dev",
@@ -833,6 +834,7 @@ def circle_ci_get_last_cms_pages_tests_results() -> List[dict]:
         "stage_check_for_dead_links",
         "prod_check_for_dead_links",
         "dev_ex_read_accessibility_tests",
+        "invest_compare_content",
     ]
     workflows_name_mappings = {
         "prod_check_cms_pages": "prod"
