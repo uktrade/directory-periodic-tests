@@ -132,6 +132,11 @@ CIRCLE_CI_DIRECTORY_WORKFLOW_JOB_NAME_MAPPINGS = {
     "integration_tests": "Integration Tests",
 }
 
+CIRCLE_CI_DIRECTORY_CH_SEARCH_WORKFLOW_JOB_NAME_MAPPINGS = {
+    "test": "Unit Tests",
+}
+
+
 DIRECTORY_PROJECTS_WITH_WORKFLOW = [
     "API",
     "ExRed",
@@ -874,7 +879,8 @@ def circle_ci_get_last_test_results_per_project() -> dict:
             job_name_mappings=CIRCLE_CI_DIRECTORY_WORKFLOW_JOB_NAME_MAPPINGS,
         ),
         "CH Search": circle_ci_get_last_test_results(
-            "directory-companies-house-search"
+            "directory-companies-house-search",
+            job_name_mappings=CIRCLE_CI_DIRECTORY_CH_SEARCH_WORKFLOW_JOB_NAME_MAPPINGS,
         ),
     }
 
