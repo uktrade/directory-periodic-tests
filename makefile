@@ -49,4 +49,5 @@ invest_compare_content:
 
 
 clean:
-	rm -fr  ./reports/*.html ./reports/*.xml ./reports/*.log
+	rm -fr ./reports/*.html ./reports/*.xml ./reports/*.log
+
