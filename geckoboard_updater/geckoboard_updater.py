@@ -752,7 +752,8 @@ def circle_ci_get_test_results_for_multi_workflow_project(
         recent_builds = [
             build
             for build in recent_builds
-            if build["workflows"]["workflow_name"] not in ignored_workflows
+            if "workflows" in build
+            and build["workflows"]["workflow_name"] not in ignored_workflows
         ]
     workflow_names = set(
         [build["workflows"]["workflow_name"] for build in recent_builds]
