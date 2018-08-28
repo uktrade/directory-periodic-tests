@@ -412,8 +412,7 @@ Feature: Every page on non-production site should return "X-Robots-Tag: noindex"
 
         @bug
         @TT-367
-        @fixme
-        @NO_DEV_ENV
+        @fixed
         Examples: <environment> <service>
             | environment | service | page                                                                          |
             | DEV         | SOO     | /                                                                             |
@@ -425,8 +424,7 @@ Feature: Every page on non-production site should return "X-Robots-Tag: noindex"
 
         @bug
         @TT-367
-        @fixme
-        @NO_X_TAG_HEADER
+        @fixed
         Examples: <environment> <service>
             | environment | service | page                                                                          |
             | STAGE       | SOO     | /                                                                             |
