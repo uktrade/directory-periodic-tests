@@ -45,7 +45,11 @@ cms_pages_check:
 
 
 invest_compare_content:
-	behave -k -t ~wip --junit  --junit-directory=./reports/ invest_migration/
+	behave -k -t ~wip --junit --junit-directory=./reports/ invest_migration/
+
+
+check_for_x_robots_tag_header:
+	behave -k -t ~wip -t ~fixme --junit --junit-directory=./reports/ x_robots_header/
 
 
 clean:
