@@ -71,11 +71,12 @@ def retry_if_network_error(exception: Exception) -> bool:
 )
 def visit_page(
     context: Context, service: str, environment: str, endpoint: str
-) -> RequestResults:
+):
     host = SERVICES[service.lower()][environment.lower()]
     url = urljoin(host, endpoint)
     headers = requests.get(url).headers
-    context.result = RequestResults(service, environment, endpoint, url, headers)
+    context.result = RequestResults(
+        service, environment, endpoint, url, headers)
 
 
 def response_should_not_contain_header(context: Context, header: str):
@@ -84,7 +85,9 @@ def response_should_not_contain_header(context: Context, header: str):
     url = result.url
     headers = {key.lower(): value for key, value in result.headers.items()}
     header_name, header_value = header.split(":")
-    assert header_name.lower() not in headers, f"'{header_name}' is present in the response headers from: {url}: {headers}"
+    error_msg = (f"'{header_name}' is present in the response headers from: "
+                 f"{url}: {headers}")
+    assert header_name.lower() not in headers, error_msg
  
 
 def response_should_contain_header(context: Context, header: str):
@@ -93,6 +96,7 @@ def response_should_contain_header(context: Context, header: str):
     url = result.url
     headers = {key.lower(): value for key, value in result.headers.items()}
     header_name, header_value = header.split(":")
-    assert header_name.lower() in headers, f"'{header_name}' is not present in the response headers from: {url}: {headers}"
+    error_msg = (f"'{header_name}' is not present in the response headers from"
+                 f": {url}: {headers}")
+    assert header_name.lower() in headers, error_msg
     assert header_value.strip().lower() == headers[header_name.lower()]
- 
