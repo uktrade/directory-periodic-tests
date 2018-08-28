@@ -181,7 +181,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Every page on non-production site should return "X-Robots-Tag: noindex" header
+          name: Every page on non-production site should return X-Robots-Tag noindex header
           command: |
             python3 -m venv venv
             . venv/bin/activate
