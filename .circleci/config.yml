@@ -190,14 +190,14 @@ jobs:
             npm install -g junit-merge@1.2.3
             make check_for_x_robots_tag_header
       - run:
-        name: Merge JUnit XML reports
-        when: always
-        command: |
-          python3 -m venv venv
-          . venv/bin/activate
-          cd ./reports
-          junit-merge *.xml -o merged.xml
-          ls *.xml | grep -v merged.xml | xargs rm
+          name: Merge JUnit XML reports
+          when: always
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            cd ./reports
+            junit-merge *.xml -o merged.xml
+            ls *.xml | grep -v merged.xml | xargs rm
       - store_test_results:
           path: ./reports
       - store_artifacts:
