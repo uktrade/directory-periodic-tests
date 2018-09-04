@@ -32,9 +32,9 @@ dead_links_check:
 	    --header="Upgrade-Insecure-Requests: 1" \
 	    --header="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8" \
 	    --header="DNT: 1" \
-	    --header="Dead-link-checker: true" \
 	    --header="Accept-Encoding: gzip, deflate" \
-	    --header="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.117 Safari/537.36 dit-linkqa" \
+	    ---header="X-DIT: links-checker-qa" \
+	    --header="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.117 Safari/537.36" \
 	    --ignore="$${IGNORED_PREFIXES}" \
 	    $${TEST_URLS}
 
