@@ -34,7 +34,7 @@ dead_links_check:
 	    --header="DNT: 1" \
 	    --header="Dead-link-checker: true" \
 	    --header="Accept-Encoding: gzip, deflate" \
-	    --header="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.117 Safari/537.36" \
+	    --header="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.117 Safari/537.36 dit-linkqa" \
 	    --ignore="$${IGNORED_PREFIXES}" \
 	    $${TEST_URLS}
 
