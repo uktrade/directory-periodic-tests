@@ -12,6 +12,7 @@ from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 
 SITES = {
     "dev": "https://dev.invest.directory.uktrade.io/",
+    "stage": "https://invest-ui-staging.cloudapps.digital/",
     "prod": "https://invest.great.gov.uk/"
 }
 
