@@ -55,5 +55,5 @@ check_for_x_robots_tag_header:
 
 
 clean:
-	rm -fr ./reports/*.html ./reports/*.xml ./reports/*.log
+	rm -fr ./reports/*.json ./reports/*.html ./reports/*.xml ./reports/*.log
 
