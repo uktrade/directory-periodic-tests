@@ -32,6 +32,7 @@ def extract_summary_from_report_file(file_path: str) -> Summary:
     result = "Found differences"
     no_differences_found = "No Differences Found"
     not_found = "This page cannot be found"
+    not_found_on_both_sites = "Page is not present on both sites"
     color = "#ff0040"
 
     if no_differences_found in html:
@@ -40,6 +41,9 @@ def extract_summary_from_report_file(file_path: str) -> Summary:
     if not_found in html:
         result = not_found
         color = "#00bfff"
+    if not_found_on_both_sites in html:
+        result = not_found_on_both_sites
+        color = "#cc00ff"
 
     file_name = file_path.replace("./reports/", "")
     return Summary(file_name, result, color)

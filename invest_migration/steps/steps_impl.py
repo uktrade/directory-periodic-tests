@@ -112,9 +112,11 @@ def look_for_differences(context):
     text_a = contents["site_a"]["text"]
     text_b = contents["site_b"]["text"]
     missing_page = "This page cannot be found"
-    if missing_page in text_a and missing_page in text_b:
-        text_a = missing_page + ". Check " + url_a
-        text_b = missing_page + ". Check " + url_b
+    found_on_both_sites = True
+    if (missing_page in text_a) and (missing_page in text_b):
+        text_a.append(f"Page is not present on both sites. Check {url_a}")
+        text_b.append(f"Page is not present on both sites. Check {url_b}")
+        found_on_both_sites = False
     from_desc_url_a = f"<a href='{url_a}' target=_blank>{url_a}</a>"
     from_desc_url_b = f"<a href='{url_b}' target=_blank>{url_b}</a>"
     html = difflib.HtmlDiff(tabsize=4, wrapcolumn=120).make_file(
@@ -126,6 +128,8 @@ def look_for_differences(context):
     report_name = "./reports/{}.html".format(clean_endpoint)
     with open(report_name, "w") as file:
         file.write(html)
+
+    assert found_on_both_sites, f"{endpoint} doesn't exist on both sites"
     no_differences = "No Differences Found" in html
     not_found = "This page cannot be found" in html.replace("&nbsp;", " ")
     assert not not_found, f"{endpoint} was not found see {report_name}"
