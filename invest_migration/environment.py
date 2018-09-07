@@ -11,7 +11,7 @@ REPORT_FILE = os.getenv("REPORT_FILE", "index.html")
 REPORT_DIRECTORY = os.getenv("REPORT_DIRECTORY", "./reports")
 
 Summary = namedtuple(
-    "Summary", ["file_name", "result", "color"]
+    "Summary", ["file_name", "result", "color", "site_a", "site_b", "response_time_a", "response_time_b"]
 )
 
 
@@ -29,11 +29,20 @@ def extract_summary_from_report_file(file_path: str) -> Summary:
     with open(file_path, "r") as f:
         html = f.read().replace("&nbsp;", " ")
 
+    contents_json = file_path.replace(".html", ".json")
+    with open(contents_json, "r") as f:
+        contents = json.loads(f.read())
+        os.remove(contents_json)
+
     result = "Found differences"
     no_differences_found = "No Differences Found"
     not_found = "This page cannot be found"
     not_found_on_both_sites = "Page is not present on both sites"
     color = "#ff0040"
+    site_a = contents["site_a"]["site"]
+    site_b = contents["site_b"]["site"]
+    response_time_a = contents["site_a"]["response_time"]
+    response_time_b = contents["site_b"]["response_time"]
 
     if no_differences_found in html:
         result = no_differences_found
@@ -46,7 +55,7 @@ def extract_summary_from_report_file(file_path: str) -> Summary:
         color = "#cc00ff"
 
     file_name = file_path.replace("./reports/", "")
-    return Summary(file_name, result, color)
+    return Summary(file_name, result, color, site_a, site_b, response_time_a, response_time_b)
 
 
 def get_report_summaries(html_report_file_paths: List[str]) -> List[Summary]:
