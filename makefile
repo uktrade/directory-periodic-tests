@@ -43,8 +43,11 @@ cms_pages_check:
 	pytest --junit-xml=./reports/cms_pages.xml cms_pages/
 
 
+# compare contents of Staging & Dev environments by default
+ENVS_TO_COMPARE ?= stage_dev
+
 invest_compare_content:
-	behave -k -t ~wip --junit --junit-directory=./reports/ invest_migration/
+	behave -k -t ~wip --junit --junit-directory=./reports/ invest_migration/features/$(ENVS_TO_COMPARE).feature
 
 
 check_for_x_robots_tag_header:

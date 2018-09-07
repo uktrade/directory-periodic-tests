@@ -168,7 +168,45 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -q -r requirements_invest_migration.txt
-            make invest_compare_content
+            ENVS_TO_COMPARE=prod_dev make invest_compare_content
+      - store_test_results:
+          path: ./reports
+      - store_artifacts:
+          path: ./reports
+
+
+  invest_compare_prod_and_stage_pages:
+    docker:
+      - image: circleci/python:3.6.5
+    working_directory: ~/directory-periodical-tests
+    steps:
+      - checkout
+      - run:
+          name: Compare pages on Prod and Dev Invest sites
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -q -r requirements_invest_migration.txt
+            ENVS_TO_COMPARE=prod_stage make invest_compare_content
+      - store_test_results:
+          path: ./reports
+      - store_artifacts:
+          path: ./reports
+
+
+  invest_compare_stage_and_dev_pages:
+    docker:
+      - image: circleci/python:3.6.5
+    working_directory: ~/directory-periodical-tests
+    steps:
+      - checkout
+      - run:
+          name: Compare pages on Prod and Dev Invest sites
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -q -r requirements_invest_migration.txt
+            ENVS_TO_COMPARE=stage_dev make invest_compare_content
       - store_test_results:
           path: ./reports
       - store_artifacts:
@@ -260,9 +298,17 @@ workflows:
     jobs:
       - check_cms_pages_on_production
 
-  invest_compare_content:
+  invest_compare_content_prod_dev:
     jobs:
       - invest_compare_prod_and_dev_pages
+
+  invest_compare_content_prod_stage:
+    jobs:
+      - invest_compare_prod_and_stage_pages
+
+  invest_compare_content_stage_dev:
+    jobs:
+      - invest_compare_stage_and_dev_pages
 
   check_for_x_robots_tag_header_on_all_environments:
     jobs:
