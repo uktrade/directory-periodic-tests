@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import difflib
+import json
 from typing import List
 from urllib.parse import urljoin
 
@@ -81,11 +82,17 @@ def extract_page_content(
     url_a = urljoin(site_a, endpoint)
     url_b = urljoin(site_b, endpoint)
 
-    content_a = requests.get(url_a).content
-    content_b = requests.get(url_b).content
+    response_a = requests.get(url_a)
+    response_b = requests.get(url_b)
+
+    content_a = response_a.content
+    content_b = response_b.content
 
     text_a = get_text(content_a, section)
     text_b = get_text(content_b, section)
+
+    response_time_a = int(response_a.elapsed.total_seconds() * 1000)
+    response_time_b = int(response_b.elapsed.total_seconds() * 1000)
 
     contents = {
         "endpoint": endpoint,
@@ -93,18 +100,20 @@ def extract_page_content(
             "site": site_a,
             "url": url_a,
             "text": text_a,
+            "response_time": response_time_a,
         },
         "site_b": {
             "site": site_b,
             "url": url_b,
             "text": text_b,
+            "response_time": response_time_b,
         },
     }
 
     context.contents = contents
 
 
-def look_for_differences(context):
+def look_for_differences(context: Context):
     contents = context.contents
     endpoint = contents["endpoint"]
     url_a = contents["site_a"]["url"]
@@ -128,6 +137,10 @@ def look_for_differences(context):
     report_name = "./reports/{}.html".format(clean_endpoint)
     with open(report_name, "w") as file:
         file.write(html)
+
+    contents_file_name = "./reports/{}.json".format(clean_endpoint)
+    with open(contents_file_name, "w") as file:
+        file.write(json.dumps(contents))
 
     assert found_on_both_sites, f"{endpoint} doesn't exist on both sites"
     no_differences = "No Differences Found" in html
