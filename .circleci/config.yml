@@ -298,15 +298,15 @@ workflows:
     jobs:
       - check_cms_pages_on_production
 
-  invest_compare_content_prod_dev:
+  compare_prod_dev_invest_content:
     jobs:
       - invest_compare_prod_and_dev_pages
 
-  invest_compare_content_prod_stage:
+  compare_prod_stage_invest_content:
     jobs:
       - invest_compare_prod_and_stage_pages
 
-  invest_compare_content_stage_dev:
+  compare_stage_dev_invest_content:
     jobs:
       - invest_compare_stage_and_dev_pages
 
