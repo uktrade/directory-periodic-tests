@@ -5,11 +5,20 @@ Feature: Content migration
 
     Then there should be no differences
 
+    @wip
+    Examples: missing translations
+     | selected                                                                                               |
+     | /ar/industries/capital-investment/                                                                     |
+     | /ja/industries/capital-investment/                                                                     |
+     | /zh-hans/industries/capital-investment/                                                                |
+     | /ja/uk-regions/midlands/                                                                               |
+     | /de/uk-regions/midlands/                                                                               |
+     | /de/uk-setup-guide/establish-base-business-uk/                                                         |
+
     Examples: English
      | selected                                                                                               |
      | /                                                                                                      |
      | /contact/                                                                                              |
-     | /feedback/                                                                                             |
      | /industries/                                                                                           |
      | /industries/advanced-manufacturing/                                                                    |
      | /industries/aerospace/                                                                                 |
@@ -42,15 +51,6 @@ Feature: Content migration
      | /industries/retail/                                                                                    |
      | /industries/technology/                                                                                |
      | /industries/technology/data-analytics/                                                                 |
-     | /privacy-and-cookies/                                                                                  |
-     | /privacy-and-cookies/fair-processing-notice-export-opportunities/                                      |
-     | /privacy-and-cookies/fair-processing-notice-export-readiness/                                          |
-     | /privacy-and-cookies/fair-processing-notice-for-smart-survey/                                          |
-     | /privacy-and-cookies/fair-processing-notice-invest-in-great-britain/                                   |
-     | /privacy-and-cookies/fair-processing-notice-selling-online-overseas/                                   |
-     | /privacy-and-cookies/fair-processing-notice-trade-profiles-find-a-buyer-fab-find-a-supplier-fas/       |
-     | /privacy-and-cookies/fair-processing-notice-zendesk/                                                   |
-     | /terms-and-conditions/                                                                                 |
      | /uk-regions/london/                                                                                    |
      | /uk-regions/midlands/                                                                                  |
      | /uk-regions/north-england/                                                                             |
@@ -70,7 +70,6 @@ Feature: Content migration
      | selected                                                                                               |
      | /ar/                                                                                                   |
      | /ar/contact/                                                                                           |
-     | /ar/feedback/                                                                                          |
      | /ar/industries/                                                                                        |
      | /ar/industries/advanced-manufacturing/                                                                 |
      | /ar/industries/aerospace/                                                                              |
@@ -79,7 +78,6 @@ Feature: Content migration
      | /ar/industries/automotive/automotive-research-and-development/                                         |
      | /ar/industries/automotive/automotive-supply-chain/                                                     |
      | /ar/industries/automotive/motorsport/                                                                  |
-     | /ar/industries/capital-investment/                                                                     |
      | /ar/industries/chemicals/                                                                              |
      | /ar/industries/creative-industries/                                                                    |
      | /ar/industries/creative-industries/creative-content-and-production/                                    |
@@ -103,15 +101,6 @@ Feature: Content migration
      | /ar/industries/retail/                                                                                 |
      | /ar/industries/technology/                                                                             |
      | /ar/industries/technology/data-analytics/                                                              |
-     | /ar/privacy-and-cookies/                                                                               |
-     | /ar/privacy-and-cookies/fair-processing-notice-export-opportunities/                                   |
-     | /ar/privacy-and-cookies/fair-processing-notice-export-readiness/                                       |
-     | /ar/privacy-and-cookies/fair-processing-notice-for-smart-survey/                                       |
-     | /ar/privacy-and-cookies/fair-processing-notice-invest-in-great-britain/                                |
-     | /ar/privacy-and-cookies/fair-processing-notice-selling-online-overseas/                                |
-     | /ar/privacy-and-cookies/fair-processing-notice-trade-profiles-find-a-buyer-fab-find-a-supplier-fas/    |
-     | /ar/privacy-and-cookies/fair-processing-notice-zendesk/                                                |
-     | /ar/terms-and-conditions/                                                                              |
      | /ar/uk-regions/london/                                                                                 |
      | /ar/uk-regions/midlands/                                                                               |
      | /ar/uk-regions/north-england/                                                                          |
@@ -131,7 +120,6 @@ Feature: Content migration
      | selected                                                                                               |
      | /de/                                                                                                   |
      | /de/contact/                                                                                           |
-     | /de/feedback/                                                                                          |
      | /de/industries/                                                                                        |
      | /de/industries/advanced-manufacturing/                                                                 |
      | /de/industries/aerospace/                                                                              |
@@ -160,17 +148,7 @@ Feature: Content migration
      | /de/industries/retail/                                                                                 |
      | /de/industries/technology/                                                                             |
      | /de/industries/technology/data-analytics/                                                              |
-     | /de/privacy-and-cookies/                                                                               |
-     | /de/privacy-and-cookies/fair-processing-notice-export-opportunities/                                   |
-     | /de/privacy-and-cookies/fair-processing-notice-export-readiness/                                       |
-     | /de/privacy-and-cookies/fair-processing-notice-for-smart-survey/                                       |
-     | /de/privacy-and-cookies/fair-processing-notice-invest-in-great-britain/                                |
-     | /de/privacy-and-cookies/fair-processing-notice-selling-online-overseas/                                |
-     | /de/privacy-and-cookies/fair-processing-notice-trade-profiles-find-a-buyer-fab-find-a-supplier-fas/    |
-     | /de/privacy-and-cookies/fair-processing-notice-zendesk/                                                |
-     | /de/terms-and-conditions/                                                                              |
      | /de/uk-regions/london/                                                                                 |
-     | /de/uk-regions/midlands/                                                                               |
      | /de/uk-regions/north-england/                                                                          |
      | /de/uk-regions/northern-ireland/                                                                       |
      | /de/uk-regions/scotland/                                                                               |
@@ -178,7 +156,6 @@ Feature: Content migration
      | /de/uk-regions/wales/                                                                                  |
      | /de/uk-setup-guide/                                                                                    |
      | /de/uk-setup-guide/apply-uk-visa/                                                                      |
-     | /de/uk-setup-guide/establish-base-business-uk/                                                         |
      | /de/uk-setup-guide/hire-skilled-workers-your-uk-operations/                                            |
      | /de/uk-setup-guide/open-uk-business-bank-account/                                                      |
      | /de/uk-setup-guide/setup-your-business-uk/                                                             |
@@ -188,7 +165,6 @@ Feature: Content migration
      | selected                                                                                               |
      | /es/                                                                                                   |
      | /es/contact/                                                                                           |
-     | /es/feedback/                                                                                          |
      | /es/industries/                                                                                        |
      | /es/industries/advanced-manufacturing/                                                                 |
      | /es/industries/aerospace/                                                                              |
@@ -221,15 +197,6 @@ Feature: Content migration
      | /es/industries/retail/                                                                                 |
      | /es/industries/technology/                                                                             |
      | /es/industries/technology/data-analytics/                                                              |
-     | /es/privacy-and-cookies/                                                                               |
-     | /es/privacy-and-cookies/fair-processing-notice-export-opportunities/                                   |
-     | /es/privacy-and-cookies/fair-processing-notice-export-readiness/                                       |
-     | /es/privacy-and-cookies/fair-processing-notice-for-smart-survey/                                       |
-     | /es/privacy-and-cookies/fair-processing-notice-invest-in-great-britain/                                |
-     | /es/privacy-and-cookies/fair-processing-notice-selling-online-overseas/                                |
-     | /es/privacy-and-cookies/fair-processing-notice-trade-profiles-find-a-buyer-fab-find-a-supplier-fas/    |
-     | /es/privacy-and-cookies/fair-processing-notice-zendesk/                                                |
-     | /es/terms-and-conditions/                                                                              |
      | /es/uk-regions/london/                                                                                 |
      | /es/uk-regions/midlands/                                                                               |
      | /es/uk-regions/north-england/                                                                          |
@@ -249,7 +216,6 @@ Feature: Content migration
      | selected                                                                                               |
      | /fr/                                                                                                   |
      | /fr/contact/                                                                                           |
-     | /fr/feedback/                                                                                          |
      | /fr/industries/                                                                                        |
      | /fr/industries/advanced-manufacturing/                                                                 |
      | /fr/industries/aerospace/                                                                              |
@@ -282,15 +248,6 @@ Feature: Content migration
      | /fr/industries/retail/                                                                                 |
      | /fr/industries/technology/                                                                             |
      | /fr/industries/technology/data-analytics/                                                              |
-     | /fr/privacy-and-cookies/                                                                               |
-     | /fr/privacy-and-cookies/fair-processing-notice-export-opportunities/                                   |
-     | /fr/privacy-and-cookies/fair-processing-notice-export-readiness/                                       |
-     | /fr/privacy-and-cookies/fair-processing-notice-for-smart-survey/                                       |
-     | /fr/privacy-and-cookies/fair-processing-notice-invest-in-great-britain/                                |
-     | /fr/privacy-and-cookies/fair-processing-notice-selling-online-overseas/                                |
-     | /fr/privacy-and-cookies/fair-processing-notice-trade-profiles-find-a-buyer-fab-find-a-supplier-fas/    |
-     | /fr/privacy-and-cookies/fair-processing-notice-zendesk/                                                |
-     | /fr/terms-and-conditions/                                                                              |
      | /fr/uk-regions/london/                                                                                 |
      | /fr/uk-regions/midlands/                                                                               |
      | /fr/uk-regions/north-england/                                                                          |
@@ -310,7 +267,6 @@ Feature: Content migration
      | selected                                                                                               |
      | /ja/                                                                                                   |
      | /ja/contact/                                                                                           |
-     | /ja/feedback/                                                                                          |
      | /ja/industries/                                                                                        |
      | /ja/industries/advanced-manufacturing/                                                                 |
      | /ja/industries/aerospace/                                                                              |
@@ -319,7 +275,6 @@ Feature: Content migration
      | /ja/industries/automotive/automotive-research-and-development/                                         |
      | /ja/industries/automotive/automotive-supply-chain/                                                     |
      | /ja/industries/automotive/motorsport/                                                                  |
-     | /ja/industries/capital-investment/                                                                     |
      | /ja/industries/chemicals/                                                                              |
      | /ja/industries/creative-industries/                                                                    |
      | /ja/industries/creative-industries/creative-content-and-production/                                    |
@@ -343,17 +298,7 @@ Feature: Content migration
      | /ja/industries/retail/                                                                                 |
      | /ja/industries/technology/                                                                             |
      | /ja/industries/technology/data-analytics/                                                              |
-     | /ja/privacy-and-cookies/                                                                               |
-     | /ja/privacy-and-cookies/fair-processing-notice-export-opportunities/                                   |
-     | /ja/privacy-and-cookies/fair-processing-notice-export-readiness/                                       |
-     | /ja/privacy-and-cookies/fair-processing-notice-for-smart-survey/                                       |
-     | /ja/privacy-and-cookies/fair-processing-notice-invest-in-great-britain/                                |
-     | /ja/privacy-and-cookies/fair-processing-notice-selling-online-overseas/                                |
-     | /ja/privacy-and-cookies/fair-processing-notice-trade-profiles-find-a-buyer-fab-find-a-supplier-fas/    |
-     | /ja/privacy-and-cookies/fair-processing-notice-zendesk/                                                |
-     | /ja/terms-and-conditions/                                                                              |
      | /ja/uk-regions/london/                                                                                 |
-     | /ja/uk-regions/midlands/                                                                               |
      | /ja/uk-regions/north-england/                                                                          |
      | /ja/uk-regions/northern-ireland/                                                                       |
      | /ja/uk-regions/scotland/                                                                               |
@@ -371,7 +316,6 @@ Feature: Content migration
      | selected                                                                                               |
      | /pt/                                                                                                   |
      | /pt/contact/                                                                                           |
-     | /pt/feedback/                                                                                          |
      | /pt/industries/                                                                                        |
      | /pt/industries/advanced-manufacturing/                                                                 |
      | /pt/industries/aerospace/                                                                              |
@@ -401,15 +345,6 @@ Feature: Content migration
      | /pt/industries/retail/                                                                                 |
      | /pt/industries/technology/                                                                             |
      | /pt/industries/technology/data-analytics/                                                              |
-     | /pt/privacy-and-cookies/                                                                               |
-     | /pt/privacy-and-cookies/fair-processing-notice-export-opportunities/                                   |
-     | /pt/privacy-and-cookies/fair-processing-notice-export-readiness/                                       |
-     | /pt/privacy-and-cookies/fair-processing-notice-for-smart-survey/                                       |
-     | /pt/privacy-and-cookies/fair-processing-notice-invest-in-great-britain/                                |
-     | /pt/privacy-and-cookies/fair-processing-notice-selling-online-overseas/                                |
-     | /pt/privacy-and-cookies/fair-processing-notice-trade-profiles-find-a-buyer-fab-find-a-supplier-fas/    |
-     | /pt/privacy-and-cookies/fair-processing-notice-zendesk/                                                |
-     | /pt/terms-and-conditions/                                                                              |
      | /pt/uk-regions/london/                                                                                 |
      | /pt/uk-regions/midlands/                                                                               |
      | /pt/uk-regions/north-england/                                                                          |
@@ -426,42 +361,130 @@ Feature: Content migration
      | /pt/uk-setup-guide/understand-uk-tax-and-incentives/                                                   |
 
     Examples: Chinese
+     | selected                                                                                                 |
+     | /zh-hans/                                                                                                |
+     | /zh-hans/contact/                                                                                        |
+     | /zh-hans/industries/                                                                                     |
+     | /zh-hans/industries/advanced-manufacturing/                                                              |
+     | /zh-hans/industries/aerospace/                                                                           |
+     | /zh-hans/industries/agri-tech/                                                                           |
+     | /zh-hans/industries/automotive/                                                                          |
+     | /zh-hans/industries/automotive/automotive-research-and-development/                                      |
+     | /zh-hans/industries/automotive/automotive-supply-chain/                                                  |
+     | /zh-hans/industries/automotive/motorsport/                                                               |
+     | /zh-hans/industries/chemicals/                                                                           |
+     | /zh-hans/industries/creative-industries/                                                                 |
+     | /zh-hans/industries/creative-industries/creative-content-and-production/                                 |
+     | /zh-hans/industries/creative-industries/digital-media/                                                   |
+     | /zh-hans/industries/energy/                                                                              |
+     | /zh-hans/industries/energy/electrical-networks/                                                          |
+     | /zh-hans/industries/energy/energy-waste/                                                                 |
+     | /zh-hans/industries/energy/nuclear-energy/                                                               |
+     | /zh-hans/industries/energy/offshore-wind-energy/                                                         |
+     | /zh-hans/industries/energy/oil-and-gas/                                                                  |
+     | /zh-hans/industries/financial-services/                                                                  |
+     | /zh-hans/industries/financial-services/asset-management/                                                 |
+     | /zh-hans/industries/financial-services/financial-technology/                                             |
+     | /zh-hans/industries/food-and-drink/                                                                      |
+     | /zh-hans/industries/food-and-drink/food-service-and-catering/                                            |
+     | /zh-hans/industries/food-and-drink/free-foods/                                                           |
+     | /zh-hans/industries/food-and-drink/meat-poultry-and-dairy/                                               |
+     | /zh-hans/industries/health-and-life-sciences/                                                            |
+     | /zh-hans/industries/health-and-life-sciences/medical-technology/                                         |
+     | /zh-hans/industries/health-and-life-sciences/pharmaceutical-manufacturing/                               |
+     | /zh-hans/industries/retail/                                                                              |
+     | /zh-hans/industries/technology/                                                                          |
+     | /zh-hans/industries/technology/data-analytics/                                                           |
+     | /zh-hans/uk-regions/london/                                                                              |
+     | /zh-hans/uk-regions/midlands/                                                                            |
+     | /zh-hans/uk-regions/north-england/                                                                       |
+     | /zh-hans/uk-regions/northern-ireland/                                                                    |
+     | /zh-hans/uk-regions/scotland/                                                                            |
+     | /zh-hans/uk-regions/south-england/                                                                       |
+     | /zh-hans/uk-regions/wales/                                                                               |
+     | /zh-hans/uk-setup-guide/                                                                                 |
+     | /zh-hans/uk-setup-guide/apply-uk-visa/                                                                   |
+     | /zh-hans/uk-setup-guide/establish-base-business-uk/                                                      |
+     | /zh-hans/uk-setup-guide/hire-skilled-workers-your-uk-operations/                                         |
+     | /zh-hans/uk-setup-guide/open-uk-business-bank-account/                                                   |
+     | /zh-hans/uk-setup-guide/setup-your-business-uk/                                                          |
+     | /zh-hans/uk-setup-guide/understand-uk-tax-and-incentives/                                                |
+
+    @wip
+    Examples: Pages that are hosted on a different service or are not present any longer
      | selected                                                                                               |
-     | /zh-cn/                                                                                                |
-     | /zh-cn/contact/                                                                                        |
+     | /feedback/                                                                                             |
+     | /ar/feedback/                                                                                          |
+     | /de/feedback/                                                                                          |
+     | /es/feedback/                                                                                          |
+     | /fr/feedback/                                                                                          |
+     | /ja/feedback/                                                                                          |
+     | /pt/feedback/                                                                                          |
      | /zh-cn/feedback/                                                                                       |
-     | /zh-cn/industries/                                                                                     |
-     | /zh-cn/industries/advanced-manufacturing/                                                              |
-     | /zh-cn/industries/aerospace/                                                                           |
-     | /zh-cn/industries/agri-tech/                                                                           |
-     | /zh-cn/industries/automotive/                                                                          |
-     | /zh-cn/industries/automotive/automotive-research-and-development/                                      |
-     | /zh-cn/industries/automotive/automotive-supply-chain/                                                  |
-     | /zh-cn/industries/automotive/motorsport/                                                               |
-     | /zh-cn/industries/capital-investment/                                                                  |
-     | /zh-cn/industries/chemicals/                                                                           |
-     | /zh-cn/industries/creative-industries/                                                                 |
-     | /zh-cn/industries/creative-industries/creative-content-and-production/                                 |
-     | /zh-cn/industries/creative-industries/digital-media/                                                   |
-     | /zh-cn/industries/energy/                                                                              |
-     | /zh-cn/industries/energy/electrical-networks/                                                          |
-     | /zh-cn/industries/energy/energy-waste/                                                                 |
-     | /zh-cn/industries/energy/nuclear-energy/                                                               |
-     | /zh-cn/industries/energy/offshore-wind-energy/                                                         |
-     | /zh-cn/industries/energy/oil-and-gas/                                                                  |
-     | /zh-cn/industries/financial-services/                                                                  |
-     | /zh-cn/industries/financial-services/asset-management/                                                 |
-     | /zh-cn/industries/financial-services/financial-technology/                                             |
-     | /zh-cn/industries/food-and-drink/                                                                      |
-     | /zh-cn/industries/food-and-drink/food-service-and-catering/                                            |
-     | /zh-cn/industries/food-and-drink/free-foods/                                                           |
-     | /zh-cn/industries/food-and-drink/meat-poultry-and-dairy/                                               |
-     | /zh-cn/industries/health-and-life-sciences/                                                            |
-     | /zh-cn/industries/health-and-life-sciences/medical-technology/                                         |
-     | /zh-cn/industries/health-and-life-sciences/pharmaceutical-manufacturing/                               |
-     | /zh-cn/industries/retail/                                                                              |
-     | /zh-cn/industries/technology/                                                                          |
-     | /zh-cn/industries/technology/data-analytics/                                                           |
+     | /zh-cn/terms-and-conditions/                                                                           |
+     | /pt/terms-and-conditions/                                                                              |
+     | /ja/terms-and-conditions/                                                                              |
+     | /fr/terms-and-conditions/                                                                              |
+     | /es/terms-and-conditions/                                                                              |
+     | /de/terms-and-conditions/                                                                              |
+     | /ar/terms-and-conditions/                                                                              |
+     | /terms-and-conditions/                                                                                 |
+     | /privacy-and-cookies/                                                                                  |
+     | /privacy-and-cookies/fair-processing-notice-export-opportunities/                                      |
+     | /privacy-and-cookies/fair-processing-notice-export-readiness/                                          |
+     | /privacy-and-cookies/fair-processing-notice-for-smart-survey/                                          |
+     | /privacy-and-cookies/fair-processing-notice-invest-in-great-britain/                                   |
+     | /privacy-and-cookies/fair-processing-notice-selling-online-overseas/                                   |
+     | /privacy-and-cookies/fair-processing-notice-trade-profiles-find-a-buyer-fab-find-a-supplier-fas/       |
+     | /privacy-and-cookies/fair-processing-notice-zendesk/                                                   |
+     | /ar/privacy-and-cookies/                                                                               |
+     | /ar/privacy-and-cookies/fair-processing-notice-export-opportunities/                                   |
+     | /ar/privacy-and-cookies/fair-processing-notice-export-readiness/                                       |
+     | /ar/privacy-and-cookies/fair-processing-notice-for-smart-survey/                                       |
+     | /ar/privacy-and-cookies/fair-processing-notice-invest-in-great-britain/                                |
+     | /ar/privacy-and-cookies/fair-processing-notice-selling-online-overseas/                                |
+     | /ar/privacy-and-cookies/fair-processing-notice-trade-profiles-find-a-buyer-fab-find-a-supplier-fas/    |
+     | /ar/privacy-and-cookies/fair-processing-notice-zendesk/                                                |
+     | /de/privacy-and-cookies/                                                                               |
+     | /de/privacy-and-cookies/fair-processing-notice-export-opportunities/                                   |
+     | /de/privacy-and-cookies/fair-processing-notice-export-readiness/                                       |
+     | /de/privacy-and-cookies/fair-processing-notice-for-smart-survey/                                       |
+     | /de/privacy-and-cookies/fair-processing-notice-invest-in-great-britain/                                |
+     | /de/privacy-and-cookies/fair-processing-notice-selling-online-overseas/                                |
+     | /de/privacy-and-cookies/fair-processing-notice-trade-profiles-find-a-buyer-fab-find-a-supplier-fas/    |
+     | /de/privacy-and-cookies/fair-processing-notice-zendesk/                                                |
+     | /es/privacy-and-cookies/                                                                               |
+     | /es/privacy-and-cookies/fair-processing-notice-export-opportunities/                                   |
+     | /es/privacy-and-cookies/fair-processing-notice-export-readiness/                                       |
+     | /es/privacy-and-cookies/fair-processing-notice-for-smart-survey/                                       |
+     | /es/privacy-and-cookies/fair-processing-notice-invest-in-great-britain/                                |
+     | /es/privacy-and-cookies/fair-processing-notice-selling-online-overseas/                                |
+     | /es/privacy-and-cookies/fair-processing-notice-trade-profiles-find-a-buyer-fab-find-a-supplier-fas/    |
+     | /es/privacy-and-cookies/fair-processing-notice-zendesk/                                                |
+     | /fr/privacy-and-cookies/                                                                               |
+     | /fr/privacy-and-cookies/fair-processing-notice-export-opportunities/                                   |
+     | /fr/privacy-and-cookies/fair-processing-notice-export-readiness/                                       |
+     | /fr/privacy-and-cookies/fair-processing-notice-for-smart-survey/                                       |
+     | /fr/privacy-and-cookies/fair-processing-notice-invest-in-great-britain/                                |
+     | /fr/privacy-and-cookies/fair-processing-notice-selling-online-overseas/                                |
+     | /fr/privacy-and-cookies/fair-processing-notice-trade-profiles-find-a-buyer-fab-find-a-supplier-fas/    |
+     | /fr/privacy-and-cookies/fair-processing-notice-zendesk/                                                |
+     | /ja/privacy-and-cookies/                                                                               |
+     | /ja/privacy-and-cookies/fair-processing-notice-export-opportunities/                                   |
+     | /ja/privacy-and-cookies/fair-processing-notice-export-readiness/                                       |
+     | /ja/privacy-and-cookies/fair-processing-notice-for-smart-survey/                                       |
+     | /ja/privacy-and-cookies/fair-processing-notice-invest-in-great-britain/                                |
+     | /ja/privacy-and-cookies/fair-processing-notice-selling-online-overseas/                                |
+     | /ja/privacy-and-cookies/fair-processing-notice-trade-profiles-find-a-buyer-fab-find-a-supplier-fas/    |
+     | /ja/privacy-and-cookies/fair-processing-notice-zendesk/                                                |
+     | /pt/privacy-and-cookies/                                                                               |
+     | /pt/privacy-and-cookies/fair-processing-notice-export-opportunities/                                   |
+     | /pt/privacy-and-cookies/fair-processing-notice-export-readiness/                                       |
+     | /pt/privacy-and-cookies/fair-processing-notice-for-smart-survey/                                       |
+     | /pt/privacy-and-cookies/fair-processing-notice-invest-in-great-britain/                                |
+     | /pt/privacy-and-cookies/fair-processing-notice-selling-online-overseas/                                |
+     | /pt/privacy-and-cookies/fair-processing-notice-trade-profiles-find-a-buyer-fab-find-a-supplier-fas/    |
+     | /pt/privacy-and-cookies/fair-processing-notice-zendesk/                                                |
      | /zh-cn/privacy-and-cookies/                                                                            |
      | /zh-cn/privacy-and-cookies/fair-processing-notice-export-opportunities/                                |
      | /zh-cn/privacy-and-cookies/fair-processing-notice-export-readiness/                                    |
@@ -470,18 +493,4 @@ Feature: Content migration
      | /zh-cn/privacy-and-cookies/fair-processing-notice-selling-online-overseas/                             |
      | /zh-cn/privacy-and-cookies/fair-processing-notice-trade-profiles-find-a-buyer-fab-find-a-supplier-fas/ |
      | /zh-cn/privacy-and-cookies/fair-processing-notice-zendesk/                                             |
-     | /zh-cn/terms-and-conditions/                                                                           |
-     | /zh-cn/uk-regions/london/                                                                              |
-     | /zh-cn/uk-regions/midlands/                                                                            |
-     | /zh-cn/uk-regions/north-england/                                                                       |
-     | /zh-cn/uk-regions/northern-ireland/                                                                    |
-     | /zh-cn/uk-regions/scotland/                                                                            |
-     | /zh-cn/uk-regions/south-england/                                                                       |
-     | /zh-cn/uk-regions/wales/                                                                               |
-     | /zh-cn/uk-setup-guide/                                                                                 |
-     | /zh-cn/uk-setup-guide/apply-uk-visa/                                                                   |
-     | /zh-cn/uk-setup-guide/establish-base-business-uk/                                                      |
-     | /zh-cn/uk-setup-guide/hire-skilled-workers-your-uk-operations/                                         |
-     | /zh-cn/uk-setup-guide/open-uk-business-bank-account/                                                   |
-     | /zh-cn/uk-setup-guide/setup-your-business-uk/                                                          |
-     | /zh-cn/uk-setup-guide/understand-uk-tax-and-incentives/                                                |
+
