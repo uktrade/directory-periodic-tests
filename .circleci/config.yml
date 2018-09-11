@@ -182,7 +182,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Compare pages on Prod and Dev Invest sites
+          name: Compare pages on Prod and Stage Invest sites
           command: |
             python3 -m venv venv
             . venv/bin/activate
@@ -201,7 +201,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Compare pages on Prod and Dev Invest sites
+          name: Compare pages on Stage and Dev Invest sites
           command: |
             python3 -m venv venv
             . venv/bin/activate
