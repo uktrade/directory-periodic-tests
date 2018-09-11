@@ -131,6 +131,8 @@ def look_for_differences(context: Context):
     html = difflib.HtmlDiff(tabsize=4, wrapcolumn=120).make_file(
         text_a, text_b, fromdesc=from_desc_url_a, todesc=from_desc_url_b,
         context=True, numlines=1)
+    sm = difflib.SequenceMatcher(None, text_a, text_b)
+    contents["similarity"] = int(sm.ratio() * 100)
 
     clean_endpoint = endpoint[1:-1].replace("/", "_")
     clean_endpoint = clean_endpoint or "home"

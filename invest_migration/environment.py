@@ -12,7 +12,7 @@ REPORT_FILE = os.getenv("REPORT_FILE", "index.html")
 REPORT_DIRECTORY = os.getenv("REPORT_DIRECTORY", "./reports")
 
 Summary = namedtuple(
-    "Summary", ["file_name", "result", "color", "site_a", "site_b", "response_time_a", "response_time_b"]
+    "Summary", ["file_name", "result", "color", "site_a", "site_b", "response_time_a", "response_time_b", "similarity"]
 )
 
 
@@ -44,6 +44,7 @@ def extract_summary_from_report_file(file_path: str) -> Summary:
     site_b = contents["site_b"]["site"]
     response_time_a = contents["site_a"]["response_time"]
     response_time_b = contents["site_b"]["response_time"]
+    similarity = contents["similarity"]
 
     if no_differences_found in html:
         result = no_differences_found
@@ -56,7 +57,7 @@ def extract_summary_from_report_file(file_path: str) -> Summary:
         color = "#cc00ff"
 
     file_name = file_path.replace("./reports/", "")
-    return Summary(file_name, result, color, site_a, site_b, response_time_a, response_time_b)
+    return Summary(file_name, result, color, site_a, site_b, response_time_a, response_time_b, similarity)
 
 
 def get_report_summaries(html_report_file_paths: List[str]) -> List[Summary]:
@@ -64,7 +65,7 @@ def get_report_summaries(html_report_file_paths: List[str]) -> List[Summary]:
     for report_file_path in html_report_file_paths:
         summaries.append(extract_summary_from_report_file(report_file_path))
 
-    return sorted(summaries, key=lambda summary: (summary.result, summary.file_name))
+    return sorted(summaries, key=lambda summary: (summary.similarity, summary.result, summary.file_name))
 
 
 def generate_report_index(summaries: List[Summary]) -> str:
@@ -86,10 +87,11 @@ def generate_report_index(summaries: List[Summary]) -> str:
         </table> 
         <br>
         <br>
-        <table style="border: 1px solid black;width:70%;margin-left:15%;margin-right:15%;"> 
+        <table style="border: 1px solid black;width:80%;margin-left:10%;margin-right:10%;"> 
         <tr>
             <th style="padding:5px;">Result</th>
             <th style="padding:5px;">Report</th>
+            <th style="padding:5px;">Similarity (%)</th>
             <th style="padding:5px;">{site_a}</th>
             <th style="padding:5px;">{site_b}</th>
         </tr>
@@ -120,12 +122,14 @@ def generate_report_index(summaries: List[Summary]) -> str:
         site_b = summary.site_b
         time_a = summary.response_time_a
         time_b = summary.response_time_b
+        similarity = summary.similarity
         time_a_color = "#00ff80" if time_a < time_b else "#ff0040"
         time_b_color = "#00ff80" if time_b < time_a else "#ff0040"
         row = f"""
         <tr style="border: 1px solid black;">
             <td style="padding:5px;background-color:{color};text-align:center">{result}</td>
             <td><a href="{file_name}">{file_name}</a></td>
+            <td>{similarity}</td>
             <td style="background-color:{time_a_color};text-align:center">{time_a}ms</td>
             <td style="background-color:{time_b_color};text-align:center">{time_b}ms</td>
         </tr>
@@ -133,7 +137,7 @@ def generate_report_index(summaries: List[Summary]) -> str:
         rows.append(row)
     return doc_template.format(
         totals_rows="\n\t".join(totals_rows), rows="\n\t".join(rows),
-        site_a=site_a, site_b=site_b, time_a=time_a, time_b=time_b
+        site_a=site_a, site_b=site_b, similarity=similarity, time_a=time_a, time_b=time_b
     )
 
 
