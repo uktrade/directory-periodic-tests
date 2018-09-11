@@ -45,7 +45,7 @@ def get_text(content: str, section_name: str) -> List[str]:
     soup = BeautifulSoup(content, "lxml")
     section = soup.find(section_name)
 
-    for element in section.findAll(["script", "css", "img", "style"]):
+    for element in section.findAll(["script", "css", "img", "style", "select"]):
         element.extract()
     for element in section.select("#beta-bar"):
         element.extract()
