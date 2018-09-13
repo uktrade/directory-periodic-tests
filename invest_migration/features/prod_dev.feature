@@ -360,7 +360,7 @@ Feature: Content migration
      | /pt/uk-setup-guide/setup-your-business-uk/                                                             |
      | /pt/uk-setup-guide/understand-uk-tax-and-incentives/                                                   |
 
-    Examples: Chinese (still using zn-cn instaed zn-hans [like on dev & stage])
+    Examples: Chinese (with redirect from zn-cn to zn-hans)
      | selected                                                                                               |
      | /zh-cn/                                                                                                |
      | /zh-cn/contact/                                                                                        |
@@ -409,6 +409,56 @@ Feature: Content migration
      | /zh-cn/uk-setup-guide/open-uk-business-bank-account/                                                   |
      | /zh-cn/uk-setup-guide/setup-your-business-uk/                                                          |
      | /zh-cn/uk-setup-guide/understand-uk-tax-and-incentives/                                                |
+
+    Examples: Chinese (without redirect)
+     | selected                                                                                               |
+     | /zh-hans/                                                                                                |
+     | /zh-hans/contact/                                                                                        |
+     | /zh-hans/industries/                                                                                     |
+     | /zh-hans/industries/advanced-manufacturing/                                                              |
+     | /zh-hans/industries/aerospace/                                                                           |
+     | /zh-hans/industries/agri-tech/                                                                           |
+     | /zh-hans/industries/automotive/                                                                          |
+     | /zh-hans/industries/automotive/automotive-research-and-development/                                      |
+     | /zh-hans/industries/automotive/automotive-supply-chain/                                                  |
+     | /zh-hans/industries/automotive/motorsport/                                                               |
+     | /zh-hans/industries/chemicals/                                                                           |
+     | /zh-hans/industries/creative-industries/                                                                 |
+     | /zh-hans/industries/creative-industries/creative-content-and-production/                                 |
+     | /zh-hans/industries/creative-industries/digital-media/                                                   |
+     | /zh-hans/industries/energy/                                                                              |
+     | /zh-hans/industries/energy/electrical-networks/                                                          |
+     | /zh-hans/industries/energy/energy-waste/                                                                 |
+     | /zh-hans/industries/energy/nuclear-energy/                                                               |
+     | /zh-hans/industries/energy/offshore-wind-energy/                                                         |
+     | /zh-hans/industries/energy/oil-and-gas/                                                                  |
+     | /zh-hans/industries/financial-services/                                                                  |
+     | /zh-hans/industries/financial-services/asset-management/                                                 |
+     | /zh-hans/industries/financial-services/financial-technology/                                             |
+     | /zh-hans/industries/food-and-drink/                                                                      |
+     | /zh-hans/industries/food-and-drink/food-service-and-catering/                                            |
+     | /zh-hans/industries/food-and-drink/free-foods/                                                           |
+     | /zh-hans/industries/food-and-drink/meat-poultry-and-dairy/                                               |
+     | /zh-hans/industries/health-and-life-sciences/                                                            |
+     | /zh-hans/industries/health-and-life-sciences/medical-technology/                                         |
+     | /zh-hans/industries/health-and-life-sciences/pharmaceutical-manufacturing/                               |
+     | /zh-hans/industries/retail/                                                                              |
+     | /zh-hans/industries/technology/                                                                          |
+     | /zh-hans/industries/technology/data-analytics/                                                           |
+     | /zh-hans/uk-regions/london/                                                                              |
+     | /zh-hans/uk-regions/midlands/                                                                            |
+     | /zh-hans/uk-regions/north-england/                                                                       |
+     | /zh-hans/uk-regions/northern-ireland/                                                                    |
+     | /zh-hans/uk-regions/scotland/                                                                            |
+     | /zh-hans/uk-regions/south-england/                                                                       |
+     | /zh-hans/uk-regions/wales/                                                                               |
+     | /zh-hans/uk-setup-guide/                                                                                 |
+     | /zh-hans/uk-setup-guide/apply-uk-visa/                                                                   |
+     | /zh-hans/uk-setup-guide/establish-base-business-uk/                                                      |
+     | /zh-hans/uk-setup-guide/hire-skilled-workers-your-uk-operations/                                         |
+     | /zh-hans/uk-setup-guide/open-uk-business-bank-account/                                                   |
+     | /zh-hans/uk-setup-guide/setup-your-business-uk/                                                          |
+     | /zh-hans/uk-setup-guide/understand-uk-tax-and-incentives/                                                |
 
     @wip
     Examples: Pages that are hosted on a different service or are not present any longer
