@@ -571,10 +571,10 @@ workflows:
           branches:
             only: master
     jobs:
-      - steps_setup_env_for_geckoboard_updater
+      - setup_env_for_geckoboard_updater
       - refresh_geckoboard:
           requires:
-            - steps_setup_env_for_geckoboard_updater
+            - setup_env_for_geckoboard_updater
 
   check_for_x_robots_tag_header_on_all_environments:
     triggers:
