@@ -775,7 +775,7 @@ def circle_ci_get_test_results_for_multi_workflow_project(
 ) -> List[dict]:
 
     job_statuses_without_artifacts = ["not_run", "queued", "running"]
-    recent_builds = circle_ci_get_recent_builds(project_name, limit=10)
+    recent_builds = circle_ci_get_recent_builds(project_name, limit=100)
     if ignored_workflows:
         recent_builds = [
             build
