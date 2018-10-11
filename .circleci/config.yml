@@ -303,7 +303,7 @@ jobs:
     working_directory: ~/directory-periodical-tests
     environment:
       SERVICE: "invest"
-      ENV_TO_COMPARE: "prod_dev"
+      ENVS_TO_COMPARE: "prod_dev"
     <<: *steps_content_diff
 
   invest_compare_prod_and_stage_pages:
@@ -311,7 +311,7 @@ jobs:
     working_directory: ~/directory-periodical-tests
     environment:
       SERVICE: "invest"
-      ENV_TO_COMPARE: "prod_stage"
+      ENVS_TO_COMPARE: "prod_stage"
     <<: *steps_content_diff
 
   invest_compare_stage_and_dev_pages:
@@ -319,7 +319,7 @@ jobs:
     working_directory: ~/directory-periodical-tests
     environment:
       SERVICE: "invest"
-      ENV_TO_COMPARE: "stage_dev"
+      ENVS_TO_COMPARE: "stage_dev"
     <<: *steps_content_diff
 
   exred_compare_prod_and_dev_pages:
@@ -327,7 +327,7 @@ jobs:
     working_directory: ~/directory-periodical-tests
     environment:
       SERVICE: "exred"
-      ENV_TO_COMPARE: "prod_dev"
+      ENVS_TO_COMPARE: "prod_dev"
     <<: *steps_content_diff
 
   exred_compare_prod_and_stage_pages:
@@ -335,7 +335,7 @@ jobs:
     working_directory: ~/directory-periodical-tests
     environment:
       SERVICE: "exred"
-      ENV_TO_COMPARE: "prod_stage"
+      ENVS_TO_COMPARE: "prod_stage"
     <<: *steps_content_diff
 
   exred_compare_stage_and_dev_pages:
@@ -343,7 +343,7 @@ jobs:
     working_directory: ~/directory-periodical-tests
     environment:
       SERVICE: "exred"
-      ENV_TO_COMPARE: "stage_dev"
+      ENVS_TO_COMPARE: "stage_dev"
     <<: *steps_content_diff
 
   fas_compare_prod_and_dev_pages:
@@ -351,7 +351,7 @@ jobs:
     working_directory: ~/directory-periodical-tests
     environment:
       SERVICE: "fas"
-      ENV_TO_COMPARE: "prod_dev"
+      ENVS_TO_COMPARE: "prod_dev"
     <<: *steps_content_diff
 
   fas_compare_prod_and_stage_pages:
@@ -359,7 +359,7 @@ jobs:
     working_directory: ~/directory-periodical-tests
     environment:
       SERVICE: "fas"
-      ENV_TO_COMPARE: "prod_stage"
+      ENVS_TO_COMPARE: "prod_stage"
     <<: *steps_content_diff
 
   fas_compare_stage_and_dev_pages:
@@ -367,7 +367,7 @@ jobs:
     working_directory: ~/directory-periodical-tests
     environment:
       SERVICE: "fas"
-      ENV_TO_COMPARE: "stage_dev"
+      ENVS_TO_COMPARE: "stage_dev"
     <<: *steps_content_diff
 
   check_for_x_robots_tag_header:
