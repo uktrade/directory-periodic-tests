@@ -12,7 +12,10 @@ REPORT_FILE = os.getenv("REPORT_FILE", "index.html")
 REPORT_DIRECTORY = os.getenv("REPORT_DIRECTORY", "./reports")
 
 Summary = namedtuple(
-    "Summary", ["file_name", "result", "color", "site_a", "site_b", "response_time_a", "response_time_b", "similarity"]
+    "Summary", [
+        "file_name", "result", "color", "site_a", "site_b", "response_time_a",
+        "response_time_b", "similarity"
+    ]
 )
 
 
@@ -57,7 +60,9 @@ def extract_summary_from_report_file(file_path: str) -> Summary:
         color = "#cc00ff"
 
     file_name = file_path.replace("./reports/", "")
-    return Summary(file_name, result, color, site_a, site_b, response_time_a, response_time_b, similarity)
+    return Summary(
+        file_name, result, color, site_a, site_b, response_time_a,
+        response_time_b, similarity)
 
 
 def get_report_summaries(html_report_file_paths: List[str]) -> List[Summary]:
@@ -65,7 +70,10 @@ def get_report_summaries(html_report_file_paths: List[str]) -> List[Summary]:
     for report_file_path in html_report_file_paths:
         summaries.append(extract_summary_from_report_file(report_file_path))
 
-    return sorted(summaries, key=lambda summary: (summary.similarity, summary.result, summary.file_name))
+    return sorted(summaries,
+                  key=lambda summary: (summary.similarity,
+                                       summary.result,
+                                       summary.file_name))
 
 
 def generate_report_index(summaries: List[Summary]) -> str:

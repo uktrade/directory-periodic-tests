@@ -1,7 +1,7 @@
-Feature: Content migration
+Feature: Find content differences between Stage and Dev Invest environments
 
   Scenario Outline: Content on Dev page "<selected>" should be the same as on respective Production page
-    When you look at the "main" section of the "<selected>" page on "PROD" and "STAGE"
+    When you look at the "main" section of the "<selected>" page on "Invest" "STAGE" and "DEV"
 
     Then there should be no differences
 
@@ -360,58 +360,8 @@ Feature: Content migration
      | /pt/uk-setup-guide/setup-your-business-uk/                                                             |
      | /pt/uk-setup-guide/understand-uk-tax-and-incentives/                                                   |
 
-    Examples: Chinese (with redirect from zn-cn to zn-hans)
-     | selected                                                                                               |
-     | /zh-cn/                                                                                                |
-     | /zh-cn/contact/                                                                                        |
-     | /zh-cn/industries/                                                                                     |
-     | /zh-cn/industries/advanced-manufacturing/                                                              |
-     | /zh-cn/industries/aerospace/                                                                           |
-     | /zh-cn/industries/agri-tech/                                                                           |
-     | /zh-cn/industries/automotive/                                                                          |
-     | /zh-cn/industries/automotive/automotive-research-and-development/                                      |
-     | /zh-cn/industries/automotive/automotive-supply-chain/                                                  |
-     | /zh-cn/industries/automotive/motorsport/                                                               |
-     | /zh-cn/industries/chemicals/                                                                           |
-     | /zh-cn/industries/creative-industries/                                                                 |
-     | /zh-cn/industries/creative-industries/creative-content-and-production/                                 |
-     | /zh-cn/industries/creative-industries/digital-media/                                                   |
-     | /zh-cn/industries/energy/                                                                              |
-     | /zh-cn/industries/energy/electrical-networks/                                                          |
-     | /zh-cn/industries/energy/energy-waste/                                                                 |
-     | /zh-cn/industries/energy/nuclear-energy/                                                               |
-     | /zh-cn/industries/energy/offshore-wind-energy/                                                         |
-     | /zh-cn/industries/energy/oil-and-gas/                                                                  |
-     | /zh-cn/industries/financial-services/                                                                  |
-     | /zh-cn/industries/financial-services/asset-management/                                                 |
-     | /zh-cn/industries/financial-services/financial-technology/                                             |
-     | /zh-cn/industries/food-and-drink/                                                                      |
-     | /zh-cn/industries/food-and-drink/food-service-and-catering/                                            |
-     | /zh-cn/industries/food-and-drink/free-foods/                                                           |
-     | /zh-cn/industries/food-and-drink/meat-poultry-and-dairy/                                               |
-     | /zh-cn/industries/health-and-life-sciences/                                                            |
-     | /zh-cn/industries/health-and-life-sciences/medical-technology/                                         |
-     | /zh-cn/industries/health-and-life-sciences/pharmaceutical-manufacturing/                               |
-     | /zh-cn/industries/retail/                                                                              |
-     | /zh-cn/industries/technology/                                                                          |
-     | /zh-cn/industries/technology/data-analytics/                                                           |
-     | /zh-cn/uk-regions/london/                                                                              |
-     | /zh-cn/uk-regions/midlands/                                                                            |
-     | /zh-cn/uk-regions/north-england/                                                                       |
-     | /zh-cn/uk-regions/northern-ireland/                                                                    |
-     | /zh-cn/uk-regions/scotland/                                                                            |
-     | /zh-cn/uk-regions/south-england/                                                                       |
-     | /zh-cn/uk-regions/wales/                                                                               |
-     | /zh-cn/uk-setup-guide/                                                                                 |
-     | /zh-cn/uk-setup-guide/apply-uk-visa/                                                                   |
-     | /zh-cn/uk-setup-guide/establish-base-business-uk/                                                      |
-     | /zh-cn/uk-setup-guide/hire-skilled-workers-your-uk-operations/                                         |
-     | /zh-cn/uk-setup-guide/open-uk-business-bank-account/                                                   |
-     | /zh-cn/uk-setup-guide/setup-your-business-uk/                                                          |
-     | /zh-cn/uk-setup-guide/understand-uk-tax-and-incentives/                                                |
-
-    Examples: Chinese (without redirect)
-     | selected                                                                                               |
+    Examples: Chinese
+     | selected                                                                                                 |
      | /zh-hans/                                                                                                |
      | /zh-hans/contact/                                                                                        |
      | /zh-hans/industries/                                                                                     |

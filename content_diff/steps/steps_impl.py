@@ -11,11 +11,20 @@ from retrying import retry
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 
 
-SITES = {
+SITES_INVEST = {
     "dev": "https://dev.invest.directory.uktrade.io/",
     "stage": "https://invest-ui-staging.cloudapps.digital/",
-    #"prod": "https://invest-ui.cloudapps.digital/",
     "prod": "https://invest.great.gov.uk/"
+}
+SITES_EXRED = {
+    "dev": "https://dev.exportreadiness.directory.uktrade.io/",
+    "stage": "https://stage.exportreadiness.directory.uktrade.io/",
+    "prod": "https://www.great.gov.uk/"
+}
+SITES_FAS = {
+    "dev": "https://dev.supplier.directory.uktrade.io",
+    "stage": "https://stage.supplier.directory.uktrade.io",
+    "prod": "https://trade.great.gov.uk/"
 }
 
 
@@ -52,6 +61,9 @@ def get_text(content: str, section_name: str) -> List[str]:
         element.extract()
     for element in section.select("#error-reporting-section-contact-us"):
         element.extract()
+    # list of companies on FAS Industry pages
+    for element in section.select("#companies-section ul"):
+        element.extract()
     data_section_lines = [
         line
         for span in section.findAll("div", class_="data")
@@ -77,9 +89,17 @@ def get_text(content: str, section_name: str) -> List[str]:
     wrap_exception=False,
 )
 def extract_page_content(
-        context: Context, section: str, endpoint: str, site_a: str, site_b: str):
-    site_a = SITES[site_a.lower()]
-    site_b = SITES[site_b.lower()]
+        context: Context, section: str, endpoint: str, service: str,
+        site_a: str, site_b: str):
+    if service.lower() == "fas":
+        sites = SITES_FAS
+    elif service.lower() == "exred":
+        sites = SITES_EXRED
+    elif service.lower() == "invest":
+        sites = SITES_INVEST
+
+    site_a = sites[site_a.lower()]
+    site_b = sites[site_b.lower()]
     url_a = urljoin(site_a, endpoint)
     url_b = urljoin(site_b, endpoint)
 
@@ -135,7 +155,16 @@ def look_for_differences(context: Context):
     sm = difflib.SequenceMatcher(None, text_a, text_b)
     contents["similarity"] = int(sm.ratio() * 100)
 
-    clean_endpoint = endpoint[1:-1].replace("/", "_")
+    clean_endpoint = endpoint
+    if clean_endpoint.startswith("/"):
+        clean_endpoint = clean_endpoint[1:]
+    if clean_endpoint.endswith("/"):
+        clean_endpoint = clean_endpoint[:-1]
+    # https://stackoverflow.com/questions/3411771/multiple-character-replace-with-python
+    clean_endpoint = clean_endpoint.replace("/", "_")
+    clean_endpoint = clean_endpoint.replace("?", "_")
+    clean_endpoint = clean_endpoint.replace("=", "_")
+    clean_endpoint = clean_endpoint.replace("__", "_")
     clean_endpoint = clean_endpoint or "home"
     report_name = "./reports/{}.html".format(clean_endpoint)
     with open(report_name, "w") as file:

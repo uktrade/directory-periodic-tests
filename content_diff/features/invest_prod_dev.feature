@@ -1,7 +1,7 @@
-Feature: Content migration
+Feature: Find content differences between Production and Dev Invest environments
 
   Scenario Outline: Content on Dev page "<selected>" should be the same as on respective Production page
-    When you look at the "main" section of the "<selected>" page on "PROD" and "DEV"
+    When you look at the "main" section of the "<selected>" page on "Invest" "PROD" and "DEV"
 
     Then there should be no differences
 
