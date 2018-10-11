@@ -295,6 +295,26 @@ DATASET_BAD_CMS_PAGES_PER_ENVIRONMENT_FIELDS = {
 DATASET_BAD_CMS_PAGES_PER_ENVIRONMENT_UNIQUE_BY = ["date", "environment"]
 
 
+# Number of content differences per service per environment
+DATASET_CONTENT_DIFFS_PER_ENVIRONMENT_NAME = "cms.content_diffs_per_environment"
+DATASET_CONTENT_DIFFS_PER_ENVIRONMENT_FIELDS = {
+    "date": {"type": "date", "name": "Date", "optional": False},
+    "environment": {
+        "type": "string",
+        "name": "Service & compared Environments",
+        "optional": False,
+    },
+    "errors": {"type": "number", "name": "Errors", "optional": False},
+    "failures": {"type": "number", "name": "Failures", "optional": False},
+    "scanned_urls": {
+        "type": "number",
+        "name": "Number of compared pages",
+        "optional": False,
+    },
+}
+DATASET_CONTENT_DIFFS_PER_ENVIRONMENT_UNIQUE_BY = ["date", "environment"]
+
+
 DataSets = namedtuple(
     "DataSets",
     [
@@ -310,6 +330,7 @@ DataSets = namedtuple(
         "BUGS_PER_SERVICE",
         "BAD_LINKS_PER_ENVIRONMENT",
         "BAD_CMS_PAGES_PER_ENVIRONMENT",
+        "CONTENT_DIFFS_PER_ENVIRONMENT",
     ],
 )
 
@@ -389,6 +410,12 @@ def create_datasets(gecko_client: GeckoClient) -> DataSets:
         DATASET_BAD_CMS_PAGES_PER_ENVIRONMENT_UNIQUE_BY,
     )
 
+    content_diffs_per_environment = gecko_client.datasets.find_or_create(
+        DATASET_CONTENT_DIFFS_PER_ENVIRONMENT_NAME,
+        DATASET_CONTENT_DIFFS_PER_ENVIRONMENT_FIELDS,
+        DATASET_CONTENT_DIFFS_PER_ENVIRONMENT_UNIQUE_BY,
+    )
+
     return DataSets(
         on_kanban_by_labels,
         in_backlog,
@@ -402,6 +429,7 @@ def create_datasets(gecko_client: GeckoClient) -> DataSets:
         bugs_per_service,
         bad_links_per_environment,
         bad_cms_pages_per_environment,
+        content_diffs_per_environment,
     )
 
 
@@ -1138,6 +1166,7 @@ if __name__ == "__main__":
     bugs_per_service = get_number_of_bugs_per_service()
     bad_urls = circle_ci_get_last_dead_urls_tests_results()
     bad_cms_pages = circle_ci_get_last_cms_pages_tests_results()
+    content_diffs = circle_ci_get_last_content_diff_tests_results()
 
     print("Bugs by labels on the Kanban board: ", kanban_bugs_by_labels)
     print("Unlabelled bugs on the Kanban board: ", unlabelled_on_kanban)
@@ -1151,6 +1180,7 @@ if __name__ == "__main__":
     print("Number of bugs per service: ", bugs_per_service)
     print("CMS - bad URLs per environment: ", bad_urls)
     print("CMS - bad pages on production: ", bad_cms_pages)
+    print("Content diff per service:", content_diffs)
 
     print("Creating datasets in Geckoboard...")
     datasets = create_datasets(GECKO_CLIENT)
@@ -1169,6 +1199,7 @@ if __name__ == "__main__":
     datasets.BUGS_PER_SERVICE.post(bugs_per_service)
     datasets.BAD_LINKS_PER_ENVIRONMENT.post(bad_urls)
     datasets.BAD_CMS_PAGES_PER_ENVIRONMENT.post(bad_cms_pages)
+    datasets.CONTENT_DIFFS_PER_ENVIRONMENT.post(content_diffs)
     print("All datasets pushed")
 
     print("Pushing tests results to Geckoboard widget")
