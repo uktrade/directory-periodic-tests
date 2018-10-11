@@ -60,61 +60,61 @@ step_cache_cms_pages_checker_requirements: &step_cache_cms_pages_checker_require
   save_cache:
     key: cms-pages-dependency-cache-{{ checksum "requirements_cms_pages.txt" }}
     paths:
-      - ~/directory-periodical-tests
+      - ~/directory-periodic-tests
 
 step_cache_content_diff_requirements: &step_cache_content_diff_requirements
   save_cache:
     key: content-diff-dependency-cache-{{ checksum "requirements_content_diff.txt" }}
     paths:
-      - ~/directory-periodical-tests
+      - ~/directory-periodic-tests
 
 step_cache_dead_links_checker_requirements: &step_cache_dead_links_checker_requirements
   save_cache:
     key: dead-links-dependency-cache-{{ checksum "requirements_dead_links.txt" }}
     paths:
-      - ~/directory-periodical-tests
+      - ~/directory-periodic-tests
 
 step_cache_geckoboard_updater_requirements: &step_cache_geckoboard_updater_requirements
   save_cache:
     key: geckoboard-updater-dependency-cache-{{ checksum "requirements_geckoboard_updater.txt" }}
     paths:
-      - ~/directory-periodical-tests
+      - ~/directory-periodic-tests
 
 step_cache_x_robots_tag_requirements: &step_cache_x_robots_tag_requirements
   save_cache:
     key: x-robots-tag-dependency-cache-{{ checksum "requirements_x_robots_tag.txt" }}
     paths:
-      - ~/directory-periodical-tests
+      - ~/directory-periodic-tests
 
 step_restore_cached_cms_pages_checker_requirements: &step_restore_cached_cms_pages_checker_requirements
   restore_cache:
     key: cms-pages-dependency-cache-{{ checksum "requirements_cms_pages.txt" }}
     paths:
-      - ~/directory-periodical-tests
+      - ~/directory-periodic-tests
 
 step_restore_cached_content_diff_requirements: &step_restore_cached_content_diff_requirements
   restore_cache:
     key: content-diff-dependency-cache-{{ checksum "requirements_content_diff.txt" }}
     paths:
-      - ~/directory-periodical-tests
+      - ~/directory-periodic-tests
 
 step_restore_cached_dead_links_checker_requirements: &step_restore_cached_dead_links_checker_requirements
   restore_cache:
     key: dead-links-dependency-cache-{{ checksum "requirements_dead_links.txt" }}
     paths:
-      - ~/directory-periodical-tests
+      - ~/directory-periodic-tests
 
 step_restore_cached_geckoboard_updater_requirements: &step_restore_cached_geckoboard_updater_requirements
   restore_cache:
     key: geckoboard-updater-dependency-cache-{{ checksum "requirements_geckoboard_updater.txt" }}
     paths:
-      - ~/directory-periodical-tests
+      - ~/directory-periodic-tests
 
 step_restore_cached_x_robots_tag_requirements: &step_restore_cached_x_robots_tag_requirements
   restore_cache:
     key: x-robots-tag-dependency-cache-{{ checksum "requirements_x_robots_tag.txt" }}
     paths:
-      - ~/directory-periodical-tests
+      - ~/directory-periodic-tests
 
 step_run_cms_pages_checker: &step_run_cms_pages_checker
   run:
@@ -244,63 +244,63 @@ jobs:
 
   setup_env_for_cms_pages_checker: &setup_env_for_cms_pages_checker
     <<: *machine_python3
-    working_directory: ~/directory-periodical-tests
+    working_directory: ~/directory-periodic-tests
     <<: *steps_cms_pages_checker
 
   setup_env_for_content_diff: &setup_env_for_content_diff
     <<: *machine_python3
-    working_directory: ~/directory-periodical-tests
+    working_directory: ~/directory-periodic-tests
     <<: *steps_setup_env_for_content_diff
 
   setup_env_for_dead_links_checker: &setup_env_for_dead_links_checker
     <<: *machine_python3
-    working_directory: ~/directory-periodical-tests
+    working_directory: ~/directory-periodic-tests
     <<: *steps_setup_env_for_dead_links_checker
 
   setup_env_for_geckoboard_updater: &setup_env_for_geckoboard_updater
     <<: *machine_python3
-    working_directory: ~/directory-periodical-tests
+    working_directory: ~/directory-periodic-tests
     <<: *steps_setup_env_for_geckoboard_updater
 
   setup_env_for_x_robots_tag_checker: &setup_env_for_x_robots_tag_checker
     <<: *machine_python3
-    working_directory: ~/directory-periodical-tests
+    working_directory: ~/directory-periodic-tests
     <<: *steps_setup_env_for_x_robots_tag_checker
 
   refresh_geckoboard:
     <<: *machine_python3
-    working_directory: ~/directory-periodical-tests
+    working_directory: ~/directory-periodic-tests
     <<: *steps_geckoboard_updater
 
   check_for_dead_links_on_dev:
     <<: *machine_python3
-    working_directory: ~/directory-periodical-tests
+    working_directory: ~/directory-periodic-tests
     environment:
       TEST_ENV: "DEV"
     <<: *steps_dead_links_checker
 
   check_for_dead_links_on_stage:
     <<: *machine_python3
-    working_directory: ~/directory-periodical-tests
+    working_directory: ~/directory-periodic-tests
     environment:
       TEST_ENV: "STAGE"
     <<: *steps_dead_links_checker
 
   check_for_dead_links_on_prod:
     <<: *machine_python3
-    working_directory: ~/directory-periodical-tests
+    working_directory: ~/directory-periodic-tests
     environment:
       TEST_ENV: "PROD"
     <<: *steps_dead_links_checker
 
   check_cms_pages_on_production:
     <<: *machine_python3
-    working_directory: ~/directory-periodical-tests
+    working_directory: ~/directory-periodic-tests
     <<: *steps_cms_pages_checker
 
   invest_compare_prod_and_dev_pages:
     <<: *machine_python3
-    working_directory: ~/directory-periodical-tests
+    working_directory: ~/directory-periodic-tests
     environment:
       SERVICE: "invest"
       ENVS_TO_COMPARE: "prod_dev"
@@ -308,7 +308,7 @@ jobs:
 
   invest_compare_prod_and_stage_pages:
     <<: *machine_python3
-    working_directory: ~/directory-periodical-tests
+    working_directory: ~/directory-periodic-tests
     environment:
       SERVICE: "invest"
       ENVS_TO_COMPARE: "prod_stage"
@@ -316,7 +316,7 @@ jobs:
 
   invest_compare_stage_and_dev_pages:
     <<: *machine_python3
-    working_directory: ~/directory-periodical-tests
+    working_directory: ~/directory-periodic-tests
     environment:
       SERVICE: "invest"
       ENVS_TO_COMPARE: "stage_dev"
@@ -324,7 +324,7 @@ jobs:
 
   exred_compare_prod_and_dev_pages:
     <<: *machine_python3
-    working_directory: ~/directory-periodical-tests
+    working_directory: ~/directory-periodic-tests
     environment:
       SERVICE: "exred"
       ENVS_TO_COMPARE: "prod_dev"
@@ -332,7 +332,7 @@ jobs:
 
   exred_compare_prod_and_stage_pages:
     <<: *machine_python3
-    working_directory: ~/directory-periodical-tests
+    working_directory: ~/directory-periodic-tests
     environment:
       SERVICE: "exred"
       ENVS_TO_COMPARE: "prod_stage"
@@ -340,7 +340,7 @@ jobs:
 
   exred_compare_stage_and_dev_pages:
     <<: *machine_python3
-    working_directory: ~/directory-periodical-tests
+    working_directory: ~/directory-periodic-tests
     environment:
       SERVICE: "exred"
       ENVS_TO_COMPARE: "stage_dev"
@@ -348,7 +348,7 @@ jobs:
 
   fas_compare_prod_and_dev_pages:
     <<: *machine_python3
-    working_directory: ~/directory-periodical-tests
+    working_directory: ~/directory-periodic-tests
     environment:
       SERVICE: "fas"
       ENVS_TO_COMPARE: "prod_dev"
@@ -356,7 +356,7 @@ jobs:
 
   fas_compare_prod_and_stage_pages:
     <<: *machine_python3
-    working_directory: ~/directory-periodical-tests
+    working_directory: ~/directory-periodic-tests
     environment:
       SERVICE: "fas"
       ENVS_TO_COMPARE: "prod_stage"
@@ -364,7 +364,7 @@ jobs:
 
   fas_compare_stage_and_dev_pages:
     <<: *machine_python3
-    working_directory: ~/directory-periodical-tests
+    working_directory: ~/directory-periodic-tests
     environment:
       SERVICE: "fas"
       ENVS_TO_COMPARE: "stage_dev"
@@ -372,13 +372,13 @@ jobs:
 
   check_for_x_robots_tag_header:
     <<: *machine_python3
-    working_directory: ~/directory-periodical-tests
+    working_directory: ~/directory-periodic-tests
     <<: *steps_x_robots_tag
 
   accessibility_tests_export_readiness_dev:
     docker:
       - image: circleci/node:10.5.0-stretch-browsers
-    working_directory: ~/directory-periodical-tests
+    working_directory: ~/directory-periodic-tests
     environment:
       BASH_ENV: ~/.bashrc
       SHELL: /bin/bash
