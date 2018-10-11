@@ -501,6 +501,12 @@ workflows:
       - check_cms_pages_on_production
 
   exred_prod_dev_content_diff:
+    triggers:
+    - schedule:
+        cron: "0 8,13 * * 1-5"
+        filters:
+          branches:
+            only: master
     jobs:
       - setup_env_for_content_diff
       - exred_compare_prod_and_dev_pages:
@@ -508,6 +514,12 @@ workflows:
             - setup_env_for_content_diff
 
   exred_prod_stage_content_diff:
+    triggers:
+    - schedule:
+        cron: "5 8,13 * * 1-5"
+        filters:
+          branches:
+            only: master
     jobs:
       - setup_env_for_content_diff
       - exred_compare_prod_and_stage_pages:
@@ -515,6 +527,12 @@ workflows:
             - setup_env_for_content_diff
 
   exred_stage_dev_content_diff:
+    triggers:
+    - schedule:
+        cron: "10 8,13 * * 1-5"
+        filters:
+          branches:
+            only: master
     jobs:
       - setup_env_for_content_diff
       - exred_compare_stage_and_dev_pages:
@@ -522,6 +540,12 @@ workflows:
             - setup_env_for_content_diff
 
   fas_prod_dev_content_diff:
+    triggers:
+    - schedule:
+        cron: "0 9,14 * * 1-5"
+        filters:
+          branches:
+            only: master
     jobs:
       - setup_env_for_content_diff
       - fas_compare_prod_and_dev_pages:
@@ -529,6 +553,12 @@ workflows:
             - setup_env_for_content_diff
 
   fas_prod_stage_content_diff:
+    triggers:
+    - schedule:
+        cron: "0 10,15 * * 1-5"
+        filters:
+          branches:
+            only: master
     jobs:
       - setup_env_for_content_diff
       - fas_compare_prod_and_stage_pages:
@@ -536,6 +566,12 @@ workflows:
             - setup_env_for_content_diff
 
   fas_stage_dev_content_diff:
+    triggers:
+    - schedule:
+        cron: "0 11,16 * * 1-5"
+        filters:
+          branches:
+            only: master
     jobs:
       - setup_env_for_content_diff
       - fas_compare_stage_and_dev_pages:
@@ -543,6 +579,12 @@ workflows:
             - setup_env_for_content_diff
 
   invest_prod_dev_content_diff:
+    triggers:
+    - schedule:
+        cron: "30 9,14 * * 1-5"
+        filters:
+          branches:
+            only: master
     jobs:
       - setup_env_for_content_diff
       - invest_compare_prod_and_dev_pages:
@@ -550,6 +592,12 @@ workflows:
             - setup_env_for_content_diff
 
   invest_prod_stage_content_diff:
+    triggers:
+    - schedule:
+        cron: "30 10,15 * * 1-5"
+        filters:
+          branches:
+            only: master
     jobs:
       - setup_env_for_content_diff
       - invest_compare_prod_and_stage_pages:
@@ -557,6 +605,12 @@ workflows:
             - setup_env_for_content_diff
 
   invest_stage_dev_content_diff:
+    triggers:
+    - schedule:
+        cron: "30 11,16 * * 1-5"
+        filters:
+          branches:
+            only: master
     jobs:
       - setup_env_for_content_diff
       - invest_compare_stage_and_dev_pages:
