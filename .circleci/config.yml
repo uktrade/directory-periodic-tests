@@ -1,74 +1,379 @@
 version: 2.0
 
+# Machines configs
+machine_python3: &machine_python3
+  docker:
+    - image: circleci/python:3.6.6
+
+# Individual (shared) steps.
+step_checkout_repo: &step_checkout_repo
+  checkout
+
+step_install_cms_pages_checker_requirements: &step_install_cms_pages_checker_requirements
+  run:
+    name: Create virtualenv and install dependencies
+    command: |
+      python3 -m venv venv
+      . venv/bin/activate
+      pip install --upgrade pip
+      pip install -q -r requirements_cms_pages.txt
+
+step_install_content_diff_requirements: &step_install_content_diff_requirements
+  run:
+    name: Create virtualenv and install dependencies
+    command: |
+      python3 -m venv venv
+      . venv/bin/activate
+      pip install --upgrade pip
+      pip install -q -r requirements_content_diff.txt
+
+step_install_dead_links_checker_requirements: &step_install_dead_links_checker_requirements
+  run:
+    name: Create virtualenv and install dependencies
+    command: |
+      python3 -m venv venv
+      . venv/bin/activate
+      pip install --upgrade pip
+      pip install -q -r requirements_dead_links.txt
+
+step_install_geckoboard_updater_requirements: &step_install_geckoboard_updater_requirements
+  run:
+    name: Create virtualenv and install dependencies
+    command: |
+      python3 -m venv venv
+      . venv/bin/activate
+      pip install --upgrade pip
+      pip install -q -r requirements_geckoboard_updater.txt
+
+step_install_x_robots_tag_requirements: &step_install_x_robots_tag_requirements
+  run:
+    name: Create virtualenv and install dependencies
+    command: |
+      python3 -m venv venv
+      . venv/bin/activate
+      pip install --upgrade pip
+      pip install -q -r requirements_x_robots_tag.txt
+      nodeenv -p
+      npm install -g junit-merge@1.2.3
+
+step_cache_cms_pages_checker_requirements: &step_cache_cms_pages_checker_requirements
+  save_cache:
+    key: cms-pages-dependency-cache-{{ .Revision }}
+    paths:
+      - ~/directory-periodical-tests
+
+step_cache_content_diff_requirements: &step_cache_content_diff_requirements
+  save_cache:
+    key: content-diff-dependency-cache-{{ .Revision }}
+    paths:
+      - ~/directory-periodical-tests
+
+step_cache_dead_links_checker_requirements: &step_cache_dead_links_checker_requirements
+  save_cache:
+    key: dead-links-dependency-cache-{{ .Revision }}
+    paths:
+      - ~/directory-periodical-tests
+
+step_cache_geckoboard_updater_requirements: &step_cache_geckoboard_updater_requirements
+  save_cache:
+    key: geckoboard-updater-dependency-cache-{{ .Revision }}
+    paths:
+      - ~/directory-periodical-tests
+
+step_cache_x_robots_tag_requirements: &step_cache_x_robots_tag_requirements
+  save_cache:
+    key: x-robots-tag-dependency-cache-{{ .Revision }}
+    paths:
+      - ~/directory-periodical-tests
+
+step_restore_cached_cms_pages_checker_requirements: &step_restore_cached_cms_pages_checker_requirements
+  restore_cache:
+    key: cms-pages-dependency-cache-{{ .Revision }}
+    paths:
+      - ~/directory-periodical-tests
+
+step_restore_cached_content_diff_requirements: &step_restore_cached_content_diff_requirements
+  restore_cache:
+    key: content-diff-dependency-cache-{{ .Revision }}
+    paths:
+      - ~/directory-periodical-tests
+
+step_restore_cached_dead_links_checker_requirements: &step_restore_cached_dead_links_checker_requirements
+  restore_cache:
+    key: dead-links-dependency-cache-{{ .Revision }}
+    paths:
+      - ~/directory-periodical-tests
+
+step_restore_cached_geckoboard_updater_requirements: &step_restore_cached_geckoboard_updater_requirements
+  restore_cache:
+    key: geckoboard-updater-dependency-cache-{{ .Revision }}
+    paths:
+      - ~/directory-periodical-tests
+
+step_restore_cached_x_robots_tag_requirements: &step_restore_cached_x_robots_tag_requirements
+  restore_cache:
+    key: x-robots-tag-dependency-cache-{{ .Revision }}
+    paths:
+      - ~/directory-periodical-tests
+
+step_run_cms_pages_checker: &step_run_cms_pages_checker
+  run:
+    name: Run CMS Checker
+    command: |
+      . venv/bin/activate
+      make cms_pages_check
+
+step_run_content_diff: &step_run_content_diff
+  run:
+    name: Run Content Diff tests
+    command: |
+      . venv/bin/activate
+      SERVICE=${SERVICE} ENVS_TO_COMPARE=${ENVS_TO_COMPARE} make compare_content
+
+step_run_dead_links_checker: &step_run_dead_links_checker
+  run:
+    name: Run Dead Links Checker script
+    command: |
+      . venv/bin/activate
+      TEST_ENV=${TEST_ENV} make dead_links_check
+
+step_run_geckoboard_updater: &step_run_geckoboard_updater
+  run:
+    name: Run Geckoboard Updater script
+    command: |
+      . venv/bin/activate
+      python geckoboard_updater/geckoboard_updater.py
+
+step_run_x_robots_tag: &step_run_x_robots_tag
+  run:
+    name: Every page on non-production site should return X-Robots-Tag noindex header
+    command: |
+      . venv/bin/activate
+      make check_for_x_robots_tag_header
+
+step_run_merge_junit_xml_reports: &step_run_merge_junit_xml_reports
+  run:
+    name: Merge JUnit XML reports
+    when: always
+    command: |
+      python3 -m venv venv
+      . venv/bin/activate
+      cd ./reports
+      junit-merge *.xml -o merged.xml
+      ls *.xml | grep -v merged.xml | xargs rm
+
+
+# Lists of steps
+steps_setup_env_for_cms_pages_check: &steps_setup_env_for_cms_pages_check
+  steps:
+    - *step_checkout_repo
+    - *step_install_cms_pages_checker_requirements
+    - *step_cache_cms_pages_checker_requirements
+
+steps_setup_env_for_content_diff: &steps_setup_env_for_content_diff
+  steps:
+    - *step_checkout_repo
+    - *step_install_content_diff_requirements
+    - *step_cache_content_diff_requirements
+
+steps_setup_env_for_dead_links_checker: &steps_setup_env_for_dead_links_checker
+  steps:
+    - *step_checkout_repo
+    - *step_install_dead_links_checker_requirements
+    - *step_cache_dead_links_checker_requirements
+
+steps_setup_env_for_geckoboard_updater: &steps_setup_env_for_geckoboard_updater
+  steps:
+    - *step_checkout_repo
+    - *step_install_geckoboard_updater_requirements
+    - *step_cache_geckoboard_updater_requirements
+
+steps_setup_env_for_x_robots_tag_checker: &steps_setup_env_for_x_robots_tag_checker
+  steps:
+    - *step_checkout_repo
+    - *step_install_x_robots_tag_requirements
+    - *step_cache_x_robots_tag_requirements
+
+steps_cms_pages_checker: &steps_cms_pages_checker
+  steps:
+    - *step_restore_cached_cms_pages_checker_requirements
+    - *step_run_cms_pages_checker
+    - store_test_results:
+        path: ./reports
+    - store_artifacts:
+        path: ./reports
+
+steps_content_diff: &steps_content_diff
+  steps:
+    - *step_restore_cached_content_diff_requirements
+    - *step_run_content_diff
+    - store_test_results:
+        path: ./reports
+    - store_artifacts:
+        path: ./reports
+
+steps_dead_links_checker: &steps_dead_links_checker
+  steps:
+    - *step_restore_cached_dead_links_checker_requirements
+    - *step_run_dead_links_checker
+    - store_test_results:
+        path: ./reports
+    - store_artifacts:
+        path: ./reports
+
+steps_geckoboard_updater: &steps_geckoboard_updater
+  steps:
+    - *step_restore_cached_geckoboard_updater_requirements
+    - *step_run_geckoboard_updater
+    - store_test_results:
+        path: ./reports
+    - store_artifacts:
+        path: ./reports
+
+steps_x_robots_tag: &steps_x_robots_tag
+  steps:
+    - *step_restore_cached_x_robots_tag_requirements
+    - *step_run_x_robots_tag
+    - *step_run_merge_junit_xml_reports
+    - store_test_results:
+        path: ./reports
+    - store_artifacts:
+        path: ./reports
+
 jobs:
 
-  refresh_geckoboard:
-    docker:
-      - image: circleci/python:3.6.5
+  setup_env_for_cms_pages_checker: &setup_env_for_cms_pages_checker
+    <<: *machine_python3
     working_directory: ~/directory-periodical-tests
-    steps:
-      - checkout
-      - run:
-          name: Refresh Geckoboard
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -q -r requirements_geckoboard_updater.txt
-            python geckoboard_updater/geckoboard_updater.py
+    <<: *steps_cms_pages_checker
+
+  setup_env_for_content_diff: &setup_env_for_content_diff
+    <<: *machine_python3
+    working_directory: ~/directory-periodical-tests
+    <<: *steps_setup_env_for_content_diff
+
+  setup_env_for_dead_links_checker: &setup_env_for_dead_links_checker
+    <<: *machine_python3
+    working_directory: ~/directory-periodical-tests
+    <<: *steps_setup_env_for_dead_links_checker
+
+  setup_env_for_geckoboard_updater: &setup_env_for_geckoboard_updater
+    <<: *machine_python3
+    working_directory: ~/directory-periodical-tests
+    <<: *steps_setup_env_for_geckoboard_updater
+
+  setup_env_for_x_robots_tag_checker: &setup_env_for_x_robots_tag_checker
+    <<: *machine_python3
+    working_directory: ~/directory-periodical-tests
+    <<: *steps_setup_env_for_x_robots_tag_checker
+
+  refresh_geckoboard:
+    <<: *machine_python3
+    working_directory: ~/directory-periodical-tests
+    <<: *steps_geckoboard_updater
 
   check_for_dead_links_on_dev:
-    docker:
-      - image: circleci/python:3.6.5
+    <<: *machine_python3
     working_directory: ~/directory-periodical-tests
-    steps:
-      - checkout
-      - run:
-          name: Check for dead links
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -q -r requirements_dead_links.txt
-            TEST_ENV=DEV make dead_links_check
-      - store_test_results:
-          path: ./reports
-      - store_artifacts:
-          path: ./reports
+    environment:
+      TEST_ENV: "DEV"
+    <<: *steps_dead_links_checker
 
   check_for_dead_links_on_stage:
-    docker:
-      - image: circleci/python:3.6.5
+    <<: *machine_python3
     working_directory: ~/directory-periodical-tests
-    steps:
-      - checkout
-      - run:
-          name: Check for dead links
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -q -r requirements_dead_links.txt
-            TEST_ENV=STAGE make dead_links_check
-      - store_test_results:
-          path: ./reports
-      - store_artifacts:
-          path: ./reports
+    environment:
+      TEST_ENV: "STAGE"
+    <<: *steps_dead_links_checker
 
   check_for_dead_links_on_prod:
-    docker:
-      - image: circleci/python:3.6.5
+    <<: *machine_python3
     working_directory: ~/directory-periodical-tests
-    steps:
-      - checkout
-      - run:
-          name: Check for dead links
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -q -r requirements_dead_links.txt
-            TEST_ENV=PROD make dead_links_check
-      - store_test_results:
-          path: ./reports
-      - store_artifacts:
-          path: ./reports
+    environment:
+      TEST_ENV: "PROD"
+    <<: *steps_dead_links_checker
+
+  check_cms_pages_on_production:
+    <<: *machine_python3
+    working_directory: ~/directory-periodical-tests
+    <<: *steps_cms_pages_checker
+
+  invest_compare_prod_and_dev_pages:
+    <<: *machine_python3
+    working_directory: ~/directory-periodical-tests
+    environment:
+      SERVICE: "invest"
+      ENV_TO_COMPARE: "prod_dev"
+    <<: *steps_content_diff
+
+  invest_compare_prod_and_stage_pages:
+    <<: *machine_python3
+    working_directory: ~/directory-periodical-tests
+    environment:
+      SERVICE: "invest"
+      ENV_TO_COMPARE: "prod_stage"
+    <<: *steps_content_diff
+
+  invest_compare_stage_and_dev_pages:
+    <<: *machine_python3
+    working_directory: ~/directory-periodical-tests
+    environment:
+      SERVICE: "invest"
+      ENV_TO_COMPARE: "stage_dev"
+    <<: *steps_content_diff
+
+  exred_compare_prod_and_dev_pages:
+    <<: *machine_python3
+    working_directory: ~/directory-periodical-tests
+    environment:
+      SERVICE: "exred"
+      ENV_TO_COMPARE: "prod_dev"
+    <<: *steps_content_diff
+
+  exred_compare_prod_and_stage_pages:
+    <<: *machine_python3
+    working_directory: ~/directory-periodical-tests
+    environment:
+      SERVICE: "exred"
+      ENV_TO_COMPARE: "prod_stage"
+    <<: *steps_content_diff
+
+  exred_compare_stage_and_dev_pages:
+    <<: *machine_python3
+    working_directory: ~/directory-periodical-tests
+    environment:
+      SERVICE: "exred"
+      ENV_TO_COMPARE: "stage_dev"
+    <<: *steps_content_diff
+
+  fas_compare_prod_and_dev_pages:
+    <<: *machine_python3
+    working_directory: ~/directory-periodical-tests
+    environment:
+      SERVICE: "fas"
+      ENV_TO_COMPARE: "prod_dev"
+    <<: *steps_content_diff
+
+  fas_compare_prod_and_stage_pages:
+    <<: *machine_python3
+    working_directory: ~/directory-periodical-tests
+    environment:
+      SERVICE: "fas"
+      ENV_TO_COMPARE: "prod_stage"
+    <<: *steps_content_diff
+
+  fas_compare_stage_and_dev_pages:
+    <<: *machine_python3
+    working_directory: ~/directory-periodical-tests
+    environment:
+      SERVICE: "fas"
+      ENV_TO_COMPARE: "stage_dev"
+    <<: *steps_content_diff
+
+  check_for_x_robots_tag_header:
+    <<: *machine_python3
+    working_directory: ~/directory-periodical-tests
+    <<: *steps_x_robots_tag
 
   accessibility_tests_export_readiness_dev:
     docker:
@@ -138,151 +443,48 @@ jobs:
       - store_artifacts:
           path: ./reports
 
-  check_cms_pages_on_production:
-    docker:
-      - image: circleci/python:3.6.5
-    working_directory: ~/directory-periodical-tests
-    steps:
-      - checkout
-      - run:
-          name: Check CMS pages
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -q -r requirements_cms_pages.txt
-            make cms_pages_check
-      - store_test_results:
-          path: ./reports
-      - store_artifacts:
-          path: ./reports
-
-  invest_compare_prod_and_dev_pages:
-    docker:
-      - image: circleci/python:3.6.5
-    working_directory: ~/directory-periodical-tests
-    steps:
-      - checkout
-      - run:
-          name: Compare pages on Prod and Dev Invest sites
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -q -r requirements_invest_migration.txt
-            ENVS_TO_COMPARE=prod_dev make invest_compare_content
-      - store_test_results:
-          path: ./reports
-      - store_artifacts:
-          path: ./reports
-
-
-  invest_compare_prod_and_stage_pages:
-    docker:
-      - image: circleci/python:3.6.5
-    working_directory: ~/directory-periodical-tests
-    steps:
-      - checkout
-      - run:
-          name: Compare pages on Prod and Stage Invest sites
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -q -r requirements_invest_migration.txt
-            ENVS_TO_COMPARE=prod_stage make invest_compare_content
-      - store_test_results:
-          path: ./reports
-      - store_artifacts:
-          path: ./reports
-
-
-  invest_compare_stage_and_dev_pages:
-    docker:
-      - image: circleci/python:3.6.5
-    working_directory: ~/directory-periodical-tests
-    steps:
-      - checkout
-      - run:
-          name: Compare pages on Stage and Dev Invest sites
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -q -r requirements_invest_migration.txt
-            ENVS_TO_COMPARE=stage_dev make invest_compare_content
-      - store_test_results:
-          path: ./reports
-      - store_artifacts:
-          path: ./reports
-
-  check_for_x_robots_tag_header:
-    docker:
-      - image: circleci/python:3.6.5
-    working_directory: ~/directory-periodical-tests
-    steps:
-      - checkout
-      - run:
-          name: Every page on non-production site should return X-Robots-Tag noindex header
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -q -r requirements_x_robots_tag.txt
-            nodeenv -p
-            npm install -g junit-merge@1.2.3
-            make check_for_x_robots_tag_header
-      - run:
-          name: Merge JUnit XML reports
-          when: always
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            cd ./reports
-            junit-merge *.xml -o merged.xml
-            ls *.xml | grep -v merged.xml | xargs rm
-      - store_test_results:
-          path: ./reports
-      - store_artifacts:
-          path: ./reports
 
 workflows:
   version: 2
 
-  refresh_geckoboard_periodically:
-    triggers:
-    - schedule:
-        cron: "0,15,30,45 8-17 * * 1-5"
-        filters:
-          branches:
-            only: master
-    jobs:
-      - refresh_geckoboard
-
   dev_check_for_dead_links:
     triggers:
     - schedule:
-        cron: "0,30 8-17 * * 1-5"
+        cron: "0 8 * * 1-5"
         filters:
           branches:
             only: master
     jobs:
-      - check_for_dead_links_on_dev
+      - setup_env_for_dead_links_checker
+      - check_for_dead_links_on_dev:
+          requires:
+            - setup_env_for_dead_links_checker
 
   stage_check_for_dead_links:
     triggers:
     - schedule:
-        cron: "10,40 8-17 * * 1-5"
+        cron: "0 8 * * 1-5"
         filters:
           branches:
             only: master
     jobs:
-      - check_for_dead_links_on_stage
+      - setup_env_for_dead_links_checker
+      - check_for_dead_links_on_stage:
+          requires:
+            - setup_env_for_dead_links_checker
 
   prod_check_for_dead_links:
     triggers:
     - schedule:
-        cron: "20,50 8-17 * * 1-5"
+        cron: "0 8 * * 1-5"
         filters:
           branches:
             only: master
     jobs:
-      - check_for_dead_links_on_prod
+      - setup_env_for_dead_links_checker
+      - check_for_dead_links_on_prod:
+          requires:
+            - setup_env_for_dead_links_checker
 
   dev_ex_read_accessibility_tests:
     jobs:
@@ -291,25 +493,98 @@ workflows:
   prod_check_cms_pages:
     triggers:
     - schedule:
-        cron: "5,35 8-17 * * 1-5"
+        cron: "5 8,12 * * 1-5"
         filters:
           branches:
             only: master
     jobs:
       - check_cms_pages_on_production
 
-  compare_prod_dev_invest_content:
+  exred_prod_dev_content_diff:
     jobs:
-      - invest_compare_prod_and_dev_pages
+      - setup_env_for_content_diff
+      - exred_compare_prod_and_dev_pages:
+          requires:
+            - setup_env_for_content_diff
 
-  compare_prod_stage_invest_content:
+  exred_prod_stage_content_diff:
     jobs:
-      - invest_compare_prod_and_stage_pages
+      - setup_env_for_content_diff
+      - exred_compare_prod_and_stage_pages:
+          requires:
+            - setup_env_for_content_diff
 
-  compare_stage_dev_invest_content:
+  exred_stage_dev_content_diff:
     jobs:
-      - invest_compare_stage_and_dev_pages
+      - setup_env_for_content_diff
+      - exred_compare_stage_and_dev_pages:
+          requires:
+            - setup_env_for_content_diff
+
+  fas_prod_dev_content_diff:
+    jobs:
+      - setup_env_for_content_diff
+      - fas_compare_prod_and_dev_pages:
+          requires:
+            - setup_env_for_content_diff
+
+  fas_prod_stage_content_diff:
+    jobs:
+      - setup_env_for_content_diff
+      - fas_compare_prod_and_stage_pages:
+          requires:
+            - setup_env_for_content_diff
+
+  fas_stage_dev_content_diff:
+    jobs:
+      - setup_env_for_content_diff
+      - fas_compare_stage_and_dev_pages:
+          requires:
+            - setup_env_for_content_diff
+
+  invest_prod_dev_content_diff:
+    jobs:
+      - setup_env_for_content_diff
+      - invest_compare_prod_and_dev_pages:
+          requires:
+            - setup_env_for_content_diff
+
+  invest_prod_stage_content_diff:
+    jobs:
+      - setup_env_for_content_diff
+      - invest_compare_prod_and_stage_pages:
+          requires:
+            - setup_env_for_content_diff
+
+  invest_stage_dev_content_diff:
+    jobs:
+      - setup_env_for_content_diff
+      - invest_compare_stage_and_dev_pages:
+          requires:
+            - setup_env_for_content_diff
+
+  refresh_geckoboard_periodically:
+    triggers:
+    - schedule:
+        cron: "0,30 8-17 * * 1-5"
+        filters:
+          branches:
+            only: master
+    jobs:
+      - steps_setup_env_for_geckoboard_updater
+      - refresh_geckoboard:
+          requires:
+            - steps_setup_env_for_geckoboard_updater
 
   check_for_x_robots_tag_header_on_all_environments:
+    triggers:
+    - schedule:
+        cron: "0 1 * * 1-5"
+        filters:
+          branches:
+            only: master
     jobs:
-      - check_for_x_robots_tag_header
+      - setup_env_for_x_robots_tag_checker
+      - check_for_x_robots_tag_header:
+          requires:
+            - setup_env_for_x_robots_tag_checker
