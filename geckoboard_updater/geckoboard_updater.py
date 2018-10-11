@@ -842,11 +842,16 @@ def circle_ci_get_last_dead_urls_tests_results() -> List[dict]:
         "refresh_geckoboard_periodically",
         "prod_check_cms_pages",
         "dev_ex_read_accessibility_tests",
-        "invest_compare_content",
+        "exred_prod_dev_content_diff",
+        "exred_prod_stage_content_diff",
+        "exred_stage_dev_content_diff",
+        "fas_prod_dev_content_diff",
+        "fas_prod_stage_content_diff",
+        "fas_stage_dev_content_diff",
+        "invest_prod_dev_content_diff",
+        "invest_prod_stage_content_diff",
+        "invest_stage_dev_content_diff",
         "check_for_x_robots_tag_header_on_all_environments",
-        "compare_stage_dev_invest_content",
-        "compare_prod_stage_invest_content",
-        "compare_prod_dev_invest_content",
     ]
     workflows_name_mappings = {
         "dev_check_for_dead_links": "dev",
@@ -862,19 +867,52 @@ def circle_ci_get_last_dead_urls_tests_results() -> List[dict]:
 
 def circle_ci_get_last_cms_pages_tests_results() -> List[dict]:
     ignored_workflows = [
-        "refresh_geckoboard_periodically", 
+        "refresh_geckoboard_periodically",
+        "dev_ex_read_accessibility_tests",
+        "exred_prod_dev_content_diff",
+        "exred_prod_stage_content_diff",
+        "exred_stage_dev_content_diff",
+        "fas_prod_dev_content_diff",
+        "fas_prod_stage_content_diff",
+        "fas_stage_dev_content_diff",
+        "invest_prod_dev_content_diff",
+        "invest_prod_stage_content_diff",
+        "invest_stage_dev_content_diff",
+        "check_for_x_robots_tag_header_on_all_environments",
         "dev_check_for_dead_links",
         "stage_check_for_dead_links",
         "prod_check_for_dead_links",
-        "dev_ex_read_accessibility_tests",
-        "invest_compare_content",
-        "check_for_x_robots_tag_header_on_all_environments",
-        "compare_stage_dev_invest_content",
-        "compare_prod_stage_invest_content",
-        "compare_prod_dev_invest_content",
     ]
     workflows_name_mappings = {
         "prod_check_cms_pages": "prod"
+    }
+    return circle_ci_get_test_results_for_multi_workflow_project(
+        "directory-periodic-tests",
+        ignored_workflows=ignored_workflows,
+        workflows_name_mappings=workflows_name_mappings,
+    )
+
+
+def circle_ci_get_last_content_diff_tests_results() -> List[dict]:
+    ignored_workflows = [
+        "refresh_geckoboard_periodically",
+        "dev_ex_read_accessibility_tests",
+        "check_for_x_robots_tag_header_on_all_environments",
+        "dev_check_for_dead_links",
+        "stage_check_for_dead_links",
+        "prod_check_for_dead_links",
+        "prod_check_cms_pages",
+    ]
+    workflows_name_mappings = {
+        "exred_prod_dev_content_diff": "exred prod dev",
+        "exred_prod_stage_content_diff": "exred prod stage",
+        "exred_stage_dev_content_diff": "exred stage dev",
+        "fas_prod_dev_content_diff": "fas prod dev",
+        "fas_prod_stage_content_diff": "fas prod stage",
+        "fas_stage_dev_content_diff": "fas stage dev",
+        "invest_prod_dev_content_diff": "invest prod dev",
+        "invest_prod_stage_content_diff": "invest prod stage",
+        "invest_stage_dev_content_diff": "invest stage dev",
     }
     return circle_ci_get_test_results_for_multi_workflow_project(
         "directory-periodic-tests",
