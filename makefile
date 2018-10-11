@@ -44,10 +44,11 @@ cms_pages_check:
 
 
 # compare contents of Staging & Dev environments by default
+SERVICE ?= invest
 ENVS_TO_COMPARE ?= stage_dev
 
-invest_compare_content:
-	behave -k -t ~wip --junit --junit-directory=./reports/ invest_migration/features/$(ENVS_TO_COMPARE).feature
+compare_content:
+	behave -k -t ~wip --junit --junit-directory=./reports/ content_diff/features/$(SERVICE)_$(ENVS_TO_COMPARE).feature
 
 
 check_for_x_robots_tag_header:
