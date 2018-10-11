@@ -58,61 +58,61 @@ step_install_x_robots_tag_requirements: &step_install_x_robots_tag_requirements
 
 step_cache_cms_pages_checker_requirements: &step_cache_cms_pages_checker_requirements
   save_cache:
-    key: cms-pages-dependency-cache-{{ checksum "requirements_cms_pages.txt" }}
+    key: cms-pages-dependency-cache-{{ .Revision }}
     paths:
       - ~/directory-periodic-tests
 
 step_cache_content_diff_requirements: &step_cache_content_diff_requirements
   save_cache:
-    key: content-diff-dependency-cache-{{ checksum "requirements_content_diff.txt" }}
+    key: content-diff-dependency-cache-{{ .Revision }}
     paths:
       - ~/directory-periodic-tests
 
 step_cache_dead_links_checker_requirements: &step_cache_dead_links_checker_requirements
   save_cache:
-    key: dead-links-dependency-cache-{{ checksum "requirements_dead_links.txt" }}
+    key: dead-links-dependency-cache-{{ .Revision }}
     paths:
       - ~/directory-periodic-tests
 
 step_cache_geckoboard_updater_requirements: &step_cache_geckoboard_updater_requirements
   save_cache:
-    key: geckoboard-updater-dependency-cache-{{ checksum "requirements_geckoboard_updater.txt" }}
+    key: geckoboard-updater-dependency-cache-{{ .Revision }}
     paths:
       - ~/directory-periodic-tests
 
 step_cache_x_robots_tag_requirements: &step_cache_x_robots_tag_requirements
   save_cache:
-    key: x-robots-tag-dependency-cache-{{ checksum "requirements_x_robots_tag.txt" }}
+    key: x-robots-tag-dependency-cache-{{ .Revision }}
     paths:
       - ~/directory-periodic-tests
 
 step_restore_cached_cms_pages_checker_requirements: &step_restore_cached_cms_pages_checker_requirements
   restore_cache:
-    key: cms-pages-dependency-cache-{{ checksum "requirements_cms_pages.txt" }}
+    key: cms-pages-dependency-cache-{{ .Revision }}
     paths:
       - ~/directory-periodic-tests
 
 step_restore_cached_content_diff_requirements: &step_restore_cached_content_diff_requirements
   restore_cache:
-    key: content-diff-dependency-cache-{{ checksum "requirements_content_diff.txt" }}
+    key: content-diff-dependency-cache-{{ .Revision }}
     paths:
       - ~/directory-periodic-tests
 
 step_restore_cached_dead_links_checker_requirements: &step_restore_cached_dead_links_checker_requirements
   restore_cache:
-    key: dead-links-dependency-cache-{{ checksum "requirements_dead_links.txt" }}
+    key: dead-links-dependency-cache-{{ .Revision }}
     paths:
       - ~/directory-periodic-tests
 
 step_restore_cached_geckoboard_updater_requirements: &step_restore_cached_geckoboard_updater_requirements
   restore_cache:
-    key: geckoboard-updater-dependency-cache-{{ checksum "requirements_geckoboard_updater.txt" }}
+    key: geckoboard-updater-dependency-cache-{{ .Revision }}
     paths:
       - ~/directory-periodic-tests
 
 step_restore_cached_x_robots_tag_requirements: &step_restore_cached_x_robots_tag_requirements
   restore_cache:
-    key: x-robots-tag-dependency-cache-{{ checksum "requirements_x_robots_tag.txt" }}
+    key: x-robots-tag-dependency-cache-{{ .Revision }}
     paths:
       - ~/directory-periodic-tests
 
