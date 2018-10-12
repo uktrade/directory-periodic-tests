@@ -12,7 +12,7 @@ def get_page_ids_by_type(cms_client, page_type):
 
     # get IDs of all pages from the response
     content = response.json()
-    page_ids += [page["id"] for page in content["items"]]
+    page_ids += [page["meta"]["pk"] for page in content["items"]]
 
     total_count = content["meta"]["total_count"]
     while len(page_ids) < total_count:
@@ -23,7 +23,7 @@ def get_page_ids_by_type(cms_client, page_type):
         response = cms_client.get(url)
         assert response.status_code == 200
         content = response.json()
-        page_ids += [page["id"] for page in content["items"]]
+        page_ids += [page["meta"]["pk"] for page in content["items"]]
 
     assert len(list(sorted(page_ids))) == total_count
     return page_ids
