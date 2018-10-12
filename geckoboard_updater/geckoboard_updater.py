@@ -791,8 +791,8 @@ def circle_ci_get_test_results_for_multi_workflow_project(
         for build in recent_builds:
             if build["status"] not in job_statuses_without_artifacts:
                 if build["workflows"]["workflow_name"] == workflow_name:
-                    report = circle_ci_get_xml_build_artifact(build)
                     print(f"Parsing '{workflow_name}' XML report for build {build['build_num']}")
+                    report = circle_ci_get_xml_build_artifact(build)
                     report_summary = dead_links_get_xml_report_summary(report)
                     result = {
                         "date": TODAY,
