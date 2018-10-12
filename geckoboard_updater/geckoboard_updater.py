@@ -738,11 +738,8 @@ def circle_ci_get_xml_build_artifact(build: dict) -> str:
         for artifact in build_artifacts
         if artifact["url"].endswith(".xml")
     ]
-    assert (
-        len(xml_artifact_urls) == 1
-    ), "Expected only 1 xml artifact but found {} in build: #{} - {}".format(
-        len(xml_artifact_urls), build["build_num"], build["workflows"]["workflow_name"]
-    )
+    if not xml_artifact_urls:
+        return None
     response = requests.get(xml_artifact_urls[0])
     return response.content.decode("utf-8")
 
@@ -793,6 +790,8 @@ def circle_ci_get_test_results_for_multi_workflow_project(
                 if build["workflows"]["workflow_name"] == workflow_name:
                     print(f"Parsing '{workflow_name}' XML report for build {build['build_num']}")
                     report = circle_ci_get_xml_build_artifact(build)
+                    if not report:
+                        continue
                     report_summary = dead_links_get_xml_report_summary(report)
                     result = {
                         "date": TODAY,
