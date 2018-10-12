@@ -498,7 +498,10 @@ workflows:
           branches:
             only: master
     jobs:
-      - check_cms_pages_on_production
+      - setup_env_for_cms_pages_checker
+      - check_cms_pages_on_production:
+          requires:
+            - setup_env_for_cms_pages_checker
 
   exred_prod_dev_content_diff:
     triggers:
