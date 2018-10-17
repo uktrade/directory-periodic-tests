@@ -245,7 +245,7 @@ jobs:
   setup_env_for_cms_pages_checker: &setup_env_for_cms_pages_checker
     <<: *machine_python3
     working_directory: ~/directory-periodic-tests
-    <<: *steps_cms_pages_checker
+    <<: *steps_setup_env_for_cms_pages_check
 
   setup_env_for_content_diff: &setup_env_for_content_diff
     <<: *machine_python3
