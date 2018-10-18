@@ -39,7 +39,7 @@ dead_links_check:
 
 
 cms_pages_check:
-	echo "Running CMS pages check against: $(CMS_URL)" && \
+	echo "Running CMS pages check against: $(DIRECTORY_CMS_API_CLIENT_BASE_URL)" && \
 	pytest --junit-xml=./reports/cms_pages.xml cms_pages/
 
 
