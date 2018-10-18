@@ -1,3 +1,4 @@
-directory-api-client
+directory_cms_client
+directory_constants
 pytest
 requests
