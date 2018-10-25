@@ -142,7 +142,8 @@ step_run_geckoboard_updater: &step_run_geckoboard_updater
     name: Run Geckoboard Updater script
     command: |
       . venv/bin/activate
-      python geckoboard_updater/geckoboard_updater.py
+      cd geckoboard_updater
+      python geckoboard_updater.py
 
 step_run_x_robots_tag: &step_run_x_robots_tag
   run:
