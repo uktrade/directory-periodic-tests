@@ -11,6 +11,20 @@ import requests
 from circleclient.circleclient import CircleClient
 
 # Mapping of CircleCI job names to human friendly ones
+DIRECTORY_CONTENT_DIFF_JOB_NAME_MAPPINGS = {
+    "exred_compare_prod_and_dev_pages":     "ExRed Prod Dev",
+    "exred_compare_prod_and_stage_pages":   "ExRed Prod Stage",
+    "exred_compare_stage_and_dev_pages":    "ExRed Stage Dev",
+
+    "fas_compare_prod_and_dev_pages":       "FAS Prod Dev",
+    "fas_compare_prod_and_stage_pages":     "FAS Prod Stage",
+    "fas_compare_stage_and_dev_pages":      "FAS Stage Dev",
+
+    "invest_compare_prod_and_dev_pages":    "Invest Prod Dev",
+    "invest_compare_prod_and_stage_pages":  "Invest Prod Stage",
+    "invest_compare_stage_and_dev_pages":   "Invest Stage Dev",
+}
+
 DIRECTORY_LOAD_TESTS_JOB_NAME_MAPPINGS = {
     "load_fab_tests_stage":         "Load STAGE FAB",
     "load_cms_tests_stage":         "Load STAGE CMS",
