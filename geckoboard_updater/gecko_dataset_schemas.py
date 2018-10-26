@@ -30,7 +30,7 @@ DATE_ENVIRONMENT_ERRORS_FAILURES_SCANNED = {
 # values can be optional
 # it allows for sending results for endpoints that returned failures
 LOCUST_RESULTS_DISTRIBUTION = {
-    "date": {"type": "date", "name": "Date", "optional": False},
+    "date": {"type": "datetime", "name": "Date", "optional": False},
     "name": {"type": "string", "name": "Name", "optional": False},
     "requests": {"type": "number", "name": "# requests", "optional": True},
     "50": {"type": "number", "name": "50%", "optional": True},
@@ -42,7 +42,7 @@ LOCUST_RESULTS_DISTRIBUTION = {
     "100": {"type": "number", "name": "100%", "optional": True},
 }
 LOCUST_RESULTS_REQUESTS = {
-    "date": {"type": "date", "name": "Date", "optional": False},
+    "date": {"type": "datetime", "name": "Date", "optional": False},
     "name": {"type": "string", "name": "Name", "optional": False},
     "requests": {"type": "number", "name": "# requests", "optional": True},
     "failures": {"type": "number", "name": "Failures", "optional": True},
