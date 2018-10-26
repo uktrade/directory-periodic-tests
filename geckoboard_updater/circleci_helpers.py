@@ -165,9 +165,9 @@ def xml_report_summary(xml_report: str) -> dict:
     root = ElementTree.fromstring(xml_report)
     attributes = root.attrib
     return {
+        "tests": int(attributes["tests"]),
         "errors": int(attributes["errors"]),
         "failures": int(attributes["failures"]),
-        "scanned_urls": int(attributes["tests"]),
     }
 
 
