@@ -70,8 +70,8 @@ def last_build_per_job(builds: List[dict], job_mappings: dict) -> dict:
                   f"for {build['reponame']}")
             continue
         if build["workflows"]["job_name"] in job_mappings:
-            if build["workflows"]["job_name"] not in last_builds:
-                friendly_name = job_mappings[build["workflows"]["job_name"]]
+            friendly_name = job_mappings[build["workflows"]["job_name"]]
+            if friendly_name not in last_builds:
                 last_builds[friendly_name] = build
                 continue
     return last_builds
