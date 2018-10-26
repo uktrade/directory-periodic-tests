@@ -100,16 +100,17 @@ def get_build_artifacts(
     date_format = "%Y-%m-%dT%H:%M:%S.%fZ"
     build_artifacts = {}
     for friendly_name, build in builds.items():
-        build_number = build["build_num"]
+        build_num = build["build_num"]
         project_name = build["reponame"]
         datetime_object = datetime.strptime(build["start_time"], date_format)
         run_date = datetime_object.strftime("%Y-%m-%dT%H:%M:%S.00+00:00")
         artifacts = circle_ci_client.build.artifacts(
-            username, project_name, build_number
+            username, project_name, build_num
         )
         if artifacts:
             for artifact in artifacts:
                 artifact["date"] = run_date
+                artifact["build_num"] = build_num
             build_artifacts[friendly_name] = artifacts
 
     artifact_urls = defaultdict(list)
@@ -121,17 +122,21 @@ def get_build_artifacts(
                 url = {
                     "filename": filename,
                     "url": artifact["url"],
-                    "date": artifact["date"]
+                    "date": artifact["date"],
+                    "build_num": artifact["build_num"],
                 }
                 artifact_urls[friendly_name].append(url)
-                print(f"Found '{friendly_name}' build artifact {filename}")
+                print(f"Found '{friendly_name}' build artifact {filename} in "
+                      f"build #{artifact['build_num']}")
 
     results = defaultdict(list)
     for friendly_name, artifacts in artifact_urls.items():
         for artifact in artifacts:
             filename = artifact["filename"]
             url = artifact["url"]
-            print(f"Fetching '{friendly_name}' build artifact: '{filename}'")
+            build_num = artifact["build_num"]
+            print(f"Fetching '{friendly_name}' build artifact: '{filename}' "
+                  f"from build #{build_num}")
             response = requests.get(url)
             error = (f"Could not get {url} as CircleCI responded with "
                      f"{response.status_code}: {response.content}")
