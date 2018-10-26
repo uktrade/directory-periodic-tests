@@ -214,15 +214,12 @@ class ContentDatasetSchemas(Enum):
 
 class ToolsDatasetSchemas(Enum):
     """Tools Team Geckoboard Dataset schemas"""
-    BAD_CMS_PAGES_PER_ENVIRONMENT = bad_cms_pages_per_environment("tools")
-    BAD_LINKS_PER_ENVIRONMENT = bad_links_per_environment("tools")
     BUGS_AUTO_VS_MANUAL = bugs_auto_vs_manual("tools")
     BUGS_CLOSED_TODAY = bugs_closed_today("tools")
     BUGS_IN_BACKLOG = bugs_in_backlog("tools")
     BUGS_IN_BACKLOG_BY_LABELS = bugs_in_backlog_by_labels("tools")
     BUGS_ON_BOARD_BY_LABELS = bugs_on_board_by_labels("tools")
     BUGS_PER_SERVICE = bugs_per_service("tools")
-    PAGE_DIFFS_PER_ENVIRONMENT = content_diffs_per_environment("tools")
     TICKETS_CLOSED_TODAY = tickets_closed_today("tools")
     TICKETS_ON_BOARD = tickets_on_board("tools")
     UNLABELLED_BUGS_IN_BACKLOG = unlabelled_bugs_in_backlog("tools")

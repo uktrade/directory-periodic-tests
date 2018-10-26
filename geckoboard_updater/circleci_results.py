@@ -2,10 +2,18 @@ from circleci_helpers import (
     DIRECTORY_LOAD_TESTS_JOB_NAME_MAPPINGS,
     last_load_test_artifacts,
     get_results_distribution,
-    get_results_requests
+    get_results_requests,
+    last_content_diff_results,
+    DIRECTORY_CONTENT_DIFF_JOB_NAME_MAPPINGS
 )
 from geckoboard_updater import CIRCLE_CI_CLIENT
 
+
+CONTENT_DIFF_RESULTS = last_content_diff_results(
+    CIRCLE_CI_CLIENT,
+    "directory-periodic-tests",
+    DIRECTORY_CONTENT_DIFF_JOB_NAME_MAPPINGS
+)
 
 LOAD_TESTS_ARTIFACTS = last_load_test_artifacts(
     CIRCLE_CI_CLIENT,
