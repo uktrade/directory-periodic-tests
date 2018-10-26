@@ -369,3 +369,26 @@ def last_load_test_artifacts(
     recent = recent_builds(circle_ci_client, project_name, limit=limit)
     filtered_builds = last_build_per_job(recent, job_name_mappings)
     return get_build_artifacts(circle_ci_client, filtered_builds, extentions=[".csv"])
+
+
+def parse_junit_results(build_artifacts: dict) -> List[dict]:
+    results = []
+    for friendly_name, artifacts in build_artifacts.items():
+        for artifact in artifacts:
+            if artifact["filename"].endswith(".xml"):
+                parsed = xml_report_summary(artifact["content"])
+                parsed["environment"] = friendly_name
+                parsed["date"] = artifact["date"]
+                results.append(parsed)
+
+    return results
+
+
+def last_content_diff_results(
+        circle_ci_client: CircleClient, project_name: str,
+        job_name_mappings: dict, *, limit: int = 100) -> List[dict]:
+    recent = recent_builds(circle_ci_client, project_name, limit=limit)
+    filtered_builds = last_build_per_job(recent, job_name_mappings)
+    artifacts = get_build_artifacts(
+        circle_ci_client, filtered_builds, extentions=[".xml"])
+    return parse_junit_results(artifacts)
