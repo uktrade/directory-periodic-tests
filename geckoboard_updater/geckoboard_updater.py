@@ -78,6 +78,18 @@ if __name__ == "__main__":
     TOOLS_DATASETS.UNLABELLED_BUGS_IN_BACKLOG.dataset.post(tools_unlabelled_bugs_in_backlog)
     TOOLS_DATASETS.UNLABELLED_BUGS_ON_BOARD.dataset.post(tools_unlabelled_bugs_on_board)
 
+    from circleci_results import *
+
+    TOOLS_DATASETS.LOAD_TESTS_STAGE_CMS_RESULT_DISTRIBUTION.dataset.post(load_test_stage_cms_result_distribution)
+    TOOLS_DATASETS.LOAD_TESTS_STAGE_FAB_RESULT_DISTRIBUTION.dataset.post(load_test_stage_fab_result_distribution)
+    TOOLS_DATASETS.LOAD_TESTS_STAGE_FAS_RESULT_DISTRIBUTION.dataset.post(load_test_stage_fas_result_distribution)
+    TOOLS_DATASETS.LOAD_TESTS_STAGE_INVEST_RESULT_DISTRIBUTION.dataset.post(load_test_stage_invest_result_distribution)
+
+    TOOLS_DATASETS.LOAD_TESTS_STAGE_CMS_RESULT_REQUESTS.dataset.post(load_test_stage_cms_result_requests)
+    TOOLS_DATASETS.LOAD_TESTS_STAGE_FAB_RESULT_REQUESTS.dataset.post(load_test_stage_fab_result_requests)
+    TOOLS_DATASETS.LOAD_TESTS_STAGE_FAS_RESULT_REQUESTS.dataset.post(load_test_stage_fas_result_requests)
+    TOOLS_DATASETS.LOAD_TESTS_STAGE_INVEST_RESULT_REQUESTS.dataset.post(load_test_stage_invest_result_requests)
+
     push_directory_service_build_results(
         CIRCLE_CI_CLIENT, GECKOBOARD_PUSH_URL, GECKOBOARD_API_KEY,
         GECKOBOARD_TEST_RESULTS_WIDGET_KEY)
