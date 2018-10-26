@@ -26,22 +26,37 @@ DATE_ENVIRONMENT_ERRORS_FAILURES_SCANNED = {
     "failures": {"type": "number", "name": "Failures", "optional": False},
     "scanned": {"type": "number", "name": "scanned", "optional": False},
 }
-LOCUST_RESULT_DISTRIBUTION = {
+
+# values can be optional
+# it allows for sending results for endpoints that returned failures
+LOCUST_RESULTS_DISTRIBUTION = {
     "date": {"type": "date", "name": "Date", "optional": False},
-    "environment": {"type": "string", "name": "Environment", "optional": False},
     "name": {"type": "string", "name": "Name", "optional": False},
-    "requests": {"type": "number", "name": "# requests", "optional": False},
-    "50": {"type": "number", "name": "50%", "optional": False},
-    "75": {"type": "number", "name": "75%", "optional": False},
-    "95": {"type": "number", "name": "95%", "optional": False},
-    "98": {"type": "number", "name": "98%", "optional": False},
-    "99": {"type": "number", "name": "99%", "optional": False},
-    "100": {"type": "number", "name": "100%", "optional": False},
+    "requests": {"type": "number", "name": "# requests", "optional": True},
+    "50": {"type": "number", "name": "50%", "optional": True},
+    "75": {"type": "number", "name": "75%", "optional": True},
+    "90": {"type": "number", "name": "90%", "optional": True},
+    "95": {"type": "number", "name": "95%", "optional": True},
+    "98": {"type": "number", "name": "98%", "optional": True},
+    "99": {"type": "number", "name": "99%", "optional": True},
+    "100": {"type": "number", "name": "100%", "optional": True},
+}
+LOCUST_RESULTS_REQUESTS = {
+    "date": {"type": "date", "name": "Date", "optional": False},
+    "name": {"type": "string", "name": "Name", "optional": False},
+    "requests": {"type": "number", "name": "# requests", "optional": True},
+    "failures": {"type": "number", "name": "Failures", "optional": True},
+    "median_response_time": {"type": "number", "name": "Med resp time", "optional": True},
+    "average_response_time": {"type": "number", "name": "Avg resp time", "optional": True},
+    "min_response_time": {"type": "number", "name": "Min resp time", "optional": True},
+    "max_response_time": {"type": "number", "name": "Max resp time", "optional": True},
+    "average_content_size": {"type": "number", "name": "Avg content size", "optional": True},
+    "requests_per_s": {"type": "number", "name": "RPS", "optional": True},
 }
 DATE = ["date"]
-DATE_LABEL = ["date", "label"]
 DATE_ENVIRONMENT = ["date", "environment"]
-DATE_ENVIRONMENT_NAME = ["date", "environment", "name"]
+DATE_LABEL = ["date", "label"]
+DATE_NAME = ["date", "name"]
 
 
 def bugs_on_board_by_labels(team: str) -> Schema:
@@ -165,9 +180,18 @@ def bad_cms_pages_per_environment(team: str) -> Schema:
 def load_tests_result_distribution(environment: str, service: str) -> Schema:
     """Load test (locustio) result (percentile) distribution"""
     return Schema(
-        dataset_id=f"load_tests.{environment}_{service}",
-        fields=LOCUST_RESULT_DISTRIBUTION,
-        unique_by=DATE_ENVIRONMENT_NAME,
+        dataset_id=f"load_tests.result_distribution_{environment}_{service}",
+        fields=LOCUST_RESULTS_DISTRIBUTION,
+        unique_by=DATE_NAME,
+    )
+
+
+def load_tests_result_requests(environment: str, service: str) -> Schema:
+    """Load test (locustio) requests requests"""
+    return Schema(
+        dataset_id=f"load_tests.result_requests_{environment}_{service}",
+        fields=LOCUST_RESULTS_REQUESTS,
+        unique_by=DATE_NAME,
     )
 
 
@@ -203,4 +227,13 @@ class ToolsDatasetSchemas(Enum):
     TICKETS_ON_BOARD = tickets_on_board("tools")
     UNLABELLED_BUGS_IN_BACKLOG = unlabelled_bugs_in_backlog("tools")
     UNLABELLED_BUGS_ON_BOARD = unlabelled_bugs_on_board("tools")
+
+    LOAD_TESTS_STAGE_CMS_RESULT_DISTRIBUTION = load_tests_result_distribution("stage", "cms")
     LOAD_TESTS_STAGE_FAB_RESULT_DISTRIBUTION = load_tests_result_distribution("stage", "fab")
+    LOAD_TESTS_STAGE_FAS_RESULT_DISTRIBUTION = load_tests_result_distribution("stage", "fas")
+    LOAD_TESTS_STAGE_INVEST_RESULT_DISTRIBUTION = load_tests_result_distribution("stage", "invest")
+
+    LOAD_TESTS_STAGE_CMS_RESULT_REQUESTS = load_tests_result_requests("stage", "cms")
+    LOAD_TESTS_STAGE_FAB_RESULT_REQUESTS = load_tests_result_requests("stage", "fab")
+    LOAD_TESTS_STAGE_FAS_RESULT_REQUESTS = load_tests_result_requests("stage", "fas")
+    LOAD_TESTS_STAGE_INVEST_RESULT_REQUESTS = load_tests_result_requests("stage", "invest")
