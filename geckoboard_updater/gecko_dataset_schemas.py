@@ -20,7 +20,7 @@ DATE_AUTO_MANUAL = {
     "manual": {"type": "number", "name": "Manually", "optional": False},
 }
 DATE_ENVIRONMENT_ERRORS_FAILURES_SCANNED = {
-    "date": {"type": "datetime", "name": "Date", "optional": False},
+    "date": {"type": "date", "name": "Date", "optional": False},
     "environment": {"type": "string", "name": "Environment", "optional": False},
     "errors": {"type": "number", "name": "Errors", "optional": False},
     "failures": {"type": "number", "name": "Failures", "optional": False},
