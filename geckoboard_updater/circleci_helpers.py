@@ -424,26 +424,38 @@ def parse_result_requests_csv(
 
 def get_results_distribution(
         build_artifacts: dict, *,
-        artifact_filename: str = "results_distribution.csv") -> dict:
-    results = {}
+        artifact_filename: str = "results_distribution.csv") -> List[dict]:
+    results = []
     for friendly_name, artifacts in build_artifacts.items():
         for artifact in artifacts:
             if artifact["filename"] == artifact_filename:
-                parsed = parse_result_distribution_csv(artifact)
-                results[friendly_name] = parsed
+                csv_content = artifact["content"]
+                test_date = artifact["date"]
+                parsed = parse_result_distribution_csv(
+                    csv_content=csv_content,
+                    test_name=friendly_name,
+                    test_date=test_date
+                )
+                results += parsed
 
     return results
 
 
-def get_results_requests(
+def get_load_tests_requests_results(
         build_artifacts: dict, *,
-        artifact_filename: str = "results_requests.csv") -> dict:
-    results = {}
+        artifact_filename: str = "results_requests.csv") -> List[dict]:
+    results = []
     for friendly_name, artifacts in build_artifacts.items():
         for artifact in artifacts:
             if artifact["filename"] == artifact_filename:
-                parsed = parse_result_requests_csv(artifact)
-                results[friendly_name] = parsed
+                csv_content = artifact["content"]
+                test_date = artifact["date"]
+                parsed = parse_result_requests_csv(
+                    csv_content=csv_content,
+                    test_name=friendly_name,
+                    test_date=test_date
+                )
+                results += parsed
 
     return results
 
