@@ -97,17 +97,12 @@ if __name__ == "__main__":
 
     start_time = time.time()
     CONTENT_DATASETS.PAGE_DIFFS_PER_ENVIRONMENT.dataset.post(CONTENT_DIFF_RESULTS)
-    TOOLS_DATASETS.LOAD_TESTS_STAGE_CMS_RESULT_DISTRIBUTION.dataset.post(load_test_stage_cms_result_distribution)
-    TOOLS_DATASETS.LOAD_TESTS_STAGE_FAB_RESULT_DISTRIBUTION.dataset.post(load_test_stage_fab_result_distribution)
-    TOOLS_DATASETS.LOAD_TESTS_STAGE_FAS_RESULT_DISTRIBUTION.dataset.post(load_test_stage_fas_result_distribution)
-    TOOLS_DATASETS.LOAD_TESTS_STAGE_INVEST_RESULT_DISTRIBUTION.dataset.post(load_test_stage_invest_result_distribution)
+    total_time = int(time.time() - start_time)
+    print(f"Pushing Content Diff Results to Geckoboard took: {total_time}s")
 
-    time.sleep(5)
-
-    TOOLS_DATASETS.LOAD_TESTS_STAGE_CMS_RESULT_REQUESTS.dataset.post(load_test_stage_cms_result_requests)
-    TOOLS_DATASETS.LOAD_TESTS_STAGE_FAB_RESULT_REQUESTS.dataset.post(load_test_stage_fab_result_requests)
-    TOOLS_DATASETS.LOAD_TESTS_STAGE_FAS_RESULT_REQUESTS.dataset.post(load_test_stage_fas_result_requests)
-    TOOLS_DATASETS.LOAD_TESTS_STAGE_INVEST_RESULT_REQUESTS.dataset.post(load_test_stage_invest_result_requests)
+    start_time = time.time()
+    TOOLS_DATASETS.LOAD_TESTS_RESULT_DISTRIBUTION.dataset.post(LOAD_TESTS_RESPONSE_TIMES_DISTRIBUTIONS)
+    TOOLS_DATASETS.LOAD_TESTS_RESULT_REQUESTS.dataset.post(LOAD_TESTS_RESPONSE_TIMES_METRICS)
     total_time = int(time.time() - start_time)
     print(f"Pushing Tests Results to Geckoboard took: {total_time}s")
 
