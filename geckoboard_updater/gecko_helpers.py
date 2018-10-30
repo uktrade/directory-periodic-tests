@@ -61,25 +61,21 @@ def job_status_color(status: str) -> str:
 
 
 def widget_text_for_directory_tests(test_results: dict) -> str:
-    table_template = """<table width="100%">
-    <thead>
-    <tr style="font-size:14pt">
-        <th>Name</th>
-        <th>When</th>
-        <th>Time</th>
-        <th>Status</th>
-    </tr>
-    </thead>
-    <tbody>
-        {rows}
-    </tbody>
-    </table>"""
+    table_template = """<table style="width:100%">
+<thead>
+<tr style="font-size:14pt">
+<th>Name</th><th>When</th><th>Time</th><th>Status</th>
+</tr>
+</thead>
+<tbody>
+{rows}
+</tbody></table>"""
     row_template = """<tr style="font-size:14pt">
-            <td>{name}</td>
-            <td><img src="{user_avatar}" alt="" title="{user_name}" width="25" height="25"/> @ {start_time}</td>
-            <td>{build_time}</td>
-            <td><a target="_blank" href="{build_url}" style="color:{status_color}">{status}</a></td>
-        </tr>"""
+<td>{name}</td>
+<td><img src="{user_avatar}" title="{user_name}" width="25" height="25"/>{start_time}</td>
+<td>{build_time}</td>
+<td><a target="_blank" href="{build_url}" style="color:{status_color}">{status}</a></td>
+</tr>"""
     rows = ""
     for friendly_name, result in test_results.items():
         rows += row_template.format(
@@ -91,29 +87,22 @@ def widget_text_for_directory_tests(test_results: dict) -> str:
 
 
 def widget_text_for_service_build(build_results: dict) -> str:
-    table_template = """<table width="100%">
-    <thead>
-    <tr style="font-size:14pt">
-        <th>Name</th>
-        <th>When</th>
-        <th>Time</th>
-        <th>Unit</th>
-        <th>Deploy</th>
-        <th>Integration</th>
-    </tr>
-    </thead>
-    <tbody>
-        {rows}
-    </tbody>
-    </table>"""
+    table_template = """<table style="width:100%">
+<thead>
+<tr style="font-size:14pt">
+<th>Name</th><th>When</th><th>Time</th><th>Unit</th><th>Deploy</th><th>Integration</th>
+</tr>
+</thead><tbody>
+{rows}
+</tbody></table>"""
     row_template = """<tr style="font-size:14pt">
-            <td>{name}</td>
-            <td><img src="{user_avatar}" alt="" title="{user_name}" width="25" height="25"/> @ {start_time}</td>
-            <td>{build_time}</td>
-            {unit}
-            {deploy}
-            {integration}
-        </tr>"""
+<td>{name}</td>
+<td><img src="{user_avatar}" title="{user_name}" width="25" height="25"/>{start_time}</td>
+<td>{build_time}</td>
+{unit}
+{deploy}
+{integration}
+</tr>"""
     job_status_template = """<td><a target="_blank" href="{build_url}" style="color:{status_color}">{status}</a></td>"""
     empty_row = "<td>N/A</td>"
     rows = ""
