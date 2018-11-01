@@ -101,48 +101,17 @@ def quantity_per_label(
     return dict(sought)
 
 
-def tickets_by_labels(jql: Enum, ignored_labels: List[str]) -> List[dict]:
+def tickets_by_labels(jql: Enum, ignored_labels: List[str], team: str, metric: str) -> List[dict]:
     tickets = find_tickets(jql.value)
     counters = quantity_per_label(tickets, ignored_labels=ignored_labels)
     result = []
     for key in counters:
-        item = {"date": TODAY, "label": key, "quantity": counters[key]}
-        result.append(item)
-    return result
-
-
-def unlabelled_tickets(jql: Enum) -> List[dict]:
-    tickets = find_tickets(jql.value)
-    unlabelled = [
-        issue for issue in tickets["issues"] if not issue["fields"]["labels"]
-    ]
-    return [{"date": TODAY, "quantity": len(unlabelled)}]
-
-
-def label_counters(jql: Enum, look_for: List[str]) -> List[dict]:
-    tickets = find_tickets(jql.value)
-    labels = quantity_per_label(tickets, look_for=look_for)
-    counters = {key: labels[key] for key in look_for}
-    result = dict(counters, **{"date": TODAY})
-    return [result]
-
-
-def total_tickets(jql: Enum) -> List[dict]:
-    tickets = find_tickets(jql.value)
-    return [{"date": TODAY, "quantity": tickets["total"]}]
-
-
-def tickets_per_service(jql: Enum, look_for: List[str]) -> List[dict]:
-    tickets = find_all_tickets(jql.value)
-    tickets_per_label = quantity_per_label(
-        tickets, label_prefix="", look_for=look_for
-    )
-    result = []
-    for label in tickets_per_label:
         item = {
             "date": TODAY,
-            "label": label,
-            "quantity": tickets_per_label[label],
+            "team": team,
+            "metric": metric,
+            "label": key,
+            "quantity": counters[key],
         }
         result.append(item)
     return result
