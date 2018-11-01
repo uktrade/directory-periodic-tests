@@ -117,6 +117,16 @@ def tickets_by_labels(jql: Enum, ignored_labels: List[str], team: str, metric: s
     return result
 
 
+def total_tickets(jql: Enum, team: str, metric: str) -> List[dict]:
+    tickets = find_tickets(jql.value)
+    return [{
+        "date": TODAY,
+        "team": team,
+        "metric": metric,
+        "quantity": tickets["total"]
+    }]
+
+
 def jira_links(jql_enum) -> List[str]:
 
     url = f"{JIRA_HOST}issues/?jql={{query}}"
