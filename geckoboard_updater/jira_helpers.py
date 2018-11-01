@@ -45,8 +45,11 @@ def find_all_tickets(jql: Enum) -> dict:
 def count_labels(issues: list) -> Counter:
     counter = Counter()
     for issue in issues:
-        for label in issue["fields"]["labels"]:
-            counter[label] += 1
+        if issue["fields"]["labels"]:
+            for label in issue["fields"]["labels"]:
+                counter[label] += 1
+        else:
+            counter["unlabelled"] += 1
     return counter
 
 
