@@ -1,81 +1,87 @@
 # -*- coding: utf-8 -*-
 from jira_helpers import (
     jira_links,
-    label_counters,
     tickets_by_labels,
-    tickets_per_service,
     total_tickets,
-    unlabelled_tickets,
 )
 from jira_queries import *
 
-content_bugs_manual_vs_automated = label_counters(
-    jql=ContentJQLs.BUGS_MANUAL_VS_AUTOMATED, look_for=["auto", "manual"]
-)
-content_bugs_closed_today = total_tickets(
-    jql=ContentJQLs.BUGS_CLOSED_TODAY
-)
 content_bugs_in_backlog_by_labels = tickets_by_labels(
-    jql=ContentJQLs.BUGS_IN_BACKLOG, ignored_labels=["auto", "manual"]
+    jql=ContentJQLs.BUGS_IN_BACKLOG,
+    ignored_labels=["auto", "manual"],
+    team="content",
+    metric="Bugs in Backlog by labels"
 )
 content_bugs_on_board_by_labels = tickets_by_labels(
-    jql=ContentJQLs.BUGS_ON_BOARD, ignored_labels=["auto", "manual"]
+    jql=ContentJQLs.BUGS_ON_BOARD,
+    ignored_labels=["auto", "manual"],
+    team="content",
+    metric="Bugs on Board by labels"
 )
-content_unlabelled_bugs_on_board = unlabelled_tickets(
-    jql=ContentJQLs.BUGS_ON_BOARD
-)
-content_unlabelled_bugs_in_backlog = unlabelled_tickets(
-    jql=ContentJQLs.BUGS_IN_BACKLOG
-)
+content_bugs_closed_today = total_tickets(
+    jql=ContentJQLs.BUGS_CLOSED_TODAY,
+    team="content",
+    metric="Bugs closed today")
 content_bugs_in_backlog = total_tickets(
-    jql=ContentJQLs.BUGS_IN_BACKLOG
-)
-content_scenarios_to_automate = total_tickets(
-    jql=ContentJQLs.SCENARIOS_TO_AUTOMATE
-)
+    jql=ContentJQLs.BUGS_IN_BACKLOG,
+    team="content",
+    metric="Bugs in Backlog")
 content_tickets_closed_today = total_tickets(
-    jql=ContentJQLs.TICKETS_CLOSED_TODAY
-)
-content_bugs_per_service = tickets_per_service(
-    jql=ContentJQLs.BUGS_PER_SERVICE, look_for=SERVICE_TAGS
-)
+    jql=ContentJQLs.TICKETS_CLOSED_TODAY,
+    team="content",
+    metric="Tickets closed today")
 content_tickets_on_board = total_tickets(
-    jql=ContentJQLs.TICKETS_ON_BOARD
-)
+    jql=ContentJQLs.TICKETS_ON_BOARD,
+    team="content",
+    metric="Tickets on board")
 content_jira_links = jira_links(ContentJQLs)
 
 
-tools_bugs_manual_vs_automated = label_counters(
-    jql=ToolsJQLs.BUGS_MANUAL_VS_AUTOMATED, look_for=["auto", "manual"]
-)
-tools_bugs_closed_today = total_tickets(
-    jql=ToolsJQLs.BUGS_CLOSED_TODAY
-)
 tools_bugs_in_backlog_by_labels = tickets_by_labels(
-    jql=ToolsJQLs.BUGS_IN_BACKLOG, ignored_labels=["auto", "manual"]
-)
-tools_bugs_in_backlog = total_tickets(
-    jql=ToolsJQLs.BUGS_IN_BACKLOG
+    jql=ToolsJQLs.BUGS_IN_BACKLOG,
+    ignored_labels=["auto", "manual"],
+    team="tools",
+    metric="Bugs in Backlog by labels"
 )
 tools_bugs_on_board_by_labels = tickets_by_labels(
-    jql=ToolsJQLs.BUGS_ON_BOARD, ignored_labels=["auto", "manual"]
+    jql=ToolsJQLs.BUGS_ON_BOARD,
+    ignored_labels=["auto", "manual"],
+    team="tools",
+    metric="Bugs on Board by labels"
 )
-tools_unlabelled_bugs_on_board = unlabelled_tickets(
-    jql=ToolsJQLs.BUGS_ON_BOARD
+tools_bugs_closed_today = total_tickets(
+    jql=ToolsJQLs.BUGS_CLOSED_TODAY,
+    team="tools",
+    metric="Bugs closed today"
 )
-tools_unlabelled_bugs_in_backlog = unlabelled_tickets(
-    jql=ToolsJQLs.BUGS_IN_BACKLOG
-)
-tools_scenarios_to_automate = total_tickets(
-    jql=ToolsJQLs.SCENARIOS_TO_AUTOMATE
+tools_bugs_in_backlog = total_tickets(
+    jql=ToolsJQLs.BUGS_IN_BACKLOG,
+    team="tools",
+    metric="Bugs in Backlog"
 )
 tools_tickets_closed_today = total_tickets(
-    jql=ToolsJQLs.TICKETS_CLOSED_TODAY
-)
-tools_bugs_per_service = tickets_per_service(
-    jql=ToolsJQLs.BUGS_PER_SERVICE, look_for=SERVICE_TAGS
+    jql=ToolsJQLs.TICKETS_CLOSED_TODAY,
+    team="tools",
+    metric="Tickets closed today"
 )
 tools_tickets_on_board = total_tickets(
-    jql=ToolsJQLs.TICKETS_ON_BOARD
+    jql=ToolsJQLs.TICKETS_ON_BOARD,
+    team="tools",
+    metric="Tickets on board"
 )
 tools_jira_links = jira_links(ToolsJQLs)
+
+
+jira_bugs_by_labels = content_bugs_in_backlog_by_labels + \
+                      content_bugs_on_board_by_labels + \
+                      tools_bugs_in_backlog_by_labels + \
+                      tools_bugs_on_board_by_labels
+
+jira_bug_and_ticket_counters = content_bugs_closed_today + \
+                               content_bugs_in_backlog + \
+                               content_tickets_closed_today + \
+                               content_tickets_on_board + \
+                               tools_bugs_closed_today + \
+                               tools_bugs_in_backlog + \
+                               tools_tickets_closed_today + \
+                               tools_tickets_on_board
