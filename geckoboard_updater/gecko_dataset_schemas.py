@@ -5,19 +5,18 @@ from enum import Enum
 
 Schema = namedtuple("Schema", ["dataset_id", "fields", "unique_by"])
 
-DATE_LABEL_QUANTITY = {
-    "date": {"type": "date", "name": "Date", "optional": False},
-    "label": {"type": "string", "name": "Label", "optional": False},
+DATE_TEAM_METRIC_LABEL_QUANTITY = {
+    "date":     {"type": "date",   "name": "Date",     "optional": False},
+    "team":     {"type": "string", "name": "Team",     "optional": False},
+    "metric":   {"type": "string", "name": "Metric",   "optional": False},
+    "label":    {"type": "string", "name": "Label",    "optional": False},
     "quantity": {"type": "number", "name": "Quantity", "optional": False},
 }
-DATE_QUANTITY = {
-    "date": {"type": "date", "name": "Date", "optional": False},
+DATE_TEAM_METRIC_QUANTITY = {
+    "date":     {"type": "date",   "name": "Date",     "optional": False},
+    "team":     {"type": "string", "name": "Team",     "optional": False},
+    "metric":   {"type": "string", "name": "Metric",   "optional": False},
     "quantity": {"type": "number", "name": "Quantity", "optional": False},
-}
-DATE_AUTO_MANUAL = {
-    "date": {"type": "date", "name": "Date", "optional": False},
-    "auto": {"type": "number", "name": "Automated", "optional": False},
-    "manual": {"type": "number", "name": "Manually", "optional": False},
 }
 DATE_ENVIRONMENT_ERRORS_FAILURES_SCANNED = {
     "date": {"type": "date", "name": "Date", "optional": False},
@@ -53,101 +52,26 @@ LOCUST_RESULTS_REQUESTS = {
     "max_response_time": {"type": "number", "name": "Max resp time", "optional": True},
     "requests_per_s": {"type": "number", "name": "RPS", "optional": True},
 }
-DATE = ["date"]
 DATE_ENVIRONMENT = ["date", "environment"]
-DATE_LABEL = ["date", "label"]
-DATE_NAME = ["date", "name"]
 DATE_NAME_ENDPOINT = ["date", "name", "endpoint"]
+DATE_TEAM_METRIC = ["date", "team", "metric"]
+DATE_TEAM_METRIC_LABEL = ["date", "team", "metric", "label"]
 
 
-def bugs_on_board_by_labels(team: str) -> Schema:
-    """Number of bugs on the Kanban/Sprint board grouped by labels"""
+def jira_bugs_by_labels() -> Schema:
+    """"""
     return Schema(
-        dataset_id=f"{team}.bugs_on_board_by_labels",
-        fields=DATE_LABEL_QUANTITY,
-        unique_by=DATE_LABEL
+        dataset_id=f"jira.bugs_by_labels",
+        fields=DATE_TEAM_METRIC_LABEL_QUANTITY,
+        unique_by=DATE_TEAM_METRIC_LABEL
     )
 
 
-def unlabelled_bugs_on_board(team: str) -> Schema:
-    """Number of bugs on Kanban/Sprint board without a `qa_*` label"""
+def jira_bug_and_ticket_counters() -> Schema:
     return Schema(
-        dataset_id=f"{team}.unlabelled_bugs_on_board",
-        fields=DATE_QUANTITY,
-        unique_by=DATE
-    )
-
-
-def bugs_in_backlog_by_labels(team: str) -> Schema:
-    """Number of bugs in the backlog grouped by labels"""
-    return Schema(
-        dataset_id=f"{team}.bugs_in_backlog_by_labels",
-        fields=DATE_LABEL_QUANTITY,
-        unique_by=DATE_LABEL,
-    )
-
-
-def unlabelled_bugs_in_backlog(team: str) -> Schema:
-    """Number of bugs in backlog without a `qa_*` label"""
-    return Schema(
-        dataset_id=f"{team}.unlabelled_bugs_in_backlog",
-        fields=DATE_QUANTITY,
-        unique_by=DATE,
-    )
-
-
-def bugs_in_backlog(team: str) -> Schema:
-    """Number of all bugs in backlog"""
-    return Schema(
-        dataset_id=f"{team}.bugs_in_backlog",
-        fields=DATE_QUANTITY,
-        unique_by=DATE,
-    )
-
-
-def bugs_auto_vs_manual(team: str) -> Schema:
-    """Number of bugs on the Kanban/Sprint board discovered manually or by
-    automated tests"""
-    return Schema(
-        dataset_id=f"{team}.bugs_auto_vs_manual",
-        fields=DATE_AUTO_MANUAL,
-        unique_by=DATE,
-    )
-
-
-def bugs_closed_today(team: str) -> Schema:
-    """Number of bugs closed today"""
-    return Schema(
-        dataset_id=f"{team}.bugs_closed_today",
-        fields=DATE_QUANTITY,
-        unique_by=DATE,
-    )
-
-
-def tickets_closed_today(team: str) -> Schema:
-    """Number of tickets (without bugs) closed today"""
-    return Schema(
-        dataset_id=f"{team}.tickets_closed_today",
-        fields=DATE_QUANTITY,
-        unique_by=DATE,
-    )
-
-
-def tickets_on_board(team: str) -> Schema:
-    """Number of tickets (with bugs) on Sprint/Kanban board"""
-    return Schema(
-        dataset_id=f"{team}.tickets_on_board",
-        fields=DATE_QUANTITY,
-        unique_by=DATE,
-    )
-
-
-def bugs_per_service(team: str) -> Schema:
-    """Number of bugs per service (only for tickets with appropriate tags)"""
-    return Schema(
-        dataset_id=f"{team}.bugs_per_service",
-        fields=DATE_LABEL_QUANTITY,
-        unique_by=DATE_LABEL,
+        dataset_id=f"jira.bug_and_ticket_counters",
+        fields=DATE_TEAM_METRIC_QUANTITY,
+        unique_by=DATE_TEAM_METRIC
     )
 
 
@@ -160,10 +84,10 @@ def bad_links_per_environment(team: str) -> Schema:
     )
 
 
-def content_diffs_per_environment(team: str) -> Schema:
+def content_diffs_per_environment() -> Schema:
     """Number of content differences per service per environment"""
     return Schema(
-        dataset_id=f"{team}.content_diffs_per_environment",
+        dataset_id="content_diffs.per_environment",
         fields=DATE_ENVIRONMENT_ERRORS_FAILURES_SCANNED,
         unique_by=DATE_ENVIRONMENT,
     )
@@ -199,35 +123,11 @@ def load_tests_result_requests() -> Schema:
     )
 
 
-class ContentDatasetSchemas(Enum):
-    """Content Team Geckoboard Dataset schemas"""
-    BAD_CMS_PAGES_PER_ENVIRONMENT = bad_cms_pages_per_environment("content")
-    BAD_LINKS_PER_ENVIRONMENT = bad_links_per_environment("content")
-    BUGS_AUTO_VS_MANUAL = bugs_auto_vs_manual("content")
-    BUGS_CLOSED_TODAY = bugs_closed_today("content")
-    BUGS_IN_BACKLOG = bugs_in_backlog("content")
-    BUGS_IN_BACKLOG_BY_LABELS = bugs_in_backlog_by_labels("content")
-    BUGS_ON_BOARD_BY_LABELS = bugs_on_board_by_labels("content")
-    BUGS_PER_SERVICE = bugs_per_service("content")
-    PAGE_DIFFS_PER_ENVIRONMENT = content_diffs_per_environment("content")
-    TICKETS_CLOSED_TODAY = tickets_closed_today("content")
-    TICKETS_ON_BOARD = tickets_on_board("content")
-    UNLABELLED_BUGS_IN_BACKLOG = unlabelled_bugs_in_backlog("content")
-    UNLABELLED_BUGS_ON_BOARD = unlabelled_bugs_on_board("content")
-
-
-class ToolsDatasetSchemas(Enum):
-    """Tools Team Geckoboard Dataset schemas"""
-    BUGS_AUTO_VS_MANUAL = bugs_auto_vs_manual("tools")
-    BUGS_CLOSED_TODAY = bugs_closed_today("tools")
-    BUGS_IN_BACKLOG = bugs_in_backlog("tools")
-    BUGS_IN_BACKLOG_BY_LABELS = bugs_in_backlog_by_labels("tools")
-    BUGS_ON_BOARD_BY_LABELS = bugs_on_board_by_labels("tools")
-    BUGS_PER_SERVICE = bugs_per_service("tools")
-    TICKETS_CLOSED_TODAY = tickets_closed_today("tools")
-    TICKETS_ON_BOARD = tickets_on_board("tools")
-    UNLABELLED_BUGS_IN_BACKLOG = unlabelled_bugs_in_backlog("tools")
-    UNLABELLED_BUGS_ON_BOARD = unlabelled_bugs_on_board("tools")
-
+class DatasetSchemas(Enum):
+    JIRA_BUGS_BY_LABELS = jira_bugs_by_labels()
+    JIRA_BUG_AND_TICKET_COUNTERS = jira_bug_and_ticket_counters()
     LOAD_TESTS_RESULT_DISTRIBUTION = load_tests_result_distribution()
     LOAD_TESTS_RESULT_REQUESTS = load_tests_result_requests()
+    BAD_CMS_PAGES_PER_ENVIRONMENT = bad_cms_pages_per_environment("content")
+    BAD_LINKS_PER_ENVIRONMENT = bad_links_per_environment("content")
+    PAGE_DIFFS_PER_ENVIRONMENT = content_diffs_per_environment()
