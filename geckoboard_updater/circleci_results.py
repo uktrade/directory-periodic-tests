@@ -9,17 +9,17 @@ from circleci_helpers import (
 from geckoboard_updater import CIRCLE_CI_CLIENT
 
 
-CONTENT_DIFF_RESULTS = last_content_diff_results(
+circle_ci_content_diffs = last_content_diff_results(
     CIRCLE_CI_CLIENT,
     "directory-periodic-tests",
     DIRECTORY_CONTENT_DIFF_JOB_NAME_MAPPINGS
 )
 
-LOAD_TESTS_ARTIFACTS = last_load_test_artifacts(
+load_tests_artifacts = last_load_test_artifacts(
     CIRCLE_CI_CLIENT,
     "directory-tests",
     job_name_mappings=DIRECTORY_LOAD_TESTS_JOB_NAME_MAPPINGS
 )
 
-LOAD_TESTS_RESPONSE_TIMES_DISTRIBUTIONS = get_results_distribution(LOAD_TESTS_ARTIFACTS)
-LOAD_TESTS_RESPONSE_TIMES_METRICS = get_load_tests_requests_results(LOAD_TESTS_ARTIFACTS)
+load_tests_response_times_distributions = get_results_distribution(load_tests_artifacts)
+load_tests_response_times_metrics = get_load_tests_requests_results(load_tests_artifacts)
