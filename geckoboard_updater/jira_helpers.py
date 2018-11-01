@@ -86,8 +86,8 @@ def filter_by_sought_labels(
 def quantity_per_label(
     jql_query_result: dict,
     *,
-    label_prefix: str = "qa_",
-    remove_label_prefix: bool = True,
+    label_prefix: str = "",
+    remove_label_prefix: bool = False,
     ignored_labels: List[str] = None,
     look_for: List[str] = None
 ) -> dict:
