@@ -109,15 +109,6 @@ DURING (-0d, now())
 ORDER BY key ASC, updated DESC
 """
 
-_BUGS_PER_SERVICE = """
-project = {project}
-AND issuetype = Bug 
-AND labels IN ({service_tags})
-AND created >= "-90d"
-ORDER BY labels DESC, priority DESC, updated DESC
-"""
-
-
 ###############################################################################
 # Content Team
 ###############################################################################
@@ -143,20 +134,6 @@ class ContentJQLs(Enum):
     BUGS_ON_BOARD = JQL(
         description="Bugs on sprint board",
         query=_BOARD_BUGS.format(project="CMS", backlog_name="To Do"),
-    )
-    BUGS_MANUAL_VS_AUTOMATED = JQL(
-        description="Bugs found manually & by automated tests",
-        query=_BUGS_MANUAL_VS_AUTOMATED.format(project="CMS"),
-    )
-    BUGS_PER_SERVICE = JQL(
-        description="Bugs per service",
-        query=_BUGS_PER_SERVICE.format(
-            project="CMS", service_tags=", ".join(SERVICE_TAGS)
-        ),
-    )
-    SCENARIOS_TO_AUTOMATE = JQL(
-        description="Remaining scenarios to automate",
-        query=_SCENARIOS_TO_AUTOMATE.format(project="CMS"),
     )
     BUGS_CLOSED_TODAY = JQL(
         description="Bug closed today",
@@ -221,14 +198,6 @@ class ToolsJQLs(Enum):
         description="Bugs on Kanban board",
         query=_BOARD_BUGS.format(project="TT", backlog_name="Backlog"),
     )
-    BUGS_MANUAL_VS_AUTOMATED = JQL(
-        description="Bugs found manually & by automated tests",
-        query=_BUGS_MANUAL_VS_AUTOMATED.format(project="TT")
-    )
-    SCENARIOS_TO_AUTOMATE = JQL(
-        description="Remaining scenarios to automate",
-        query=_SCENARIOS_TO_AUTOMATE.format(project="TT")
-    )
     BUGS_CLOSED_TODAY = JQL(
         description="Bug closed today",
         query=_BUGS_CLOSED_TODAY.format(
@@ -243,12 +212,6 @@ class ToolsJQLs(Enum):
             project="TT",
             open_statuses=to_jql_list_string(TOOLS_OPEN_STATUSES),
             closed_statuses=to_jql_list_string(TOOLS_CLOSED_STATUSES),
-        ),
-    )
-    BUGS_PER_SERVICE = JQL(
-        description="Bugs per service",
-        query=_BUGS_PER_SERVICE.format(
-            project="TT", service_tags=", ".join(SERVICE_TAGS)
         ),
     )
     TICKETS_ON_BOARD = JQL(
