@@ -41,7 +41,6 @@ CIRCLE_CI_CLIENT = circleclient.CircleClient(CIRCLE_CI_API_TOKEN)
 
 
 if __name__ == "__main__":
-    # Geckoboard Datasets (with schemas)
     DATASETS = create_datasets(DatasetSchemas, GECKO_CLIENT)
 
     from jira_results import *
@@ -49,9 +48,7 @@ if __name__ == "__main__":
     DATASETS.JIRA_BUG_AND_TICKET_COUNTERS.dataset.post(jira_bug_and_ticket_counters)
 
     from circleci_results import *
-    # DATASETS.BAD_CMS_PAGES_PER_ENVIRONMENT.dataset.post()
-    # DATASETS.BAD_LINKS_PER_ENVIRONMENT.dataset.post()
-    DATASETS.PAGE_DIFFS_PER_ENVIRONMENT.dataset.post(circle_ci_content_diffs)
+    DATASETS.PERIODIC_TESTS_RESULTS.dataset.post(circle_ci_periodic_tests_results)
     DATASETS.LOAD_TESTS_RESULT_DISTRIBUTION.dataset.post(load_tests_response_times_distributions)
     DATASETS.LOAD_TESTS_RESULT_REQUESTS.dataset.post(load_tests_response_times_metrics)
 
