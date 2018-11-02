@@ -13,6 +13,7 @@ from gecko_helpers import (
     create_datasets,
     push_directory_tests_results,
     push_directory_service_build_results,
+    push_jira_query_links,
 )
 
 # Env Vars
@@ -22,6 +23,12 @@ GECKOBOARD_TEST_RESULTS_WIDGET_KEY = os.environ[
 ]
 GECKOBOARD_DIRECTORY_TESTS_RESULTS_WIDGET_KEY = os.environ[
     "GECKOBOARD_DIRECTORY_TESTS_RESULTS_WIDGET_KEY"
+]
+GECKOBOARD_CONTENT_JIRA_QUERY_LINKS_WIDGET_KEY = os.environ[
+    "GECKOBOARD_CONTENT_JIRA_QUERY_LINKS_WIDGET_KEY"
+]
+GECKOBOARD_TOOLS_JIRA_QUERY_LINKS_WIDGET_KEY = os.environ[
+    "GECKOBOARD_TOOLS_JIRA_QUERY_LINKS_WIDGET_KEY"
 ]
 GECKOBOARD_PUSH_URL = os.getenv(
     "GECKOBOARD_PUSH_URL", "https://push.geckoboard.com/v1/send/"
@@ -41,20 +48,54 @@ CIRCLE_CI_CLIENT = circleclient.CircleClient(CIRCLE_CI_API_TOKEN)
 
 
 if __name__ == "__main__":
+    print("Creating Geckoboard datasets")
     DATASETS = create_datasets(DatasetSchemas, GECKO_CLIENT)
 
+    print("Fetching stats from Jira")
     from jira_results import *
+
+    print("Pushing Jira stats to Geckoboard")
     DATASETS.JIRA_BUGS_BY_LABELS.dataset.post(jira_bugs_by_labels)
-    DATASETS.JIRA_BUG_AND_TICKET_COUNTERS.dataset.post(jira_bug_and_ticket_counters)
+    DATASETS.JIRA_BUG_AND_TICKET_COUNTERS.dataset.post(
+        jira_bug_and_ticket_counters
+    )
 
+    print("Fetching test results from CircleCi")
     from circleci_results import *
-    DATASETS.PERIODIC_TESTS_RESULTS.dataset.post(circle_ci_periodic_tests_results)
-    DATASETS.LOAD_TESTS_RESULT_DISTRIBUTION.dataset.post(load_tests_response_times_distributions)
-    DATASETS.LOAD_TESTS_RESULT_REQUESTS.dataset.post(load_tests_response_times_metrics)
 
+    print("Pushing tests results to Geckoboard")
+    DATASETS.PERIODIC_TESTS_RESULTS.dataset.post(
+        circle_ci_periodic_tests_results
+    )
+    DATASETS.LOAD_TESTS_RESULT_DISTRIBUTION.dataset.post(
+        load_tests_response_times_distributions
+    )
+    DATASETS.LOAD_TESTS_RESULT_REQUESTS.dataset.post(
+        load_tests_response_times_metrics
+    )
+
+    print(f"Pushing text widget data to GeckoBoard")
     push_directory_service_build_results(
-        CIRCLE_CI_CLIENT, GECKOBOARD_PUSH_URL, GECKOBOARD_API_KEY,
-        GECKOBOARD_TEST_RESULTS_WIDGET_KEY)
+        CIRCLE_CI_CLIENT,
+        GECKOBOARD_PUSH_URL,
+        GECKOBOARD_API_KEY,
+        GECKOBOARD_TEST_RESULTS_WIDGET_KEY,
+    )
     push_directory_tests_results(
-        CIRCLE_CI_CLIENT, GECKOBOARD_PUSH_URL, GECKOBOARD_API_KEY,
-        GECKOBOARD_DIRECTORY_TESTS_RESULTS_WIDGET_KEY)
+        CIRCLE_CI_CLIENT,
+        GECKOBOARD_PUSH_URL,
+        GECKOBOARD_API_KEY,
+        GECKOBOARD_DIRECTORY_TESTS_RESULTS_WIDGET_KEY,
+    )
+    push_jira_query_links(
+        content_jira_links,
+        GECKOBOARD_PUSH_URL,
+        GECKOBOARD_API_KEY,
+        GECKOBOARD_CONTENT_JIRA_QUERY_LINKS_WIDGET_KEY,
+    )
+    push_jira_query_links(
+        tools_jira_links,
+        GECKOBOARD_PUSH_URL,
+        GECKOBOARD_API_KEY,
+        GECKOBOARD_TOOLS_JIRA_QUERY_LINKS_WIDGET_KEY,
+    )
