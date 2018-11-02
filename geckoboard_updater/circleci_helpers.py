@@ -186,6 +186,16 @@ def xml_report_summary(xml_report: str) -> dict:
     """
     root = ElementTree.fromstring(xml_report)
     attributes = root.attrib
+    if not attributes:
+        # iterate over results from all test suites and aggregate basic stats
+        test_suites_results = [child.attrib for child in root.getchildren()]
+        attributes = defaultdict(int)
+        for kid in test_suites_results:
+            for key, value in kid.items():
+                if key in ["errors", "failures", "tests"]:
+                    attributes[key] += int(value)
+        attributes = dict(attributes)
+
     return {
         "tests": int(attributes["tests"]),
         "errors": int(attributes["errors"]),
