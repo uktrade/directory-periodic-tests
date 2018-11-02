@@ -26,22 +26,6 @@ def find_tickets(
     )
 
 
-def find_all_tickets(jql: Enum) -> dict:
-    """Iterate over all search result pages and return result as JSON."""
-    results = find_tickets(jql)
-    current_page = 1
-    total_pages = math.ceil(results["total"] / len(results["issues"]))
-    while (
-        len(results["issues"]) < results["total"]
-        and current_page < total_pages
-    ):
-        start_at = current_page * results["maxResults"]
-        next_page_results = find_tickets(jql.value, start_at=start_at)
-        results["issues"] += next_page_results["issues"]
-        current_page += 1
-    return results
-
-
 def count_labels(issues: list) -> Counter:
     counter = Counter()
     for issue in issues:

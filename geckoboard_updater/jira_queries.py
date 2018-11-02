@@ -20,28 +20,6 @@ def to_jql_list_string(strings: List) -> str:
     return ",".join(map('"{0}"'.format, strings))
 
 
-SERVICE_TAGS = [
-    "admin",
-    "api",
-    "cms",
-    "contact-us",
-    "css-components",
-    "exopps",
-    "exred",
-    "fab",
-    "fas",
-    "forms",
-    "gds",
-    "invest",
-    "header-footer",
-    "soo",
-    "sso",
-    "sso-profile",
-    "sso-proxy",
-    "sud",
-]
-
-
 ###############################################################################
 # Generic JQLs
 ###############################################################################
