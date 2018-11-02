@@ -226,10 +226,6 @@ steps_geckoboard_updater: &steps_geckoboard_updater
   steps:
     - *step_restore_cached_geckoboard_updater_requirements
     - *step_run_geckoboard_updater
-    - store_test_results:
-        path: ./reports
-    - store_artifacts:
-        path: ./reports
 
 steps_x_robots_tag: &steps_x_robots_tag
   steps:
