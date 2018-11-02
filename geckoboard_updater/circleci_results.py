@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from circleci_helpers import (
     DIRECTORY_LOAD_TESTS_JOB_NAME_MAPPINGS,
     DIRECTORY_PERIODIC_TESTS_JOB_NAME_MAPPINGS,

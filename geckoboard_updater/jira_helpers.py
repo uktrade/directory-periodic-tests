@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import math
 from collections import Counter
 from enum import Enum
 from typing import List
