@@ -2,7 +2,6 @@
 from collections import namedtuple
 from enum import Enum
 
-
 Schema = namedtuple("Schema", ["dataset_id", "fields", "unique_by"])
 
 DATE_TEAM_METRIC_LABEL_QUANTITY = {

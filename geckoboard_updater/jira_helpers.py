@@ -4,8 +4,8 @@ from enum import Enum
 from typing import List
 from urllib.parse import quote
 
-from jira_queries import JQL
 from geckoboard_updater import JIRA_CLIENT, JIRA_HOST, TODAY
+from jira_queries import JQL
 
 
 def find_tickets(

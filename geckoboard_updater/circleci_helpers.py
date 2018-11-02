@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import csv
-from io import StringIO
 from collections import defaultdict
 from datetime import datetime
+from io import StringIO
 from os.path import basename, splitext
 from typing import List
 from xml.etree import ElementTree

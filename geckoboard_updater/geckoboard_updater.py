@@ -1,18 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import os
-
 from datetime import date
 
+from circleclient import circleclient
 from geckoboard.client import Client as GeckoClient
 from jira import JIRA as JiraClient
-from circleclient import circleclient
 
 from gecko_dataset_schemas import DatasetSchemas
 from gecko_helpers import (
     create_datasets,
-    push_directory_tests_results,
     push_directory_service_build_results,
+    push_directory_tests_results,
     push_jira_query_links,
 )
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from collections import namedtuple
-from enum import EnumMeta, Enum
+from enum import Enum, EnumMeta
 from typing import List
 
 import requests
@@ -9,11 +9,10 @@ from geckoboard.client import Client as GeckoClient
 from geckoboard.dataset import Dataset
 
 from circleci_helpers import (
-    last_directory_tests_results,
-    last_directory_service_build_results
+    last_directory_service_build_results,
+    last_directory_tests_results
 )
 from gecko_dataset_schemas import Schema
-
 
 DatasetAndSchema = namedtuple("DatasetAndSchema", ["dataset", "schema"])
 

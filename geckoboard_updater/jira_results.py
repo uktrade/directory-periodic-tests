@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-from jira_helpers import (
-    jira_links,
-    tickets_by_labels,
-    total_tickets,
-)
+from jira_helpers import jira_links, tickets_by_labels, total_tickets
 from jira_queries import *
 
 content_bugs_in_backlog_by_labels = tickets_by_labels(
