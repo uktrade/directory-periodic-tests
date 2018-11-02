@@ -13,7 +13,7 @@ def find_tickets(
     *,
     max_results: int = 100,
     fields: str = "key,labels,summary",
-    start_at: int = 0
+    start_at: int = 0,
 ) -> dict:
     """Run Jira JQL and return result as JSON."""
     return JIRA_CLIENT.search_issues(
@@ -72,7 +72,7 @@ def quantity_per_label(
     label_prefix: str = "",
     remove_label_prefix: bool = False,
     ignored_labels: List[str] = None,
-    look_for: List[str] = None
+    look_for: List[str] = None,
 ) -> dict:
     issues = jql_query_result["issues"]
     all_labels = count_labels(issues)
@@ -84,7 +84,9 @@ def quantity_per_label(
     return dict(sought)
 
 
-def tickets_by_labels(jql: Enum, ignored_labels: List[str], team: str, metric: str) -> List[dict]:
+def tickets_by_labels(
+    jql: Enum, ignored_labels: List[str], team: str, metric: str
+) -> List[dict]:
     tickets = find_tickets(jql.value)
     counters = quantity_per_label(tickets, ignored_labels=ignored_labels)
     result = []
@@ -102,12 +104,14 @@ def tickets_by_labels(jql: Enum, ignored_labels: List[str], team: str, metric: s
 
 def total_tickets(jql: Enum, team: str) -> List[dict]:
     tickets = find_tickets(jql.value)
-    return [{
-        "date": TODAY,
-        "team": team,
-        "metric": jql.value.description,
-        "quantity": tickets["total"]
-    }]
+    return [
+        {
+            "date": TODAY,
+            "team": team,
+            "metric": jql.value.description,
+            "quantity": tickets["total"],
+        }
+    ]
 
 
 def jira_links(jql_enum) -> List[str]:
@@ -121,6 +125,4 @@ def jira_links(jql_enum) -> List[str]:
         query = quote(clean_query(jql.value.query))
         return f'<a href="{url.format(query=query)}" target=_blank>{jql.value.description}</a>'
 
-    return [link(jql)
-            for jql
-            in jql_enum.__members__.values()]
+    return [link(jql) for jql in jql_enum.__members__.values()]

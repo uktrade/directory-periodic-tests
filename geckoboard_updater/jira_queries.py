@@ -133,8 +133,8 @@ class ContentJQLs(Enum):
         description="Tickets (incl. bugs) on Sprint board",
         query=_SPRINT_BOARD_TICKETS.format(
             project="CMS",
-            open_statuses=to_jql_list_string(CONTENT_OPEN_STATUSES)
-        )
+            open_statuses=to_jql_list_string(CONTENT_OPEN_STATUSES),
+        ),
     )
 
 
@@ -197,5 +197,5 @@ class ToolsJQLs(Enum):
         query=_KANBAN_BOARD_TICKETS.format(
             project="TT",
             open_statuses=to_jql_list_string(TOOLS_BOARD_OPEN_STATUSES),
-        )
+        ),
     )

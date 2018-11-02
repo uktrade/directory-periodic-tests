@@ -14,74 +14,71 @@ from retrying import retry
 # Mapping of CircleCI job names to human friendly ones
 DIRECTORY_PERIODIC_TESTS_JOB_NAME_MAPPINGS = {
     "Content diffs": {
-        "exred_compare_prod_and_dev_pages":     "ExRed Prod Dev",
-        "exred_compare_prod_and_stage_pages":   "ExRed Prod Stage",
-        "exred_compare_stage_and_dev_pages":    "ExRed Stage Dev",
-
-        "fas_compare_prod_and_dev_pages":       "FAS Prod Dev",
-        "fas_compare_prod_and_stage_pages":     "FAS Prod Stage",
-        "fas_compare_stage_and_dev_pages":      "FAS Stage Dev",
-
-        "invest_compare_prod_and_dev_pages":    "Invest Prod Dev",
-        "invest_compare_prod_and_stage_pages":  "Invest Prod Stage",
-        "invest_compare_stage_and_dev_pages":   "Invest Stage Dev",
+        "exred_compare_prod_and_dev_pages": "ExRed Prod Dev",
+        "exred_compare_prod_and_stage_pages": "ExRed Prod Stage",
+        "exred_compare_stage_and_dev_pages": "ExRed Stage Dev",
+        "fas_compare_prod_and_dev_pages": "FAS Prod Dev",
+        "fas_compare_prod_and_stage_pages": "FAS Prod Stage",
+        "fas_compare_stage_and_dev_pages": "FAS Stage Dev",
+        "invest_compare_prod_and_dev_pages": "Invest Prod Dev",
+        "invest_compare_prod_and_stage_pages": "Invest Prod Stage",
+        "invest_compare_stage_and_dev_pages": "Invest Stage Dev",
     },
     "Availability of CMS pages": {
-        "check_cms_pages_on_production":        "CMS Prod pages",
+        "check_cms_pages_on_production": "CMS Prod pages"
     },
     "Dead links": {
-        "check_for_dead_links_on_prod":         "Prod Dead links",
-        "check_for_dead_links_on_stage":        "Stage Dead links",
-        "check_for_dead_links_on_dev":          "Dev Dead links",
-    }
+        "check_for_dead_links_on_prod": "Prod Dead links",
+        "check_for_dead_links_on_stage": "Stage Dead links",
+        "check_for_dead_links_on_dev": "Dev Dead links",
+    },
 }
 
 DIRECTORY_LOAD_TESTS_JOB_NAME_MAPPINGS = {
-    "load_fab_tests_stage":         "Load STAGE FAB",
-    "load_cms_tests_stage":         "Load STAGE CMS",
-    "load_fas_tests_stage":         "Load STAGE FAS",
-    "load_invest_tests_stage":      "Load STAGE Invest",
+    "load_fab_tests_stage": "Load STAGE FAB",
+    "load_cms_tests_stage": "Load STAGE CMS",
+    "load_fas_tests_stage": "Load STAGE FAS",
+    "load_invest_tests_stage": "Load STAGE Invest",
 }
 
 DIRECTORY_TESTS_JOB_NAME_MAPPINGS = {
-    "browser_all_chrome_dev":       "Dev Chrome",
-    "browser_all_firefox_dev":      "Dev Firefox",
-    "func_fab_test_dev":            "Dev FAB",
-    "func_fas_test_dev":            "Dev FAS",
-    "smoke_tests_dev":              "Dev Smoke",
-    "func_sso_test_dev":            "Dev SSO",
-    "func_sud_test_dev":            "Dev SUD",
-
-    "browser_all_chrome_stage":     "Stage Chrome",
-    "browser_all_firefox_stage":    "Stage Firefox",
-    "func_fab_test_stage":          "Stage FAB",
-    "func_fas_test_stage":          "Stage FAS",
-    "smoke_tests_stage":            "Stage Smoke",
-    "func_sso_test_stage":          "Stage SSO",
-    "func_sud_test_stage":          "Stage SUD",
+    "browser_all_chrome_dev": "Dev Chrome",
+    "browser_all_firefox_dev": "Dev Firefox",
+    "func_fab_test_dev": "Dev FAB",
+    "func_fas_test_dev": "Dev FAS",
+    "smoke_tests_dev": "Dev Smoke",
+    "func_sso_test_dev": "Dev SSO",
+    "func_sud_test_dev": "Dev SUD",
+    "browser_all_chrome_stage": "Stage Chrome",
+    "browser_all_firefox_stage": "Stage Firefox",
+    "func_fab_test_stage": "Stage FAB",
+    "func_fas_test_stage": "Stage FAS",
+    "smoke_tests_stage": "Stage Smoke",
+    "func_sso_test_stage": "Stage SSO",
+    "func_sud_test_stage": "Stage SUD",
 }
 
-DIRECTORY_TESTS_JOB_NAME_MAPPINGS.update(DIRECTORY_LOAD_TESTS_JOB_NAME_MAPPINGS)
+DIRECTORY_TESTS_JOB_NAME_MAPPINGS.update(
+    DIRECTORY_LOAD_TESTS_JOB_NAME_MAPPINGS
+)
 
 DIRECTORY_SERVICE_JOB_NAME_MAPPINGS = {
-    "test":                         "Unit Tests",
-    "deploy_to_dev":                "Deploy to Dev",
-    "integration_tests":            "Integration Tests",
+    "test": "Unit Tests",
+    "deploy_to_dev": "Deploy to Dev",
+    "integration_tests": "Integration Tests",
 }
 
-DIRECTORY_CH_SEARCH_JOB_NAME_MAPPINGS = {
-    "test":                         "Unit Tests",
-}
+DIRECTORY_CH_SEARCH_JOB_NAME_MAPPINGS = {"test": "Unit Tests"}
 
 
 @retry(wait_fixed=10000, stop_max_attempt_number=2)
 def recent_builds(
-        circle_ci_client: CircleClient,
-        project: str,
-        *,
-        username: str = "uktrade",
-        limit: int = 10,
-        branch: str = "master"
+    circle_ci_client: CircleClient,
+    project: str,
+    *,
+    username: str = "uktrade",
+    limit: int = 10,
+    branch: str = "master",
 ) -> List[dict]:
     return circle_ci_client.build.recent(
         username=username, project=project, limit=limit, branch=branch
@@ -92,8 +89,10 @@ def last_build_per_job(builds: List[dict], job_mappings: dict) -> dict:
     last_builds = {}
     for build in builds:
         if "workflows" not in build:
-            print(f"Ignoring legacy CircleCI 1.0  build #{build['build_num']} "
-                  f"for {build['reponame']}")
+            print(
+                f"Ignoring legacy CircleCI 1.0  build #{build['build_num']} "
+                f"for {build['reponame']}"
+            )
             continue
         if build["workflows"]["job_name"] in job_mappings:
             friendly_name = job_mappings[build["workflows"]["job_name"]]
@@ -105,8 +104,12 @@ def last_build_per_job(builds: List[dict], job_mappings: dict) -> dict:
 
 @retry(wait_fixed=10000, stop_max_attempt_number=3)
 def get_build_artifacts(
-        circle_ci_client: CircleClient, builds: dict, extentions: List[str],
-        *, username: str = "uktrade", decode_content: bool = True
+    circle_ci_client: CircleClient,
+    builds: dict,
+    extentions: List[str],
+    *,
+    username: str = "uktrade",
+    decode_content: bool = True,
 ) -> dict:
     """Fetch build artifacts that match one of selected file extensions"""
 
@@ -139,8 +142,10 @@ def get_build_artifacts(
                     "build_num": artifact["build_num"],
                 }
                 artifact_urls[friendly_name].append(url)
-                print(f"Found '{friendly_name}' build artifact {filename} in "
-                      f"build #{artifact['build_num']}")
+                print(
+                    f"Found '{friendly_name}' build artifact {filename} in "
+                    f"build #{artifact['build_num']}"
+                )
 
     results = defaultdict(list)
     for friendly_name, artifacts in artifact_urls.items():
@@ -148,11 +153,15 @@ def get_build_artifacts(
             filename = artifact["filename"]
             url = artifact["url"]
             build_num = artifact["build_num"]
-            print(f"Fetching '{friendly_name}' build artifact: '{filename}' "
-                  f"from build #{build_num}")
+            print(
+                f"Fetching '{friendly_name}' build artifact: '{filename}' "
+                f"from build #{build_num}"
+            )
             response = requests.get(url)
-            error = (f"Could not get {url} as CircleCI responded with "
-                     f"{response.status_code}: {response.content}")
+            error = (
+                f"Could not get {url} as CircleCI responded with "
+                f"{response.status_code}: {response.content}"
+            )
             assert response.status_code == 200, error
             if decode_content:
                 content = response.content.decode("utf-8")
@@ -218,8 +227,12 @@ def last_workflow_test_results(builds: dict, job_name_mappings: dict) -> dict:
 
 
 def last_test_results(
-        circle_ci_client: CircleClient, project_name: str,
-        job_name_mappings: dict, *, limit: int = 10) -> dict:
+    circle_ci_client: CircleClient,
+    project_name: str,
+    job_name_mappings: dict,
+    *,
+    limit: int = 10,
+) -> dict:
     recent = recent_builds(circle_ci_client, project_name, limit=limit)
     build_per_job = last_build_per_job(recent, job_name_mappings)
     return last_workflow_test_results(build_per_job, job_name_mappings)
@@ -230,11 +243,13 @@ def last_directory_tests_results(circle_ci_client: CircleClient) -> dict:
         circle_ci_client,
         "directory-tests",
         job_name_mappings=DIRECTORY_TESTS_JOB_NAME_MAPPINGS,
-        limit=100
+        limit=100,
     )
 
 
-def last_directory_service_build_results(circle_ci_client: CircleClient) -> dict:
+def last_directory_service_build_results(
+    circle_ci_client: CircleClient
+) -> dict:
     return {
         "API": last_test_results(
             circle_ci_client=circle_ci_client,
@@ -280,17 +295,16 @@ def last_directory_service_build_results(circle_ci_client: CircleClient) -> dict
 
 
 def parse_result_distribution_csv(
-        csv_content: str,
-        test_name: str,
-        test_date: str,
-        *,
-        ignored_results: List[str] = ["total"],
-        ignored_percentiles: List[str] = ["66%", "80%", "98%"],
+    csv_content: str,
+    test_name: str,
+    test_date: str,
+    *,
+    ignored_results: List[str] = ["total"],
+    ignored_percentiles: List[str] = ["66%", "80%", "98%"],
 ) -> List[dict]:
 
     parsed_csv_results = [
-        dict(endpoint)
-        for endpoint in csv.DictReader(StringIO(csv_content))
+        dict(endpoint) for endpoint in csv.DictReader(StringIO(csv_content))
     ]
 
     clean_results = []
@@ -332,12 +346,12 @@ def replace_all(text: str, replacements: dict) -> str:
 
 
 def parse_result_requests_csv(
-        csv_content: str,
-        test_name: str,
-        test_date: str,
-        *,
-        ignored_results: List[str] = ["total"],
-        ignored_metrics: List[str] = ["average content size"],
+    csv_content: str,
+    test_name: str,
+    test_date: str,
+    *,
+    ignored_results: List[str] = ["total"],
+    ignored_metrics: List[str] = ["average content size"],
 ) -> List[dict]:
     """Take Locust's requests.csv & convert it to Geckoboard friendly dataset.
 
@@ -389,8 +403,7 @@ def parse_result_requests_csv(
     ]
     """
     parsed_csv_results = [
-        dict(endpoint)
-        for endpoint in csv.DictReader(StringIO(csv_content))
+        dict(endpoint) for endpoint in csv.DictReader(StringIO(csv_content))
     ]
 
     clean_results = []
@@ -410,11 +423,7 @@ def parse_result_requests_csv(
         for metric_name, metric_value in result.items():
             if metric_name.lower() in ignored_metrics:
                 continue
-            replacements = {
-                "# ": "",
-                "/": "_per_",
-                " ": "_",
-            }
+            replacements = {"# ": "", "/": "_per_", " ": "_"}
             clean_key = replace_all(metric_name, replacements).strip().lower()
             if metric_value == "N/A":
                 # Geckoboard requires that values for missing dataset entries
@@ -425,9 +434,11 @@ def parse_result_requests_csv(
                 if clean_key == "requests_per_s":
                     clean_value = float(metric_value)
                 else:
-                    clean_value = (int(metric_value)
-                                   if metric_value.isnumeric()
-                                   else metric_value)
+                    clean_value = (
+                        int(metric_value)
+                        if metric_value.isnumeric()
+                        else metric_value
+                    )
                 clean_result[clean_key] = clean_value
             clean_result["name"] = test_name
             clean_result["date"] = test_date
@@ -436,8 +447,10 @@ def parse_result_requests_csv(
 
 
 def get_results_distribution(
-        build_artifacts: dict, *,
-        artifact_filename: str = "results_distribution.csv") -> List[dict]:
+    build_artifacts: dict,
+    *,
+    artifact_filename: str = "results_distribution.csv",
+) -> List[dict]:
     results = []
     for friendly_name, artifacts in build_artifacts.items():
         for artifact in artifacts:
@@ -447,7 +460,7 @@ def get_results_distribution(
                 parsed = parse_result_distribution_csv(
                     csv_content=csv_content,
                     test_name=friendly_name,
-                    test_date=test_date
+                    test_date=test_date,
                 )
                 results += parsed
 
@@ -455,8 +468,8 @@ def get_results_distribution(
 
 
 def get_load_tests_requests_results(
-        build_artifacts: dict, *,
-        artifact_filename: str = "results_requests.csv") -> List[dict]:
+    build_artifacts: dict, *, artifact_filename: str = "results_requests.csv"
+) -> List[dict]:
     results = []
     for friendly_name, artifacts in build_artifacts.items():
         for artifact in artifacts:
@@ -466,7 +479,7 @@ def get_load_tests_requests_results(
                 parsed = parse_result_requests_csv(
                     csv_content=csv_content,
                     test_name=friendly_name,
-                    test_date=test_date
+                    test_date=test_date,
                 )
                 results += parsed
 
@@ -474,11 +487,17 @@ def get_load_tests_requests_results(
 
 
 def last_load_test_artifacts(
-        circle_ci_client: CircleClient, project_name: str,
-        job_name_mappings: dict, *, limit: int = 50) -> dict:
+    circle_ci_client: CircleClient,
+    project_name: str,
+    job_name_mappings: dict,
+    *,
+    limit: int = 50,
+) -> dict:
     recent = recent_builds(circle_ci_client, project_name, limit=limit)
     filtered_builds = last_build_per_job(recent, job_name_mappings)
-    return get_build_artifacts(circle_ci_client, filtered_builds, extentions=[".csv"])
+    return get_build_artifacts(
+        circle_ci_client, filtered_builds, extentions=[".csv"]
+    )
 
 
 def parse_junit_results(build_artifacts: dict, metric: str) -> List[dict]:
@@ -496,13 +515,18 @@ def parse_junit_results(build_artifacts: dict, metric: str) -> List[dict]:
 
 
 def last_tests_results(
-        circle_ci_client: CircleClient, project_name: str,
-        job_name_mappings: dict, *, limit: int = 100) -> List[dict]:
+    circle_ci_client: CircleClient,
+    project_name: str,
+    job_name_mappings: dict,
+    *,
+    limit: int = 100,
+) -> List[dict]:
     recent = recent_builds(circle_ci_client, project_name, limit=limit)
     result = []
     for metric, mapping in job_name_mappings.items():
         filtered_builds = last_build_per_job(recent, mapping)
         artifacts = get_build_artifacts(
-            circle_ci_client, filtered_builds, extentions=[".xml"])
+            circle_ci_client, filtered_builds, extentions=[".xml"]
+        )
         result += parse_junit_results(artifacts, metric)
     return result

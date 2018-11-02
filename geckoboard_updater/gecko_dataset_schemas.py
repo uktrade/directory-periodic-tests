@@ -5,22 +5,26 @@ from enum import Enum
 Schema = namedtuple("Schema", ["dataset_id", "fields", "unique_by"])
 
 DATE_TEAM_METRIC_LABEL_QUANTITY = {
-    "date":     {"type": "date",   "name": "Date",     "optional": False},
-    "team":     {"type": "string", "name": "Team",     "optional": False},
-    "metric":   {"type": "string", "name": "Metric",   "optional": False},
-    "label":    {"type": "string", "name": "Label",    "optional": False},
+    "date": {"type": "date", "name": "Date", "optional": False},
+    "team": {"type": "string", "name": "Team", "optional": False},
+    "metric": {"type": "string", "name": "Metric", "optional": False},
+    "label": {"type": "string", "name": "Label", "optional": False},
     "quantity": {"type": "number", "name": "Quantity", "optional": False},
 }
 DATE_TEAM_METRIC_QUANTITY = {
-    "date":     {"type": "date",   "name": "Date",     "optional": False},
-    "team":     {"type": "string", "name": "Team",     "optional": False},
-    "metric":   {"type": "string", "name": "Metric",   "optional": False},
+    "date": {"type": "date", "name": "Date", "optional": False},
+    "team": {"type": "string", "name": "Team", "optional": False},
+    "metric": {"type": "string", "name": "Metric", "optional": False},
     "quantity": {"type": "number", "name": "Quantity", "optional": False},
 }
 DATE_METRIC_ENVIRONMENT_ERRORS_FAILURES_TESTS = {
     "date": {"type": "date", "name": "Date", "optional": False},
-    "metric":   {"type": "string", "name": "Metric",   "optional": False},
-    "environment": {"type": "string", "name": "Environment", "optional": False},
+    "metric": {"type": "string", "name": "Metric", "optional": False},
+    "environment": {
+        "type": "string",
+        "name": "Environment",
+        "optional": False,
+    },
     "errors": {"type": "number", "name": "Errors", "optional": False},
     "failures": {"type": "number", "name": "Failures", "optional": False},
     "tests": {"type": "number", "name": "Tests", "optional": False},
@@ -46,10 +50,26 @@ LOCUST_RESULTS_REQUESTS = {
     "endpoint": {"type": "string", "endpoint": "Name", "optional": False},
     "requests": {"type": "number", "name": "# requests", "optional": True},
     "failures": {"type": "number", "name": "Failures", "optional": True},
-    "median_response_time": {"type": "number", "name": "Med resp time", "optional": True},
-    "average_response_time": {"type": "number", "name": "Avg resp time", "optional": True},
-    "min_response_time": {"type": "number", "name": "Min resp time", "optional": True},
-    "max_response_time": {"type": "number", "name": "Max resp time", "optional": True},
+    "median_response_time": {
+        "type": "number",
+        "name": "Med resp time",
+        "optional": True,
+    },
+    "average_response_time": {
+        "type": "number",
+        "name": "Avg resp time",
+        "optional": True,
+    },
+    "min_response_time": {
+        "type": "number",
+        "name": "Min resp time",
+        "optional": True,
+    },
+    "max_response_time": {
+        "type": "number",
+        "name": "Max resp time",
+        "optional": True,
+    },
     "requests_per_s": {"type": "number", "name": "RPS", "optional": True},
 }
 DATE_METRIC_ENVIRONMENT = ["date", "metric", "environment"]
@@ -63,7 +83,7 @@ def jira_bugs_by_labels() -> Schema:
     return Schema(
         dataset_id=f"jira.bugs_by_labels",
         fields=DATE_TEAM_METRIC_LABEL_QUANTITY,
-        unique_by=DATE_TEAM_METRIC_LABEL
+        unique_by=DATE_TEAM_METRIC_LABEL,
     )
 
 
@@ -71,7 +91,7 @@ def jira_bug_and_ticket_counters() -> Schema:
     return Schema(
         dataset_id=f"jira.bug_and_ticket_counters",
         fields=DATE_TEAM_METRIC_QUANTITY,
-        unique_by=DATE_TEAM_METRIC
+        unique_by=DATE_TEAM_METRIC,
     )
 
 

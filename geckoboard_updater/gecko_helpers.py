@@ -10,7 +10,7 @@ from geckoboard.dataset import Dataset
 
 from circleci_helpers import (
     last_directory_service_build_results,
-    last_directory_tests_results
+    last_directory_tests_results,
 )
 from gecko_dataset_schemas import Schema
 
@@ -30,7 +30,8 @@ class Datasets(Enum):
 
 
 def create_datasets(
-        dataset_enum: EnumMeta, gecko_client: GeckoClient) -> Datasets:
+    dataset_enum: EnumMeta, gecko_client: GeckoClient
+) -> Datasets:
     """
     More on datasets.find_or_create()
     https://developer.geckoboard.com/api-reference/python/#findorcreate
@@ -38,10 +39,9 @@ def create_datasets(
     dasets = {
         key: DatasetAndSchema(
             dataset=gecko_client.datasets.find_or_create(*schema.value),
-            schema=schema.value
+            schema=schema.value,
         )
-        for key, schema
-        in dataset_enum.__members__.items()
+        for key, schema in dataset_enum.__members__.items()
     }
     return Datasets(value="Datasets", names=dasets)
 
@@ -81,7 +81,7 @@ def widget_text_for_directory_tests(test_results: dict) -> str:
         rows += row_template.format(
             name=friendly_name,
             status_color=job_status_color(result["status"]),
-            **result
+            **result,
         )
     return table_template.format(rows=rows)
 
@@ -110,21 +110,28 @@ def widget_text_for_service_build(build_results: dict) -> str:
         deploy = integration = empty_row
         unit = job_status_template.format(
             status_color=job_status_color(results["Unit Tests"]["status"]),
-            **results["Unit Tests"])
+            **results["Unit Tests"],
+        )
         if "Deploy to Dev" in results:
             deploy = job_status_template.format(
-                status_color=job_status_color(results["Deploy to Dev"]["status"]),
-                **results["Deploy to Dev"])
+                status_color=job_status_color(
+                    results["Deploy to Dev"]["status"]
+                ),
+                **results["Deploy to Dev"],
+            )
         if "Integration Tests" in results:
             integration = job_status_template.format(
-                status_color=job_status_color(results["Integration Tests"]["status"]),
-                **results["Integration Tests"])
+                status_color=job_status_color(
+                    results["Integration Tests"]["status"]
+                ),
+                **results["Integration Tests"],
+            )
         rows += row_template.format(
             name=friendly_name,
             unit=unit,
             deploy=deploy,
             integration=integration,
-            **results["Unit Tests"]
+            **results["Unit Tests"],
         )
     return table_template.format(rows=rows)
 
@@ -155,27 +162,34 @@ def push_widget_text(push_url: str, api_key: str, widget_key: str, text: str):
 
 
 def push_directory_tests_results(
-        circle_ci_client: CircleClient,
-        geckoboard_push_url: str,
-        geckoboard_api_key: str,
-        widget_key: str):
+    circle_ci_client: CircleClient,
+    geckoboard_push_url: str,
+    geckoboard_api_key: str,
+    widget_key: str,
+):
     last_test_results = last_directory_tests_results(circle_ci_client)
     text = widget_text_for_directory_tests(last_test_results)
     push_widget_text(geckoboard_push_url, geckoboard_api_key, widget_key, text)
 
 
 def push_directory_service_build_results(
-        circle_ci_client: CircleClient, geckoboard_push_url: str,
-        geckoboard_api_key: str, widget_key: str):
-    last_service_build_results = last_directory_service_build_results(circle_ci_client)
+    circle_ci_client: CircleClient,
+    geckoboard_push_url: str,
+    geckoboard_api_key: str,
+    widget_key: str,
+):
+    last_service_build_results = last_directory_service_build_results(
+        circle_ci_client
+    )
     text = widget_text_for_service_build(last_service_build_results)
     push_widget_text(geckoboard_push_url, geckoboard_api_key, widget_key, text)
 
 
 def push_jira_query_links(
-        links: List[str],
-        geckoboard_push_url: str,
-        geckoboard_api_key: str,
-        widget_key: str):
+    links: List[str],
+    geckoboard_push_url: str,
+    geckoboard_api_key: str,
+    widget_key: str,
+):
     text = widget_jira_links(links)
     push_widget_text(geckoboard_push_url, geckoboard_api_key, widget_key, text)
