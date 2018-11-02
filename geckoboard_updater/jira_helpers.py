@@ -100,12 +100,12 @@ def tickets_by_labels(jql: Enum, ignored_labels: List[str], team: str, metric: s
     return result
 
 
-def total_tickets(jql: Enum, team: str, metric: str) -> List[dict]:
+def total_tickets(jql: Enum, team: str) -> List[dict]:
     tickets = find_tickets(jql.value)
     return [{
         "date": TODAY,
         "team": team,
-        "metric": metric,
+        "metric": jql.value.description,
         "quantity": tickets["total"]
     }]
 

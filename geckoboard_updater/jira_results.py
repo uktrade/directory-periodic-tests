@@ -20,20 +20,16 @@ content_bugs_on_board_by_labels = tickets_by_labels(
 )
 content_bugs_closed_today = total_tickets(
     jql=ContentJQLs.BUGS_CLOSED_TODAY,
-    team="content",
-    metric="Bugs closed today")
+    team="content")
 content_bugs_in_backlog = total_tickets(
     jql=ContentJQLs.BUGS_IN_BACKLOG,
-    team="content",
-    metric="Bugs in Backlog")
+    team="content")
 content_tickets_closed_today = total_tickets(
     jql=ContentJQLs.TICKETS_CLOSED_TODAY,
-    team="content",
-    metric="Tickets closed today")
+    team="content")
 content_tickets_on_board = total_tickets(
     jql=ContentJQLs.TICKETS_ON_BOARD,
-    team="content",
-    metric="Tickets on board")
+    team="content")
 content_jira_links = jira_links(ContentJQLs)
 
 
@@ -51,24 +47,16 @@ tools_bugs_on_board_by_labels = tickets_by_labels(
 )
 tools_bugs_closed_today = total_tickets(
     jql=ToolsJQLs.BUGS_CLOSED_TODAY,
-    team="tools",
-    metric="Bugs closed today"
-)
+    team="tools")
 tools_bugs_in_backlog = total_tickets(
     jql=ToolsJQLs.BUGS_IN_BACKLOG,
-    team="tools",
-    metric="Bugs in Backlog"
-)
+    team="tools")
 tools_tickets_closed_today = total_tickets(
     jql=ToolsJQLs.TICKETS_CLOSED_TODAY,
-    team="tools",
-    metric="Tickets closed today"
-)
+    team="tools")
 tools_tickets_on_board = total_tickets(
     jql=ToolsJQLs.TICKETS_ON_BOARD,
-    team="tools",
-    metric="Tickets on board"
-)
+    team="tools")
 tools_jira_links = jira_links(ToolsJQLs)
 
 
