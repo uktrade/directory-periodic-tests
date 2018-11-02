@@ -12,18 +12,28 @@ from circleclient.circleclient import CircleClient
 from retrying import retry
 
 # Mapping of CircleCI job names to human friendly ones
-DIRECTORY_CONTENT_DIFF_JOB_NAME_MAPPINGS = {
-    "exred_compare_prod_and_dev_pages":     "ExRed Prod Dev",
-    "exred_compare_prod_and_stage_pages":   "ExRed Prod Stage",
-    "exred_compare_stage_and_dev_pages":    "ExRed Stage Dev",
+DIRECTORY_PERIODIC_TESTS_JOB_NAME_MAPPINGS = {
+    "Content diffs": {
+        "exred_compare_prod_and_dev_pages":     "ExRed Prod Dev",
+        "exred_compare_prod_and_stage_pages":   "ExRed Prod Stage",
+        "exred_compare_stage_and_dev_pages":    "ExRed Stage Dev",
 
-    "fas_compare_prod_and_dev_pages":       "FAS Prod Dev",
-    "fas_compare_prod_and_stage_pages":     "FAS Prod Stage",
-    "fas_compare_stage_and_dev_pages":      "FAS Stage Dev",
+        "fas_compare_prod_and_dev_pages":       "FAS Prod Dev",
+        "fas_compare_prod_and_stage_pages":     "FAS Prod Stage",
+        "fas_compare_stage_and_dev_pages":      "FAS Stage Dev",
 
-    "invest_compare_prod_and_dev_pages":    "Invest Prod Dev",
-    "invest_compare_prod_and_stage_pages":  "Invest Prod Stage",
-    "invest_compare_stage_and_dev_pages":   "Invest Stage Dev",
+        "invest_compare_prod_and_dev_pages":    "Invest Prod Dev",
+        "invest_compare_prod_and_stage_pages":  "Invest Prod Stage",
+        "invest_compare_stage_and_dev_pages":   "Invest Stage Dev",
+    },
+    "Availability of CMS pages": {
+        "check_cms_pages_on_production":        "CMS Prod pages",
+    },
+    "Dead links": {
+        "check_for_dead_links_on_prod":         "Prod Dead links",
+        "check_for_dead_links_on_stage":        "Stage Dead links",
+        "check_for_dead_links_on_dev":          "Dev Dead links",
+    }
 }
 
 DIRECTORY_LOAD_TESTS_JOB_NAME_MAPPINGS = {
@@ -471,7 +481,7 @@ def last_load_test_artifacts(
     return get_build_artifacts(circle_ci_client, filtered_builds, extentions=[".csv"])
 
 
-def parse_junit_results(build_artifacts: dict) -> List[dict]:
+def parse_junit_results(build_artifacts: dict, metric: str) -> List[dict]:
     results = []
     for friendly_name, artifacts in build_artifacts.items():
         for artifact in artifacts:
@@ -479,16 +489,20 @@ def parse_junit_results(build_artifacts: dict) -> List[dict]:
                 parsed = xml_report_summary(artifact["content"])
                 parsed["environment"] = friendly_name
                 parsed["date"] = artifact["date"]
+                parsed["metric"] = metric
                 results.append(parsed)
 
     return results
 
 
-def last_content_diff_results(
+def last_tests_results(
         circle_ci_client: CircleClient, project_name: str,
         job_name_mappings: dict, *, limit: int = 100) -> List[dict]:
     recent = recent_builds(circle_ci_client, project_name, limit=limit)
-    filtered_builds = last_build_per_job(recent, job_name_mappings)
-    artifacts = get_build_artifacts(
-        circle_ci_client, filtered_builds, extentions=[".xml"])
-    return parse_junit_results(artifacts)
+    result = []
+    for metric, mapping in job_name_mappings.items():
+        filtered_builds = last_build_per_job(recent, mapping)
+        artifacts = get_build_artifacts(
+            circle_ci_client, filtered_builds, extentions=[".xml"])
+        result += parse_junit_results(artifacts, metric)
+    return result
