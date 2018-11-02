@@ -114,7 +114,7 @@ class ContentJQLs(Enum):
         query=_BOARD_BUGS.format(project="CMS", backlog_name="To Do"),
     )
     BUGS_CLOSED_TODAY = JQL(
-        description="Bug closed today",
+        description="Bugs closed today",
         query=_BUGS_CLOSED_TODAY.format(
             project="CMS",
             open_statuses=to_jql_list_string(CONTENT_OPEN_STATUSES),
@@ -130,7 +130,7 @@ class ContentJQLs(Enum):
         ),
     )
     TICKETS_ON_BOARD = JQL(
-        description="Tickets (incl. bugs) on sprint board",
+        description="Tickets (incl. bugs) on Sprint board",
         query=_SPRINT_BOARD_TICKETS.format(
             project="CMS",
             open_statuses=to_jql_list_string(CONTENT_OPEN_STATUSES)
@@ -177,7 +177,7 @@ class ToolsJQLs(Enum):
         query=_BOARD_BUGS.format(project="TT", backlog_name="Backlog"),
     )
     BUGS_CLOSED_TODAY = JQL(
-        description="Bug closed today",
+        description="Bugs closed today",
         query=_BUGS_CLOSED_TODAY.format(
             project="TT",
             open_statuses=to_jql_list_string(TOOLS_OPEN_STATUSES),
@@ -193,7 +193,7 @@ class ToolsJQLs(Enum):
         ),
     )
     TICKETS_ON_BOARD = JQL(
-        description="",
+        description="Tickets (incl. bugs) on Kanban Board",
         query=_KANBAN_BOARD_TICKETS.format(
             project="TT",
             open_statuses=to_jql_list_string(TOOLS_BOARD_OPEN_STATUSES),
