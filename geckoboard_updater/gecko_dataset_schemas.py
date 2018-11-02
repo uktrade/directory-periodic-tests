@@ -18,8 +18,9 @@ DATE_TEAM_METRIC_QUANTITY = {
     "metric":   {"type": "string", "name": "Metric",   "optional": False},
     "quantity": {"type": "number", "name": "Quantity", "optional": False},
 }
-DATE_ENVIRONMENT_ERRORS_FAILURES_SCANNED = {
+DATE_METRIC_ENVIRONMENT_ERRORS_FAILURES_TESTS = {
     "date": {"type": "date", "name": "Date", "optional": False},
+    "metric":   {"type": "string", "name": "Metric",   "optional": False},
     "environment": {"type": "string", "name": "Environment", "optional": False},
     "errors": {"type": "number", "name": "Errors", "optional": False},
     "failures": {"type": "number", "name": "Failures", "optional": False},
@@ -52,7 +53,7 @@ LOCUST_RESULTS_REQUESTS = {
     "max_response_time": {"type": "number", "name": "Max resp time", "optional": True},
     "requests_per_s": {"type": "number", "name": "RPS", "optional": True},
 }
-DATE_ENVIRONMENT = ["date", "environment"]
+DATE_METRIC_ENVIRONMENT = ["date", "metric", "environment"]
 DATE_NAME_ENDPOINT = ["date", "name", "endpoint"]
 DATE_TEAM_METRIC = ["date", "team", "metric"]
 DATE_TEAM_METRIC_LABEL = ["date", "team", "metric", "label"]
@@ -75,30 +76,11 @@ def jira_bug_and_ticket_counters() -> Schema:
     )
 
 
-def bad_links_per_environment(team: str) -> Schema:
-    """Number of bad (dead or invalid) links per environment"""
+def periodic_tests_results() -> Schema:
     return Schema(
-        dataset_id=f"{team}.bad_links_per_environment",
-        fields=DATE_ENVIRONMENT_ERRORS_FAILURES_SCANNED,
-        unique_by=DATE_ENVIRONMENT,
-    )
-
-
-def content_diffs_per_environment() -> Schema:
-    """Number of content differences per service per environment"""
-    return Schema(
-        dataset_id="content_diffs.per_environment",
-        fields=DATE_ENVIRONMENT_ERRORS_FAILURES_SCANNED,
-        unique_by=DATE_ENVIRONMENT,
-    )
-
-
-def bad_cms_pages_per_environment(team: str) -> Schema:
-    """Number of bad CMS pages per environment"""
-    return Schema(
-        dataset_id=f"{team}.bad_cms_pages_per_environment",
-        fields=DATE_ENVIRONMENT_ERRORS_FAILURES_SCANNED,
-        unique_by=DATE_ENVIRONMENT,
+        dataset_id=f"periodic_tests.results",
+        fields=DATE_METRIC_ENVIRONMENT_ERRORS_FAILURES_TESTS,
+        unique_by=DATE_METRIC_ENVIRONMENT,
     )
 
 
@@ -128,6 +110,4 @@ class DatasetSchemas(Enum):
     JIRA_BUG_AND_TICKET_COUNTERS = jira_bug_and_ticket_counters()
     LOAD_TESTS_RESULT_DISTRIBUTION = load_tests_result_distribution()
     LOAD_TESTS_RESULT_REQUESTS = load_tests_result_requests()
-    BAD_CMS_PAGES_PER_ENVIRONMENT = bad_cms_pages_per_environment("content")
-    BAD_LINKS_PER_ENVIRONMENT = bad_links_per_environment("content")
-    PAGE_DIFFS_PER_ENVIRONMENT = content_diffs_per_environment()
+    PERIODIC_TESTS_RESULTS = periodic_tests_results()
