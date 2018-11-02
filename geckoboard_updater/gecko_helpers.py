@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from collections import namedtuple
 from enum import EnumMeta, Enum
+from typing import List
 
 import requests
 from circleclient.circleclient import CircleClient
@@ -129,6 +130,20 @@ def widget_text_for_service_build(build_results: dict) -> str:
     return table_template.format(rows=rows)
 
 
+def widget_jira_links(links: List[str]) -> str:
+    table_template = """<table style="width:100%">
+<tbody>
+{rows}
+</tbody></table>"""
+    row_template = """\n<tr style="font-size:14pt">
+<td>{link}</td>
+</tr>"""
+    rows = ""
+    for link in links:
+        rows += row_template.format(link=link)
+    return table_template.format(rows=rows)
+
+
 def push_widget_text(push_url: str, api_key: str, widget_key: str, text: str):
     message = {
         "api_key": api_key,
@@ -141,8 +156,10 @@ def push_widget_text(push_url: str, api_key: str, widget_key: str, text: str):
 
 
 def push_directory_tests_results(
-        circle_ci_client: CircleClient, geckoboard_push_url: str,
-        geckoboard_api_key: str, widget_key: str):
+        circle_ci_client: CircleClient,
+        geckoboard_push_url: str,
+        geckoboard_api_key: str,
+        widget_key: str):
     last_test_results = last_directory_tests_results(circle_ci_client)
     text = widget_text_for_directory_tests(last_test_results)
     push_widget_text(geckoboard_push_url, geckoboard_api_key, widget_key, text)
@@ -153,4 +170,13 @@ def push_directory_service_build_results(
         geckoboard_api_key: str, widget_key: str):
     last_service_build_results = last_directory_service_build_results(circle_ci_client)
     text = widget_text_for_service_build(last_service_build_results)
+    push_widget_text(geckoboard_push_url, geckoboard_api_key, widget_key, text)
+
+
+def push_jira_query_links(
+        links: List[str],
+        geckoboard_push_url: str,
+        geckoboard_api_key: str,
+        widget_key: str):
+    text = widget_jira_links(links)
     push_widget_text(geckoboard_push_url, geckoboard_api_key, widget_key, text)
