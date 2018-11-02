@@ -9,6 +9,7 @@ from xml.etree import ElementTree
 
 import requests
 from circleclient.circleclient import CircleClient
+from retrying import retry
 
 # Mapping of CircleCI job names to human friendly ones
 DIRECTORY_CONTENT_DIFF_JOB_NAME_MAPPINGS = {
@@ -63,6 +64,7 @@ DIRECTORY_CH_SEARCH_JOB_NAME_MAPPINGS = {
 }
 
 
+@retry(wait_fixed=10000, stop_max_attempt_number=2)
 def recent_builds(
         circle_ci_client: CircleClient,
         project: str,
@@ -91,6 +93,7 @@ def last_build_per_job(builds: List[dict], job_mappings: dict) -> dict:
     return last_builds
 
 
+@retry(wait_fixed=10000, stop_max_attempt_number=3)
 def get_build_artifacts(
         circle_ci_client: CircleClient, builds: dict, extentions: List[str],
         *, username: str = "uktrade", decode_content: bool = True
