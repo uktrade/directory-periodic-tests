@@ -239,7 +239,7 @@ def last_workflow_test_results(builds: dict, job_name_mappings: dict) -> dict:
     return result
 
 
-def last_test_results(
+def last_build_test_results(
     circle_ci_client: CircleClient,
     project_name: str,
     job_name_mappings: dict,
@@ -252,7 +252,7 @@ def last_test_results(
 
 
 def last_directory_tests_results(circle_ci_client: CircleClient) -> dict:
-    return last_test_results(
+    return last_build_test_results(
         circle_ci_client,
         "directory-tests",
         job_name_mappings=DIRECTORY_TESTS_JOB_NAME_MAPPINGS,
@@ -264,42 +264,42 @@ def last_directory_service_build_results(
     circle_ci_client: CircleClient
 ) -> dict:
     return {
-        "API": last_test_results(
+        "API": last_build_test_results(
             circle_ci_client=circle_ci_client,
             project_name="directory-api",
             job_name_mappings=DIRECTORY_SERVICE_JOB_NAME_MAPPINGS,
         ),
-        "FAS": last_test_results(
+        "FAS": last_build_test_results(
             circle_ci_client=circle_ci_client,
             project_name="directory-ui-supplier",
             job_name_mappings=DIRECTORY_SERVICE_JOB_NAME_MAPPINGS,
         ),
-        "FAB": last_test_results(
+        "FAB": last_build_test_results(
             circle_ci_client=circle_ci_client,
             project_name="directory-ui-buyer",
             job_name_mappings=DIRECTORY_SERVICE_JOB_NAME_MAPPINGS,
         ),
-        "ExRed": last_test_results(
+        "ExRed": last_build_test_results(
             circle_ci_client=circle_ci_client,
             project_name="directory-ui-export-readiness",
             job_name_mappings=DIRECTORY_SERVICE_JOB_NAME_MAPPINGS,
         ),
-        "SSO": last_test_results(
+        "SSO": last_build_test_results(
             circle_ci_client=circle_ci_client,
             project_name="directory-sso",
             job_name_mappings=DIRECTORY_SERVICE_JOB_NAME_MAPPINGS,
         ),
-        "SUD": last_test_results(
+        "SUD": last_build_test_results(
             circle_ci_client=circle_ci_client,
             project_name="directory-sso-profile",
             job_name_mappings=DIRECTORY_SERVICE_JOB_NAME_MAPPINGS,
         ),
-        "SSO Proxy": last_test_results(
+        "SSO Proxy": last_build_test_results(
             circle_ci_client=circle_ci_client,
             project_name="directory-sso-proxy",
             job_name_mappings=DIRECTORY_SERVICE_JOB_NAME_MAPPINGS,
         ),
-        "CH Search": last_test_results(
+        "CH Search": last_build_test_results(
             circle_ci_client=circle_ci_client,
             project_name="directory-companies-house-search",
             job_name_mappings=DIRECTORY_CH_SEARCH_JOB_NAME_MAPPINGS,
@@ -527,7 +527,7 @@ def parse_junit_results(build_artifacts: dict, metric: str) -> List[dict]:
     return results
 
 
-def last_tests_results(
+def last_tests_results_from_junit_artifacts(
     circle_ci_client: CircleClient,
     project_name: str,
     job_name_mappings: dict,

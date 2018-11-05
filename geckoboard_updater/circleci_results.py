@@ -5,11 +5,11 @@ from circleci_helpers import (
     get_load_tests_requests_results,
     get_results_distribution,
     last_load_test_artifacts,
-    last_tests_results,
+    last_tests_results_from_junit_artifacts,
 )
 from geckoboard_updater import CIRCLE_CI_CLIENT
 
-circle_ci_periodic_tests_results = last_tests_results(
+circle_ci_periodic_tests_results = last_tests_results_from_junit_artifacts(
     CIRCLE_CI_CLIENT,
     "directory-periodic-tests",
     DIRECTORY_PERIODIC_TESTS_JOB_NAME_MAPPINGS,
