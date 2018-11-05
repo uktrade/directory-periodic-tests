@@ -13,6 +13,7 @@ from gecko_helpers import (
     push_directory_service_build_results,
     push_directory_tests_results,
     push_jira_query_links,
+    push_periodic_tests_results
 )
 
 # Env Vars
@@ -22,6 +23,9 @@ GECKOBOARD_TEST_RESULTS_WIDGET_KEY = os.environ[
 ]
 GECKOBOARD_DIRECTORY_TESTS_RESULTS_WIDGET_KEY = os.environ[
     "GECKOBOARD_DIRECTORY_TESTS_RESULTS_WIDGET_KEY"
+]
+GECKOBOARD_PERIODIC_TESTS_RESULTS_WIDGET_KEY = os.environ[
+    "GECKOBOARD_PERIODIC_TESTS_RESULTS_WIDGET_KEY"
 ]
 GECKOBOARD_CONTENT_JIRA_QUERY_LINKS_WIDGET_KEY = os.environ[
     "GECKOBOARD_CONTENT_JIRA_QUERY_LINKS_WIDGET_KEY"
@@ -85,6 +89,12 @@ if __name__ == "__main__":
         GECKOBOARD_PUSH_URL,
         GECKOBOARD_API_KEY,
         GECKOBOARD_DIRECTORY_TESTS_RESULTS_WIDGET_KEY,
+    )
+    push_periodic_tests_results(
+        CIRCLE_CI_CLIENT,
+        GECKOBOARD_PUSH_URL,
+        GECKOBOARD_API_KEY,
+        GECKOBOARD_PERIODIC_TESTS_RESULTS_WIDGET_KEY,
     )
     push_jira_query_links(
         content_jira_links,

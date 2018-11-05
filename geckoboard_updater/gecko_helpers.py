@@ -11,6 +11,7 @@ from geckoboard.dataset import Dataset
 from circleci_helpers import (
     last_directory_service_build_results,
     last_directory_tests_results,
+    last_periodic_tests_results,
 )
 from gecko_dataset_schemas import Schema
 
@@ -169,6 +170,17 @@ def push_directory_tests_results(
 ):
     last_test_results = last_directory_tests_results(circle_ci_client)
     text = widget_text_for_directory_tests(last_test_results)
+    push_widget_text(geckoboard_push_url, geckoboard_api_key, widget_key, text)
+
+
+def push_periodic_tests_results(
+    circle_ci_client: CircleClient,
+    geckoboard_push_url: str,
+    geckoboard_api_key: str,
+    widget_key: str,
+):
+    last_periodic_test_results = last_periodic_tests_results(circle_ci_client)
+    text = widget_text_for_directory_tests(last_periodic_test_results)
     push_widget_text(geckoboard_push_url, geckoboard_api_key, widget_key, text)
 
 
