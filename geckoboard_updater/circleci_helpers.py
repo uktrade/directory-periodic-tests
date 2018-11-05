@@ -89,6 +89,11 @@ def recent_builds(
 
 
 def last_build_per_job(builds: List[dict], job_mappings: dict) -> dict:
+    # flatten nested dict of dicts with job name mappings
+    if isinstance(list(job_mappings.values())[0], dict):
+        job_mappings = {key: item
+                        for subdict in list(job_mappings.values())
+                        for key, item in subdict.items()}
     last_builds = {}
     for build in builds:
         if "workflows" not in build:
