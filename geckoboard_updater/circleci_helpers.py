@@ -206,7 +206,7 @@ def xml_report_summary(xml_report: str) -> dict:
     }
 
 
-def last_workflow_test_results(builds: dict, job_name_mappings: dict) -> dict:
+def last_workflow_test_results(builds: dict) -> dict:
     result = {}
     github_avatar = "https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png"
     date_format = "%Y-%m-%dT%H:%M:%S.%fZ"
@@ -248,7 +248,7 @@ def last_build_test_results(
 ) -> dict:
     recent = recent_builds(circle_ci_client, project_name, limit=limit)
     build_per_job = last_build_per_job(recent, job_name_mappings)
-    return last_workflow_test_results(build_per_job, job_name_mappings)
+    return last_workflow_test_results(build_per_job)
 
 
 def last_directory_tests_results(circle_ci_client: CircleClient) -> dict:
