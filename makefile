@@ -38,6 +38,32 @@ dead_links_check:
 	    $${TEST_URLS}
 
 
+dead_links_check_with_json_report:
+	$(PYLINKVALIDATE_ENV_VARS_$(TEST_ENV)) && \
+	echo "Running pylinkvalidate against: $${TEST_URLS} environment" && \
+	pylinkvalidate.py \
+	    --progress \
+	    --console \
+	    --timeout=55 \
+	    --depth=5 \
+	    --workers=10 \
+	    --test-outside \
+	    --report-type=all \
+	    --parser=lxml \
+	    --format=json \
+	    --output=./reports/dead_links_report.json \
+	    --header="Connection: keep-alive" \
+	    --header="Pragma: no-cache" \
+	    --header="Cache-Control: no-cache" \
+	    --header="Upgrade-Insecure-Requests: 1" \
+	    --header="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8" \
+	    --header="DNT: 1" \
+	    --header="Accept-Encoding: gzip, deflate" \
+	    --header="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.117 Safari/537.36 link-checker-qa" \
+	    --ignore="$${IGNORED_PREFIXES}" \
+	    $${TEST_URLS}
+
+
 cms_pages_check:
 	echo "Running CMS pages check against: $(DIRECTORY_CMS_API_CLIENT_BASE_URL)" && \
 	pytest --capture=no --verbose --junit-xml=./reports/cms_pages.xml cms_pages/
