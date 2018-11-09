@@ -444,23 +444,40 @@ jobs:
 workflows:
   version: 2
 
-  dev_check_for_dead_links:
+  dev_ex_read_accessibility_tests:
+    jobs:
+    - accessibility_tests_export_readiness_dev
+
+  refresh_geckoboard_periodically:
     triggers:
     - schedule:
-        cron: "0 8 * * 1-5"
+        cron: "0,30 8-17 * * 1-5"
         filters:
           branches:
             only: master
     jobs:
-      - setup_env_for_dead_links_checker
-      - check_for_dead_links_on_dev:
-          requires:
-            - setup_env_for_dead_links_checker
+    - setup_env_for_geckoboard_updater
+    - refresh_geckoboard:
+        requires:
+        - setup_env_for_geckoboard_updater
+
+  prod_check_for_dead_links:
+    triggers:
+    - schedule:
+        cron: "3 1 * * 1-5"
+        filters:
+          branches:
+            only: master
+    jobs:
+    - setup_env_for_dead_links_checker
+    - check_for_dead_links_on_prod:
+        requires:
+        - setup_env_for_dead_links_checker
 
   stage_check_for_dead_links:
     triggers:
     - schedule:
-        cron: "0 8 * * 1-5"
+        cron: "16 1 * * 1-5"
         filters:
           branches:
             only: master
@@ -470,27 +487,36 @@ workflows:
           requires:
             - setup_env_for_dead_links_checker
 
-  prod_check_for_dead_links:
+  dev_check_for_dead_links:
     triggers:
     - schedule:
-        cron: "0 8 * * 1-5"
+        cron: "24 1 * * 1-5"
         filters:
           branches:
             only: master
     jobs:
-      - setup_env_for_dead_links_checker
-      - check_for_dead_links_on_prod:
-          requires:
-            - setup_env_for_dead_links_checker
+    - setup_env_for_dead_links_checker
+    - check_for_dead_links_on_dev:
+        requires:
+        - setup_env_for_dead_links_checker
 
-  dev_ex_read_accessibility_tests:
+  check_for_x_robots_tag_header_on_all_environments:
+    triggers:
+    - schedule:
+        cron: "33 1 * * 1-5"
+        filters:
+          branches:
+            only: master
     jobs:
-      - accessibility_tests_export_readiness_dev
+    - setup_env_for_x_robots_tag_checker
+    - check_for_x_robots_tag_header:
+        requires:
+        - setup_env_for_x_robots_tag_checker
 
   prod_check_cms_pages:
     triggers:
     - schedule:
-        cron: "5 8,12 * * 1-5"
+        cron: "47 1 * * 1-5"
         filters:
           branches:
             only: master
@@ -503,7 +529,7 @@ workflows:
   exred_prod_dev_content_diff:
     triggers:
     - schedule:
-        cron: "0 8,13 * * 1-5"
+        cron: "8 2 * * 1-5"
         filters:
           branches:
             only: master
@@ -516,7 +542,7 @@ workflows:
   exred_prod_stage_content_diff:
     triggers:
     - schedule:
-        cron: "5 8,13 * * 1-5"
+        cron: "21 2 * * 1-5"
         filters:
           branches:
             only: master
@@ -529,7 +555,7 @@ workflows:
   exred_stage_dev_content_diff:
     triggers:
     - schedule:
-        cron: "10 8,13 * * 1-5"
+        cron: "27 2 * * 1-5"
         filters:
           branches:
             only: master
@@ -542,7 +568,7 @@ workflows:
   fas_prod_dev_content_diff:
     triggers:
     - schedule:
-        cron: "0 9,14 * * 1-5"
+        cron: "34 2 * * 1-5"
         filters:
           branches:
             only: master
@@ -555,7 +581,7 @@ workflows:
   fas_prod_stage_content_diff:
     triggers:
     - schedule:
-        cron: "0 10,15 * * 1-5"
+        cron: "5 3 * * 1-5"
         filters:
           branches:
             only: master
@@ -568,7 +594,7 @@ workflows:
   fas_stage_dev_content_diff:
     triggers:
     - schedule:
-        cron: "0 11,16 * * 1-5"
+        cron: "27 3 * * 1-5"
         filters:
           branches:
             only: master
@@ -581,7 +607,7 @@ workflows:
   invest_prod_dev_content_diff:
     triggers:
     - schedule:
-        cron: "30 9,14 * * 1-5"
+        cron: "44 3 * * 1-5"
         filters:
           branches:
             only: master
@@ -594,7 +620,7 @@ workflows:
   invest_prod_stage_content_diff:
     triggers:
     - schedule:
-        cron: "30 10,15 * * 1-5"
+        cron: "5 4 * * 1-5"
         filters:
           branches:
             only: master
@@ -607,7 +633,7 @@ workflows:
   invest_stage_dev_content_diff:
     triggers:
     - schedule:
-        cron: "30 11,16 * * 1-5"
+        cron: "27 4 * * 1-5"
         filters:
           branches:
             only: master
@@ -616,29 +642,3 @@ workflows:
       - invest_compare_stage_and_dev_pages:
           requires:
             - setup_env_for_content_diff
-
-  refresh_geckoboard_periodically:
-    triggers:
-    - schedule:
-        cron: "0,30 8-17 * * 1-5"
-        filters:
-          branches:
-            only: master
-    jobs:
-      - setup_env_for_geckoboard_updater
-      - refresh_geckoboard:
-          requires:
-            - setup_env_for_geckoboard_updater
-
-  check_for_x_robots_tag_header_on_all_environments:
-    triggers:
-    - schedule:
-        cron: "0 1 * * 1-5"
-        filters:
-          branches:
-            only: master
-    jobs:
-      - setup_env_for_x_robots_tag_checker
-      - check_for_x_robots_tag_header:
-          requires:
-            - setup_env_for_x_robots_tag_checker
