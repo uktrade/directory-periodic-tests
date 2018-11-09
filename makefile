@@ -21,7 +21,7 @@ dead_links_check:
 	    --console \
 	    --timeout=55 \
 	    --depth=5 \
-	    --workers=10 \
+	    --workers=5 \
 	    --test-outside \
 	    --parser=lxml \
 	    --format=junit \
