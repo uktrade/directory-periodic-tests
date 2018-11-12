@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from collections import namedtuple
+from collections import namedtuple, OrderedDict
 from enum import Enum, EnumMeta
 from typing import List
 
@@ -12,6 +12,7 @@ from circleci_helpers import (
     last_directory_service_build_results,
     last_directory_tests_results,
     last_periodic_tests_results,
+    last_useful_content_tests_results,
 )
 from gecko_dataset_schemas import Schema
 
@@ -137,10 +138,9 @@ def widget_text_for_service_build(build_results: dict) -> str:
     return table_template.format(rows=rows)
 
 
-def widget_jira_links(links: List[str]) -> str:
+def widget_links(links: List[str]) -> str:
     table_template = """<table style="width:100%">
-<tbody>
-{rows}
+<tbody>{rows}
 </tbody></table>"""
     row_template = """\n<tr style="font-size:14pt">
 <td>{link}</td>
@@ -184,6 +184,22 @@ def push_periodic_tests_results(
     push_widget_text(geckoboard_push_url, geckoboard_api_key, widget_key, text)
 
 
+def push_links_to_useful_content_test_jobs(
+        circle_ci_client: CircleClient,
+        geckoboard_push_url: str,
+        geckoboard_api_key: str,
+        widget_key: str,
+):
+    last_content_obs = last_useful_content_tests_results(circle_ci_client)
+    sorted_results = OrderedDict(sorted(last_content_obs.items()))
+    links = [
+        f'<a href="{details["build_url"]}" target=_blank>{job}</a>'
+        for job, details in sorted_results.items()
+    ]
+    text = widget_links(links)
+    push_widget_text(geckoboard_push_url, geckoboard_api_key, widget_key, text)
+
+
 def push_directory_service_build_results(
     circle_ci_client: CircleClient,
     geckoboard_push_url: str,
@@ -203,5 +219,5 @@ def push_jira_query_links(
     geckoboard_api_key: str,
     widget_key: str,
 ):
-    text = widget_jira_links(links)
+    text = widget_links(links)
     push_widget_text(geckoboard_push_url, geckoboard_api_key, widget_key, text)

@@ -37,6 +37,14 @@ DIRECTORY_PERIODIC_TESTS_JOB_NAME_MAPPINGS = {
     },
 }
 
+USEFUL_CONTENT_TESTS_JOB_NAME_MAPPINGS = {
+    "check_cms_pages_on_production":    "CMS pages - Prod",
+    "check_for_dead_links_on_prod":     "Dead links - Prod",
+    "check_for_dead_links_on_stage":    "Dead links - Stage",
+    "check_for_dead_links_on_dev":      "Dead links - Dev",
+    "check_for_x_robots_tag_header":    "X-Robots-Tag",
+}
+
 DIRECTORY_LOAD_TESTS_JOB_NAME_MAPPINGS = {
     "load_fab_tests_stage": "Load STAGE FAB",
     "load_cms_tests_stage": "Load STAGE CMS",
@@ -265,11 +273,20 @@ def last_directory_tests_results(circle_ci_client: CircleClient) -> dict:
     )
 
 
-def last_periodic_tests_results(circle_ci_client: CircleClient) -> dict:
+def last_periodic_tests_results(circle_ci_client: CircleClient,) -> dict:
     return last_build_test_results(
         circle_ci_client,
         "directory-periodic-tests",
         job_name_mappings=DIRECTORY_PERIODIC_TESTS_JOB_NAME_MAPPINGS,
+        limit=100,
+    )
+
+
+def last_useful_content_tests_results(circle_ci_client: CircleClient) -> dict:
+    return last_build_test_results(
+        circle_ci_client,
+        "directory-periodic-tests",
+        job_name_mappings=USEFUL_CONTENT_TESTS_JOB_NAME_MAPPINGS,
         limit=100,
     )
 
