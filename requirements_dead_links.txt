@@ -4,8 +4,9 @@
 #
 #    pip-compile --output-file requirements_dead_links.txt requirements_dead_links.in
 #
-git+https://github.com/kowalcj0/pylinkvalidator.git@json-reporter#egg=pylinkvalidator
-beautifulsoup4==4.6.0
+-e git+https://github.com/kowalcj0/pylinkvalidator.git@json-reporter#egg=pylinkvalidator
+beautifulsoup4==4.6.3
 junit-xml==1.8
-lxml==4.2.1
-six==1.11.0               # via junit-xml
+lxml==4.2.5
+mohawk==0.3.4
+six==1.12.0               # via junit-xml, mohawk

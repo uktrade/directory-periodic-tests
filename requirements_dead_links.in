@@ -1,3 +1,4 @@
 -e git+https://github.com/kowalcj0/pylinkvalidator.git@json-reporter#egg=pylinkvalidator
-lxml
 junit-xml
+lxml
+mohawk
