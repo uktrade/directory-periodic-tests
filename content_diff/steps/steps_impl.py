@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 import difflib
 import json
+import os
 from typing import List
 from urllib.parse import urljoin
 
 import requests
 from behave.runner import Context
 from bs4 import BeautifulSoup
+from mohawk import Sender
 from retrying import retry
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
-
 
 SITES_INVEST = {
     "dev": "https://dev.invest.directory.uktrade.io/",
@@ -26,6 +27,34 @@ SITES_FAS = {
     "stage": "https://stage.supplier.directory.uktrade.io",
     "prod": "https://trade.great.gov.uk/"
 }
+
+dev_id = os.getenv("IP_RESTRICTOR_SKIP_CHECK_SENDER_ID_DEV", "directory")
+dev_key = os.environ["IP_RESTRICTOR_SKIP_CHECK_SECRET_DEV"]
+stage_id = os.getenv("IP_RESTRICTOR_SKIP_CHECK_SENDER_ID_STAGE", "directory")
+stage_key = os.environ["IP_RESTRICTOR_SKIP_CHECK_SECRET_STAGE"]
+HAWK_CREDS = {
+    "dev": (dev_id, dev_key),
+    "stage": (stage_id, stage_key),
+    "prod": (None, None),
+}
+
+
+def get_hawk_cookie(env: str):
+    hawk_id, hawk_key = HAWK_CREDS[env.lower()]
+    if not hawk_id:
+        return None
+    sender = Sender(
+        credentials={
+            'id': hawk_id,
+            'key': hawk_key,
+            'algorithm': 'sha256'
+        },
+        url='/',
+        method='',
+        always_hash_content=False
+    )
+
+    return {"ip-restrict-signature": sender.request_header}
 
 
 def retry_if_network_error(exception: Exception) -> bool:
@@ -98,13 +127,15 @@ def extract_page_content(
     elif service.lower() == "invest":
         sites = SITES_INVEST
 
+    hawk_cookie_a = get_hawk_cookie(site_a)
+    hawk_cookie_b = get_hawk_cookie(site_b)
     site_a = sites[site_a.lower()]
     site_b = sites[site_b.lower()]
     url_a = urljoin(site_a, endpoint)
     url_b = urljoin(site_b, endpoint)
 
-    response_a = requests.get(url_a)
-    response_b = requests.get(url_b)
+    response_a = requests.get(url_a, cookies=hawk_cookie_a)
+    response_b = requests.get(url_b, cookies=hawk_cookie_b)
 
     content_a = response_a.content
     content_b = response_b.content
