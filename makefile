@@ -22,6 +22,9 @@ ifeq ($(TEST_ENV),PROD)
 	COOKIE=
 	TEST_OUTSIDE=--test-outside
 else
+ifndef IP_RESTRICTOR_SKIP_CHECK_SECRET_$(TEST_ENV)
+  $(error IP_RESTRICTOR_SKIP_CHECK_SECRET_$(TEST_ENV) is undefined)
+endif
 	COOKIE=--header='Cookie: ${HAWK_COOKIE}'
 	TEST_OUTSIDE=
 endif
