@@ -78,9 +78,12 @@ def count_links_per_service(report: dict) -> Tuple[Counter, Counter, int]:
         }
 
         if matching_services:
+            error = (f"Expected 1 matching service but got "
+                     f"{len(matching_services)} for {link}: "
+                     f"{matching_services} -> {SERVICES}")
             assert (
                 len(matching_services) == 1
-            ), f"Expected 1 matching service but got {len(matching_services)} for {link}"
+            ), error
             service = list(matching_services.keys())[0]
             # print(f'{service} -> {link}')
             if any(string in link for string in SKIP_STRINGS):
