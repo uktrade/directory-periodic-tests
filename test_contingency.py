@@ -10,7 +10,7 @@ SERVICES = {
     "CMS": os.environ["DIRECTORY_CMS_API_CLIENT_BASE_URL"],
     "Contact": os.environ["DIRECTORY_CONTACT_US_UI_URL"],
     "ExOpps": os.environ["EXPORT_OPPORTUNITIES_UI_URL"],
-    "FAB": os.environ["DIRECTORY_CONTACT_US_UI_URL"],
+    "FAB": os.environ["DIRECTORY_UI_BUYER_URL"],
     "FAS": os.environ["DIRECTORY_UI_SUPPLIER_URL"],
     "Invest": os.environ["INVEST_UI_URL"],
     "Old Contact-us": os.environ["DIRECTORY_LEGACY_CONTACT_US_UI_URL"],
