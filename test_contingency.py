@@ -44,7 +44,9 @@ def filter_out_by_services(origins: set, services: tuple) -> list:
 
 def match_service(link: str) -> tuple:
     matching_services = [
-        (service, url) for service, url in SERVICES.items() if link.startswith(url)
+        (service, url)
+        for service, url in SERVICES.items()
+        if link.startswith(url)
     ]
 
     if matching_services:
@@ -70,7 +72,9 @@ def count_links_per_service(report: dict) -> Tuple[Counter, Counter, int]:
         # ignored_scans += 1
         # continue
         matching_services = {
-            service: url for service, url in SERVICES.items() if link.startswith(url)
+            service: url
+            for service, url in SERVICES.items()
+            if link.startswith(url)
         }
 
         if matching_services:
@@ -113,12 +117,14 @@ def service_contingency(report: dict) -> dict:
             continue
         # 2
         without_query_part = [
-            origin[0 : origin.index("?") if "?" in origin else None]
+            origin[0: origin.index("?") if "?" in origin else None]
             for origin in page["origins"]
         ]
         unique_origin_page = set(without_query_part)
         # 3
-        distinct_origins = filter_out_by_services(unique_origin_page, (service_url,))
+        distinct_origins = filter_out_by_services(
+            unique_origin_page, (service_url,)
+        )
 
         if not distinct_origins:
             same_site_origin += 1
