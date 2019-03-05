@@ -55,6 +55,7 @@ dead_links_check:
 	    --timeout=55 \
 	    --depth=5 \
 	    --workers=10 \
+	    --types=a,img,link,script \
 	    $(TEST_OUTSIDE) \
 	    --parser=lxml \
 	    --format=junit \
@@ -81,6 +82,7 @@ dead_links_check_with_json_report:
 	    --timeout=55 \
 	    --depth=5 \
 	    --workers=10 \
+	    --types=a,img,link,script \
 	    $(TEST_OUTSIDE) \
 	    --report-type=all \
 	    --parser=lxml \
