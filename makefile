@@ -179,7 +179,7 @@ ifeq ($(TEST_ENV),PROD)
 	TEST_OUTSIDE=--test-outside
 else
 ifeq ($(TEST_ENV),STAGE)
-	AUTH=
+	AUTH=--header='Authorization: Basic ${BASIC_AUTH}'
 	TEST_OUTSIDE=
 endif
 ifeq ($(TEST_ENV),DEV)
