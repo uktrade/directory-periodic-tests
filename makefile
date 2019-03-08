@@ -162,15 +162,11 @@ PYLINKVALIDATE_ENV_VARS_DEV := \
 		https://selling-online-overseas.export.great.dev.uktrade.io/markets/results/ \
 		"
 
-HAWK_COOKIE := $(shell IP_RESTRICTOR_SKIP_CHECK_SECRET=$(IP_RESTRICTOR_SKIP_CHECK_SECRET_$(TEST_ENV)) python ./dead_links/cookie.py)
 BASIC_AUTH := $(shell echo -n $(BASICAUTH_USER_$(TEST_ENV)):$(BASICAUTH_PASS_$(TEST_ENV)) | base64)
 
 # Testing Production systems will check outside links
 # Testing non-Production systems will not check outside links & HAWK cookie
 # will be used.
-ifndef IP_RESTRICTOR_SKIP_CHECK_SECRET_$(TEST_ENV)
-  $(error IP_RESTRICTOR_SKIP_CHECK_SECRET_$(TEST_ENV) is undefined)
-endif
 ifndef BASICAUTH_USER_$(TEST_ENV)
   $(error BASICAUTH_USER_$(TEST_ENV) is undefined)
 endif
@@ -180,17 +176,14 @@ endif
 
 ifeq ($(TEST_ENV),PROD)
 	AUTH=
-	COOKIE=
 	TEST_OUTSIDE=--test-outside
 else
 ifeq ($(TEST_ENV),STAGE)
 	AUTH=
-	COOKIE=--header='Cookie: ${HAWK_COOKIE}'
 	TEST_OUTSIDE=
 endif
 ifeq ($(TEST_ENV),DEV)
 	AUTH=--header='Authorization: Basic ${BASIC_AUTH}'
-	COOKIE=
 	TEST_OUTSIDE=
 endif
 endif
@@ -217,7 +210,6 @@ dead_links_check:
 	    --header="DNT: 1" \
 	    --header="Accept-Encoding: gzip, deflate" \
 	    --header="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.117 Safari/537.36 link-checker-qa" \
-	    $(COOKIE) \
 	    $(AUTH) \
 	    --ignore="$${IGNORED_PREFIXES}" \
 	    $${TEST_URLS}
@@ -245,7 +237,6 @@ dead_links_check_with_json_report:
 	    --header="DNT: 1" \
 	    --header="Accept-Encoding: gzip, deflate" \
 	    --header="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.117 Safari/537.36 link-checker-qa" \
-	    $(COOKIE) \
 	    $(AUTH) \
 	    --ignore="$${IGNORED_PREFIXES}" \
 	    $${TEST_URLS}
