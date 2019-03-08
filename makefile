@@ -190,7 +190,8 @@ endif
 
 dead_links_check:
 	$(PYLINKVALIDATE_ENV_VARS_$(TEST_ENV)) && \
-	echo "Running pylinkvalidate against: $${TEST_URLS}" && \
+	echo -e "Running pylinkvalidate against: $${TEST_URLS}\n" && \
+	echo -e "IGNORED_PREFIXES: $${IGNORED_PREFIXES// /}\n" && \
 	pylinkvalidate.py \
 	    --progress \
 	    --console \
@@ -216,7 +217,8 @@ dead_links_check:
 
 dead_links_check_with_json_report:
 	$(PYLINKVALIDATE_ENV_VARS_$(TEST_ENV)) && \
-	echo "Running pylinkvalidate against: $${TEST_URLS}" && \
+	echo -e "Running pylinkvalidate against: $${TEST_URLS}\n" && \
+	echo -e "IGNORED_PREFIXES: $${IGNORED_PREFIXES// /}\n" && \
 	pylinkvalidate.py \
 	    --progress \
 	    --console \
