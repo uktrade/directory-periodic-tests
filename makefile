@@ -202,7 +202,7 @@ dead_links_check:
 	    $(TEST_OUTSIDE) \
 	    --parser=lxml \
 	    --format=junit \
-	    --output=./reports/dead_links_report.xml \
+	    --output="./reports/dead_links_report.xml" \
 	    --header="Connection: keep-alive" \
 	    --header="Pragma: no-cache" \
 	    --header="Cache-Control: no-cache" \
@@ -230,7 +230,7 @@ dead_links_check_with_json_report:
 	    --report-type=all \
 	    --parser=lxml \
 	    --format=json \
-	    --output=./reports/dead_links_report.json \
+	    --output="./reports/dead_links_report.json" \
 	    --header="Connection: keep-alive" \
 	    --header="Pragma: no-cache" \
 	    --header="Cache-Control: no-cache" \
