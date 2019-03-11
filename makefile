@@ -1,3 +1,8 @@
+.PHONY: clean
+
+clean:
+	rm -fr ./reports/*.json ./reports/*.html ./reports/*.xml ./reports/*.log
+
 # default to TRADE DEV environment if TEST_ENV is not set
 TEST_ENV ?= DEV
 
@@ -258,8 +263,4 @@ compare_content:
 
 check_for_x_robots_tag_header:
 	behave -k -t ~wip -t ~fixme --junit --junit-directory=./reports/ x_robots_header/
-
-
-clean:
-	rm -fr ./reports/*.json ./reports/*.html ./reports/*.xml ./reports/*.log
 
