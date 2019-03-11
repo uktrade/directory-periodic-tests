@@ -14,47 +14,44 @@ RequestResults = namedtuple(
 
 SERVICES = {
     "invest": {
-        "dev": "https://dev.invest.directory.uktrade.io/",
+        "dev": "https://invest.great.dev.uktrade.io/",
+        "stage": "https://invest.great.staging.uktrade.io/",
         "prod": "https://invest.great.gov.uk/",
     },
     "fas": {
-        "dev": "https://dev.supplier.directory.uktrade.io/",
-        "stage": "https://stage.supplier.directory.uktrade.io/",
-        "prod": "https://trade.great.gov.uk/",
+        "dev": "https://great.dev.uktrade.io/trade/",
+        "stage": "https://great.staging.uktrade.io/trade/",
+        "prod": "https://www.great.gov.uk/trade/",
     },
     "fab": {
-        "dev": "https://dev.buyer.directory.uktrade.io/",
-        "stage": "https://stage.buyer.directory.uktrade.io/",
+        "dev": "https://great.dev.uktrade.io/find-a-buyer/",
+        "stage": "https://great.staging.uktrade.io/find-a-buyer/",
         "prod": "https://find-a-buyer.export.great.gov.uk/",
     },
     "exread": {
-        "dev": "https://dev.exportreadiness.directory.uktrade.io/",
-        "stage": "https://stage.exportreadiness.directory.uktrade.io/",
+        "dev": "https://great.dev.uktrade.io/",
+        "stage": "https://great.staging.uktrade.io/",
         "prod": "https://www.great.gov.uk/",
     },
     "sso": {
-        "dev": "https://dev.sso.uktrade.io/",
-        "stage": "https://stage.sso.uktrade.io/",
+        "dev": "https://great.dev.uktrade.io/sso/",
+        "stage": "https://great.staging.uktrade.io/sso/",
         "prod": "https://sso.trade.great.gov.uk/",
     },
     "soo": {
-        "dev": "https://enav-navigator-dev.cloudapps.digital",
-        "stage": "https://selling-online-overseas.export.staging.uktrade.io/",
+        "dev": "https://selling-online-overseas.export.great.dev.uktrade.io/",
+        "stage": "https://selling-online-overseas.export.great.staging.uktrade.io/",
         "prod": "https://selling-online-overseas.export.great.gov.uk/",
     },
     "profile": {
-        "dev": "https://dev.profile.uktrade.io/",
-        "stage": "https://stage.profile.uktrade.io/",
+        "dev": "https://great.dev.uktrade.io/profile/",
+        "stage": "https://great.staging.uktrade.io/profile/",
         "prod": "https://profile.great.gov.uk/",
     },
     "exopps": {
         "dev": "https://export-opportunities-continuous-deployment.cloudapps.digital/",
-        "stage": "https://export-opportunities-staging.cloudapps.digital/",
+        "stage": "https://opportunities.export.great.staging.uktrade.io/",
         "prod": "https://opportunities.export.great.gov.uk/",
-    },
-    "contact-us": {
-        "stage": "https://contact-us.export.staging.uktrade.io",
-        "prod": "https://contact-us.export.great.gov.uk/",
     },
 }
 
