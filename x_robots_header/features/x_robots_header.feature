@@ -72,8 +72,6 @@ Feature: Every page on non-production site should return "X-Robots-Tag: noindex"
             | DEV         | Invest  | /uk-setup-guide/understand-uk-tax-and-incentives/                                                |
 
 
-        @wip
-        @NO_STAGING_ENV
         Examples: <environment> <service>
             | environment | service | page                                                                                             |
             | STAGE       | Invest  | /                                                                                                |
