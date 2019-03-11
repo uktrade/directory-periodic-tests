@@ -74,12 +74,6 @@ step_cache_dead_links_checker_requirements: &step_cache_dead_links_checker_requi
     paths:
       - ~/directory-periodic-tests
 
-step_cache_geckoboard_updater_requirements: &step_cache_geckoboard_updater_requirements
-  save_cache:
-    key: geckoboard-updater-dependency-cache-{{ .Revision }}
-    paths:
-      - ~/directory-periodic-tests
-
 step_cache_x_robots_tag_requirements: &step_cache_x_robots_tag_requirements
   save_cache:
     key: x-robots-tag-dependency-cache-{{ .Revision }}
@@ -101,12 +95,6 @@ step_restore_cached_content_diff_requirements: &step_restore_cached_content_diff
 step_restore_cached_dead_links_checker_requirements: &step_restore_cached_dead_links_checker_requirements
   restore_cache:
     key: dead-links-dependency-cache-{{ .Revision }}
-    paths:
-      - ~/directory-periodic-tests
-
-step_restore_cached_geckoboard_updater_requirements: &step_restore_cached_geckoboard_updater_requirements
-  restore_cache:
-    key: geckoboard-updater-dependency-cache-{{ .Revision }}
     paths:
       - ~/directory-periodic-tests
 
@@ -183,12 +171,6 @@ steps_setup_env_for_dead_links_checker: &steps_setup_env_for_dead_links_checker
     - *step_install_dead_links_checker_requirements
     - *step_cache_dead_links_checker_requirements
 
-steps_setup_env_for_geckoboard_updater: &steps_setup_env_for_geckoboard_updater
-  steps:
-    - *step_checkout_repo
-    - *step_install_geckoboard_updater_requirements
-    - *step_cache_geckoboard_updater_requirements
-
 steps_setup_env_for_x_robots_tag_checker: &steps_setup_env_for_x_robots_tag_checker
   steps:
     - *step_checkout_repo
@@ -224,7 +206,8 @@ steps_dead_links_checker: &steps_dead_links_checker
 
 steps_geckoboard_updater: &steps_geckoboard_updater
   steps:
-    - *step_restore_cached_geckoboard_updater_requirements
+    - *step_checkout_repo
+    - *step_install_geckoboard_updater_requirements
     - *step_run_geckoboard_updater
 
 steps_x_robots_tag: &steps_x_robots_tag
@@ -253,11 +236,6 @@ jobs:
     <<: *machine_python3
     working_directory: ~/directory-periodic-tests
     <<: *steps_setup_env_for_dead_links_checker
-
-  setup_env_for_geckoboard_updater: &setup_env_for_geckoboard_updater
-    <<: *machine_python3
-    working_directory: ~/directory-periodic-tests
-    <<: *steps_setup_env_for_geckoboard_updater
 
   setup_env_for_x_robots_tag_checker: &setup_env_for_x_robots_tag_checker
     <<: *machine_python3
@@ -456,10 +434,7 @@ workflows:
           branches:
             only: master
     jobs:
-    - setup_env_for_geckoboard_updater
     - refresh_geckoboard:
-        requires:
-        - setup_env_for_geckoboard_updater
 
   prod_check_for_dead_links:
     triggers:
