@@ -195,18 +195,6 @@ Feature: Every page on Production site should NOT return "X-Robots-Tag: noindex"
 
 
         Examples: PROD <service>
-            | service    | page                         |
-            | Contact-Us | /                            |
-            | Contact-Us | directory/FeedbackForm/      |
-            | Contact-Us | whatever/FeedbackForm/       |
-            | Contact-Us | whatever/FeedbackForm/thanks |
-            | Contact-Us | soo/TriageForm/              |
-            | Contact-Us | soo/TriageForm/thanks        |
-            | Contact-Us | ping/                        |
-            | Contact-Us | companies/                   |
-
-
-        Examples: PROD <service>
             | service | page                                            |
             | ExOpps  | /                                               |
             | ExOpps  | opportunities/                                  |

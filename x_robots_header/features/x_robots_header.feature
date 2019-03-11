@@ -380,36 +380,6 @@ Feature: Every page on non-production site should return "X-Robots-Tag: noindex"
             | STAGE       | Profile | about/ |
 
 
-        @wip
-        @NO_DEV_ENV
-        Examples: <environment> <service>
-            | environment | service    | page                         |
-            | DEV         | Contact-Us | /                            |
-            | DEV         | Contact-Us | directory/FeedbackForm/      |
-            | DEV         | Contact-Us | whatever/FeedbackForm/       |
-            | DEV         | Contact-Us | whatever/FeedbackForm/thanks |
-            | DEV         | Contact-Us | soo/TriageForm/              |
-            | DEV         | Contact-Us | soo/TriageForm/thanks        |
-            | DEV         | Contact-Us | ping/                        |
-            | DEV         | Contact-Us | companies/                   |
-
-
-        @bug
-        @TT-367
-        @fixme
-        @NO_X_TAG_HEADER
-        Examples: <environment> <service>
-            | environment | service    | page                         |
-            | STAGE       | Contact-Us | /                            |
-            | STAGE       | Contact-Us | directory/FeedbackForm/      |
-            | STAGE       | Contact-Us | whatever/FeedbackForm/       |
-            | STAGE       | Contact-Us | whatever/FeedbackForm/thanks |
-            | STAGE       | Contact-Us | soo/TriageForm/              |
-            | STAGE       | Contact-Us | soo/TriageForm/thanks        |
-            | STAGE       | Contact-Us | ping/                        |
-            | STAGE       | Contact-Us | companies/                   |
-
-
         @bug
         @TT-367
         @fixed
