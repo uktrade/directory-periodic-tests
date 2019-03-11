@@ -282,6 +282,11 @@ Feature: Every page on non-production site should return "X-Robots-Tag: noindex"
             | environment | service | page                                                                  |
             | DEV         | ExRead  | /                                                                     |
             | DEV         | ExRead  | about/                                                                |
+            | DEV         | ExRead  | contact/feedback/                                                     |
+            | DEV         | ExRead  | contact/triage/location/                                              |
+            | DEV         | ExRead  | contact/triage/domestic/                                              |
+            | DEV         | ExRead  | contact/triage/great-account/                                         |
+            | DEV         | ExRead  | contact/triage/selling-online-overseas/organisation/                  |
             | DEV         | ExRead  | business-planning/                                                    |
             | DEV         | ExRead  | customer-insight/                                                     |
             | DEV         | ExRead  | export-opportunities/                                                 |
@@ -310,6 +315,11 @@ Feature: Every page on non-production site should return "X-Robots-Tag: noindex"
             | environment | service | page                                                                  |
             | STAGE       | ExRead  | /                                                                     |
             | STAGE       | ExRead  | about/                                                                |
+            | STAGE       | ExRead  | contact/feedback/                                                     |
+            | STAGE       | ExRead  | contact/triage/location/                                              |
+            | STAGE       | ExRead  | contact/triage/domestic/                                              |
+            | STAGE       | ExRead  | contact/triage/great-account/                                         |
+            | STAGE       | ExRead  | contact/triage/selling-online-overseas/organisation/                  |
             | STAGE       | ExRead  | business-planning/                                                    |
             | STAGE       | ExRead  | customer-insight/                                                     |
             | STAGE       | ExRead  | export-opportunities/                                                 |
