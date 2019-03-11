@@ -135,20 +135,13 @@ Feature: Every page on non-production site should return "X-Robots-Tag: noindex"
         Examples: <environment> <service>
             | environment | service | page                                                                  |
             | DEV         | FAS     | /                                                                     |
-            | DEV         | FAS     | case-study/1000/an-international-profession/                          |
-            | DEV         | FAS     | case-study/1004/england-and-wales-a-global-legal-centre/              |
-            | DEV         | FAS     | case-study/1010/port-comprehensive-assessment-operations-and-manag/   |
-            | DEV         | FAS     | case-study/102/livingskin-for-passive-prostheses/                     |
-            | DEV         | FAS     | case-study/1022/spl-launches-brochure-for-the-homebrew-industry/      |
-            | DEV         | FAS     | case-study/23/bp/                                                     |
-            | DEV         | FAS     | case-study/230/poland-sees-its-first-bio-diesel-generators/           |
+            | DEV         | FAS     | case-study/55/radio-2-hyde-park/                                      |
             | DEV         | FAS     | feedback/                                                             |
             | DEV         | FAS     | industries/                                                           |
             | DEV         | FAS     | industries/aerospace/                                                 |
             | DEV         | FAS     | industries/agritech/                                                  |
             | DEV         | FAS     | industries/automotive/                                                |
             | DEV         | FAS     | industries/business-and-government-partnerships/                      |
-            | DEV         | FAS     | industries/business-and-government-partnerships/needs                 |
             | DEV         | FAS     | industries/consumer-retail/                                           |
             | DEV         | FAS     | industries/contact/                                                   |
             | DEV         | FAS     | industries/contact/aerospace/                                         |
@@ -208,27 +201,20 @@ Feature: Every page on non-production site should return "X-Robots-Tag: noindex"
             | DEV         | FAS     | industry-articles/uk-centres-of-excellence/                           |
             | DEV         | FAS     | industry-articles/uk-cyber-security-hubs/                             |
             | DEV         | FAS     | industry-articles/world-class-research-centre-article/                |
-            | DEV         | FAS     | suppliers/00392279/contact/                                           |
-            | DEV         | FAS     | suppliers/00392279/gl-events-uk-limited/                              |
+            | DEV         | FAS     | suppliers/07399608/contact/                                           |
+            | DEV         | FAS     | suppliers/07399608/joes-gourmet-foods-limited/                        |
 
 
         Examples: <environment> <service>
             | environment | service | page                                                                  |
             | STAGE       | FAS     | /                                                                     |
-            | STAGE       | FAS     | case-study/1000/an-international-profession/                          |
-            | STAGE       | FAS     | case-study/1004/england-and-wales-a-global-legal-centre/              |
-            | STAGE       | FAS     | case-study/1010/port-comprehensive-assessment-operations-and-manag/   |
-            | STAGE       | FAS     | case-study/102/livingskin-for-passive-prostheses/                     |
-            | STAGE       | FAS     | case-study/1022/spl-launches-brochure-for-the-homebrew-industry/      |
-            | STAGE       | FAS     | case-study/23/bp/                                                     |
-            | STAGE       | FAS     | case-study/230/poland-sees-its-first-bio-diesel-generators/           |
+            | STAGE       | FAS     | case-study/55/radio-2-hyde-park/                                      |
             | STAGE       | FAS     | feedback/                                                             |
             | STAGE       | FAS     | industries/                                                           |
             | STAGE       | FAS     | industries/aerospace/                                                 |
             | STAGE       | FAS     | industries/agritech/                                                  |
             | STAGE       | FAS     | industries/automotive/                                                |
             | STAGE       | FAS     | industries/business-and-government-partnerships/                      |
-            | STAGE       | FAS     | industries/business-and-government-partnerships/needs                 |
             | STAGE       | FAS     | industries/consumer-retail/                                           |
             | STAGE       | FAS     | industries/contact/                                                   |
             | STAGE       | FAS     | industries/contact/aerospace/                                         |
@@ -288,8 +274,8 @@ Feature: Every page on non-production site should return "X-Robots-Tag: noindex"
             | STAGE       | FAS     | industry-articles/uk-centres-of-excellence/                           |
             | STAGE       | FAS     | industry-articles/uk-cyber-security-hubs/                             |
             | STAGE       | FAS     | industry-articles/world-class-research-centre-article/                |
-            | STAGE       | FAS     | suppliers/00392279/contact/                                           |
-            | STAGE       | FAS     | suppliers/00392279/gl-events-uk-limited/                              |
+            | DEV         | FAS     | suppliers/07399608/contact/                                           |
+            | DEV         | FAS     | suppliers/07399608/joes-gourmet-foods-limited/                        |
 
 
         Examples: <environment> <service>
