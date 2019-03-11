@@ -6,6 +6,10 @@ from behave.runner import Context
 from urllib.parse import urljoin
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 
+BASICAUTH_USER_DEV = os.environ["BASICAUTH_USER_DEV"]
+BASICAUTH_PASS_DEV = os.environ["BASICAUTH_PASS_DEV"]
+BASICAUTH_USER_STAGE = os.environ["BASICAUTH_USER_STAGE"]
+BASICAUTH_PASS_STAGE = os.environ["BASICAUTH_PASS_STAGE"]
 
 RequestResults = namedtuple(
                     "RequestResults",
@@ -60,6 +64,15 @@ def retry_if_network_error(exception: Exception) -> bool:
     return isinstance(exception, (Timeout, ConnectionError, TooManyRedirects))
 
 
+def basic_auth(env: str):
+    if env.lower() == "dev":
+        return BASICAUTH_USER_DEV, BASICAUTH_PASS_DEV
+    elif env.lower() == "stage":
+        return BASICAUTH_USER_STAGE, BASICAUTH_PASS_STAGE
+    else:
+        return None
+
+
 @retry(
     wait_fixed=10000,
     stop_max_attempt_number=2,
@@ -71,9 +84,11 @@ def visit_page(
 ):
     host = SERVICES[service.lower()][environment.lower()]
     url = urljoin(host, endpoint)
-    headers = requests.get(url).headers
-    context.result = RequestResults(
-        service, environment, endpoint, url, headers)
+    response = requests.get(url, auth=basic_auth(environment))
+    error = f"Expected 200 got {response.status_code} from {response.url}"
+    assert response.status_code == 200, error
+    headers = response.headers
+    context.result = RequestResults(service, environment, endpoint, url, headers)
 
 
 def response_should_not_contain_header(context: Context, header: str):
