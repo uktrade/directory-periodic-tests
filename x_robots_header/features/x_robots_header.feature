@@ -46,15 +46,6 @@ Feature: Every page on non-production site should return "X-Robots-Tag: noindex"
             | DEV         | Invest  | industries/retail/                                                                              |
             | DEV         | Invest  | industries/technology/                                                                          |
             | DEV         | Invest  | industries/technology/data-analytics/                                                           |
-            | DEV         | Invest  | privacy-and-cookies/                                                                            |
-            | DEV         | Invest  | privacy-and-cookies/fair-processing-notice-export-opportunities/                                |
-            | DEV         | Invest  | privacy-and-cookies/fair-processing-notice-export-readiness/                                    |
-            | DEV         | Invest  | privacy-and-cookies/fair-processing-notice-for-smart-survey/                                    |
-            | DEV         | Invest  | privacy-and-cookies/fair-processing-notice-invest-in-great-britain/                             |
-            | DEV         | Invest  | privacy-and-cookies/fair-processing-notice-selling-online-overseas/                             |
-            | DEV         | Invest  | privacy-and-cookies/fair-processing-notice-trade-profiles-find-a-buyer-fab-find-a-supplier-fas/ |
-            | DEV         | Invest  | privacy-and-cookies/fair-processing-notice-zendesk/                                             |
-            | DEV         | Invest  | terms-and-conditions/                                                                           |
             | DEV         | Invest  | uk-regions/london/                                                                              |
             | DEV         | Invest  | uk-regions/midlands/                                                                            |
             | DEV         | Invest  | uk-regions/north-england/                                                                       |
@@ -69,6 +60,21 @@ Feature: Every page on non-production site should return "X-Robots-Tag: noindex"
             | DEV         | Invest  | uk-setup-guide/open-uk-business-bank-account/                                                   |
             | DEV         | Invest  | uk-setup-guide/setup-your-business-uk/                                                          |
             | DEV         | Invest  | uk-setup-guide/understand-uk-tax-and-incentives/                                                |
+
+        @bug
+        @TT-1182
+        @fixme
+        Examples: <environment> <service>
+            | environment | service | page                                                                                            |
+            | DEV         | Invest  | privacy-and-cookies/                                                                            |
+            | DEV         | Invest  | privacy-and-cookies/fair-processing-notice-export-opportunities/                                |
+            | DEV         | Invest  | privacy-and-cookies/fair-processing-notice-export-readiness/                                    |
+            | DEV         | Invest  | privacy-and-cookies/fair-processing-notice-for-smart-survey/                                    |
+            | DEV         | Invest  | privacy-and-cookies/fair-processing-notice-invest-in-great-britain/                             |
+            | DEV         | Invest  | privacy-and-cookies/fair-processing-notice-selling-online-overseas/                             |
+            | DEV         | Invest  | privacy-and-cookies/fair-processing-notice-trade-profiles-find-a-buyer-fab-find-a-supplier-fas/ |
+            | DEV         | Invest  | privacy-and-cookies/fair-processing-notice-zendesk/                                             |
+            | DEV         | Invest  | terms-and-conditions/                                                                           |
 
 
         Examples: <environment> <service>
@@ -107,15 +113,6 @@ Feature: Every page on non-production site should return "X-Robots-Tag: noindex"
             | STAGE       | Invest  | industries/retail/                                                                              |
             | STAGE       | Invest  | industries/technology/                                                                          |
             | STAGE       | Invest  | industries/technology/data-analytics/                                                           |
-            | STAGE       | Invest  | privacy-and-cookies/                                                                            |
-            | STAGE       | Invest  | privacy-and-cookies/fair-processing-notice-export-opportunities/                                |
-            | STAGE       | Invest  | privacy-and-cookies/fair-processing-notice-export-readiness/                                    |
-            | STAGE       | Invest  | privacy-and-cookies/fair-processing-notice-for-smart-survey/                                    |
-            | STAGE       | Invest  | privacy-and-cookies/fair-processing-notice-invest-in-great-britain/                             |
-            | STAGE       | Invest  | privacy-and-cookies/fair-processing-notice-selling-online-overseas/                             |
-            | STAGE       | Invest  | privacy-and-cookies/fair-processing-notice-trade-profiles-find-a-buyer-fab-find-a-supplier-fas/ |
-            | STAGE       | Invest  | privacy-and-cookies/fair-processing-notice-zendesk/                                             |
-            | STAGE       | Invest  | terms-and-conditions/                                                                           |
             | STAGE       | Invest  | uk-regions/london/                                                                              |
             | STAGE       | Invest  | uk-regions/midlands/                                                                            |
             | STAGE       | Invest  | uk-regions/north-england/                                                                       |
@@ -130,6 +127,22 @@ Feature: Every page on non-production site should return "X-Robots-Tag: noindex"
             | STAGE       | Invest  | uk-setup-guide/open-uk-business-bank-account/                                                   |
             | STAGE       | Invest  | uk-setup-guide/setup-your-business-uk/                                                          |
             | STAGE       | Invest  | uk-setup-guide/understand-uk-tax-and-incentives/                                                |
+
+        @bug
+        @TT-1182
+        @fixme
+        Examples: <environment> <service>
+            | environment | service | page                                                                                            |
+            | STAGE       | Invest  | privacy-and-cookies/                                                                            |
+            | STAGE       | Invest  | privacy-and-cookies/fair-processing-notice-export-opportunities/                                |
+            | STAGE       | Invest  | privacy-and-cookies/fair-processing-notice-export-readiness/                                    |
+            | STAGE       | Invest  | privacy-and-cookies/fair-processing-notice-for-smart-survey/                                    |
+            | STAGE       | Invest  | privacy-and-cookies/fair-processing-notice-invest-in-great-britain/                             |
+            | STAGE       | Invest  | privacy-and-cookies/fair-processing-notice-selling-online-overseas/                             |
+            | STAGE       | Invest  | privacy-and-cookies/fair-processing-notice-trade-profiles-find-a-buyer-fab-find-a-supplier-fas/ |
+            | STAGE       | Invest  | privacy-and-cookies/fair-processing-notice-zendesk/                                             |
+            | STAGE       | Invest  | terms-and-conditions/                                                                           |
+
 
 
         Examples: <environment> <service>
