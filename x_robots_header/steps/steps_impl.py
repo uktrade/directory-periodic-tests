@@ -30,7 +30,7 @@ SERVICES = {
     "fab": {
         "dev": "https://great.dev.uktrade.io/find-a-buyer/",
         "stage": "https://great.staging.uktrade.io/find-a-buyer/",
-        "prod": "https://find-a-buyer.export.great.gov.uk/",
+        "prod": "https://www.great.gov.uk/find-a-buyer/",
     },
     "exread": {
         "dev": "https://great.dev.uktrade.io/",
@@ -40,7 +40,7 @@ SERVICES = {
     "sso": {
         "dev": "https://great.dev.uktrade.io/sso/",
         "stage": "https://great.staging.uktrade.io/sso/",
-        "prod": "https://sso.trade.great.gov.uk/",
+        "prod": "https://www.great.gov.uk/sso/",
     },
     "soo": {
         "dev": "https://selling-online-overseas.export.great.dev.uktrade.io/",
@@ -50,7 +50,7 @@ SERVICES = {
     "profile": {
         "dev": "https://great.dev.uktrade.io/profile/",
         "stage": "https://great.staging.uktrade.io/profile/",
-        "prod": "https://profile.great.gov.uk/",
+        "prod": "https://www.great.gov.uk/profile/",
     },
     "exopps": {
         "dev": "https://export-opportunities-continuous-deployment.cloudapps.digital/",
