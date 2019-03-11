@@ -8,164 +8,164 @@ TEST_ENV ?= DEV
 
 PYLINKVALIDATE_ENV_VARS_PROD := \
 	export IGNORED_PREFIXES="\
-		https://www.great.gov.uk/sso/accounts/login/?next=,\
-		https://www.great.gov.uk/sso/accounts/password/reset/?next=,\
-		https://www.great.gov.uk/sso/accounts/signup/?next=,\
-		https://www.great.gov.uk/trade/search/?term=,\
-		https://www.great.gov.uk/trade/suppliers/,\
-		https://cms.trade.great.gov.uk/documents/,\
-		https://directory-cms-public.s3.amazonaws.com,\
-		https://www.contactus.trade.gov.uk/office-finder,\
-		http://exportbritain.org.uk/international-directory/,\
-		http://mojolife.org.uk/,\
-		http://p2pfa.info/platforms/,\
-		http://www.elearningschool.co.uk,\
-		http://www.epcmortgage.org.uk/,\
-		http://www.export.org.uk/page/Market_Selection,\
-		http://www.ftsolutions.co.uk,\
-		http://www.getingofar.gov.uk,\
-		http://www.jubaris.co.uk,\
-		http://www.laredoute.fr/\
-		http://www.linkedin.com,\
-		http://www.macduffshipdesign.com,\
-		http://www.mbe-intl.com,\
-		https://en.portal.santandertrade.com,\
-		https://marketreachcalculator.com,\
-		https://public-directory-supplier-gds.s3.amazonaws.com,\
-		https://twitter.com,\
-		https://uk.linkedin.com/,\
-		https://www.airforilfe.net,\
-		https://www.callidusgroup.co.uk,\
-		https://www.facebook.com,\
-		https://www.fnac.com,\
-		https://www.gov.uk/tendering-for-public-sector-contracts,\
-		https://www.linkedin.com,\
-		https://www.nationalarchives.gov.uk/doc/open-government-licence,\
-		https://www.pwc.co.uk/,\
-		https://www.rmlgroup.com,\
-		" && \
+	https://www.great.gov.uk/sso/accounts/login/?next=,\
+	https://www.great.gov.uk/sso/accounts/password/reset/?next=,\
+	https://www.great.gov.uk/sso/accounts/signup/?next=,\
+	https://www.great.gov.uk/trade/search/?term=,\
+	https://www.great.gov.uk/trade/suppliers/,\
+	https://cms.trade.great.gov.uk/documents/,\
+	https://directory-cms-public.s3.amazonaws.com,\
+	https://www.contactus.trade.gov.uk/office-finder,\
+	http://exportbritain.org.uk/international-directory/,\
+	http://mojolife.org.uk/,\
+	http://p2pfa.info/platforms/,\
+	http://www.elearningschool.co.uk,\
+	http://www.epcmortgage.org.uk/,\
+	http://www.export.org.uk/page/Market_Selection,\
+	http://www.ftsolutions.co.uk,\
+	http://www.getingofar.gov.uk,\
+	http://www.jubaris.co.uk,\
+	http://www.laredoute.fr/\
+	http://www.linkedin.com,\
+	http://www.macduffshipdesign.com,\
+	http://www.mbe-intl.com,\
+	https://en.portal.santandertrade.com,\
+	https://marketreachcalculator.com,\
+	https://public-directory-supplier-gds.s3.amazonaws.com,\
+	https://twitter.com,\
+	https://uk.linkedin.com/,\
+	https://www.airforilfe.net,\
+	https://www.callidusgroup.co.uk,\
+	https://www.facebook.com,\
+	https://www.fnac.com,\
+	https://www.gov.uk/tendering-for-public-sector-contracts,\
+	https://www.linkedin.com,\
+	https://www.nationalarchives.gov.uk/doc/open-government-licence,\
+	https://www.pwc.co.uk/,\
+	https://www.rmlgroup.com,\
+	" && \
 	export TEST_URLS="\
-		https://www.great.gov.uk/ \
-		https://www.great.gov.uk/community/ \
-		https://www.great.gov.uk/find-a-buyer/ \
-		https://www.great.gov.uk/sso/accounts/login/ \
-		https://www.great.gov.uk/profile/about/ \
-		https://invest.great.gov.uk/ \
-		https://www.great.gov.uk/trade/ \
-		https://opportunities.export.great.gov.uk/ \
-		https://opportunities.export.great.gov.uk/opportunities?s=shoes&areas[]=&commit=Find+opportunities \
-		https://selling-online-overseas.export.great.gov.uk/ \
-		https://selling-online-overseas.export.great.gov.uk/markets/results/ \
-		https://contact-us.export.great.gov.uk/soo/TriageForm?market=eBay \
-		"
+	https://www.great.gov.uk/ \
+	https://www.great.gov.uk/community/ \
+	https://www.great.gov.uk/find-a-buyer/ \
+	https://www.great.gov.uk/sso/accounts/login/ \
+	https://www.great.gov.uk/profile/about/ \
+	https://invest.great.gov.uk/ \
+	https://www.great.gov.uk/trade/ \
+	https://opportunities.export.great.gov.uk/ \
+	https://opportunities.export.great.gov.uk/opportunities?s=shoes&areas[]=&commit=Find+opportunities \
+	https://selling-online-overseas.export.great.gov.uk/ \
+	https://selling-online-overseas.export.great.gov.uk/markets/results/ \
+	https://contact-us.export.great.gov.uk/soo/TriageForm?market=eBay \
+	"
 
 PYLINKVALIDATE_ENV_VARS_STAGE := \
 	export IGNORED_PREFIXES="\
-		https://great.staging.uktrade.io/find-a-buyer/static/,\
-		https://great.staging.uktrade.io/profile/static/,\
-		https://great.staging.uktrade.io/sso/accounts/login/?next,\
-		https://great.staging.uktrade.io/sso/accounts/password/reset/?next,\
-		https://great.staging.uktrade.io/sso/accounts/signup/?next,\
-		https://great.staging.uktrade.io/sso/static/,\
-		https://great.staging.uktrade.io/static/,\
-		https://great.staging.uktrade.io/trade/search/?term=,\
-		https://great.staging.uktrade.io/trade/static/,\
-		https://great.staging.uktrade.io/trade/suppliers/,\
-		https://invest.great.staging.uktrade.io/static/,\
-		https://opportunities.export.great.staging.uktrade.io/static/ \
-		https://selling-online-overseas.export.great.staging.uktrade.io/static/,\
-		https://www.contactus.trade.gov.uk/office-finder,\
-		http://www.export.org.uk/page/Market_Selection,\
-		https://www.gov.uk/tendering-for-public-sector-contracts/overview,\
-		http://exportbritain.org.uk/international-directory/,\
-		http://mojolife.org.uk/,\
-		http://p2pfa.info/platforms/,\
-		http://www.elearningschool.co.uk,\
-		http://www.epcmortgage.org.uk/,\
-		http://www.ftsolutions.co.uk,\
-		http://www.jubaris.co.uk,\
-		http://www.linkedin.com,\
-		http://www.macduffshipdesign.com,\
-		http://www.mbe-intl.com,\
-		https://twitter.com,\
-		https://uk.linkedin.com/,\
-		https://www.airforilfe.net,\
-		https://www.callidusgroup.co.uk,\
-		https://www.facebook.com,\
-		https://www.linkedin.com,\
-		https://www.nationalarchives.gov.uk/doc/open-government-licence,\
-		https://www.pwc.co.uk/,https://www.rmlgroup.com\
-		" && \
+	https://great.staging.uktrade.io/find-a-buyer/static/,\
+	https://great.staging.uktrade.io/profile/static/,\
+	https://great.staging.uktrade.io/sso/accounts/login/?next,\
+	https://great.staging.uktrade.io/sso/accounts/password/reset/?next,\
+	https://great.staging.uktrade.io/sso/accounts/signup/?next,\
+	https://great.staging.uktrade.io/sso/static/,\
+	https://great.staging.uktrade.io/static/,\
+	https://great.staging.uktrade.io/trade/search/?term=,\
+	https://great.staging.uktrade.io/trade/static/,\
+	https://great.staging.uktrade.io/trade/suppliers/,\
+	https://invest.great.staging.uktrade.io/static/,\
+	https://opportunities.export.great.staging.uktrade.io/static/ \
+	https://selling-online-overseas.export.great.staging.uktrade.io/static/,\
+	https://www.contactus.trade.gov.uk/office-finder,\
+	http://www.export.org.uk/page/Market_Selection,\
+	https://www.gov.uk/tendering-for-public-sector-contracts/overview,\
+	http://exportbritain.org.uk/international-directory/,\
+	http://mojolife.org.uk/,\
+	http://p2pfa.info/platforms/,\
+	http://www.elearningschool.co.uk,\
+	http://www.epcmortgage.org.uk/,\
+	http://www.ftsolutions.co.uk,\
+	http://www.jubaris.co.uk,\
+	http://www.linkedin.com,\
+	http://www.macduffshipdesign.com,\
+	http://www.mbe-intl.com,\
+	https://twitter.com,\
+	https://uk.linkedin.com/,\
+	https://www.airforilfe.net,\
+	https://www.callidusgroup.co.uk,\
+	https://www.facebook.com,\
+	https://www.linkedin.com,\
+	https://www.nationalarchives.gov.uk/doc/open-government-licence,\
+	https://www.pwc.co.uk/,https://www.rmlgroup.com\
+	" && \
 	export TEST_URLS="\
-		https://great.staging.uktrade.io/ \
-		https://great.staging.uktrade.io/community \
-		https://great.staging.uktrade.io/trade/ \
-		https://great.staging.uktrade.io/find-a-buyer/ \
-		https://great.staging.uktrade.io/sso/accounts/login/ \
-		https://great.staging.uktrade.io/profile/about/ \
-		https://invest.great.staging.uktrade.io/ \
-		https://invest.great.staging.uktrade.io/high-potential-opportunities/lightweight-structures/ \
-		https://invest.great.staging.uktrade.io/high-potential-opportunities/food-production/ \
-		https://invest.great.staging.uktrade.io/high-potential-opportunities/rail-infrastructure/ \
-		https://selling-online-overseas.export.great.staging.uktrade.io/ \
-		https://selling-online-overseas.export.great.staging.uktrade.io/markets/results/ \
-		https://opportunities.export.great.staging.uktrade.io/ \
-		https://opportunities.export.great.staging.uktrade.io/opportunities?s=shoes&areas[]=&commit=Find+opportunities \
-		"
+	https://great.staging.uktrade.io/ \
+	https://great.staging.uktrade.io/community \
+	https://great.staging.uktrade.io/trade/ \
+	https://great.staging.uktrade.io/find-a-buyer/ \
+	https://great.staging.uktrade.io/sso/accounts/login/ \
+	https://great.staging.uktrade.io/profile/about/ \
+	https://invest.great.staging.uktrade.io/ \
+	https://invest.great.staging.uktrade.io/high-potential-opportunities/lightweight-structures/ \
+	https://invest.great.staging.uktrade.io/high-potential-opportunities/food-production/ \
+	https://invest.great.staging.uktrade.io/high-potential-opportunities/rail-infrastructure/ \
+	https://selling-online-overseas.export.great.staging.uktrade.io/ \
+	https://selling-online-overseas.export.great.staging.uktrade.io/markets/results/ \
+	https://opportunities.export.great.staging.uktrade.io/ \
+	https://opportunities.export.great.staging.uktrade.io/opportunities?s=shoes&areas[]=&commit=Find+opportunities \
+	"
 
 PYLINKVALIDATE_ENV_VARS_DEV := \
 	export IGNORED_PREFIXES="\
-		https://great.dev.uktrade.io/find-a-buyer/static/,\
-		https://great.dev.uktrade.io/profile/static/,\
-		https://great.dev.uktrade.io/sso/accounts/login/?next,\
-		https://great.dev.uktrade.io/sso/accounts/password/reset/?next,\
-		https://great.dev.uktrade.io/sso/accounts/signup/?next,\
-		https://great.dev.uktrade.io/sso/static/,\
-		https://great.dev.uktrade.io/static/,\
-		https://great.dev.uktrade.io/international/static/,\
-		https://great.dev.uktrade.io/trade/search/?term=,\
-		https://great.dev.uktrade.io/trade/static/,\
-		https://great.dev.uktrade.io/trade/suppliers/,\
-		https://invest.great.dev.uktrade.io/static/,\
-		https://selling-online-overseas.export.great.dev.uktrade.io/static/,\
-		http://exportbritain.org.uk/international-directory/,\
-		http://mojolife.org.uk/,\
-		http://p2pfa.info/platforms/,\
-		http://www.elearningschool.co.uk,\
-		http://www.epcmortgage.org.uk/,\
-		http://www.export.org.uk/page/Market_Selection,\
-		http://www.ftsolutions.co.uk,\
-		http://www.jubaris.co.uk,\
-		http://www.linkedin.com,\
-		http://www.macduffshipdesign.com,\
-		http://www.mbe-intl.com,\
-		https://twitter.com,\
-		https://uk.linkedin.com/,\
-		https://www.airforilfe.net,\
-		https://www.callidusgroup.co.uk,\
-		https://www.contactus.trade.gov.uk,\
-		https://www.facebook.com,\
-		https://www.gov.uk/tendering-for-public-sector-contracts/overview,\
-		https://www.linkedin.com,\
-		https://www.nationalarchives.gov.uk/doc/open-government-licence,\
-		https://www.pwc.co.uk/,\
-		https://www.rmlgroup.com\
-		" && \
+	https://great.dev.uktrade.io/find-a-buyer/static/,\
+	https://great.dev.uktrade.io/profile/static/,\
+	https://great.dev.uktrade.io/sso/accounts/login/?next,\
+	https://great.dev.uktrade.io/sso/accounts/password/reset/?next,\
+	https://great.dev.uktrade.io/sso/accounts/signup/?next,\
+	https://great.dev.uktrade.io/sso/static/,\
+	https://great.dev.uktrade.io/static/,\
+	https://great.dev.uktrade.io/international/static/,\
+	https://great.dev.uktrade.io/trade/search/?term=,\
+	https://great.dev.uktrade.io/trade/static/,\
+	https://great.dev.uktrade.io/trade/suppliers/,\
+	https://invest.great.dev.uktrade.io/static/,\
+	https://selling-online-overseas.export.great.dev.uktrade.io/static/,\
+	http://exportbritain.org.uk/international-directory/,\
+	http://mojolife.org.uk/,\
+	http://p2pfa.info/platforms/,\
+	http://www.elearningschool.co.uk,\
+	http://www.epcmortgage.org.uk/,\
+	http://www.export.org.uk/page/Market_Selection,\
+	http://www.ftsolutions.co.uk,\
+	http://www.jubaris.co.uk,\
+	http://www.linkedin.com,\
+	http://www.macduffshipdesign.com,\
+	http://www.mbe-intl.com,\
+	https://twitter.com,\
+	https://uk.linkedin.com/,\
+	https://www.airforilfe.net,\
+	https://www.callidusgroup.co.uk,\
+	https://www.contactus.trade.gov.uk,\
+	https://www.facebook.com,\
+	https://www.gov.uk/tendering-for-public-sector-contracts/overview,\
+	https://www.linkedin.com,\
+	https://www.nationalarchives.gov.uk/doc/open-government-licence,\
+	https://www.pwc.co.uk/,\
+	https://www.rmlgroup.com\
+	" && \
 	export TEST_URLS="\
-		https://great.dev.uktrade.io/ \
-		https://great.dev.uktrade.io/community/ \
-		https://great.dev.uktrade.io/international/ \
-		https://great.dev.uktrade.io/trade/ \
-		https://great.dev.uktrade.io/find-a-buyer/ \
-		https://great.dev.uktrade.io/sso/accounts/login/ \
-		https://great.dev.uktrade.io/profile/about/ \
-		https://invest.great.dev.uktrade.io/ \
-		https://invest.great.dev.uktrade.io/high-potential-opportunities/lightweight-structures/ \
-		https://invest.great.dev.uktrade.io/high-potential-opportunities/food-production/ \
-		https://invest.great.dev.uktrade.io/high-potential-opportunities/rail-infrastructure/ \
-		https://selling-online-overseas.export.great.dev.uktrade.io/ \
-		https://selling-online-overseas.export.great.dev.uktrade.io/markets/results/ \
-		"
+	https://great.dev.uktrade.io/ \
+	https://great.dev.uktrade.io/community/ \
+	https://great.dev.uktrade.io/international/ \
+	https://great.dev.uktrade.io/trade/ \
+	https://great.dev.uktrade.io/find-a-buyer/ \
+	https://great.dev.uktrade.io/sso/accounts/login/ \
+	https://great.dev.uktrade.io/profile/about/ \
+	https://invest.great.dev.uktrade.io/ \
+	https://invest.great.dev.uktrade.io/high-potential-opportunities/lightweight-structures/ \
+	https://invest.great.dev.uktrade.io/high-potential-opportunities/food-production/ \
+	https://invest.great.dev.uktrade.io/high-potential-opportunities/rail-infrastructure/ \
+	https://selling-online-overseas.export.great.dev.uktrade.io/ \
+	https://selling-online-overseas.export.great.dev.uktrade.io/markets/results/ \
+	"
 
 BASIC_AUTH := $(shell echo -n $(BASICAUTH_USER_$(TEST_ENV)):$(BASICAUTH_PASS_$(TEST_ENV)) | base64)
 
