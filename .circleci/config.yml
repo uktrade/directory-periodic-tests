@@ -434,7 +434,7 @@ workflows:
           branches:
             only: master
     jobs:
-    - refresh_geckoboard:
+    - refresh_geckoboard
 
   prod_check_for_dead_links:
     triggers:
