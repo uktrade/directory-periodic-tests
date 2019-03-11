@@ -1,10 +1,11 @@
+import os
 from collections import namedtuple
-from retrying import retry
+from urllib.parse import urljoin
 
 import requests
 from behave.runner import Context
-from urllib.parse import urljoin
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
+from retrying import retry
 
 BASICAUTH_USER_DEV = os.environ["BASICAUTH_USER_DEV"]
 BASICAUTH_PASS_DEV = os.environ["BASICAUTH_PASS_DEV"]
@@ -12,9 +13,8 @@ BASICAUTH_USER_STAGE = os.environ["BASICAUTH_USER_STAGE"]
 BASICAUTH_PASS_STAGE = os.environ["BASICAUTH_PASS_STAGE"]
 
 RequestResults = namedtuple(
-                    "RequestResults",
-                    ["service", "environment", "endpoint", "url", "headers"]
-                )
+    "RequestResults", ["service", "environment", "endpoint", "url", "headers"]
+)
 
 SERVICES = {
     "invest": {
@@ -79,9 +79,7 @@ def basic_auth(env: str):
     retry_on_exception=retry_if_network_error,
     wrap_exception=False,
 )
-def visit_page(
-    context: Context, service: str, environment: str, endpoint: str
-):
+def visit_page(context: Context, service: str, environment: str, endpoint: str):
     host = SERVICES[service.lower()][environment.lower()]
     url = urljoin(host, endpoint)
     response = requests.get(url, auth=basic_auth(environment))
@@ -97,10 +95,11 @@ def response_should_not_contain_header(context: Context, header: str):
     url = result.url
     headers = {key.lower(): value for key, value in result.headers.items()}
     header_name, header_value = header.split(":")
-    error_msg = (f"'{header_name}' is present in the response headers from: "
-                 f"{url}: {headers}")
+    error_msg = (
+        f"'{header_name}' is present in the response headers from: " f"{url}: {headers}"
+    )
     assert header_name.lower() not in headers, error_msg
- 
+
 
 def response_should_contain_header(context: Context, header: str):
     assert ":" in header, "Please separate header name with its value with ':'"
@@ -108,7 +107,9 @@ def response_should_contain_header(context: Context, header: str):
     url = result.url
     headers = {key.lower(): value for key, value in result.headers.items()}
     header_name, header_value = header.split(":")
-    error_msg = (f"'{header_name}' is not present in the response headers from"
-                 f": {url}: {headers}")
+    error_msg = (
+        f"'{header_name}' is not present in the response headers from"
+        f": {url}: {headers}"
+    )
     assert header_name.lower() in headers, error_msg
     assert header_value.strip().lower() == headers[header_name.lower()]
