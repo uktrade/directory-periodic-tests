@@ -172,11 +172,17 @@ BASIC_AUTH := $(shell echo -n $(BASICAUTH_USER_$(TEST_ENV)):$(BASICAUTH_PASS_$(T
 # Testing Production systems will check outside links
 # Testing non-Production systems will not check outside links & HAWK cookie
 # will be used.
-ifndef BASICAUTH_USER_$(TEST_ENV)
-  $(error BASICAUTH_USER_$(TEST_ENV) is undefined)
+ifndef BASICAUTH_USER_DEV
+  $(error BASICAUTH_USER_DEV is undefined)
 endif
-ifndef BASICAUTH_PASS_$(TEST_ENV)
-  $(error BASICAUTH_PASS_$(TEST_ENV) is undefined)
+ifndef BASICAUTH_PASS_DEV
+  $(error BASICAUTH_PASS_DEV is undefined)
+endif
+ifndef BASICAUTH_USER_STAGE
+  $(error BASICAUTH_USER_STAGE is undefined)
+endif
+ifndef BASICAUTH_PASS_STAGE
+  $(error BASICAUTH_PASS_STAGE is undefined)
 endif
 
 ifeq ($(TEST_ENV),PROD)
