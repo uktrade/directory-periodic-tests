@@ -436,6 +436,13 @@ workflows:
     jobs:
     - refresh_geckoboard
 
+  prod_check_for_dead_links_ad_hoc:
+    jobs:
+      - setup_env_for_dead_links_checker
+      - check_for_dead_links_on_prod:
+          requires:
+            - setup_env_for_dead_links_checker
+
   prod_check_for_dead_links:
     triggers:
     - schedule:
