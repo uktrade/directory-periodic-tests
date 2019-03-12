@@ -202,7 +202,7 @@ endif
 dead_links_check:
 	$(PYLINKVALIDATE_ENV_VARS_$(TEST_ENV)) && \
 	echo -e "Running pylinkvalidate against: $${TEST_URLS}\n" && \
-	echo -e "IGNORED_PREFIXES: $${IGNORED_PREFIXES// /}\n" && \
+	echo -e "IGNORED_PREFIXES: `echo $${IGNORED_PREFIXES} | tr -d [:space:]`\n" && \
 	pylinkvalidate.py \
 	    --progress \
 	    --console \
@@ -223,13 +223,13 @@ dead_links_check:
 	    --header="Accept-Encoding: gzip, deflate" \
 	    --header="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.117 Safari/537.36 link-checker-qa" \
 	    $(AUTH) \
-	    --ignore="$${IGNORED_PREFIXES// /}" \
+	    --ignore=`echo $${IGNORED_PREFIXES} | tr -d [:space:]` \
 	    $${TEST_URLS}
 
 dead_links_check_with_json_report:
 	$(PYLINKVALIDATE_ENV_VARS_$(TEST_ENV)) && \
 	echo -e "Running pylinkvalidate against: $${TEST_URLS}\n" && \
-	echo -e "IGNORED_PREFIXES: $${IGNORED_PREFIXES// /}\n" && \
+	echo -e "IGNORED_PREFIXES: `echo $${IGNORED_PREFIXES} | tr -d [:space:]`\n" && \
 	pylinkvalidate.py \
 	    --progress \
 	    --console \
@@ -251,7 +251,7 @@ dead_links_check_with_json_report:
 	    --header="Accept-Encoding: gzip, deflate" \
 	    --header="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.117 Safari/537.36 link-checker-qa" \
 	    $(AUTH) \
-	    --ignore="\'$${IGNORED_PREFIXES// /}\'" \
+	    --ignore=`echo $${IGNORED_PREFIXES} | tr -d [:space:]` \
 	    $${TEST_URLS}
 
 cms_pages_check:
