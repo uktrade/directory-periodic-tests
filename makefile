@@ -42,7 +42,7 @@ PYLINKVALIDATE_ENV_VARS_PROD := \
 	https://www.linkedin.com,\
 	https://www.nationalarchives.gov.uk/doc/open-government-licence,\
 	https://www.pwc.co.uk/,\
-	https://www.rmlgroup.com,\
+	https://www.rmlgroup.com\
 	" && \
 	export TEST_URLS="\
 	https://www.great.gov.uk/ \
