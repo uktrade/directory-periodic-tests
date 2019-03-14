@@ -216,7 +216,7 @@ dead_links_check:
 	    --timeout=55 \
 	    --depth=5 \
 	    --workers=10 \
-	    --types=a,img,link,script \
+	    --types=a \
 	    $(TEST_OUTSIDE) \
 	    --parser=lxml \
 	    --format=junit \
