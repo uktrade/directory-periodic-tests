@@ -15,34 +15,11 @@ PYLINKVALIDATE_ENV_VARS_PROD := \
 	https://www.great.gov.uk/trade/suppliers/,\
 	https://cms.trade.great.gov.uk/documents/,\
 	https://directory-cms-public.s3.amazonaws.com,\
-	https://www.contactus.trade.gov.uk/office-finder,\
-	http://exportbritain.org.uk/international-directory/,\
-	http://mojolife.org.uk/,\
-	http://p2pfa.info/platforms/,\
-	http://www.elearningschool.co.uk,\
-	http://www.epcmortgage.org.uk/,\
-	http://www.export.org.uk/page/Market_Selection,\
-	http://www.ftsolutions.co.uk,\
-	http://www.getingofar.gov.uk,\
-	http://www.jubaris.co.uk,\
-	http://www.laredoute.fr/\
 	http://www.linkedin.com,\
-	http://www.macduffshipdesign.com,\
-	http://www.mbe-intl.com,\
-	https://en.portal.santandertrade.com,\
-	https://marketreachcalculator.com,\
-	https://public-directory-supplier-gds.s3.amazonaws.com,\
 	https://twitter.com,\
 	https://uk.linkedin.com/,\
-	https://www.airforilfe.net,\
-	https://www.callidusgroup.co.uk,\
 	https://www.facebook.com,\
-	https://www.fnac.com,\
-	https://www.gov.uk/tendering-for-public-sector-contracts,\
-	https://www.linkedin.com,\
-	https://www.nationalarchives.gov.uk/doc/open-government-licence,\
-	https://www.pwc.co.uk/,\
-	https://www.rmlgroup.com\
+	https://www.linkedin.com\
 	" && \
 	export TEST_URLS="\
 	https://www.great.gov.uk/ \
@@ -72,7 +49,8 @@ PYLINKVALIDATE_ENV_VARS_STAGE := \
 	https://great.staging.uktrade.io/trade/static/,\
 	https://great.staging.uktrade.io/trade/suppliers/,\
 	https://invest.great.staging.uktrade.io/static/,\
-	https://opportunities.export.great.staging.uktrade.io/static/ \
+	https://opportunities.export.great.staging.uktrade.io/assets/ \
+	https://opportunities.export.great.staging.uktrade.io/opportunities?paged= \
 	https://selling-online-overseas.export.great.staging.uktrade.io/static/,\
 	https://www.contactus.trade.gov.uk/office-finder,\
 	http://www.export.org.uk/page/Market_Selection,\
