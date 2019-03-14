@@ -8,32 +8,61 @@ TEST_ENV ?= DEV
 
 PYLINKVALIDATE_ENV_VARS_PROD := \
 	export IGNORED_PREFIXES="\
-	https://www.great.gov.uk/sso/accounts/login/?next=,\
-	https://www.great.gov.uk/sso/accounts/password/reset/?next=,\
-	https://www.great.gov.uk/sso/accounts/signup/?next=,\
-	https://www.great.gov.uk/trade/search/?term=,\
-	https://www.great.gov.uk/trade/suppliers/,\
-	https://cms.trade.great.gov.uk/documents/,\
-	https://directory-cms-public.s3.amazonaws.com,\
-	http://www.linkedin.com,\
-	https://twitter.com,\
-	https://uk.linkedin.com/,\
-	https://www.facebook.com,\
-	https://www.linkedin.com\
+	https://www.great.gov.uk/profile/static/, \
+	https://www.great.gov.uk/sso/accounts/login/, \
+	https://www.great.gov.uk/sso/accounts/password/reset/, \
+	https://www.great.gov.uk/sso/accounts/signup/, \
+	https://www.great.gov.uk/sso/static/, \
+	https://www.great.gov.uk/trade/search/?term=, \
+	https://www.great.gov.uk/trade/static/, \
+	https://www.great.gov.uk/trade/suppliers/, \
+	https://www.great.gov.uk/static/, \
+	https://cms.trade.great.gov.uk/documents/, \
+	https://directory-cms-public.s3.amazonaws.com, \
+	https://selling-online-overseas.export.great.gov.uk/static/, \
+	https://opportunities.export.great.gov.uk/opportunities/b, \
+	https://opportunities.export.great.gov.uk/opportunities/c, \
+	https://opportunities.export.great.gov.uk/opportunities/d, \
+	https://opportunities.export.great.gov.uk/opportunities/m, \
+	https://opportunities.export.great.gov.uk/opportunities/f, \
+	https://opportunities.export.great.gov.uk/opportunities/g, \
+	https://opportunities.export.great.gov.uk/opportunities/h, \
+	https://opportunities.export.great.gov.uk/opportunities/j, \
+	https://opportunities.export.great.gov.uk/opportunities/k, \
+	https://opportunities.export.great.gov.uk/opportunities/m, \
+	https://opportunities.export.great.gov.uk/opportunities/n, \
+	https://opportunities.export.great.gov.uk/opportunities/m, \
+	https://opportunities.export.great.gov.uk/opportunities/p, \
+	https://opportunities.export.great.gov.uk/opportunities/r, \
+	https://opportunities.export.great.gov.uk/opportunities/s, \
+	https://opportunities.export.great.gov.uk/opportunities/t, \
+	https://opportunities.export.great.gov.uk/opportunities?paged=, \
+	https://www.contactus.trade.gov.uk/office-finder/, \
+	https://s3.eu-west-2.amazonaws.com/, \
+	https://d3zwahhsvfb28.cloudfront.net, \
+	http://www.linkedin.com, \
+	http://ted.europa.eu, \
+	https://twitter.com, \
+	https://uk.linkedin.com/, \
+	https://www.facebook.com, \
+	https://www.linkedin.com \
 	" && \
 	export TEST_URLS="\
 	https://www.great.gov.uk/ \
 	https://www.great.gov.uk/community/ \
+	https://www.great.gov.uk/contact/ \
+	https://www.great.gov.uk/contact/selling-online-overseas/organisation/ \
 	https://www.great.gov.uk/find-a-buyer/ \
 	https://www.great.gov.uk/sso/accounts/login/ \
 	https://www.great.gov.uk/profile/about/ \
-	https://invest.great.gov.uk/ \
 	https://www.great.gov.uk/trade/ \
+	https://invest.great.gov.uk/ \
+	https://invest.great.gov.uk/high-potential-opportunities/lightweight-structures/ \
+	https://invest.great.gov.uk/high-potential-opportunities/food-production/ \
+	https://invest.great.gov.uk/high-potential-opportunities/rail-infrastructure/ \
 	https://opportunities.export.great.gov.uk/ \
-	https://opportunities.export.great.gov.uk/opportunities?s=shoes&areas[]=&commit=Find+opportunities \
 	https://selling-online-overseas.export.great.gov.uk/ \
 	https://selling-online-overseas.export.great.gov.uk/markets/results/ \
-	https://contact-us.export.great.gov.uk/soo/TriageForm?market=eBay \
 	"
 
 PYLINKVALIDATE_ENV_VARS_STAGE := \
