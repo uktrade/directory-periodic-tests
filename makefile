@@ -80,6 +80,25 @@ PYLINKVALIDATE_ENV_VARS_STAGE := \
 	https://invest.great.staging.uktrade.io/static/,\
 	https://opportunities.export.great.staging.uktrade.io/assets/ \
 	https://opportunities.export.great.staging.uktrade.io/opportunities?paged= \
+	https://opportunities.export.great.staging.uktrade.io/opportunities/a, \
+	https://opportunities.export.great.staging.uktrade.io/opportunities/b, \
+	https://opportunities.export.great.staging.uktrade.io/opportunities/c, \
+	https://opportunities.export.great.staging.uktrade.io/opportunities/d, \
+	https://opportunities.export.great.staging.uktrade.io/opportunities/m, \
+	https://opportunities.export.great.staging.uktrade.io/opportunities/f, \
+	https://opportunities.export.great.staging.uktrade.io/opportunities/g, \
+	https://opportunities.export.great.staging.uktrade.io/opportunities/h, \
+	https://opportunities.export.great.staging.uktrade.io/opportunities/j, \
+	https://opportunities.export.great.staging.uktrade.io/opportunities/k, \
+	https://opportunities.export.great.staging.uktrade.io/opportunities/m, \
+	https://opportunities.export.great.staging.uktrade.io/opportunities/n, \
+	https://opportunities.export.great.staging.uktrade.io/opportunities/m, \
+	https://opportunities.export.great.staging.uktrade.io/opportunities/p, \
+	https://opportunities.export.great.staging.uktrade.io/opportunities/r, \
+	https://opportunities.export.great.staging.uktrade.io/opportunities/s, \
+	https://opportunities.export.great.staging.uktrade.io/opportunities/t, \
+	https://opportunities.export.great.staging.uktrade.io/opportunities/w, \
+	https://opportunities.export.great.staging.uktrade.io/opportunities/z, \
 	https://selling-online-overseas.export.great.staging.uktrade.io/static/,\
 	https://www.contactus.trade.gov.uk/office-finder,\
 	http://www.export.org.uk/page/Market_Selection,\
