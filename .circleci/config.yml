@@ -422,10 +422,6 @@ jobs:
 workflows:
   version: 2
 
-  dev_ex_read_accessibility_tests:
-    jobs:
-    - accessibility_tests_export_readiness_dev
-
   refresh_geckoboard_periodically:
     triggers:
     - schedule:
