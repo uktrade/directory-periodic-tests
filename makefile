@@ -129,12 +129,12 @@ PYLINKVALIDATE_ENV_VARS_STAGE := \
 	https://great.staging.uktrade.io/find-a-buyer/ \
 	https://great.staging.uktrade.io/sso/accounts/login/ \
 	https://great.staging.uktrade.io/profile/about/ \
+	https://great.staging.uktrade.io/contact/selling-online-overseas/ \
+	https://great.staging.uktrade.io/contact/selling-online-overseas/markets/results/ \
 	https://invest.great.staging.uktrade.io/ \
 	https://invest.great.staging.uktrade.io/high-potential-opportunities/lightweight-structures/ \
 	https://invest.great.staging.uktrade.io/high-potential-opportunities/food-production/ \
 	https://invest.great.staging.uktrade.io/high-potential-opportunities/rail-infrastructure/ \
-	https://selling-online-overseas.export.great.staging.uktrade.io/ \
-	https://selling-online-overseas.export.great.staging.uktrade.io/markets/results/ \
 	https://opportunities.export.great.staging.uktrade.io/ \
 	https://opportunities.export.great.staging.uktrade.io/opportunities?s=shoes&areas[]=&commit=Find+opportunities \
 	"
