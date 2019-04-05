@@ -3,6 +3,20 @@ Geckoboard Updater
 
 A script that extracts data from Jira & CircleCi and pushes it to Geckoboard.
 
+How this script works:
+* CircleCI workflows, which run smoke, functional, load & browser tests are 
+    controlled by this [config.yml](https://github.com/uktrade/directory-tests/blob/master/.circleci/config.yml)
+* Geckoboards are updated by `geckoboard_updater` script which is part of this repo
+* `geckoboard_updater` is periodically run on CircleCI (check 
+    [.circleci/config.yml](https://github.com/uktrade/directory-periodic-tests/blob/master/.circleci/config.yml))
+* It polls CircleCI and Jira in order to extract test build data & load test 
+    results from CircleCI and tickets metadata from Jira
+* Once the data is pulled from both CircleCI & Jira it's transformed into 
+    simple JSON data structures which can be processed by Geckoboard. 
+    In Geckoboard's lingo they call them `datasets` (defined with `dataset schemas` 
+    which have to be pushed to Geckoboard before you send any datatests)
+* Once datasets are pushed to GeckoBoard then you can visualize data using various diagrams
+
 
 # Requirements
 
@@ -15,16 +29,24 @@ A script that extracts data from Jira & CircleCi and pushes it to Geckoboard.
 
 # Environment variables
 
+All env variables are in rattic (look for Geckoboard updater)
 Here's a list of required environment variables:
 
 * `CIRCLE_CI_API_TOKEN` → API token which you can get [here](https://circleci.com/account/api)
 * `GECKOBOARD_API_KEY` → API key which you can get [here](https://app.geckoboard.com/account/details)
-* `GECKOBOARD_PUSH_URL` → Set it if you have a private instance of Geckoboard otherwise it will default to: `https://push.geckoboard.com/v1/send/`
-* `GECKOBOARD_TEST_RESULTS_WIDGET_KEY` → Custom widget key, to which a HTML test
-    results report is sent
+* `GECKOBOARD_TEST_RESULTS_WIDGET_KEY` → Custom widget key, to which a HTML test results report is sent, [QA dashboard dashboard](https://app.geckoboard.com/edit/dashboards/264228)
+* `GECKOBOARD_DIRECTORY_TESTS_RESULTS_WIDGET_KEY` → Custom widget key, [QA dashboard dashboard](https://app.geckoboard.com/edit/dashboards/264228)
+* `GECKOBOARD_PERIODIC_TESTS_RESULTS_WIDGET_KEY` → Custom widget key, [QA dashboard dashboard](https://app.geckoboard.com/edit/dashboards/264228)
+* `GECKOBOARD_CONTENT_JIRA_QUERY_LINKS_WIDGET_KEY` → Custom widget key, [CMS - Jira stats dashboard](https://app.geckoboard.com/edit/dashboards/296262)
+* `GECKOBOARD_LINKS_TO_USEFUL_CONTENT_TEST_JOBS_WIDGET_KEY` → Custom widget key, [CMS - content stats dashboard](https://app.geckoboard.com/edit/dashboards/277009)
+* `GECKOBOARD_TOOLS_JIRA_QUERY_LINKS_WIDGET_KEY` → Custom widget key, [TT - Jira stats](https://app.geckoboard.com/edit/dashboards/296257)
 * `JIRA_HOST` → URL to your Jira instance e.g.: `https://{your_orgranisation}.atlassian.net/`
 * `JIRA_USERNAME` → Jira username [^1]
 * `JIRA_PASSWORD` →  Jira password [^1]
+
+Optional env var:
+* `GECKOBOARD_PUSH_URL` → Set it if you have a private instance of Geckoboard otherwise it will default to: `https://push.geckoboard.com/v1/send/`
+
 
 [^1]: → will be replaced with [OAuth Access Tokens](https://developer.atlassian.com/server/jira/platform/oauth/)
 
