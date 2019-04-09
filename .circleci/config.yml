@@ -452,6 +452,13 @@ workflows:
         requires:
         - setup_env_for_dead_links_checker
 
+  stage_check_for_dead_links_ad_hoc:
+    jobs:
+      - setup_env_for_dead_links_checker
+      - check_for_dead_links_on_stage:
+          requires:
+            - setup_env_for_dead_links_checker
+
   stage_check_for_dead_links:
     triggers:
     - schedule:
