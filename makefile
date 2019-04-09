@@ -67,6 +67,7 @@ PYLINKVALIDATE_ENV_VARS_PROD := \
 
 PYLINKVALIDATE_ENV_VARS_STAGE := \
 	export IGNORED_PREFIXES="\
+	https://great.preprod.uktrade.io/international/static/, \
 	https://great.staging.uktrade.io/find-a-buyer/static/,\
 	https://great.staging.uktrade.io/profile/static/,\
 	https://great.staging.uktrade.io/sso/accounts/login/?next,\
@@ -123,6 +124,7 @@ PYLINKVALIDATE_ENV_VARS_STAGE := \
 	https://www.pwc.co.uk/,https://www.rmlgroup.com\
 	" && \
 	export TEST_URLS="\
+	https://great.preprod.uktrade.io/international/ \
 	https://great.staging.uktrade.io/ \
 	https://great.staging.uktrade.io/community \
 	https://great.staging.uktrade.io/trade/ \
