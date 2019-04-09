@@ -50,6 +50,7 @@ DIRECTORY_LOAD_TESTS_JOB_NAME_MAPPINGS = {
     "load_cms_tests_stage": "Load STAGE CMS",
     "load_fas_tests_stage": "Load STAGE FAS",
     "load_invest_tests_stage": "Load STAGE Invest",
+    "load_soo_tests_stage": "Load STAGE SOO",
 }
 
 DIRECTORY_TESTS_JOB_NAME_MAPPINGS = {
