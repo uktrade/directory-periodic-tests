@@ -125,6 +125,8 @@ PYLINKVALIDATE_ENV_VARS_STAGE := \
 	" && \
 	export TEST_URLS="\
 	https://great.preprod.uktrade.io/international/ \
+	https://great.preprod.uktrade.io/international/industries/ \
+	https://great.preprod.uktrade.io/international/how-to-do-business-with-the-uk/ \
 	https://great.staging.uktrade.io/ \
 	https://great.staging.uktrade.io/community \
 	https://great.staging.uktrade.io/trade/ \
