@@ -73,7 +73,7 @@ If FAB (https://www.great.gov.uk/find-a-buyer/) was down then if would affect:
          4 pages on Contact
 If ExOpps (https://opportunities.export.great.gov.uk/) was down then if would affect:
          1 pages on Other
-If SOO (https://selling-online-overseas.export.great.gov.uk/) was down then if would affect:
+If SOO (https://www.great.gov.uk/selling-online-overseas/) was down then if would affect:
          1 pages on Old Contact-us
         30 pages on Other
 If FAS (https://trade.great.gov.uk/) was down then if would affect:
