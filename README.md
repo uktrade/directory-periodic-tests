@@ -1,9 +1,20 @@
-Periodical tests & tasks
+Periodically executed tests & tasks
 ------------------------
 
 This repository contains simple tests & tasks that have to be run periodically.
 
-# Dead links
+Currently hosted tests & tasks:
+
+* Dead links checker
+* Geckoboard updater
+* Measure contingency of service unavailability
+* Content diff between Dev, Staging & Production versions of services
+* Check if all CMS pages are available
+* Find accessibility issues on DEV ExRed with [pa11y](http://pa11y.org/) (currently disabled)
+* Check if Dev & Staging services return "X-Robots-Tag: noindex" header
+
+
+# Dead links checker
 
 This script will look for internal and external links that return status codes
 other than `200 OK`.
@@ -35,7 +46,7 @@ TEST_ENV=PROD make dead_links_check
 
 # Geckoboard updater
 
-Please refer to the documentation in `./geckoboard_updater` directory
+Please refer to the documentation in [./geckoboard_updater](./geckoboard_updater/README.md) directory
 
 
 # Measure contingency of service unavailability
@@ -86,3 +97,49 @@ If Contact (https://www.great.gov.uk/contact/) was down then if would affect:
          1 pages on SUD
          1 pages on Old Contact-us
 ```
+
+# Content diff
+
+See [./content_diff](./content_diff).  
+
+A simple test which finds contents differences between Dev, Staging & Production 
+version of the same page.
+At the moment it looks for content differences for FAS, Invest & Domestic sites.
+
+This test uses:
+* [Python Behave](https://pypi.org/project/behave/) to run the tests
+* [requests](http://docs.python-requests.org/en/master/) to fetch page contents
+* Python's built-in [difflib](https://docs.python.org/3.7/library/difflib.html) to find & generate diff report
+
+
+# Check if all CMS pages are available
+
+See [./cms_pages](./cms_pages).  
+
+This test goes through all published & draft versions of pages found with the 
+use of CMS API and checks whether those pages can be visited without any error.
+
+Tools 
+* [pytest](https://pypi.org/project/pytest/)
+* [requests](http://docs.python-requests.org/en/master/)
+* [directory_cms_client](https://pypi.org/project/directory-cms-client/)
+
+
+# Find accessibility issues on DEV ExRed with [pa11y](http://pa11y.org/) (currently disabled)
+
+See `accessibility_tests_export_readiness_dev` job in [.circleci/config.yml](.circleci/config.yml)
+
+A test job that uses `pally-cli` to scan all pages listed in a `sitemap.xml` 
+in order to find accessibility issues.
+
+
+# Check if Dev & Staging services return "X-Robots-Tag: noindex" header
+
+A simple test that checks if all expected pages on Dev & Staging environments return 
+"X-Robots-Tag: noindex" header.
+This header is used by various search engine crawlers to determine whether page 
+should be ignored or not.
+
+This test uses:
+* [Python Behave](https://pypi.org/project/behave/) to run the tests
+* [requests](http://docs.python-requests.org/en/master/) to fetch page contents
