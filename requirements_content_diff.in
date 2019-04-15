@@ -1,6 +1,5 @@
 behave
 beautifulsoup4
 lxml
-mohawk
 requests
 retrying
