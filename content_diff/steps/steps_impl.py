@@ -8,53 +8,31 @@ from urllib.parse import urljoin
 import requests
 from behave.runner import Context
 from bs4 import BeautifulSoup
-from mohawk import Sender
 from retrying import retry
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 
 SITES_INVEST = {
-    "dev": "https://dev.invest.directory.uktrade.io/",
-    "stage": "https://invest-ui-staging.cloudapps.digital/",
+    "dev": "https://invest.great.dev.uktrade.io/",
+    "stage": "https://invest.great.staging.uktrade.io/",
     "prod": "https://invest.great.gov.uk/"
 }
 SITES_EXRED = {
-    "dev": "https://dev.exportreadiness.directory.uktrade.io/",
-    "stage": "https://stage.exportreadiness.directory.uktrade.io/",
+    "dev": "https://great.dev.uktrade.io/",
+    "stage": "https://great.staging.uktrade.io/",
     "prod": "https://www.great.gov.uk/"
 }
 SITES_FAS = {
-    "dev": "https://dev.supplier.directory.uktrade.io",
-    "stage": "https://stage.supplier.directory.uktrade.io",
-    "prod": "https://trade.great.gov.uk/"
+    "dev": "https://great.dev.uktrade.io/trade/",
+    "stage": "https://great.dev.uktrade.io/trade/",
+    "prod": "https://www.great.gov.uk/trade/"
 }
 
-dev_id = os.getenv("IP_RESTRICTOR_SKIP_CHECK_SENDER_ID_DEV", "directory")
-dev_key = os.environ["IP_RESTRICTOR_SKIP_CHECK_SECRET_DEV"]
-stage_id = os.getenv("IP_RESTRICTOR_SKIP_CHECK_SENDER_ID_STAGE", "directory")
-stage_key = os.environ["IP_RESTRICTOR_SKIP_CHECK_SECRET_STAGE"]
-HAWK_CREDS = {
-    "dev": (dev_id, dev_key),
-    "stage": (stage_id, stage_key),
-    "prod": (None, None),
-}
+BASICAUTH_USER = os.environ["BASICAUTH_USER_DEV"]
+BASICAUTH_PASS = os.environ["BASICAUTH_PASS_DEV"]
 
 
-def get_hawk_cookie(env: str):
-    hawk_id, hawk_key = HAWK_CREDS[env.lower()]
-    if not hawk_id:
-        return None
-    sender = Sender(
-        credentials={
-            'id': hawk_id,
-            'key': hawk_key,
-            'algorithm': 'sha256'
-        },
-        url='/',
-        method='',
-        always_hash_content=False
-    )
-
-    return {"ip-restrict-signature": sender.request_header}
+def get_basic_auth():
+    return BASICAUTH_USER, BASICAUTH_PASS
 
 
 def retry_if_network_error(exception: Exception) -> bool:
@@ -127,15 +105,15 @@ def extract_page_content(
     elif service.lower() == "invest":
         sites = SITES_INVEST
 
-    hawk_cookie_a = get_hawk_cookie(site_a)
-    hawk_cookie_b = get_hawk_cookie(site_b)
     site_a = sites[site_a.lower()]
     site_b = sites[site_b.lower()]
     url_a = urljoin(site_a, endpoint)
     url_b = urljoin(site_b, endpoint)
+    auth_a = get_basic_auth() if site_a.lower() != "prod" else None
+    auth_b = get_basic_auth() if site_b.lower() != "prod" else None
 
-    response_a = requests.get(url_a, cookies=hawk_cookie_a)
-    response_b = requests.get(url_b, cookies=hawk_cookie_b)
+    response_a = requests.get(url_a, auth=auth_a)
+    response_b = requests.get(url_b, auth=auth_b)
 
     content_a = response_a.content
     content_b = response_b.content
