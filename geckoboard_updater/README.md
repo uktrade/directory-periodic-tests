@@ -41,14 +41,14 @@ Here's a list of required environment variables:
 * `GECKOBOARD_LINKS_TO_USEFUL_CONTENT_TEST_JOBS_WIDGET_KEY` → Custom widget key, [CMS - content stats dashboard](https://app.geckoboard.com/edit/dashboards/277009)
 * `GECKOBOARD_TOOLS_JIRA_QUERY_LINKS_WIDGET_KEY` → Custom widget key, [TT - Jira stats](https://app.geckoboard.com/edit/dashboards/296257)
 * `JIRA_HOST` → URL to your Jira instance e.g.: `https://{your_orgranisation}.atlassian.net/`
-* `JIRA_USERNAME` → Jira username [^1]
-* `JIRA_PASSWORD` →  Jira password [^1]
+* `JIRA_USERNAME` → Jira username
+* `JIRA_TOKEN` →  Jira API Token [^1]
 
 Optional env var:
 * `GECKOBOARD_PUSH_URL` → Set it if you have a private instance of Geckoboard otherwise it will default to: `https://push.geckoboard.com/v1/send/`
 
 
-[^1]: → will be replaced with [OAuth Access Tokens](https://developer.atlassian.com/server/jira/platform/oauth/)
+[^1]: → more on [Jira API Tokens](https://confluence.atlassian.com/cloud/api-tokens-938839638.html) used by [Python Jira REST API client](https://jira.readthedocs.io/en/latest/examples.html#http-basic)
 
 
 # Running
