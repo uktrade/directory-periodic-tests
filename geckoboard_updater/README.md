@@ -9,8 +9,8 @@ It's a script which:
 
 
 How does it works:
-* The [geckoboard_updater.py](../blob/master/geckoboard_updater/geckoboard_updater.py) script is periodically 
-    executed on CircleCI (check [.circleci/config.yml](../blob/master/.circleci/config.yml))
+* The [geckoboard_updater.py](./geckoboard_updater.py) script is periodically 
+    executed on CircleCI (check [.circleci/config.yml](../.circleci/config.yml))
 * The script pulls stats and data from CircleCI and Jira
 * It then pulls the test job results, test reports (XML & CSV) from CircleCI & ticket statistics from Jira
 * Once the data is pulled from both CircleCI & Jira it's transformed into 
@@ -46,7 +46,7 @@ DATE_TEAM_METRIC_LABEL_QUANTITY = {
 
 ### Geckoboard helpers
 
-Various helper functions are kept in [gecko_helpers.py](../blob/master/geckoboard_updater/gecko_helpers.py).
+Various helper functions are kept in [gecko_helpers.py](./gecko_helpers.py).
 Helper functions are used to:
 * create datasets using schemas
 * transform 
@@ -60,10 +60,10 @@ Helper functions are used to:
 
 Jira supports a query language called [JQL](https://confluence.atlassian.com/jiracore/blog/2015/07/search-jira-like-a-boss-with-jql).  
 Geckoboard updater script uses JQL queries to find information about tickets of interests (e.g. bugs).  
-All `JQLs` are defined in [jira_queries.py](../blob/master/geckoboard_updater/jira_queries.py).
+All `JQLs` are defined in [jira_queries.py](./jira_queries.py).
 
-* All queries are executed and their results exposed via properties in [jira_results.py](../blob/master/geckoboard_updater/jira_results.py)
-* Results are transformed into datasets by various helpers defined in [jira_helpers.py](../blob/master/geckoboard_updater/jira_helpers.py)
+* All queries are executed and their results exposed via properties in [jira_results.py](./jira_results.py)
+* Results are transformed into datasets by various helpers defined in [jira_helpers.py](./jira_helpers.py)
 
 
 # CircleCI
@@ -83,27 +83,27 @@ In order to represent test results on Geckoboard in a meaningful way, we have to
 
 ### Fetching & parsing Junit XML files
 
-1) fetch a list of recent builds (see [def recent_builds()](../blob/master/geckoboard_updater/circleci_helpers.py))
-2) find last build for specific job (see [def last_build_per_job()](../blob/master/geckoboard_updater/circleci_helpers.py) & `DIRECTORY_PERIODIC_TESTS_JOB_NAME_MAPPINGS`)
-3) get test job artifacts from CircleCI (stored as XML Junit report files) (see [def get_build_artifacts()](../blob/master/geckoboard_updater/circleci_helpers.py))
-4) parse those XML files and extract relevant metrics (see [def parse_junit_results()](../blob/master/geckoboard_updater/circleci_helpers.py))
+1) fetch a list of recent builds (see [def recent_builds()](./circleci_helpers.py))
+2) find last build for specific job (see [def last_build_per_job()](./circleci_helpers.py) & `DIRECTORY_PERIODIC_TESTS_JOB_NAME_MAPPINGS`)
+3) get test job artifacts from CircleCI (stored as XML Junit report files) (see [def get_build_artifacts()](./circleci_helpers.py))
+4) parse those XML files and extract relevant metrics (see [def parse_junit_results()](./circleci_helpers.py))
 
-All those steps are executed in [def last_tests_results_from_junit_artifacts()](../blob/master/geckoboard_updater/circleci_helpers.py)
+All those steps are executed in [def last_tests_results_from_junit_artifacts()](./circleci_helpers.py)
 
 ### Fetching & parsing `CSV` files
 
-1) fetch a list of recent builds (see [def recent_builds()](../blob/master/geckoboard_updater/circleci_helpers.py))
-2) find last build for specific job (see [def last_build_per_job()](../blob/master/geckoboard_updater/circleci_helpers.py) & `DIRECTORY_LOAD_TESTS_JOB_NAME_MAPPINGS`)
-3) get test job artifacts from CircleCI (stored as XML Junit report files) (see [def get_build_artifacts()](../blob/master/geckoboard_updater/circleci_helpers.py))
-4) parse those CSV files and extract relevant metrics (see [def get_results_distribution()](../blob/master/geckoboard_updater/circleci_helpers.py) & [def get_load_tests_requests_results()](../blob/master/geckoboard_updater/circleci_helpers.py))
+1) fetch a list of recent builds (see [def recent_builds()](./circleci_helpers.py))
+2) find last build for specific job (see [def last_build_per_job()](./circleci_helpers.py) & `DIRECTORY_LOAD_TESTS_JOB_NAME_MAPPINGS`)
+3) get test job artifacts from CircleCI (stored as XML Junit report files) (see [def get_build_artifacts()](./circleci_helpers.py))
+4) parse those CSV files and extract relevant metrics (see [def get_results_distribution()](./circleci_helpers.py) & [def get_load_tests_requests_results()](./circleci_helpers.py))
 
-For more details check [circleci_results.py](../blob/master/geckoboard_updater/circleci_results.py)
+For more details check [circleci_results.py](./circleci_results.py)
 
 
 # Pushing datasets to Geckoboard
 
 Once all the data from Jira & CircleCI is fetched & collated, then it pushed to Geckoboard, 
-by various `def push_*()` helpers from [gecko_helpers.py](../blob/master/geckoboard_updater/gecko_helpers.py).
+by various `def push_*()` helpers from [gecko_helpers.py](./gecko_helpers.py).
 
 
 # Requirements
@@ -178,7 +178,7 @@ There are also three Jira labels that have special purpose:
 This script also connects to CircleCI and extracts information about recent
 builds for designated projects. It supports both `v1` and `v2` CircleCI jobs.
 
-Please refer to function: [def last_directory_service_build_results()](../blob/master/geckoboard_updater/circleci_helpers.py) for
+Please refer to function: [def last_directory_service_build_results()](./circleci_helpers.py) for
 more details.
 
 Below is a list of currently monitored projects:
