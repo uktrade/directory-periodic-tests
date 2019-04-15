@@ -301,7 +301,7 @@ jobs:
     <<: *machine_python3
     working_directory: ~/directory-periodic-tests
     environment:
-      SERVICE: "exred"
+      SERVICE: "domestic"
       ENVS_TO_COMPARE: "prod_dev"
     <<: *steps_content_diff
 
@@ -309,7 +309,7 @@ jobs:
     <<: *machine_python3
     working_directory: ~/directory-periodic-tests
     environment:
-      SERVICE: "exred"
+      SERVICE: "domestic"
       ENVS_TO_COMPARE: "prod_stage"
     <<: *steps_content_diff
 
@@ -317,7 +317,7 @@ jobs:
     <<: *machine_python3
     working_directory: ~/directory-periodic-tests
     environment:
-      SERVICE: "exred"
+      SERVICE: "domestic"
       ENVS_TO_COMPARE: "stage_dev"
     <<: *steps_content_diff
 

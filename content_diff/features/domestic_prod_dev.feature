@@ -1,7 +1,7 @@
-Feature: Find content differences between Production and Dev ExRed environments
+Feature: Find content differences between Production and Dev Domestic environments
 
   Scenario Outline: Content on Dev page "<selected>" should be the same as on respective Production page
-    When you look at the "main" section of the "<selected>" page on "ExRed" "PROD" and "STAGE"
+    When you look at the "main" section of the "<selected>" page on "Domestic" "PROD" and "DEV"
 
     Then there should be no differences
 

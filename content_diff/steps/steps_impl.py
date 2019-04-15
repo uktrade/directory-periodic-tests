@@ -16,7 +16,7 @@ SITES_INVEST = {
     "stage": "https://invest.great.staging.uktrade.io/",
     "prod": "https://invest.great.gov.uk/"
 }
-SITES_EXRED = {
+SITES_DOMESTIC = {
     "dev": "https://great.dev.uktrade.io/",
     "stage": "https://great.staging.uktrade.io/",
     "prod": "https://www.great.gov.uk/"
@@ -100,8 +100,8 @@ def extract_page_content(
         site_a: str, site_b: str):
     if service.lower() == "fas":
         sites = SITES_FAS
-    elif service.lower() == "exred":
-        sites = SITES_EXRED
+    elif service.lower() == "domestic":
+        sites = SITES_DOMESTIC
     elif service.lower() == "invest":
         sites = SITES_INVEST
 
