@@ -314,9 +314,9 @@ def last_directory_service_build_results(
             project_name="directory-ui-buyer",
             job_name_mappings=DIRECTORY_SERVICE_JOB_NAME_MAPPINGS,
         ),
-        "ExRed": last_build_test_results(
+        "Domestic": last_build_test_results(
             circle_ci_client=circle_ci_client,
-            project_name="directory-ui-export-readiness",
+            project_name="great-domestic-ui",
             job_name_mappings=DIRECTORY_SERVICE_JOB_NAME_MAPPINGS,
         ),
         "SSO": last_build_test_results(
@@ -324,7 +324,7 @@ def last_directory_service_build_results(
             project_name="directory-sso",
             job_name_mappings=DIRECTORY_SERVICE_JOB_NAME_MAPPINGS,
         ),
-        "SUD": last_build_test_results(
+        "Profile": last_build_test_results(
             circle_ci_client=circle_ci_client,
             project_name="directory-sso-profile",
             job_name_mappings=DIRECTORY_SERVICE_JOB_NAME_MAPPINGS,
@@ -337,7 +337,27 @@ def last_directory_service_build_results(
         "CH Search": last_build_test_results(
             circle_ci_client=circle_ci_client,
             project_name="directory-companies-house-search",
-            job_name_mappings=DIRECTORY_CH_SEARCH_JOB_NAME_MAPPINGS,
+            job_name_mappings=DIRECTORY_SERVICE_JOB_NAME_MAPPINGS,
+        ),
+        "CMS": last_build_test_results(
+            circle_ci_client=circle_ci_client,
+            project_name="directory-cms",
+            job_name_mappings=DIRECTORY_SERVICE_JOB_NAME_MAPPINGS,
+        ),
+        "Invest": last_build_test_results(
+            circle_ci_client=circle_ci_client,
+            project_name="invest-ui",
+            job_name_mappings=DIRECTORY_SERVICE_JOB_NAME_MAPPINGS,
+        ),
+        "International": last_build_test_results(
+            circle_ci_client=circle_ci_client,
+            project_name="great-international-ui",
+            job_name_mappings=DIRECTORY_SERVICE_JOB_NAME_MAPPINGS,
+        ),
+        "Forms API": last_build_test_results(
+            circle_ci_client=circle_ci_client,
+            project_name="directory-forms-api",
+            job_name_mappings=DIRECTORY_SERVICE_JOB_NAME_MAPPINGS,
         ),
     }
 
