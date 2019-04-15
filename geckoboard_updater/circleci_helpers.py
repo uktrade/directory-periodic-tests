@@ -76,8 +76,7 @@ DIRECTORY_TESTS_JOB_NAME_MAPPINGS.update(
 
 DIRECTORY_SERVICE_JOB_NAME_MAPPINGS = {
     "test": "Unit Tests",
-    "deploy_to_dev": "Deploy to Dev",
-    "integration_tests": "Integration Tests",
+    "flake8": "flake8",
 }
 
 DIRECTORY_CH_SEARCH_JOB_NAME_MAPPINGS = {"test": "Unit Tests"}

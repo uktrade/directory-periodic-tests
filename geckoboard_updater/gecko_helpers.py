@@ -92,7 +92,7 @@ def widget_text_for_service_build(build_results: dict) -> str:
     table_template = """<table style="width:100%">
 <thead>
 <tr style="font-size:14pt">
-<th>Name</th><th>When</th><th>Time</th><th>Unit</th><th>Deploy</th><th>Integration</th>
+<th>Name</th><th>When</th><th>Time</th><th>Unit</th><th>flake8</th>
 </tr>
 </thead><tbody>
 {rows}
@@ -102,37 +102,28 @@ def widget_text_for_service_build(build_results: dict) -> str:
 <td><img src="{user_avatar}" title="{user_name}" width="25" height="25"/>{start_time}</td>
 <td>{build_time}</td>
 {unit}
-{deploy}
-{integration}
+{flake8}
 </tr>"""
     job_status_template = """<td><a target="_blank" href="{build_url}" style="color:{status_color}">{status}</a></td>"""
     empty_row = "<td>N/A</td>"
     rows = ""
     for friendly_name, results in build_results.items():
-        deploy = integration = empty_row
+        flake8 = empty_row
         unit = job_status_template.format(
             status_color=job_status_color(results["Unit Tests"]["status"]),
             **results["Unit Tests"],
         )
-        if "Deploy to Dev" in results:
-            deploy = job_status_template.format(
+        if "flake8" in results:
+            flake8 = job_status_template.format(
                 status_color=job_status_color(
-                    results["Deploy to Dev"]["status"]
+                    results["flake8"]["status"]
                 ),
-                **results["Deploy to Dev"],
-            )
-        if "Integration Tests" in results:
-            integration = job_status_template.format(
-                status_color=job_status_color(
-                    results["Integration Tests"]["status"]
-                ),
-                **results["Integration Tests"],
+                **results["flake8"],
             )
         rows += row_template.format(
             name=friendly_name,
             unit=unit,
-            deploy=deploy,
-            integration=integration,
+            flake8=flake8,
             **results["Unit Tests"],
         )
     return table_template.format(rows=rows)
