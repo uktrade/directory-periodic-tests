@@ -288,6 +288,14 @@ jobs:
       ENVS_TO_COMPARE: "prod_dev"
     <<: *steps_content_diff
 
+  invest_compare_prod_and_uat_pages:
+    <<: *machine_python3
+    working_directory: ~/directory-periodic-tests
+    environment:
+      SERVICE: "invest"
+      ENVS_TO_COMPARE: "prod_uat"
+    <<: *steps_content_diff
+
   invest_compare_prod_and_stage_pages:
     <<: *machine_python3
     working_directory: ~/directory-periodic-tests
@@ -619,6 +627,19 @@ workflows:
     jobs:
       - setup_env_for_content_diff
       - invest_compare_prod_and_stage_pages:
+          requires:
+            - setup_env_for_content_diff
+
+  invest_prod_uat_content_diff:
+    triggers:
+      - schedule:
+          cron: "10 4 * * 1"
+          filters:
+            branches:
+              only: master
+    jobs:
+      - setup_env_for_content_diff
+      - invest_compare_prod_and_uat_pages:
           requires:
             - setup_env_for_content_diff
 

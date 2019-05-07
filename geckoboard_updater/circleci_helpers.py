@@ -22,6 +22,7 @@ DIRECTORY_PERIODIC_TESTS_JOB_NAME_MAPPINGS = {
         "fas_compare_stage_and_dev_pages": "FAS Stage Dev",
         "invest_compare_prod_and_dev_pages": "Invest Prod Dev",
         "invest_compare_prod_and_stage_pages": "Invest Prod Stage",
+        "invest_compare_prod_and_uat_pages": "Invest Prod UAT",
         "invest_compare_stage_and_dev_pages": "Invest Stage Dev",
     },
     "Availability of CMS pages": {

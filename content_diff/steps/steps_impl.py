@@ -14,6 +14,7 @@ from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 SITES_INVEST = {
     "dev": "https://invest.great.dev.uktrade.io/",
     "stage": "https://invest.great.staging.uktrade.io/",
+    "uat": "https://invest.great.uat.uktrade.io/",
     "prod": "https://invest.great.gov.uk/"
 }
 SITES_DOMESTIC = {
