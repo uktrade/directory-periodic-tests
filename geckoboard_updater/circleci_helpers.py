@@ -14,9 +14,11 @@ from retrying import retry
 # Mapping of CircleCI job names to human friendly ones
 DIRECTORY_PERIODIC_TESTS_JOB_NAME_MAPPINGS = {
     "Content diffs": {
-        "exred_compare_prod_and_dev_pages": "ExRed Prod Dev",
-        "exred_compare_prod_and_stage_pages": "ExRed Prod Stage",
-        "exred_compare_stage_and_dev_pages": "ExRed Stage Dev",
+        "domestic_compare_prod_and_dev_pages": "Domestic Prod Dev",
+        "domestic_compare_prod_and_stage_pages": "Domestic Prod Stage",
+        "domestic_compare_prod_and_uat_pages": "Domestic Prod UAT",
+        "domestic_compare_stage_and_uat_pages": "Domestic Stage UAT",
+        "domestic_compare_stage_and_dev_pages": "Domestic Stage Dev",
         "fas_compare_prod_and_dev_pages": "FAS Prod Dev",
         "fas_compare_prod_and_stage_pages": "FAS Prod Stage",
         "fas_compare_stage_and_dev_pages": "FAS Stage Dev",

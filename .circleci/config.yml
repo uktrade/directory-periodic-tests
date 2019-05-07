@@ -312,7 +312,7 @@ jobs:
       ENVS_TO_COMPARE: "stage_dev"
     <<: *steps_content_diff
 
-  exred_compare_prod_and_dev_pages:
+  domestic_compare_prod_and_dev_pages:
     <<: *machine_python3
     working_directory: ~/directory-periodic-tests
     environment:
@@ -320,7 +320,7 @@ jobs:
       ENVS_TO_COMPARE: "prod_dev"
     <<: *steps_content_diff
 
-  exred_compare_prod_and_stage_pages:
+  domestic_compare_prod_and_stage_pages:
     <<: *machine_python3
     working_directory: ~/directory-periodic-tests
     environment:
@@ -328,7 +328,15 @@ jobs:
       ENVS_TO_COMPARE: "prod_stage"
     <<: *steps_content_diff
 
-  exred_compare_stage_and_dev_pages:
+  domestic_compare_prod_and_uat_pages:
+    <<: *machine_python3
+    working_directory: ~/directory-periodic-tests
+    environment:
+      SERVICE: "domestic"
+      ENVS_TO_COMPARE: "prod_uat"
+    <<: *steps_content_diff
+
+  domestic_compare_stage_and_dev_pages:
     <<: *machine_python3
     working_directory: ~/directory-periodic-tests
     environment:
@@ -336,6 +344,13 @@ jobs:
       ENVS_TO_COMPARE: "stage_dev"
     <<: *steps_content_diff
 
+  domestic_compare_stage_and_uat_pages:
+    <<: *machine_python3
+    working_directory: ~/directory-periodic-tests
+    environment:
+      SERVICE: "domestic"
+      ENVS_TO_COMPARE: "stage_uat"
+    <<: *steps_content_diff
   fas_compare_prod_and_dev_pages:
     <<: *machine_python3
     working_directory: ~/directory-periodic-tests
@@ -526,7 +541,7 @@ workflows:
           requires:
             - setup_env_for_cms_pages_checker
 
-  exred_prod_dev_content_diff:
+  domestic_prod_dev_content_diff:
     triggers:
     - schedule:
         cron: "8 2 * * 1"
@@ -535,11 +550,24 @@ workflows:
             only: master
     jobs:
       - setup_env_for_content_diff
-      - exred_compare_prod_and_dev_pages:
+      - domestic_compare_prod_and_dev_pages:
           requires:
             - setup_env_for_content_diff
 
-  exred_prod_stage_content_diff:
+  domestic_prod_uat_content_diff:
+    triggers:
+      - schedule:
+          cron: "15 2 * * 1"
+          filters:
+            branches:
+              only: master
+    jobs:
+      - setup_env_for_content_diff
+      - domestic_compare_prod_and_uat_pages:
+          requires:
+            - setup_env_for_content_diff
+
+  domestic_prod_stage_content_diff:
     triggers:
     - schedule:
         cron: "21 2 * * 1"
@@ -548,20 +576,33 @@ workflows:
             only: master
     jobs:
       - setup_env_for_content_diff
-      - exred_compare_prod_and_stage_pages:
+      - domestic_compare_prod_and_stage_pages:
           requires:
             - setup_env_for_content_diff
 
-  exred_stage_dev_content_diff:
+  domestic_stage_uat_content_diff:
+    triggers:
+      - schedule:
+          cron: "37 2 * * 1"
+          filters:
+            branches:
+              only: master
+    jobs:
+      - setup_env_for_content_diff
+      - domestic_compare_stage_and_uat_pages:
+          requires:
+            - setup_env_for_content_diff
+
+  domestic_stage_dev_content_diff:
     triggers:
     - schedule:
-        cron: "27 2 * * 1"
+        cron: "47 2 * * 1"
         filters:
           branches:
             only: master
     jobs:
       - setup_env_for_content_diff
-      - exred_compare_stage_and_dev_pages:
+      - domestic_compare_stage_and_dev_pages:
           requires:
             - setup_env_for_content_diff
 
