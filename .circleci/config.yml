@@ -507,6 +507,26 @@ workflows:
         requires:
         - setup_env_for_dead_links_checker
 
+  uat_check_for_dead_links_ad_hoc:
+    jobs:
+      - setup_env_for_dead_links_checker
+      - check_for_dead_links_on_uat:
+          requires:
+            - setup_env_for_dead_links_checker
+
+  uat_check_for_dead_links:
+    triggers:
+      - schedule:
+          cron: "6 1 * * 1-5"
+          filters:
+            branches:
+              only: master
+    jobs:
+      - setup_env_for_dead_links_checker
+      - check_for_dead_links_on_uat:
+          requires:
+            - setup_env_for_dead_links_checker
+
   stage_check_for_dead_links_ad_hoc:
     jobs:
       - setup_env_for_dead_links_checker
