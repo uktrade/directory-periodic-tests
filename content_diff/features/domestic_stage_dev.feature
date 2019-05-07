@@ -1,228 +1,101 @@
-Feature: Find content differences between Production and Dev Domestic environments
+Feature: Find content differences between Staging and Dev Domestic environments
 
-  Scenario Outline: Content on Dev page "<selected>" should be the same as on respective Production page
+  Scenario Outline: Content on Staging page "<selected>" should be the same as on respective Dev page
     When you look at the "main" section of the "<selected>" page on "Domestic" "STAGE" and "DEV"
 
     Then there should be no differences
 
-    Examples:
+    Examples: Misc
       | selected                                                                                          |
       | /                                                                                                 |
-      | /?lang=en-gb                                                                                      |
-      | /export-opportunities/                                                                            |
+      | ?lang=en-gb                                                                                       |
+      | community/                                                                                        |
+      | triage/                                                                                           |
+
+    Examples: Advice
+      | selected                                                                                          |
+      | advice/                                                                                           |
+      | advice/create-an-export-plan/                                                                     |
+      | advice/create-an-export-plan/                                                                     |
+      | advice/find-an-export-market/                                                                     |
+      | advice/define-route-to-market/                                                                    |
+      | advice/get-export-finance-and-funding/                                                            |
+      | advice/manage-payment-for-export-orders/                                                          |
+      | advice/prepare-to-do-business-in-a-foreign-country/                                               |
+      | advice/manage-legal-and-ethical-compliance/                                                       |
+      | advice/prepare-for-export-procedures-and-logistics/                                               |
+      | advice/create-an-export-plan/how-to-create-an-export-plan/                                        |
+      | advice/find-an-export-market/plan-export-market-research/                                         |
+      | advice/find-an-export-market/define-export-market-potential/                                      |
+      | advice/find-an-export-market/field-research-in-export-markets/                                    |
+      | advice/find-an-export-market/trade-shows/                                                         |
+      | advice/define-route-to-market/routes-to-market/                                                   |
+      | advice/define-route-to-market/sell-overseas-directly/                                             |
+      | advice/define-route-to-market/export-agents/                                                      |
+      | advice/define-route-to-market/export-distributors/                                                |
+      | advice/define-route-to-market/create-a-licensing-agreement/                                       |
+      | advice/define-route-to-market/create-a-franchise-agreement/                                       |
+      | advice/define-route-to-market/create-a-joint-venture-agreement/                                   |
+      | advice/define-route-to-market/set-up-a-business-abroad/                                           |
+      | advice/get-export-finance-and-funding/choose-the-right-finance/                                   |
+      | advice/get-export-finance-and-funding/get-export-finance/                                         |
+      | advice/get-export-finance-and-funding/raise-money-by-borrowing/                                   |
+      | advice/get-export-finance-and-funding/borrow-against-assets/                                      |
+      | advice/get-export-finance-and-funding/raise-money-with-investment/                                |
+      | advice/manage-payment-for-export-orders/how-to-create-an-export-invoice/                          |
+      | advice/manage-payment-for-export-orders/payment-methods-for-exporters/                            |
+      | advice/manage-payment-for-export-orders/decide-when-to-get-paid-for-export-orders/                |
+      | advice/manage-payment-for-export-orders/insure-against-non-payment/                               |
+      | advice/prepare-to-do-business-in-a-foreign-country/understand-the-business-culture-in-the-market/ |
+      | advice/prepare-to-do-business-in-a-foreign-country/internationalise-your-website/                 |
+      | advice/manage-legal-and-ethical-compliance/understand-business-risks-in-overseas-markets/         |
+      | advice/manage-legal-and-ethical-compliance/report-corruption-and-human-rights-violations/         |
+      | advice/manage-legal-and-ethical-compliance/anti-bribery-and-corruption-training/                  |
+      | advice/manage-legal-and-ethical-compliance/protect-your-intellectual-property-when-exporting/     |
+      | advice/prepare-for-export-procedures-and-logistics/plan-logistics-for-exporting/                  |
+      | advice/prepare-for-export-procedures-and-logistics/get-your-export-documents-right/               |
+      | advice/prepare-for-export-procedures-and-logistics/use-a-freight-forwarder-to-export/             |
+      | advice/prepare-for-export-procedures-and-logistics/use-incoterms-in-contracts/                    |
+
+    Examples: Case Studies
+      | selected                                                                                          |
+      | story/online-marketplaces-propel-freestyle-xtreme-sales/                                          |
+      | story/hello-babys-rapid-online-growth/                                                            |
+      | story/york-bag-retailer-goes-global-via-e-commerce/                                               |
+
+    Examples: Markets
+      | selected                                                                                          |
+      | markets/                                                                                          |
+      | markets/brazil/                                                                                   |
+      | markets/china/                                                                                    |
+      | markets/germany/                                                                                  |
+      | markets/italy/                                                                                    |
+      | markets/south-korea/                                                                              |
+      | markets/netherlands/                                                                              |
 
     Examples: UKEF
       | selected                                                                                          |
-      | /get-finance/                                                                                     |
-      | /get-finance/contact/                                                                             |
-
-    Examples: International
-      | selected                                                                                          |
-      | /international/?lang=ar                                                                           |
-      | /international/?lang=de                                                                           |
-      | /international/?lang=en-gb                                                                        |
-      | /international/?lang=es                                                                           |
-      | /international/?lang=ja                                                                           |
-      | /international/?lang=pt                                                                           |
-      | /international/?lang=zh-hans                                                                      |
-      | /international/privacy-and-cookies/?lang=en-gb                                                    |
-      | /international/terms-and-conditions/?lang=en-gb                                                   |
-
-    Examples: Export Readiness
-      | selected                                                                                          |
-      | /new/                                                                                             |
-      | /new/next-steps/?source=all                                                                       |
-      | /new/next-steps/?source=persona_new                                                               |
-      | /occasional/                                                                                      |
-      | /occasional/next-steps/?source=all                                                                |
-      | /occasional/next-steps/?source=persona_occasional                                                 |
-      | /regular/                                                                                         |
-      | /regular/next-steps/?source=all                                                                   |
-      | /regular/next-steps/?source=persona_regular                                                       |
+      | get-finance/                                                                                      |
+      | get-finance/contact/                                                                              |
 
     Examples: Performance dashboard
       | selected                                                                                          |
-      | /performance-dashboard/                                                                           |
-      | /performance-dashboard/export-opportunities/                                                      |
-      | /performance-dashboard/guidance-notes/                                                            |
-      | /performance-dashboard/invest/                                                                    |
-      | /performance-dashboard/selling-online-overseas/                                                   |
-      | /performance-dashboard/trade-profiles/                                                            |
+      | performance-dashboard/                                                                            |
+      | performance-dashboard/export-opportunities/                                                       |
+      | performance-dashboard/guidance-notes/                                                             |
+      | performance-dashboard/invest/                                                                     |
+      | performance-dashboard/selling-online-overseas/                                                    |
+      | performance-dashboard/trade-profiles/                                                             |
 
     Examples: Privacy, T&Cs
       | selected                                                                                          |
-      | /about/                                                                                           |
-      | /privacy-and-cookies/                                                                             |
-      | /privacy-and-cookies/fair-processing-notice-export-opportunities/                                 |
-      | /privacy-and-cookies/fair-processing-notice-export-readiness/                                     |
-      | /privacy-and-cookies/fair-processing-notice-for-smart-survey/                                     |
-      | /privacy-and-cookies/fair-processing-notice-invest-in-great-britain/                              |
-      | /privacy-and-cookies/fair-processing-notice-selling-online-overseas/                              |
-      | /privacy-and-cookies/fair-processing-notice-trade-profiles-find-a-buyer-fab-find-a-supplier-fas/  |
-      | /privacy-and-cookies/fair-processing-notice-zendesk/                                              |
-      | /terms-and-conditions/                                                                            |
-
-    Examples: Other
-      | selected                                                                                          |
-      | /story/hello-babys-rapid-online-growth/                                                           |
-      | /story/online-marketplaces-propel-freestyle-xtreme-sales/                                         |
-      | /story/york-bag-retailer-goes-global-via-e-commerce/                                              |
-      | /triage/                                                                                          |
-      | /triage/exported-before/                                                                          |
-
-    Examples: Guidance
-      | selected                                                                                          |
-      | /business-planning/                                                                               |
-      | /business-planning/choosing-an-agent-or-distributor/?source=business_planning                     |
-      | /business-planning/choosing-an-agent-or-distributor/?source=persona_new                           |
-      | /business-planning/choosing-an-agent-or-distributor/?source=persona_occasional                    |
-      | /business-planning/find-a-route-to-market/?source=all                                             |
-      | /business-planning/find-a-route-to-market/?source=business_planning                               |
-      | /business-planning/find-a-route-to-market/?source=persona_new                                     |
-      | /business-planning/find-a-route-to-market/?source=persona_occasional                              |
-      | /business-planning/franchise-your-business/?source=business_planning                              |
-      | /business-planning/franchise-your-business/?source=persona_regular                                |
-      | /business-planning/license-your-product-or-service/?source=business_planning                      |
-      | /business-planning/license-your-product-or-service/?source=persona_occasional                     |
-      | /business-planning/license-your-product-or-service/?source=persona_regular                        |
-      | /business-planning/licensing-and-franchising/?source=business_planning                            |
-      | /business-planning/make-an-export-plan/                                                           |
-      | /business-planning/make-an-export-plan/?source=business_planning                                  |
-      | /business-planning/make-an-export-plan/?source=persona_new                                        |
-      | /business-planning/make-an-export-plan/?source=persona_occasional                                 |
-      | /business-planning/sell-overseas-directly/?source=all                                             |
-      | /business-planning/sell-overseas-directly/?source=business_planning                               |
-      | /business-planning/sell-overseas-directly/?source=persona_new                                     |
-      | /business-planning/sell-overseas-directly/?source=persona_occasional                              |
-      | /business-planning/set-up-an-overseas-operation/?source=business_planning                         |
-      | /business-planning/set-up-an-overseas-operation/?source=persona_regular                           |
-      | /business-planning/start-a-joint-venture/?source=business_planning                                |
-      | /business-planning/start-a-joint-venture/?source=persona_occasional                               |
-      | /business-planning/start-a-joint-venture/?source=persona_regular                                  |
-      | /business-planning/use-a-distributor/?source=all                                                  |
-      | /business-planning/use-a-distributor/?source=business_planning                                    |
-      | /business-planning/use-a-distributor/?source=persona_new                                          |
-      | /business-planning/use-a-distributor/?source=persona_occasional                                   |
-      | /business-planning/use-an-overseas-agent/?source=all                                              |
-      | /business-planning/use-an-overseas-agent/?source=business_planning                                |
-      | /business-planning/use-an-overseas-agent/?source=persona_new                                      |
-      | /business-planning/use-an-overseas-agent/?source=persona_occasional                               |
-      | /customer-insight/                                                                                |
-      | /customer-insight/know-your-customers/?source=customer_insights                                   |
-      | /customer-insight/know-your-customers/?source=persona_new                                         |
-      | /customer-insight/know-your-customers/?source=persona_occasional                                  |
-      | /customer-insight/manage-language-differences/?source=customer_insights                           |
-      | /customer-insight/manage-language-differences/?source=persona_new                                 |
-      | /customer-insight/manage-language-differences/?source=persona_occasional                          |
-      | /customer-insight/meet-your-customers/?source=customer_insights                                   |
-      | /customer-insight/meet-your-customers/?source=persona_new                                         |
-      | /customer-insight/understand-your-customers-culture/                                              |
-      | /customer-insight/understand-your-customers-culture/?source=customer_insights                     |
-      | /customer-insight/understand-your-customers-culture/?source=persona_new                           |
-      | /customer-insight/understand-your-customers-culture/?source=persona_occasional                    |
-      | /customer-insight/understand-your-customers-culture/?source=persona_regular                       |
-      | /finance/                                                                                         |
-      | /finance/borrow-against-assets/?source=finance                                                    |
-      | /finance/borrow-against-assets/?source=persona_occasional                                         |
-      | /finance/borrow-against-assets/?source=persona_regular                                            |
-      | /finance/choose-the-right-finance/?source=finance                                                 |
-      | /finance/choose-the-right-finance/?source=persona_new                                             |
-      | /finance/choose-the-right-finance/?source=persona_occasional                                      |
-      | /finance/choose-the-right-finance/?source=persona_regular                                         |
-      | /finance/get-export-finance/?source=finance                                                       |
-      | /finance/get-export-finance/?source=persona_occasional                                            |
-      | /finance/get-export-finance/?source=persona_regular                                               |
-      | /finance/get-finance-support-from-government/?source=finance                                      |
-      | /finance/get-finance-support-from-government/?source=persona_occasional                           |
-      | /finance/get-finance-support-from-government/?source=persona_regular                              |
-      | /finance/get-money-to-export/?source=finance                                                      |
-      | /finance/get-money-to-export/?source=persona_new                                                  |
-      | /finance/get-money-to-export/?source=persona_occasional                                           |
-      | /finance/raise-money-by-borrowing/?source=finance                                                 |
-      | /finance/raise-money-by-borrowing/?source=persona_occasional                                      |
-      | /finance/raise-money-by-borrowing/?source=persona_regular                                         |
-      | /finance/raise-money-with-investment/?source=finance                                              |
-      | /finance/raise-money-with-investment/?source=persona_occasional                                   |
-      | /finance/raise-money-with-investment/?source=persona_regular                                      |
-      | /getting-paid/                                                                                    |
-      | /getting-paid/consider-how-youll-get-paid/?source=getting_paid                                    |
-      | /getting-paid/consider-how-youll-get-paid/?source=persona_new                                     |
-      | /getting-paid/consider-how-youll-get-paid/?source=persona_occasional                              |
-      | /getting-paid/decide-when-youll-get-paid/?source=getting_paid                                     |
-      | /getting-paid/decide-when-youll-get-paid/?source=getting_paid#Share-the-risk                      |
-      | /getting-paid/decide-when-youll-get-paid/?source=persona_occasional                               |
-      | /getting-paid/decide-when-youll-get-paid/?source=persona_occasional#Share-the-risk                |
-      | /getting-paid/insure-against-non-payment/?source=getting_paid                                     |
-      | /getting-paid/insure-against-non-payment/?source=persona_occasional                               |
-      | /getting-paid/insure-against-non-payment/?source=persona_regular                                  |
-      | /getting-paid/invoice-currency-and-contents/?source=getting_paid                                  |
-      | /getting-paid/invoice-currency-and-contents/?source=persona_occasional                            |
-      | /getting-paid/payment-methods/?source=getting_paid                                                |
-      | /getting-paid/payment-methods/?source=persona_occasional                                          |
-      | /market-research/                                                                                 |
-      | /market-research/analyse-the-competition/?source=all                                              |
-      | /market-research/analyse-the-competition/?source=market_research                                  |
-      | /market-research/analyse-the-competition/?source=persona_occasional                               |
-      | /market-research/analyse-the-competition/?source=persona_regular                                  |
-      | /market-research/define-market-potential/?source=all                                              |
-      | /market-research/define-market-potential/?source=market_research                                  |
-      | /market-research/define-market-potential/?source=persona_occasional                               |
-      | /market-research/define-market-potential/?source=persona_regular                                  |
-      | /market-research/do-research-first/                                                               |
-      | /market-research/do-research-first/?source=market_research                                        |
-      | /market-research/do-research-first/?source=persona_new                                            |
-      | /market-research/do-research-first/?source=persona_occasional                                     |
-      | /market-research/doing-business-with-integrity/?source=market_research                            |
-      | /market-research/doing-business-with-integrity/?source=persona_new                                |
-      | /market-research/doing-business-with-integrity/?source=persona_occasional                         |
-      | /market-research/doing-business-with-integrity/?source=persona_regular                            |
-      | /market-research/know-the-relevant-legislation/?source=market_research                            |
-      | /market-research/know-the-relevant-legislation/?source=persona_new                                |
-      | /market-research/know-the-relevant-legislation/?source=persona_occasional                         |
-      | /market-research/know-the-relevant-legislation/?source=persona_regular                            |
-      | /market-research/research-your-market/?source=all                                                 |
-      | /market-research/research-your-market/?source=market_research                                     |
-      | /market-research/research-your-market/?source=persona_occasional                                  |
-      | /market-research/research-your-market/?source=persona_regular                                     |
-      | /market-research/visit-a-trade-show/?source=all                                                   |
-      | /market-research/visit-a-trade-show/?source=market_research                                       |
-      | /market-research/visit-a-trade-show/?source=persona_occasional                                    |
-      | /operations-and-compliance/                                                                       |
-      | /operations-and-compliance/anti-bribery-and-corruption-training/?source=operations_and_compliance |
-      | /operations-and-compliance/anti-bribery-and-corruption-training/?source=persona_new               |
-      | /operations-and-compliance/anti-bribery-and-corruption-training/?source=persona_occasional        |
-      | /operations-and-compliance/anti-bribery-and-corruption-training/?source=persona_regular           |
-      | /operations-and-compliance/get-your-export-documents-right/?source=all                            |
-      | /operations-and-compliance/get-your-export-documents-right/?source=operations_and_compliance      |
-      | /operations-and-compliance/get-your-export-documents-right/?source=persona_occasional             |
-      | /operations-and-compliance/international-ip-protection/?source=operations_and_compliance          |
-      | /operations-and-compliance/international-ip-protection/?source=persona_occasional                 |
-      | /operations-and-compliance/international-ip-protection/?source=persona_regular                    |
-      | /operations-and-compliance/internationalise-your-website/?source=all                              |
-      | /operations-and-compliance/internationalise-your-website/?source=operations_and_compliance        |
-      | /operations-and-compliance/internationalise-your-website/?source=persona_new                      |
-      | /operations-and-compliance/internationalise-your-website/?source=persona_occasional               |
-      | /operations-and-compliance/know-what-ip-you-have/?source=operations_and_compliance                |
-      | /operations-and-compliance/know-what-ip-you-have/?source=persona_occasional                       |
-      | /operations-and-compliance/know-what-ip-you-have/?source=persona_regular                          |
-      | /operations-and-compliance/match-your-website-to-your-audience/?source=all                        |
-      | /operations-and-compliance/match-your-website-to-your-audience/?source=operations_and_compliance  |
-      | /operations-and-compliance/match-your-website-to-your-audience/?source=persona_occasional         |
-      | /operations-and-compliance/plan-the-logistics/                                                    |
-      | /operations-and-compliance/plan-the-logistics/?source=operations_and_compliance                   |
-      | /operations-and-compliance/plan-the-logistics/?source=persona_new                                 |
-      | /operations-and-compliance/protect-your-intellectual-property/?source=operations_and_compliance   |
-      | /operations-and-compliance/protect-your-intellectual-property/?source=persona_new                 |
-      | /operations-and-compliance/protect-your-intellectual-property/?source=persona_occasional          |
-      | /operations-and-compliance/report-corruption/?source=operations_and_compliance                    |
-      | /operations-and-compliance/report-corruption/?source=persona_new                                  |
-      | /operations-and-compliance/report-corruption/?source=persona_occasional                           |
-      | /operations-and-compliance/types-of-intellectual-property/?source=operations_and_compliance       |
-      | /operations-and-compliance/types-of-intellectual-property/?source=persona_new                     |
-      | /operations-and-compliance/types-of-intellectual-property/?source=persona_occasional              |
-      | /operations-and-compliance/use-a-freight-forwarder/?source=all                                    |
-      | /operations-and-compliance/use-a-freight-forwarder/?source=operations_and_compliance              |
-      | /operations-and-compliance/use-a-freight-forwarder/?source=persona_occasional                     |
-      | /operations-and-compliance/use-incoterms-in-contracts/?source=all                                 |
-      | /operations-and-compliance/use-incoterms-in-contracts/?source=operations_and_compliance           |
-      | /operations-and-compliance/use-incoterms-in-contracts/?source=persona_occasional                  |
+      | about/                                                                                            |
+      | privacy-and-cookies/                                                                              |
+      | privacy-and-cookies/fair-processing-notice-export-opportunities/                                  |
+      | privacy-and-cookies/fair-processing-notice-export-readiness/                                      |
+      | privacy-and-cookies/fair-processing-notice-for-smart-survey/                                      |
+      | privacy-and-cookies/fair-processing-notice-invest-in-great-britain/                               |
+      | privacy-and-cookies/fair-processing-notice-selling-online-overseas/                               |
+      | privacy-and-cookies/fair-processing-notice-trade-profiles-find-a-buyer-fab-find-a-supplier-fas/   |
+      | privacy-and-cookies/fair-processing-notice-zendesk/                                               |
+      | terms-and-conditions/                                                                             |

@@ -1,7 +1,7 @@
-Feature: Find content differences between Production and Staging Domestic environments
+Feature: Find content differences between UAT and Staging Domestic environments
 
-  Scenario Outline: Content on Production page "<selected>" should be the same as on respective Staging page
-    When you look at the "main" section of the "<selected>" page on "Domestic" "PROD" and "STAGE"
+  Scenario Outline: Content on Staging page "<selected>" should be the same as on respective UAT page
+    When you look at the "main" section of the "<selected>" page on "Domestic" "STAGE" and "UAT"
 
     Then there should be no differences
 
