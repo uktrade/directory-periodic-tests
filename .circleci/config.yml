@@ -261,6 +261,13 @@ jobs:
       TEST_ENV: "STAGE"
     <<: *steps_dead_links_checker
 
+  check_for_dead_links_on_uat:
+    <<: *machine_python3
+    working_directory: ~/directory-periodic-tests
+    environment:
+      TEST_ENV: "UAT"
+    <<: *steps_dead_links_checker
+
   check_for_dead_links_on_prod:
     <<: *machine_python3
     working_directory: ~/directory-periodic-tests

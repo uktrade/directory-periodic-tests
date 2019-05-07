@@ -65,6 +65,86 @@ PYLINKVALIDATE_ENV_VARS_PROD := \
 	https://selling-online-overseas.export.great.gov.uk/markets/results/ \
 	"
 
+PYLINKVALIDATE_ENV_VARS_UAT := \
+	export IGNORED_PREFIXES="\
+	https://great.uat.uktrade.io/international/static/, \
+	https://great.uat.uktrade.io/find-a-buyer/static/,\
+	https://great.uat.uktrade.io/profile/static/,\
+	https://great.uat.uktrade.io/sso/accounts/login/?next,\
+	https://great.uat.uktrade.io/sso/accounts/password/reset/?next,\
+	https://great.uat.uktrade.io/sso/accounts/signup/?next,\
+	https://great.uat.uktrade.io/sso/static/,\
+	https://great.uat.uktrade.io/static/,\
+	https://great.uat.uktrade.io/trade/search/?term=,\
+	https://great.uat.uktrade.io/trade/static/,\
+	https://great.uat.uktrade.io/trade/suppliers/,\
+	https://invest.great.uat.uktrade.io/static/,\
+	https://opportunities.export.great.uat.uktrade.io/assets/,\
+	https://opportunities.export.great.uat.uktrade.io/opportunities?,\
+	https://opportunities.export.great.uat.uktrade.io/opportunities/a,\
+	https://opportunities.export.great.uat.uktrade.io/opportunities/b,\
+	https://opportunities.export.great.uat.uktrade.io/opportunities/c,\
+	https://opportunities.export.great.uat.uktrade.io/opportunities/d,\
+	https://opportunities.export.great.uat.uktrade.io/opportunities/m,\
+	https://opportunities.export.great.uat.uktrade.io/opportunities/f,\
+	https://opportunities.export.great.uat.uktrade.io/opportunities/g,\
+	https://opportunities.export.great.uat.uktrade.io/opportunities/h,\
+	https://opportunities.export.great.uat.uktrade.io/opportunities/j,\
+	https://opportunities.export.great.uat.uktrade.io/opportunities/k,\
+	https://opportunities.export.great.uat.uktrade.io/opportunities/m,\
+	https://opportunities.export.great.uat.uktrade.io/opportunities/n,\
+	https://opportunities.export.great.uat.uktrade.io/opportunities/m,\
+	https://opportunities.export.great.uat.uktrade.io/opportunities/p,\
+	https://opportunities.export.great.uat.uktrade.io/opportunities/r,\
+	https://opportunities.export.great.uat.uktrade.io/opportunities/s,\
+	https://opportunities.export.great.uat.uktrade.io/opportunities/t,\
+	https://opportunities.export.great.uat.uktrade.io/opportunities/w,\
+	https://opportunities.export.great.uat.uktrade.io/opportunities/z,\
+	https://great.uat.uktrade.io/contact/selling-online-overseas/static/,\
+	https://www.contactus.trade.gov.uk/office-finder,\
+	http://www.export.org.uk/page/Market_Selection,\
+	https://www.gov.uk/tendering-for-public-sector-contracts/overview,\
+	http://exportbritain.org.uk/international-directory/,\
+	http://mojolife.org.uk/,\
+	http://p2pfa.info/platforms/,\
+	http://www.elearningschool.co.uk,\
+	http://www.epcmortgage.org.uk/,\
+	http://www.ftsolutions.co.uk,\
+	http://www.jubaris.co.uk,\
+	http://www.linkedin.com,\
+	http://www.macduffshipdesign.com,\
+	http://www.mbe-intl.com,\
+	https://twitter.com,\
+	https://uk.linkedin.com/,\
+	https://www.airforilfe.net,\
+	https://www.callidusgroup.co.uk,\
+	https://www.facebook.com,\
+	https://www.linkedin.com,\
+	https://www.nationalarchives.gov.uk/doc/open-government-licence,\
+	https://www.pwc.co.uk/,https://www.rmlgroup.com\
+	" && \
+	export TEST_URLS="\
+	https://great.uat.uktrade.io/international/ \
+	https://great.uat.uktrade.io/international/industries/ \
+	https://great.uat.uktrade.io/international/how-to-setup-in-the-uk/ \
+	https://great.uat.uktrade.io/international/how-to-do-business-with-the-uk/ \
+	https://great.uat.uktrade.io/ \
+	https://great.uat.uktrade.io/community \
+	https://great.uat.uktrade.io/trade/ \
+	https://great.uat.uktrade.io/find-a-buyer/ \
+	https://great.uat.uktrade.io/sso/accounts/login/ \
+	https://great.uat.uktrade.io/profile/about/ \
+	https://great.uat.uktrade.io/contact/selling-online-overseas/ \
+	https://great.uat.uktrade.io/contact/selling-online-overseas/markets/results/ \
+	https://invest.great.uat.uktrade.io/ \
+	https://invest.great.uat.uktrade.io/high-potential-opportunities/lightweight-structures/ \
+	https://invest.great.uat.uktrade.io/high-potential-opportunities/food-production/ \
+	https://invest.great.uat.uktrade.io/high-potential-opportunities/rail-infrastructure/ \
+	https://opportunities.export.great.uat.uktrade.io/ \
+	https://opportunities.export.great.uat.uktrade.io/opportunities?s=shoes&areas[]=&commit=Find+opportunities \
+	"
+
+
 PYLINKVALIDATE_ENV_VARS_STAGE := \
 	export IGNORED_PREFIXES="\
 	https://great.preprod.uktrade.io/international/static/, \
@@ -209,6 +289,9 @@ endif
 ifndef BASICAUTH_PASS_DEV
   $(error BASICAUTH_PASS_DEV is undefined)
 endif
+ifndef BASICAUTH_USER_UAT
+  $(error BASICAUTH_USER_UAT is undefined)
+endif
 ifndef BASICAUTH_USER_STAGE
   $(error BASICAUTH_USER_STAGE is undefined)
 endif
@@ -220,6 +303,10 @@ ifeq ($(TEST_ENV),PROD)
 	AUTH=
 	TEST_OUTSIDE=--test-outside
 else
+ifeq ($(TEST_ENV),UAT)
+	AUTH=--header='Authorization: Basic ${BASIC_AUTH}'
+	TEST_OUTSIDE=
+endif
 ifeq ($(TEST_ENV),STAGE)
 	AUTH=--header='Authorization: Basic ${BASIC_AUTH}'
 	TEST_OUTSIDE=
