@@ -351,6 +351,31 @@ jobs:
       SERVICE: "domestic"
       ENVS_TO_COMPARE: "stage_uat"
     <<: *steps_content_diff
+
+  international_compare_prod_and_uat_pages:
+    <<: *machine_python3
+    working_directory: ~/directory-periodic-tests
+    environment:
+      SERVICE: "international"
+      ENVS_TO_COMPARE: "prod_uat"
+    <<: *steps_content_diff
+
+  international_compare_stage_and_uat_pages:
+    <<: *machine_python3
+    working_directory: ~/directory-periodic-tests
+    environment:
+      SERVICE: "international"
+      ENVS_TO_COMPARE: "stage_uat"
+    <<: *steps_content_diff
+
+  international_compare_stage_and_dev_pages:
+    <<: *machine_python3
+    working_directory: ~/directory-periodic-tests
+    environment:
+      SERVICE: "international"
+      ENVS_TO_COMPARE: "stage_dev"
+    <<: *steps_content_diff
+
   fas_compare_prod_and_dev_pages:
     <<: *machine_python3
     working_directory: ~/directory-periodic-tests
@@ -694,5 +719,44 @@ workflows:
     jobs:
       - setup_env_for_content_diff
       - invest_compare_stage_and_dev_pages:
+          requires:
+            - setup_env_for_content_diff
+
+  international_prod_uat_content_diff:
+    triggers:
+      - schedule:
+          cron: "37 4 * * 1"
+          filters:
+            branches:
+              only: master
+    jobs:
+      - setup_env_for_content_diff
+      - international_compare_prod_and_uat_pages:
+          requires:
+            - setup_env_for_content_diff
+
+  international_stage_uat_content_diff:
+    triggers:
+      - schedule:
+          cron: "47 4 * * 1"
+          filters:
+            branches:
+              only: master
+    jobs:
+      - setup_env_for_content_diff
+      - international_compare_stage_and_uat_pages:
+          requires:
+            - setup_env_for_content_diff
+
+  international_stage_dev_content_diff:
+    triggers:
+      - schedule:
+          cron: "57 4 * * 1"
+          filters:
+            branches:
+              only: master
+    jobs:
+      - setup_env_for_content_diff
+      - international_compare_stage_and_dev_pages:
           requires:
             - setup_env_for_content_diff

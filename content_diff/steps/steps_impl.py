@@ -20,12 +20,20 @@ SITES_INVEST = {
 SITES_DOMESTIC = {
     "dev": "https://great.dev.uktrade.io/",
     "stage": "https://great.staging.uktrade.io/",
+    "uat": "https://great.uat.uktrade.io/",
     "prod": "https://www.great.gov.uk/"
 }
 SITES_FAS = {
     "dev": "https://great.dev.uktrade.io/trade/",
-    "stage": "https://great.dev.uktrade.io/trade/",
+    "stage": "https://great.staging.uktrade.io/trade/",
+    "uat": "https://great.uat.uktrade.io/trade/",
     "prod": "https://www.great.gov.uk/trade/"
+}
+SITES_INTERNATIONAL = {
+    "dev": "https://great.dev.uktrade.io/international/",
+    "stage": "https://great.staging.uktrade.io/international/",
+    "uat": "https://great.uat.uktrade.io/international/",
+    "prod": "https://www.great.gov.uk/international/"
 }
 
 BASICAUTH_USER = os.environ["BASICAUTH_USER_DEV"]
@@ -105,6 +113,8 @@ def extract_page_content(
         sites = SITES_DOMESTIC
     elif service.lower() == "invest":
         sites = SITES_INVEST
+    elif service.lower() == "international":
+        sites = SITES_INTERNATIONAL
 
     site_a = sites[site_a.lower()]
     site_b = sites[site_b.lower()]
