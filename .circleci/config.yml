@@ -547,6 +547,13 @@ workflows:
           requires:
             - setup_env_for_dead_links_checker
 
+  dev_check_for_dead_links_ad_hoc:
+    jobs:
+    - setup_env_for_dead_links_checker
+    - check_for_dead_links_on_dev:
+        requires:
+        - setup_env_for_dead_links_checker
+
   dev_check_for_dead_links:
     triggers:
     - schedule:
