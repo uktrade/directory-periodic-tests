@@ -35,6 +35,7 @@ DIRECTORY_PERIODIC_TESTS_JOB_NAME_MAPPINGS = {
     },
     "Dead links": {
         "check_for_dead_links_on_prod": "Prod Dead links",
+        "check_for_dead_links_on_uat": "UAT Dead links",
         "check_for_dead_links_on_stage": "Stage Dead links",
         "check_for_dead_links_on_dev": "Dev Dead links",
     },
@@ -64,18 +65,25 @@ DIRECTORY_LOAD_TESTS_JOB_NAME_MAPPINGS = {
 DIRECTORY_TESTS_JOB_NAME_MAPPINGS = {
     "browser_all_chrome_dev": "Dev Chrome",
     "browser_all_firefox_dev": "Dev Firefox",
-    "func_fab_test_dev": "Dev FAB",
     "func_fas_test_dev": "Dev FAS",
-    "smoke_tests_dev": "Dev Smoke",
+    "func_international_test_dev": "Dev Int",
     "func_sso_test_dev": "Dev SSO",
     "func_sud_test_dev": "Dev SUD",
+    "smoke_tests_dev": "Dev Smoke",
     "browser_all_chrome_stage": "Stage Chrome",
     "browser_all_firefox_stage": "Stage Firefox",
-    "func_fab_test_stage": "Stage FAB",
     "func_fas_test_stage": "Stage FAS",
-    "smoke_tests_stage": "Stage Smoke",
+    "func_international_test_stage": "Stage Int",
     "func_sso_test_stage": "Stage SSO",
     "func_sud_test_stage": "Stage SUD",
+    "smoke_tests_stage": "Stage Smoke",
+    "browser_all_chrome_uat": "UAT Chrome",
+    "browser_all_firefox_uat": "UAT Firefox",
+    "func_fas_test_uat": "UAT FAS",
+    "func_international_test_uat": "UAT Int",
+    "func_sso_test_uat": "UAT SSO",
+    "func_sud_test_uat": "UAT SUD",
+    "smoke_tests_uat": "UAT Smoke",
 }
 
 DIRECTORY_TESTS_JOB_NAME_MAPPINGS.update(
