@@ -125,9 +125,9 @@ PYLINKVALIDATE_ENV_VARS_UAT := \
 	" && \
 	export TEST_URLS="\
 	https://great.uat.uktrade.io/international/ \
-	https://great.uat.uktrade.io/international/industries/ \
-	https://great.uat.uktrade.io/international/how-to-setup-in-the-uk/ \
-	https://great.uat.uktrade.io/international/how-to-do-business-with-the-uk/ \
+	https://great.uat.uktrade.io/international/content/industries/ \
+	https://great.uat.uktrade.io/international/content/how-to-setup-in-the-uk/ \
+	https://great.uat.uktrade.io/international/content/how-to-do-business-with-the-uk/ \
 	https://great.uat.uktrade.io/ \
 	https://great.uat.uktrade.io/community \
 	https://great.uat.uktrade.io/trade/ \
