@@ -1,7 +1,7 @@
 Feature: Find content differences between Production and UAT International environments
 
   Scenario Outline: Content on Production page "<selected>" should be the same as on respective UAT page
-    When you look at the "main" section of the "<selected>" page on "International" "STAGE" and "UAT"
+    When you look at the "main" section of the "<selected>" page on "International" "PROD" and "UAT"
 
     Then there should be no differences
 
