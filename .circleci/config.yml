@@ -360,6 +360,14 @@ jobs:
       ENVS_TO_COMPARE: "prod_uat"
     <<: *steps_content_diff
 
+  international_compare_preprod_and_uat_pages:
+    <<: *machine_python3
+    working_directory: ~/directory-periodic-tests
+    environment:
+      SERVICE: "international"
+      ENVS_TO_COMPARE: "preprod_uat"
+    <<: *steps_content_diff
+
   international_compare_stage_and_uat_pages:
     <<: *machine_python3
     working_directory: ~/directory-periodic-tests
@@ -767,6 +775,13 @@ workflows:
     jobs:
       - setup_env_for_content_diff
       - international_compare_prod_and_uat_pages:
+          requires:
+            - setup_env_for_content_diff
+
+  international_preprod_uat_content_diff_ad_hoc:
+    jobs:
+      - setup_env_for_content_diff
+      - international_compare_preprod_and_uat_pages:
           requires:
             - setup_env_for_content_diff
 
