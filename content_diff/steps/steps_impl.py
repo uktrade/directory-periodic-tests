@@ -33,7 +33,8 @@ SITES_INTERNATIONAL = {
     "dev": "https://great.dev.uktrade.io/international/",
     "stage": "https://great.staging.uktrade.io/international/",
     "uat": "https://great.uat.uktrade.io/international/",
-    "prod": "https://www.great.gov.uk/international/"
+    "preprod": "https://great.preprod.uktrade.io/international/",
+    "prod": "https://www.great.gov.uk/international/",
 }
 
 BASICAUTH_USER = os.environ["BASICAUTH_USER_DEV"]
