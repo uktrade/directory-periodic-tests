@@ -121,8 +121,8 @@ def extract_page_content(
 
     site_a = sites[site_a.lower()]
     site_b = sites[site_b.lower()]
-    url_a = urljoin(site_a, endpoint)
-    url_b = urljoin(site_b, endpoint)
+    url_a = urljoin(site_a, endpoint) if endpoint != "/" else site_a
+    url_b = urljoin(site_b, endpoint) if endpoint != "/" else site_b
     auth_a = get_basic_auth() if site_a.lower() != "prod" else None
     auth_b = get_basic_auth() if site_b.lower() != "prod" else None
 
