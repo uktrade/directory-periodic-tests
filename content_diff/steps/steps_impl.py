@@ -71,6 +71,8 @@ def merge_data_section_lines(lines, data_section_lines):
 def get_text(content: str, section_name: str) -> List[str]:
     soup = BeautifulSoup(content, "lxml")
     section = soup.find(section_name)
+    if not section:
+        section = soup.find("body")
 
     for element in section.findAll(["script", "css", "img", "style", "select"]):
         element.extract()
