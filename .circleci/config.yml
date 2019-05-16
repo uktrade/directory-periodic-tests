@@ -673,6 +673,13 @@ workflows:
           requires:
             - setup_env_for_content_diff
 
+  fas_prod_dev_content_diff_ad_hoc:
+    jobs:
+      - setup_env_for_content_diff
+      - fas_compare_prod_and_dev_pages:
+          requires:
+            - setup_env_for_content_diff
+
   fas_prod_dev_content_diff:
     triggers:
     - schedule:
