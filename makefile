@@ -20,47 +20,75 @@ PYLINKVALIDATE_ENV_VARS_PROD := \
 	https://cms.trade.great.gov.uk/documents/, \
 	https://directory-cms-public.s3.amazonaws.com, \
 	https://selling-online-overseas.export.great.gov.uk/static/, \
+	https://www.great.gov.uk/export-opportunities/opportunities/1, \
+	https://www.great.gov.uk/export-opportunities/opportunities/2, \
+	https://www.great.gov.uk/export-opportunities/opportunities/3, \
+	https://www.great.gov.uk/export-opportunities/opportunities/4, \
+	https://www.great.gov.uk/export-opportunities/opportunities/5, \
+	https://www.great.gov.uk/export-opportunities/opportunities/6, \
+	https://www.great.gov.uk/export-opportunities/opportunities/7, \
+	https://www.great.gov.uk/export-opportunities/opportunities/8, \
+	https://www.great.gov.uk/export-opportunities/opportunities/9, \
 	https://www.great.gov.uk/export-opportunities/opportunities/b, \
 	https://www.great.gov.uk/export-opportunities/opportunities/c, \
 	https://www.great.gov.uk/export-opportunities/opportunities/d, \
-	https://www.great.gov.uk/export-opportunities/opportunities/m, \
+	https://www.great.gov.uk/export-opportunities/opportunities/e, \
 	https://www.great.gov.uk/export-opportunities/opportunities/f, \
 	https://www.great.gov.uk/export-opportunities/opportunities/g, \
 	https://www.great.gov.uk/export-opportunities/opportunities/h, \
 	https://www.great.gov.uk/export-opportunities/opportunities/j, \
 	https://www.great.gov.uk/export-opportunities/opportunities/k, \
+	https://www.great.gov.uk/export-opportunities/opportunities/l, \
 	https://www.great.gov.uk/export-opportunities/opportunities/m, \
 	https://www.great.gov.uk/export-opportunities/opportunities/n, \
-	https://www.great.gov.uk/export-opportunities/opportunities/m, \
+	https://www.great.gov.uk/export-opportunities/opportunities/o, \
 	https://www.great.gov.uk/export-opportunities/opportunities/p, \
 	https://www.great.gov.uk/export-opportunities/opportunities/r, \
 	https://www.great.gov.uk/export-opportunities/opportunities/s, \
 	https://www.great.gov.uk/export-opportunities/opportunities/t, \
+	https://www.great.gov.uk/export-opportunities/opportunities/u, \
+	https://www.great.gov.uk/export-opportunities/opportunities/w, \
+	https://www.great.gov.uk/export-opportunities/opportunities/z, \
+	https://opportunities.export.great.gov.uk/opportunities/1, \
+	https://opportunities.export.great.gov.uk/opportunities/2, \
+	https://opportunities.export.great.gov.uk/opportunities/3, \
+	https://opportunities.export.great.gov.uk/opportunities/4, \
+	https://opportunities.export.great.gov.uk/opportunities/5, \
+	https://opportunities.export.great.gov.uk/opportunities/6, \
+	https://opportunities.export.great.gov.uk/opportunities/7, \
+	https://opportunities.export.great.gov.uk/opportunities/8, \
+	https://opportunities.export.great.gov.uk/opportunities/9, \
 	https://opportunities.export.great.gov.uk/opportunities/b, \
 	https://opportunities.export.great.gov.uk/opportunities/c, \
 	https://opportunities.export.great.gov.uk/opportunities/d, \
-	https://opportunities.export.great.gov.uk/opportunities/m, \
+	https://opportunities.export.great.gov.uk/opportunities/e, \
 	https://opportunities.export.great.gov.uk/opportunities/f, \
 	https://opportunities.export.great.gov.uk/opportunities/g, \
 	https://opportunities.export.great.gov.uk/opportunities/h, \
 	https://opportunities.export.great.gov.uk/opportunities/j, \
 	https://opportunities.export.great.gov.uk/opportunities/k, \
+	https://opportunities.export.great.gov.uk/opportunities/l, \
 	https://opportunities.export.great.gov.uk/opportunities/m, \
 	https://opportunities.export.great.gov.uk/opportunities/n, \
-	https://opportunities.export.great.gov.uk/opportunities/m, \
+	https://opportunities.export.great.gov.uk/opportunities/o, \
 	https://opportunities.export.great.gov.uk/opportunities/p, \
 	https://opportunities.export.great.gov.uk/opportunities/r, \
 	https://opportunities.export.great.gov.uk/opportunities/s, \
 	https://opportunities.export.great.gov.uk/opportunities/t, \
+	https://opportunities.export.great.gov.uk/opportunities/u, \
+	https://opportunities.export.great.gov.uk/opportunities/w, \
+	https://opportunities.export.great.gov.uk/opportunities/z, \
 	https://opportunities.export.great.gov.uk/opportunities?paged=, \
 	https://www.contactus.trade.gov.uk/office-finder/, \
 	https://s3.eu-west-2.amazonaws.com/, \
 	https://d3zwahhsvfb28.cloudfront.net, \
+	https://seao.ca/OpportunityPublication, \
 	http://www.linkedin.com, \
 	http://ted.europa.eu, \
 	https://twitter.com, \
 	https://uk.linkedin.com/, \
 	https://www.facebook.com, \
+	https://www.facebook.com/login.php, \
 	https://www.linkedin.com \
 	" && \
 	export TEST_URLS="\
