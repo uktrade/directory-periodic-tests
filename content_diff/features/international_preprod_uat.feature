@@ -5,7 +5,6 @@ Feature: Find content differences between Pre-Production and UAT International e
 
     Then there should be no differences
 
-    @test
     Examples: Landing
       | selected                                  |
       | /                                         |
