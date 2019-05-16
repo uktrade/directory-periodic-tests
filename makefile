@@ -20,6 +20,22 @@ PYLINKVALIDATE_ENV_VARS_PROD := \
 	https://cms.trade.great.gov.uk/documents/, \
 	https://directory-cms-public.s3.amazonaws.com, \
 	https://selling-online-overseas.export.great.gov.uk/static/, \
+	https://www.great.gov.uk/export-opportunities/opportunities/b, \
+	https://www.great.gov.uk/export-opportunities/opportunities/c, \
+	https://www.great.gov.uk/export-opportunities/opportunities/d, \
+	https://www.great.gov.uk/export-opportunities/opportunities/m, \
+	https://www.great.gov.uk/export-opportunities/opportunities/f, \
+	https://www.great.gov.uk/export-opportunities/opportunities/g, \
+	https://www.great.gov.uk/export-opportunities/opportunities/h, \
+	https://www.great.gov.uk/export-opportunities/opportunities/j, \
+	https://www.great.gov.uk/export-opportunities/opportunities/k, \
+	https://www.great.gov.uk/export-opportunities/opportunities/m, \
+	https://www.great.gov.uk/export-opportunities/opportunities/n, \
+	https://www.great.gov.uk/export-opportunities/opportunities/m, \
+	https://www.great.gov.uk/export-opportunities/opportunities/p, \
+	https://www.great.gov.uk/export-opportunities/opportunities/r, \
+	https://www.great.gov.uk/export-opportunities/opportunities/s, \
+	https://www.great.gov.uk/export-opportunities/opportunities/t, \
 	https://opportunities.export.great.gov.uk/opportunities/b, \
 	https://opportunities.export.great.gov.uk/opportunities/c, \
 	https://opportunities.export.great.gov.uk/opportunities/d, \
