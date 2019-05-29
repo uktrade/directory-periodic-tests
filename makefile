@@ -402,6 +402,7 @@ dead_links_check:
 	    --header="Cache-Control: no-cache" \
 	    --header="Upgrade-Insecure-Requests: 1" \
 	    --header="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8" \
+	    --header="Accept-Language: en-GB,en-US;q=0.9,en;q=0.8" \
 	    --header="DNT: 1" \
 	    --header="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.117 Safari/537.36 link-checker-qa" \
 	    $(AUTH) \
@@ -429,6 +430,7 @@ dead_links_check_with_json_report:
 	    --header="Cache-Control: no-cache" \
 	    --header="Upgrade-Insecure-Requests: 1" \
 	    --header="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8" \
+	    --header="Accept-Language: en-GB,en-US;q=0.9,en;q=0.8" \
 	    --header="DNT: 1" \
 	    --header="User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.117 Safari/537.36 link-checker-qa" \
 	    $(AUTH) \
