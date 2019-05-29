@@ -20,6 +20,7 @@ PYLINKVALIDATE_ENV_VARS_PROD := \
 	https://cms.trade.great.gov.uk/documents/, \
 	https://directory-cms-public.s3.amazonaws.com, \
 	https://selling-online-overseas.export.great.gov.uk/static/, \
+	https://www.great.gov.uk/export-opportunities/opportunities?paged=, \
 	https://www.great.gov.uk/export-opportunities/opportunities/1, \
 	https://www.great.gov.uk/export-opportunities/opportunities/2, \
 	https://www.great.gov.uk/export-opportunities/opportunities/3, \
@@ -49,6 +50,7 @@ PYLINKVALIDATE_ENV_VARS_PROD := \
 	https://www.great.gov.uk/export-opportunities/opportunities/u, \
 	https://www.great.gov.uk/export-opportunities/opportunities/w, \
 	https://www.great.gov.uk/export-opportunities/opportunities/z, \
+	https://opportunities.export.great.gov.uk/opportunities?paged=, \
 	https://opportunities.export.great.gov.uk/opportunities/1, \
 	https://opportunities.export.great.gov.uk/opportunities/2, \
 	https://opportunities.export.great.gov.uk/opportunities/3, \
