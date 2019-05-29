@@ -545,13 +545,6 @@ workflows:
           requires:
             - setup_env_for_content_diff
 
-  domestic_prod_uat_content_diff_ad_hoc:
-    jobs:
-      - setup_env_for_content_diff
-      - domestic_compare_prod_and_uat_pages:
-          requires:
-            - setup_env_for_content_diff
-
   domestic_prod_uat_content_diff:
     triggers:
       - schedule:
@@ -601,13 +594,6 @@ workflows:
     jobs:
       - setup_env_for_content_diff
       - domestic_compare_stage_and_dev_pages:
-          requires:
-            - setup_env_for_content_diff
-
-  fas_prod_dev_content_diff_ad_hoc:
-    jobs:
-      - setup_env_for_content_diff
-      - fas_compare_prod_and_dev_pages:
           requires:
             - setup_env_for_content_diff
 
@@ -676,13 +662,6 @@ workflows:
           requires:
             - setup_env_for_content_diff
 
-  invest_prod_uat_content_diff_ad_hoc:
-    jobs:
-      - setup_env_for_content_diff
-      - invest_compare_prod_and_uat_pages:
-          requires:
-            - setup_env_for_content_diff
-
   invest_prod_uat_content_diff:
     triggers:
       - schedule:
@@ -706,20 +685,6 @@ workflows:
     jobs:
       - setup_env_for_content_diff
       - invest_compare_stage_and_dev_pages:
-          requires:
-            - setup_env_for_content_diff
-
-  international_prod_uat_content_diff_ad_hoc:
-    jobs:
-      - setup_env_for_content_diff
-      - international_compare_prod_and_uat_pages:
-          requires:
-            - setup_env_for_content_diff
-
-  international_preprod_uat_content_diff_ad_hoc:
-    jobs:
-      - setup_env_for_content_diff
-      - international_compare_preprod_and_uat_pages:
           requires:
             - setup_env_for_content_diff
 
