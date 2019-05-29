@@ -224,6 +224,26 @@ PYLINKVALIDATE_ENV_VARS_STAGE := \
 	https://opportunities.export.great.staging.uktrade.io/opportunities/t,\
 	https://opportunities.export.great.staging.uktrade.io/opportunities/w,\
 	https://opportunities.export.great.staging.uktrade.io/opportunities/z,\
+	https://great.staging.uktrade.io/export-opportunities/opportunities?,\
+	https://great.staging.uktrade.io/export-opportunities/opportunities/a,\
+	https://great.staging.uktrade.io/export-opportunities/opportunities/b,\
+	https://great.staging.uktrade.io/export-opportunities/opportunities/c,\
+	https://great.staging.uktrade.io/export-opportunities/opportunities/d,\
+	https://great.staging.uktrade.io/export-opportunities/opportunities/m,\
+	https://great.staging.uktrade.io/export-opportunities/opportunities/f,\
+	https://great.staging.uktrade.io/export-opportunities/opportunities/g,\
+	https://great.staging.uktrade.io/export-opportunities/opportunities/h,\
+	https://great.staging.uktrade.io/export-opportunities/opportunities/j,\
+	https://great.staging.uktrade.io/export-opportunities/opportunities/k,\
+	https://great.staging.uktrade.io/export-opportunities/opportunities/m,\
+	https://great.staging.uktrade.io/export-opportunities/opportunities/n,\
+	https://great.staging.uktrade.io/export-opportunities/opportunities/m,\
+	https://great.staging.uktrade.io/export-opportunities/opportunities/p,\
+	https://great.staging.uktrade.io/export-opportunities/opportunities/r,\
+	https://great.staging.uktrade.io/export-opportunities/opportunities/s,\
+	https://great.staging.uktrade.io/export-opportunities/opportunities/t,\
+	https://great.staging.uktrade.io/export-opportunities/opportunities/w,\
+	https://great.staging.uktrade.io/export-opportunities/opportunities/z,\
 	https://great.staging.uktrade.io/contact/selling-online-overseas/static/,\
 	https://www.contactus.trade.gov.uk/office-finder,\
 	http://www.export.org.uk/page/Market_Selection,\
@@ -248,10 +268,9 @@ PYLINKVALIDATE_ENV_VARS_STAGE := \
 	https://www.pwc.co.uk/,https://www.rmlgroup.com\
 	" && \
 	export TEST_URLS="\
-	https://great.preprod.uktrade.io/international/ \
-	https://great.preprod.uktrade.io/international/industries/ \
-	https://great.preprod.uktrade.io/international/how-to-setup-in-the-uk/ \
-	https://great.preprod.uktrade.io/international/how-to-do-business-with-the-uk/ \
+	https://great.staging.uktrade.io/international/ \
+	https://great.staging.uktrade.io/international/content/industries/ \
+	https://great.staging.uktrade.io/international/content/how-to-setup-in-the-uk/ \
 	https://great.staging.uktrade.io/ \
 	https://great.staging.uktrade.io/community \
 	https://great.staging.uktrade.io/trade/ \
