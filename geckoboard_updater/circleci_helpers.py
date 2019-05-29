@@ -39,9 +39,6 @@ DIRECTORY_PERIODIC_TESTS_JOB_NAME_MAPPINGS = {
         "check_for_dead_links_on_stage": "Stage Dead links",
         "check_for_dead_links_on_dev": "Dev Dead links",
     },
-    "X-Robots-Tag: noindex header": {
-        "check_for_x_robots_tag_header": "X-Robots-Tag: noindex header"
-    },
 }
 
 USEFUL_CONTENT_TESTS_JOB_NAME_MAPPINGS = {
@@ -50,7 +47,6 @@ USEFUL_CONTENT_TESTS_JOB_NAME_MAPPINGS = {
     "check_for_dead_links_on_uat":      "Dead links - UAT",
     "check_for_dead_links_on_stage":    "Dead links - Stage",
     "check_for_dead_links_on_dev":      "Dead links - Dev",
-    "check_for_x_robots_tag_header":    "X-Robots-Tag",
 }
 
 DIRECTORY_LOAD_TESTS_JOB_NAME_MAPPINGS = {

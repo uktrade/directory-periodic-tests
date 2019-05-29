@@ -45,17 +45,6 @@ step_install_geckoboard_updater_requirements: &step_install_geckoboard_updater_r
       pip install --upgrade pip
       pip install -q -r requirements_geckoboard_updater.txt
 
-step_install_x_robots_tag_requirements: &step_install_x_robots_tag_requirements
-  run:
-    name: Create virtualenv and install dependencies
-    command: |
-      python3 -m venv venv
-      . venv/bin/activate
-      pip install --upgrade pip
-      pip install -q -r requirements_x_robots_tag.txt
-      nodeenv -p
-      npm install -g junit-merge@1.2.3
-
 step_cache_cms_pages_checker_requirements: &step_cache_cms_pages_checker_requirements
   save_cache:
     key: cms-pages-dependency-cache-{{ .Revision }}
@@ -74,12 +63,6 @@ step_cache_dead_links_checker_requirements: &step_cache_dead_links_checker_requi
     paths:
       - ~/directory-periodic-tests
 
-step_cache_x_robots_tag_requirements: &step_cache_x_robots_tag_requirements
-  save_cache:
-    key: x-robots-tag-dependency-cache-{{ .Revision }}
-    paths:
-      - ~/directory-periodic-tests
-
 step_restore_cached_cms_pages_checker_requirements: &step_restore_cached_cms_pages_checker_requirements
   restore_cache:
     key: cms-pages-dependency-cache-{{ .Revision }}
@@ -95,12 +78,6 @@ step_restore_cached_content_diff_requirements: &step_restore_cached_content_diff
 step_restore_cached_dead_links_checker_requirements: &step_restore_cached_dead_links_checker_requirements
   restore_cache:
     key: dead-links-dependency-cache-{{ .Revision }}
-    paths:
-      - ~/directory-periodic-tests
-
-step_restore_cached_x_robots_tag_requirements: &step_restore_cached_x_robots_tag_requirements
-  restore_cache:
-    key: x-robots-tag-dependency-cache-{{ .Revision }}
     paths:
       - ~/directory-periodic-tests
 
@@ -133,13 +110,6 @@ step_run_geckoboard_updater: &step_run_geckoboard_updater
       cd geckoboard_updater
       python geckoboard_updater.py
 
-step_run_x_robots_tag: &step_run_x_robots_tag
-  run:
-    name: Every page on non-production site should return X-Robots-Tag noindex header
-    command: |
-      . venv/bin/activate
-      make check_for_x_robots_tag_header
-
 step_run_merge_junit_xml_reports: &step_run_merge_junit_xml_reports
   run:
     name: Merge JUnit XML reports
@@ -170,12 +140,6 @@ steps_setup_env_for_dead_links_checker: &steps_setup_env_for_dead_links_checker
     - *step_checkout_repo
     - *step_install_dead_links_checker_requirements
     - *step_cache_dead_links_checker_requirements
-
-steps_setup_env_for_x_robots_tag_checker: &steps_setup_env_for_x_robots_tag_checker
-  steps:
-    - *step_checkout_repo
-    - *step_install_x_robots_tag_requirements
-    - *step_cache_x_robots_tag_requirements
 
 steps_cms_pages_checker: &steps_cms_pages_checker
   steps:
@@ -210,16 +174,6 @@ steps_geckoboard_updater: &steps_geckoboard_updater
     - *step_install_geckoboard_updater_requirements
     - *step_run_geckoboard_updater
 
-steps_x_robots_tag: &steps_x_robots_tag
-  steps:
-    - *step_restore_cached_x_robots_tag_requirements
-    - *step_run_x_robots_tag
-    - *step_run_merge_junit_xml_reports
-    - store_test_results:
-        path: ./reports
-    - store_artifacts:
-        path: ./reports
-
 jobs:
 
   setup_env_for_cms_pages_checker: &setup_env_for_cms_pages_checker
@@ -236,11 +190,6 @@ jobs:
     <<: *machine_python3
     working_directory: ~/directory-periodic-tests
     <<: *steps_setup_env_for_dead_links_checker
-
-  setup_env_for_x_robots_tag_checker: &setup_env_for_x_robots_tag_checker
-    <<: *machine_python3
-    working_directory: ~/directory-periodic-tests
-    <<: *steps_setup_env_for_x_robots_tag_checker
 
   refresh_geckoboard:
     <<: *machine_python3
@@ -408,11 +357,6 @@ jobs:
       ENVS_TO_COMPARE: "stage_dev"
     <<: *steps_content_diff
 
-  check_for_x_robots_tag_header:
-    <<: *machine_python3
-    working_directory: ~/directory-periodic-tests
-    <<: *steps_x_robots_tag
-
   accessibility_tests_export_readiness_dev:
     docker:
       - image: circleci/node:10.5.0-stretch-browsers
@@ -574,19 +518,6 @@ workflows:
     - check_for_dead_links_on_dev:
         requires:
         - setup_env_for_dead_links_checker
-
-  check_for_x_robots_tag_header_on_all_environments:
-    triggers:
-    - schedule:
-        cron: "33 1 * * 1-5"
-        filters:
-          branches:
-            only: master
-    jobs:
-    - setup_env_for_x_robots_tag_checker
-    - check_for_x_robots_tag_header:
-        requires:
-        - setup_env_for_x_robots_tag_checker
 
   prod_check_cms_pages:
     triggers:

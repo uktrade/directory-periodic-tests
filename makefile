@@ -426,7 +426,3 @@ ENVS_TO_COMPARE ?= stage_dev
 compare_content:
 	behave -k -t ~wip --junit --junit-directory=./reports/ content_diff/features/$(SERVICE)_$(ENVS_TO_COMPARE).feature
 
-
-check_for_x_robots_tag_header:
-	behave -k -t ~wip -t ~fixme --junit --junit-directory=./reports/ x_robots_header/
-
