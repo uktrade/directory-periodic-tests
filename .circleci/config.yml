@@ -432,10 +432,14 @@ workflows:
   refresh_geckoboard_periodically:
     triggers:
     - schedule:
-        cron: "0 8-16 * * 1-5"
+        cron: "0 11,15 * * 1-5"
         filters:
           branches:
             only: master
+    jobs:
+    - refresh_geckoboard
+
+  refresh_geckoboard_ad_hoc:
     jobs:
     - refresh_geckoboard
 
