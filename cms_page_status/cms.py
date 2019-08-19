@@ -5,12 +5,25 @@ import os
 import requests
 from datetime import datetime
 
-DIRECTORY_CMS_API_CLIENT_BASE_URL = os.environ[
-    "DIRECTORY_CMS_API_CLIENT_BASE_URL"
-]
-DIRECTORY_CMS_API_CLIENT_API_KEY = os.environ[
-    "DIRECTORY_CMS_API_CLIENT_API_KEY"
-]
+TEST_ENV = os.environ["TEST_ENV"]
+
+VARS = {
+    "DEV": {
+        "URL": os.environ["DEV_DIRECTORY_CMS_API_CLIENT_BASE_URL"],
+        "KEY": os.environ["DEV_DIRECTORY_CMS_API_CLIENT_API_KEY"],
+    },
+    "STAGE": {
+        "URL": os.environ["STAGE_DIRECTORY_CMS_API_CLIENT_BASE_URL"],
+        "KEY": os.environ["STAGE_DIRECTORY_CMS_API_CLIENT_API_KEY"],
+    },
+    "PROD": {
+        "URL": os.environ["PROD_DIRECTORY_CMS_API_CLIENT_BASE_URL"],
+        "KEY": os.environ["PROD_DIRECTORY_CMS_API_CLIENT_API_KEY"],
+    },
+}
+
+DIRECTORY_CMS_API_CLIENT_BASE_URL = VARS[TEST_ENV]["URL"]
+DIRECTORY_CMS_API_CLIENT_API_KEY = VARS[TEST_ENV]["KEY"]
 
 from django.conf import settings
 
