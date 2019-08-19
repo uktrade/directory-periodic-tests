@@ -284,6 +284,20 @@ jobs:
       TEST_ENV: "DEV"
     <<: *steps_cms_page_status
 
+  generate_cms_page_status_report_for_stage:
+    <<: *machine_python3
+    working_directory: ~/directory-periodic-tests
+    environment:
+      TEST_ENV: "STAGE"
+    <<: *steps_cms_page_status
+
+  generate_cms_page_status_report_for_production:
+    <<: *machine_python3
+    working_directory: ~/directory-periodic-tests
+    environment:
+      TEST_ENV: "PROD"
+    <<: *steps_cms_page_status
+
   invest_compare_prod_and_dev_pages:
     <<: *machine_python3
     working_directory: ~/directory-periodic-tests
@@ -789,7 +803,7 @@ workflows:
   dev_cms_page_status_report:
     triggers:
       - schedule:
-          cron: "10 10,14,18 * * 1-5"
+          cron: "10 8,12 * * 1-5"
           filters:
             branches:
               only: master
@@ -799,3 +813,28 @@ workflows:
           requires:
             - setup_env_for_cms_page_status
 
+  stage_cms_page_status_report:
+    triggers:
+      - schedule:
+          cron: "20 8,12 * * 1-5"
+          filters:
+            branches:
+              only: master
+    jobs:
+      - setup_env_for_cms_page_status
+      - generate_cms_page_status_report_for_stage:
+          requires:
+            - setup_env_for_cms_page_status
+
+  prod_cms_page_status_report:
+    triggers:
+      - schedule:
+          cron: "20 8,12 * * 1-5"
+          filters:
+            branches:
+              only: master
+    jobs:
+      - setup_env_for_cms_page_status
+      - generate_cms_page_status_report_for_prod:
+          requires:
+            - setup_env_for_cms_page_status
