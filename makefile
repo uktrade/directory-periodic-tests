@@ -1,4 +1,4 @@
-.PHONY: clean
+.PHONY: clean cms_page_status
 
 clean:
 	rm -fr ./reports/*.json ./reports/*.html ./reports/*.xml ./reports/*.log
@@ -441,6 +441,40 @@ cms_pages_check:
 	echo "Running CMS pages check against: $(DIRECTORY_CMS_API_CLIENT_BASE_URL)" && \
 	pytest --capture=no --verbose --junit-xml=./reports/cms_pages.xml cms_pages/
 
+ifndef DEV_DIRECTORY_CMS_API_CLIENT_BASE_URL
+  $(error DEV_DIRECTORY_CMS_API_CLIENT_BASE_URL is undefined)
+endif
+ifndef DEV_DIRECTORY_CMS_API_CLIENT_API_KEY
+  $(error DEV_DIRECTORY_CMS_API_CLIENT_API_KEY is undefined)
+endif
+ifndef STAGE_DIRECTORY_CMS_API_CLIENT_BASE_URL
+  $(error STAGE_DIRECTORY_CMS_API_CLIENT_BASE_URL is undefined)
+endif
+ifndef STAGE_DIRECTORY_CMS_API_CLIENT_API_KEY
+  $(error STAGE_DIRECTORY_CMS_API_CLIENT_API_KEY is undefined)
+endif
+ifndef PROD_DIRECTORY_CMS_API_CLIENT_BASE_URL
+  $(error PROD_DIRECTORY_CMS_API_CLIENT_BASE_URL is undefined)
+endif
+ifndef PROD_DIRECTORY_CMS_API_CLIENT_API_KEY
+  $(error PROD_DIRECTORY_CMS_API_CLIENT_API_KEY is undefined)
+endif
+CMS_PAGE_STATUS_ENV_VARS_DEV := \
+	export DIRECTORY_CMS_API_CLIENT_BASE_URL="$(DEV_DIRECTORY_CMS_API_CLIENT_BASE_URL)"; \
+	export DIRECTORY_CMS_API_CLIENT_API_KEY="$(DEV_DIRECTORY_CMS_API_CLIENT_API_KEY)"
+
+CMS_PAGE_STATUS_ENV_VARS_STAGE := \
+	export DIRECTORY_CMS_API_CLIENT_BASE_URL="$(STAGE_DIRECTORY_CMS_API_CLIENT_BASE_URL)"; \
+	export DIRECTORY_CMS_API_CLIENT_API_KEY="$(STAGE_DIRECTORY_CMS_API_CLIENT_API_KEY)"
+
+CMS_PAGE_STATUS_ENV_VARS_PROD := \
+	export DIRECTORY_CMS_API_CLIENT_BASE_URL="$(PROD_DIRECTORY_CMS_API_CLIENT_BASE_URL)"; \
+	export DIRECTORY_CMS_API_CLIENT_API_KEY="$(PROD_DIRECTORY_CMS_API_CLIENT_API_KEY)"
+
+cms_page_status:
+	echo "Generating CMS page status report for: $(TEST_ENV) environment" && \
+	$(CMS_PAGE_STATUS_ENV_VARS_$(TEST_ENV)) && \
+	python3 ./cms_page_status/cms.py
 
 # compare contents of Staging & Dev environments by default
 SERVICE ?= invest
