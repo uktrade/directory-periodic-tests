@@ -789,12 +789,13 @@ workflows:
   dev_cms_page_status_report:
     triggers:
       - schedule:
-          cron: "48 10,14,17 * * 1-5"
+          cron: "51 10,14,17 * * 1-5"
           filters:
             branches:
               only: master
     jobs:
-      - generate_cms_page_status_report_for_dev
-        requires:
-          - steps_setup_env_for_cms_page_status
+      - setup_env_for_cms_page_status
+      - generate_cms_page_status_report_for_dev:
+          requires:
+            - setup_env_for_cms_page_status
 
