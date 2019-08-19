@@ -100,7 +100,7 @@ def generate_html_report(report: dict):
 {rows}
 </tbody>"""
     page_row_template = """<tr style="font-size:14pt">
-<td><a href="{url}" target="_blank">{id}</a></td>
+<td><a href="{admin_url}admin/pages/{id}/edit/" target="_blank">{id}</a></td>
 <td><a href="{url}" target="_blank">{title}</a></td>
 <td>{last_published_at}</td>
 <td>{draft}</td>
@@ -118,6 +118,7 @@ def generate_html_report(report: dict):
             else:
                 last_published_at = ""
             rows += page_row_template.format(
+                admin_url=DIRECTORY_CMS_API_CLIENT_BASE_URL,
                 id=summary["id"],
                 url=summary["url"],
                 title=summary["title"],
