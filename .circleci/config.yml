@@ -789,7 +789,7 @@ workflows:
   dev_cms_page_status_report:
     triggers:
       - schedule:
-          cron: "51 10,14,17 * * 1-5"
+          cron: "10 10,14,18 * * 1-5"
           filters:
             branches:
               only: master
