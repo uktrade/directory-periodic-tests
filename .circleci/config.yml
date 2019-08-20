@@ -829,7 +829,7 @@ workflows:
   prod_cms_page_status_report:
     triggers:
       - schedule:
-          cron: "20 8,12 * * 1-5"
+          cron: "3 9,12 * * 1-5"
           filters:
             branches:
               only: master
