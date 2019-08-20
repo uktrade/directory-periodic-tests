@@ -291,7 +291,7 @@ jobs:
       TEST_ENV: "STAGE"
     <<: *steps_cms_page_status
 
-  generate_cms_page_status_report_for_production:
+  generate_cms_page_status_report_for_prod:
     <<: *machine_python3
     working_directory: ~/directory-periodic-tests
     environment:
