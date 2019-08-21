@@ -46,6 +46,19 @@ settings.configure(
 from directory_cms_client.client import cms_api_client
 
 
+def camel_case_split(input: str) -> str:
+    """Convert CamelCase string into a string with words separated by spaces"""
+    words = [[input[0]]]
+
+    for character in input[1:]:
+        if words[-1][-1].islower() and character.isupper():
+            words.append(list(character))
+        else:
+            words[-1].append(character)
+
+    return " ".join("".join(word) for word in words)
+
+
 def international_pages_status_report() -> dict:
     types = cms_api_client.get("api/pages/types/").json()["types"]
     international_types = [t for t in types if t.startswith("great_international.")]
