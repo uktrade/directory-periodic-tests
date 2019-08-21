@@ -59,7 +59,7 @@ def camel_case_split(input: str) -> str:
     return " ".join("".join(word) for word in words)
 
 
-def international_pages_status_report() -> dict:
+def pages_status_report() -> dict:
     types = cms_api_client.get("api/pages/types/").json()["types"]
     international_types = [t for t in types if t.startswith("great_international.")]
     skipped_types = {
@@ -156,6 +156,6 @@ def save_report(content: str):
 
 
 if __name__ == "__main__":
-    report = international_pages_status_report()
+    report = pages_status_report()
     html = generate_html_report(report)
     save_report(html)
