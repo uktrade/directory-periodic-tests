@@ -13,9 +13,15 @@ PYLINKVALIDATE_ENV_VARS_PROD := \
 	https://www.great.gov.uk/sso/accounts/password/reset/, \
 	https://www.great.gov.uk/sso/accounts/signup/, \
 	https://www.great.gov.uk/sso/static/, \
-	https://www.great.gov.uk/trade/search/?term=, \
-	https://www.great.gov.uk/trade/static/, \
-	https://www.great.gov.uk/trade/suppliers/, \
+	https://www.great.gov.uk/international/static/, \
+	https://www.great.gov.uk/international/trade/search/?term=, \
+	https://www.great.gov.uk/international/trade/static/, \
+	https://www.great.gov.uk/international/trade/suppliers/, \
+	https://www.great.gov.uk/international/investment-support-directory/0, \
+	https://www.great.gov.uk/international/investment-support-directory/O, \
+	https://www.great.gov.uk/international/investment-support-directory/S, \
+	https://www.great.gov.uk/international/investment-support-directory/search/?, \
+	https://www.great.gov.uk/international/investment-support-directory/?q=, \
 	https://www.great.gov.uk/static/, \
 	https://cms.trade.great.gov.uk/documents/, \
 	https://directory-cms-public.s3.amazonaws.com, \
@@ -50,6 +56,9 @@ PYLINKVALIDATE_ENV_VARS_PROD := \
 	https://www.great.gov.uk/export-opportunities/opportunities/u, \
 	https://www.great.gov.uk/export-opportunities/opportunities/w, \
 	https://www.great.gov.uk/export-opportunities/opportunities/z, \
+	https://www.great.gov.uk/export-opportunities/opportunities?s=, \
+	https://www.great.gov.uk/export-opportunities/opportunities?areas, \
+	https://www.great.gov.uk/selling-online-overseas/markets/results/?operating_countries, \
 	https://opportunities.export.great.gov.uk/opportunities?paged=, \
 	https://opportunities.export.great.gov.uk/opportunities/1, \
 	https://opportunities.export.great.gov.uk/opportunities/2, \
@@ -103,13 +112,16 @@ PYLINKVALIDATE_ENV_VARS_PROD := \
 	https://www.great.gov.uk/contact/ \
 	https://www.great.gov.uk/contact/selling-online-overseas/organisation/ \
 	https://www.great.gov.uk/find-a-buyer/ \
+	https://www.great.gov.uk/get-finance/ \
 	https://www.great.gov.uk/sso/accounts/login/ \
 	https://www.great.gov.uk/profile/about/ \
-	https://www.great.gov.uk/trade/ \
-	https://invest.great.gov.uk/ \
-	https://invest.great.gov.uk/high-potential-opportunities/lightweight-structures/ \
-	https://invest.great.gov.uk/high-potential-opportunities/food-production/ \
-	https://invest.great.gov.uk/high-potential-opportunities/rail-infrastructure/ \
+	https://www.great.gov.uk/privacy-and-cookies/ \
+	https://www.great.gov.uk/international/trade/ \
+	https://www.great.gov.uk/international/investment-support-directory/ \
+	https://www.great.gov.uk/international/invest/ \
+	https://www.great.gov.uk/international/content/invest/high-potential-opportunities/food-production/ \
+	https://www.great.gov.uk/international/content/invest/high-potential-opportunities/lightweight-structures/ \
+	https://www.great.gov.uk/international/content/invest/high-potential-opportunities/rail-infrastructure/ \
 	https://opportunities.export.great.gov.uk/ \
 	https://selling-online-overseas.export.great.gov.uk/ \
 	https://selling-online-overseas.export.great.gov.uk/markets/results/ \
