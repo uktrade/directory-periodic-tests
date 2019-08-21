@@ -60,12 +60,6 @@ step_cache_cms_pages_checker_requirements: &step_cache_cms_pages_checker_require
     paths:
       - ~/directory-periodic-tests
 
-step_cache_cms_page_status_requirements: &step_cache_cms_page_status_requirements
-  save_cache:
-    key: cms-page-status-dependency-cache-{{ .Revision }}
-    paths:
-      - ~/directory-periodic-tests
-
 step_cache_content_diff_requirements: &step_cache_content_diff_requirements
   save_cache:
     key: content-diff-dependency-cache-{{ .Revision }}
@@ -81,12 +75,6 @@ step_cache_dead_links_checker_requirements: &step_cache_dead_links_checker_requi
 step_restore_cached_cms_pages_checker_requirements: &step_restore_cached_cms_pages_checker_requirements
   restore_cache:
     key: cms-pages-dependency-cache-{{ .Revision }}
-    paths:
-      - ~/directory-periodic-tests
-
-step_restore_cached_cms_page_status_requirements: &step_restore_cached_cms_page_status_requirements
-  restore_cache:
-    key: cms-page-status-dependency-cache-{{ .Revision }}
     paths:
       - ~/directory-periodic-tests
 
@@ -178,15 +166,10 @@ steps_cms_pages_checker: &steps_cms_pages_checker
     - store_artifacts:
         path: ./reports
 
-steps_setup_env_for_cms_page_status: &steps_setup_env_for_cms_page_status
+steps_cms_page_status: &steps_cms_page_status
   steps:
     - *step_checkout_repo
     - *step_install_cms_page_status_requirements
-    - *step_cache_cms_page_status_requirements
-
-steps_cms_page_status: &steps_cms_page_status
-  steps:
-    - *step_restore_cached_cms_page_status_requirements
     - *step_run_cms_page_status
     - store_test_results:
         path: ./reports
@@ -223,11 +206,6 @@ jobs:
     <<: *machine_python3
     working_directory: ~/directory-periodic-tests
     <<: *steps_setup_env_for_cms_pages_check
-
-  setup_env_for_cms_page_status: &setup_env_for_cms_page_status
-    <<: *machine_python3
-    working_directory: ~/directory-periodic-tests
-    <<: *steps_setup_env_for_cms_page_status
 
   setup_env_for_content_diff: &setup_env_for_content_diff
     <<: *machine_python3
@@ -276,20 +254,6 @@ jobs:
     <<: *machine_python3
     working_directory: ~/directory-periodic-tests
     <<: *steps_cms_pages_checker
-
-  generate_cms_page_status_report_for_dev:
-    <<: *machine_python3
-    working_directory: ~/directory-periodic-tests
-    environment:
-      TEST_ENV: "DEV"
-    <<: *steps_cms_page_status
-
-  generate_cms_page_status_report_for_stage:
-    <<: *machine_python3
-    working_directory: ~/directory-periodic-tests
-    environment:
-      TEST_ENV: "STAGE"
-    <<: *steps_cms_page_status
 
   generate_cms_page_status_report_for_prod:
     <<: *machine_python3
@@ -800,32 +764,6 @@ workflows:
           requires:
             - setup_env_for_content_diff
 
-  dev_cms_page_status_report:
-    triggers:
-      - schedule:
-          cron: "10 8,12 * * 1-5"
-          filters:
-            branches:
-              only: master
-    jobs:
-      - setup_env_for_cms_page_status
-      - generate_cms_page_status_report_for_dev:
-          requires:
-            - setup_env_for_cms_page_status
-
-  stage_cms_page_status_report:
-    triggers:
-      - schedule:
-          cron: "20 8,12 * * 1-5"
-          filters:
-            branches:
-              only: master
-    jobs:
-      - setup_env_for_cms_page_status
-      - generate_cms_page_status_report_for_stage:
-          requires:
-            - setup_env_for_cms_page_status
-
   prod_cms_page_status_report:
     triggers:
       - schedule:
@@ -834,7 +772,4 @@ workflows:
             branches:
               only: master
     jobs:
-      - setup_env_for_cms_page_status
-      - generate_cms_page_status_report_for_prod:
-          requires:
-            - setup_env_for_cms_page_status
+      - generate_cms_page_status_report_for_prod
