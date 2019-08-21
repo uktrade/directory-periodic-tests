@@ -87,6 +87,7 @@ def international_pages_status_report() -> dict:
                         "url": page["meta"]["url"],
                         "last_published_at": page["last_published_at"],
                         "draft_token": page["meta"]["draft_token"],
+                        "camel_case_page_type": page["page_type"],
                     })
             result[page_type] = page_type_summary
         except requests.exceptions.HTTPError as ex:
