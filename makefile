@@ -91,7 +91,11 @@ PYLINKVALIDATE_ENV_VARS_PROD := \
 	https://uk.linkedin.com/, \
 	https://www.facebook.com, \
 	https://www.facebook.com/login.php, \
-	https://www.linkedin.com \
+	https://www.linkedin.com, \
+	https://manaa.esma.gov.ae/, \
+	https://www.businessbankinginsight.co.uk/, \
+	https://www.pensionledfunding.com/, \
+	https://www.dubaicustoms.gov.ae/en \
 	" && \
 	export TEST_URLS="\
 	https://www.great.gov.uk/ \
