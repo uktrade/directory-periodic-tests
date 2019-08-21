@@ -61,7 +61,7 @@ def camel_case_split(input: str) -> str:
 
 def pages_status_report() -> dict:
     types = cms_api_client.get("api/pages/types/").json()["types"]
-    international_types = set(sorted([t for t in types if t.startswith("great_international.")]))
+    international_types = set([t for t in types if t.startswith("great_international.")])
     skipped_types = {
         "wagtailcore.page",
         "components.bannercomponent",
@@ -71,7 +71,7 @@ def pages_status_report() -> dict:
     }
 
     result = {}
-    for page_type in international_types - skipped_types:
+    for page_type in sorted(international_types - skipped_types):
         try:
             print(page_type)
             page_type_summary = []
