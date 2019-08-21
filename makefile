@@ -1,4 +1,4 @@
-.PHONY: clean cms_page_status
+.PHONY: clean dead_links_check dead_links_check_with_json_report cms_page_status cms_pages_check cms_page_status
 
 clean:
 	rm -fr ./reports/*.json ./reports/*.html ./reports/*.xml ./reports/*.log
