@@ -121,9 +121,14 @@ def generate_html_report(report: dict):
 <td>{languages}</td>
 </tr>"""
     tbodies = ""
-    for page_type, summaries in report.items():
+    for long_page_type in sorted(report.keys()):
+        app_name = long_page_type.split(".")[0].replace("_", " ").title()
+        summaries = report[long_page_type]
         rows = ""
+        formatted_page_type = ""
         for summary in summaries:
+            short_page_type = camel_case_split(summary["camel_case_page_type"])
+            formatted_page_type = f"{app_name} - {short_page_type}"
             if summary["last_published_at"]:
                 last_published_at = datetime.strftime(
                     datetime.strptime(summary["last_published_at"], "%Y-%m-%dT%H:%M:%S.%fZ"),
@@ -141,7 +146,7 @@ def generate_html_report(report: dict):
                 languages=", ".join([f"<a href='{summary['url']}?lang={l}' target='_blank'>{l}</a>" for l in summary["languages"]])
             )
         if rows:
-            tbodies += tbody_template.format(page_type=page_type.replace("great_international.", ""), rows=rows)
+            tbodies += tbody_template.format(page_type=formatted_page_type, rows=rows)
     return table_template.format(tbodies=tbodies)
 
 
