@@ -279,6 +279,7 @@ PYLINKVALIDATE_ENV_VARS_STAGE := \
 	export TEST_URLS="\
 	https://great.staging.uktrade.io/international/ \
 	https://great.staging.uktrade.io/international/trade/ \
+	https://great.staging.uktrade.io/international/investment-support-directory/ \
 	https://great.staging.uktrade.io/international/content/industries/ \
 	https://great.staging.uktrade.io/international/content/how-to-setup-in-the-uk/ \
 	https://great.staging.uktrade.io/ \
@@ -313,8 +314,6 @@ PYLINKVALIDATE_ENV_VARS_DEV := \
 	https://great.dev.uktrade.io/international/investment-support-directory/0,\
 	https://great.dev.uktrade.io/international/investment-support-directory/O,\
 	https://great.dev.uktrade.io/international/investment-support-directory/S,\
-	https://great.dev.uktrade.io/international/investment-support-directory/search/?,\
-	https://great.dev.uktrade.io/international/investment-support-directory/?q=,\
 	https://selling-online-overseas.export.great.dev.uktrade.io/static/,\
 	http://exportbritain.org.uk/international-directory/,\
 	https://great.dev.uktrade.io/export-opportunities/opportunities/1,\
@@ -377,6 +376,7 @@ PYLINKVALIDATE_ENV_VARS_DEV := \
 	https://great.dev.uktrade.io/export-opportunities/ \
 	https://great.dev.uktrade.io/international/ \
 	https://great.dev.uktrade.io/international/trade/ \
+	https://great.dev.uktrade.io/international/investment-support-directory/ \
 	https://great.dev.uktrade.io/find-a-buyer/ \
 	https://great.dev.uktrade.io/sso/accounts/login/ \
 	https://great.dev.uktrade.io/profile/about/ \
