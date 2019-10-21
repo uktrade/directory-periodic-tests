@@ -93,7 +93,6 @@ ORDER BY key ASC, updated DESC
 
 CONTENT_OPEN_STATUSES = [
     "Accepted",
-    "CD",
     "Design Review",
     "In progress",
     "PM Review",
