@@ -70,13 +70,15 @@ if __name__ == "__main__":
     print("Fetching test results from CircleCi")
     from circleci_results import *
 
-    print("Pushing tests results to Geckoboard")
+    print("Pushing periodic tests results to Geckoboard")
     DATASETS.PERIODIC_TESTS_RESULTS.dataset.post(
         circle_ci_periodic_tests_results
     )
+    print("Pushing load tests result distribution results to Geckoboard")
     DATASETS.LOAD_TESTS_RESULT_DISTRIBUTION.dataset.post(
         load_tests_response_times_distributions
     )
+    print("Pushing load test response times metrics to Geckoboard")
     DATASETS.LOAD_TESTS_RESULT_REQUESTS.dataset.post(
         load_tests_response_times_metrics
     )
