@@ -50,13 +50,14 @@ USEFUL_CONTENT_TESTS_JOB_NAME_MAPPINGS = {
 }
 
 DIRECTORY_LOAD_TESTS_JOB_NAME_MAPPINGS = {
-    "load_fab_tests_stage": "Load STAGE FAB",
     "load_cms_tests_stage": "Load STAGE CMS",
+    "load_erp_tests_stage": "Load STAGE ERP",
+    "load_fab_tests_stage": "Load STAGE FAB",
     "load_fas_tests_stage": "Load STAGE FAS",
-    "load_isd_tests_stage": "Load STAGE ISD",
     "load_invest_tests_stage": "Load STAGE Invest",
-    "load_soo_tests_stage": "Load STAGE SOO",
+    "load_isd_tests_stage": "Load STAGE ISD",
     "load_search_tests_stage": "Load STAGE Search",
+    "load_soo_tests_stage": "Load STAGE SOO",
 }
 
 DIRECTORY_TESTS_JOB_NAME_MAPPINGS = {
