@@ -334,6 +334,14 @@ jobs:
       ENVS_TO_COMPARE: "stage_uat"
     <<: *steps_content_diff
 
+  international_compare_prod_and_stage_pages:
+    <<: *machine_python3
+    working_directory: ~/directory-periodic-tests
+    environment:
+      SERVICE: "international"
+      ENVS_TO_COMPARE: "prod_stage"
+    <<: *steps_content_diff
+
   international_compare_prod_and_uat_pages:
     <<: *machine_python3
     working_directory: ~/directory-periodic-tests
@@ -722,6 +730,13 @@ workflows:
     jobs:
       - setup_env_for_content_diff
       - invest_compare_stage_and_dev_pages:
+          requires:
+            - setup_env_for_content_diff
+
+  international_prod_stage_content_diff:
+    jobs:
+      - setup_env_for_content_diff
+      - international_compare_prod_and_stage_pages:
           requires:
             - setup_env_for_content_diff
 

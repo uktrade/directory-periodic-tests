@@ -12,25 +12,25 @@ from retrying import retry
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 
 SITES_INVEST = {
-    "dev": "https://invest.great.dev.uktrade.io/",
+    "dev": "https://invest.great.dev.uktrade.digital/",
     "stage": "https://invest.great.staging.uktrade.io/",
     "uat": "https://invest.great.uat.uktrade.io/",
     "prod": "https://invest.great.gov.uk/"
 }
 SITES_DOMESTIC = {
-    "dev": "https://great.dev.uktrade.io/",
+    "dev": "https://great.dev.uktrade.digital/",
     "stage": "https://great.staging.uktrade.io/",
     "uat": "https://great.uat.uktrade.io/",
     "prod": "https://www.great.gov.uk/"
 }
 SITES_FAS = {
-    "dev": "https://great.dev.uktrade.io/trade/",
+    "dev": "https://great.dev.uktrade.digital/trade/",
     "stage": "https://great.staging.uktrade.io/trade/",
     "uat": "https://great.uat.uktrade.io/trade/",
     "prod": "https://www.great.gov.uk/trade/"
 }
 SITES_INTERNATIONAL = {
-    "dev": "https://great.dev.uktrade.io/international/",
+    "dev": "https://great.dev.uktrade.digital/international/",
     "stage": "https://great.staging.uktrade.io/international/",
     "uat": "https://great.uat.uktrade.io/international/",
     "preprod": "https://great.preprod.uktrade.io/international/",
