@@ -149,8 +149,11 @@ def get_build_artifacts(
     for friendly_name, build in builds.items():
         build_num = build["build_num"]
         project_name = build["reponame"]
-        datetime_object = datetime.strptime(build["start_time"], date_format)
-        run_date = datetime_object.strftime("%Y-%m-%d")
+        if build["start_time"]:
+            datetime_object = datetime.strptime(build["start_time"], date_format)
+            run_date = datetime_object.strftime("%Y-%m-%d")
+        else:
+            run_date = "N/A"
         artifacts = circle_ci_client.build.artifacts(
             username, project_name, build_num
         )
