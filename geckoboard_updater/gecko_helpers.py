@@ -149,7 +149,10 @@ def push_widget_text(push_url: str, api_key: str, widget_key: str, text: str):
     }
     url = push_url + widget_key
     response = requests.post(url, json=message)
-    error = f"Expected 200 but got {response.status_code} → {response.content}"
+    error = (
+        f"Expected 200 but got {response.status_code} → {response.content} -> \n"
+        f"{response.request.body}"
+    )
     assert response.status_code == 200, error
 
 
