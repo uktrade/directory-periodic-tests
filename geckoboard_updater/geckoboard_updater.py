@@ -96,12 +96,6 @@ if __name__ == "__main__":
         GECKOBOARD_API_KEY,
         GECKOBOARD_DIRECTORY_TESTS_RESULTS_WIDGET_KEY,
     )
-    push_periodic_tests_results(
-        CIRCLE_CI_CLIENT,
-        GECKOBOARD_PUSH_URL,
-        GECKOBOARD_API_KEY,
-        GECKOBOARD_PERIODIC_TESTS_RESULTS_WIDGET_KEY,
-    )
     push_links_to_useful_content_test_jobs(
         CIRCLE_CI_CLIENT,
         GECKOBOARD_PUSH_URL,
@@ -119,4 +113,10 @@ if __name__ == "__main__":
         GECKOBOARD_PUSH_URL,
         GECKOBOARD_API_KEY,
         GECKOBOARD_TOOLS_JIRA_QUERY_LINKS_WIDGET_KEY,
+    )
+    push_periodic_tests_results(
+        CIRCLE_CI_CLIENT,
+        GECKOBOARD_PUSH_URL,
+        GECKOBOARD_API_KEY,
+        GECKOBOARD_PERIODIC_TESTS_RESULTS_WIDGET_KEY,
     )
