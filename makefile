@@ -299,55 +299,55 @@ PYLINKVALIDATE_ENV_VARS_STAGE := \
 
 PYLINKVALIDATE_ENV_VARS_DEV := \
 	export IGNORED_PREFIXES="\
-	https://great.dev.uktrade.io/find-a-buyer/static/,\
-	https://great.dev.uktrade.io/profile/static/,\
-	https://great.dev.uktrade.io/sso/accounts/login/?next,\
-	https://great.dev.uktrade.io/sso/accounts/password/reset/?next,\
-	https://great.dev.uktrade.io/sso/accounts/signup/?next,\
-	https://great.dev.uktrade.io/sso/static/,\
-	https://great.dev.uktrade.io/static/,\
-	https://great.dev.uktrade.io/international/static/,\
-	https://great.dev.uktrade.io/international/trade/search/?term=,\
-	https://great.dev.uktrade.io/international/trade/static/,\
-	https://great.dev.uktrade.io/international/trade/suppliers/,\
-	https://great.dev.uktrade.io/international/invest/static/,\
-	https://great.dev.uktrade.io/international/investment-support-directory/0,\
-	https://great.dev.uktrade.io/international/investment-support-directory/O,\
-	https://great.dev.uktrade.io/international/investment-support-directory/S,\
-	https://selling-online-overseas.export.great.dev.uktrade.io/static/,\
+	https://great.dev.uktrade.digital/find-a-buyer/static/,\
+	https://great.dev.uktrade.digital/profile/static/,\
+	https://great.dev.uktrade.digital/sso/accounts/login/?next,\
+	https://great.dev.uktrade.digital/sso/accounts/password/reset/?next,\
+	https://great.dev.uktrade.digital/sso/accounts/signup/?next,\
+	https://great.dev.uktrade.digital/sso/static/,\
+	https://great.dev.uktrade.digital/static/,\
+	https://great.dev.uktrade.digital/international/static/,\
+	https://great.dev.uktrade.digital/international/trade/search/?term=,\
+	https://great.dev.uktrade.digital/international/trade/static/,\
+	https://great.dev.uktrade.digital/international/trade/suppliers/,\
+	https://great.dev.uktrade.digital/international/invest/static/,\
+	https://great.dev.uktrade.digital/international/investment-support-directory/0,\
+	https://great.dev.uktrade.digital/international/investment-support-directory/O,\
+	https://great.dev.uktrade.digital/international/investment-support-directory/S,\
+	https://selling-online-overseas.export.great.dev.uktrade.digital/static/,\
 	http://exportbritain.org.uk/international-directory/,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/1,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/2,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/3,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/4,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/5,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/6,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/7,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/8,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/9,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/b,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/c,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/d,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/e,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/f,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/g,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/h,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/j,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/k,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/l,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/m,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/n,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/o,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/p,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/r,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/s,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/t,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/u,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/w,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities/z,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities?s=,\
-	https://great.dev.uktrade.io/export-opportunities/opportunities?paged=,\
-	https://great.dev.uktrade.io/export-opportunities/assets/,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/1,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/2,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/3,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/4,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/5,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/6,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/7,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/8,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/9,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/b,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/c,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/d,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/e,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/f,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/g,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/h,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/j,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/k,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/l,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/m,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/n,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/o,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/p,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/r,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/s,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/t,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/u,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/w,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities/z,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities?s=,\
+	https://great.dev.uktrade.digital/export-opportunities/opportunities?paged=,\
+	https://great.dev.uktrade.digital/export-opportunities/assets/,\
 	http://mojolife.org.uk/,\
 	http://p2pfa.info/platforms/,\
 	http://www.elearningschool.co.uk,\
@@ -371,18 +371,18 @@ PYLINKVALIDATE_ENV_VARS_DEV := \
 	https://www.rmlgroup.com\
 	" && \
 	export TEST_URLS="\
-	https://great.dev.uktrade.io/ \
-	https://great.dev.uktrade.io/community/ \
-	https://great.dev.uktrade.io/export-opportunities/ \
-	https://great.dev.uktrade.io/international/ \
-	https://great.dev.uktrade.io/international/trade/ \
-	https://great.dev.uktrade.io/international/investment-support-directory/ \
-	https://great.dev.uktrade.io/find-a-buyer/ \
-	https://great.dev.uktrade.io/sso/accounts/login/ \
-	https://great.dev.uktrade.io/profile/about/ \
-	https://great.dev.uktrade.io/international/content/invest/ \
-	https://great.dev.uktrade.io/selling-online-overseas/ \
-	https://great.dev.uktrade.io/selling-online-overseas/markets/results/ \
+	https://great.dev.uktrade.digital/ \
+	https://great.dev.uktrade.digital/community/ \
+	https://great.dev.uktrade.digital/export-opportunities/ \
+	https://great.dev.uktrade.digital/international/ \
+	https://great.dev.uktrade.digital/international/trade/ \
+	https://great.dev.uktrade.digital/international/investment-support-directory/ \
+	https://great.dev.uktrade.digital/find-a-buyer/ \
+	https://great.dev.uktrade.digital/sso/accounts/login/ \
+	https://great.dev.uktrade.digital/profile/about/ \
+	https://great.dev.uktrade.digital/international/content/invest/ \
+	https://great.dev.uktrade.digital/selling-online-overseas/ \
+	https://great.dev.uktrade.digital/selling-online-overseas/markets/results/ \
 	"
 
 BASIC_AUTH := $(shell echo -n $(BASICAUTH_USER_$(TEST_ENV)):$(BASICAUTH_PASS_$(TEST_ENV)) | base64)
