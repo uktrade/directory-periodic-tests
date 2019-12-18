@@ -383,7 +383,7 @@ def parse_result_distribution_csv(
     test_date: str,
     *,
     ignored_results: List[str] = ["total"],
-    ignored_percentiles: List[str] = ["66%", "80%", "98%"],
+    ignored_percentiles: List[str] = ["66%", "80%", "98%", "99.9%", "99.99%", "99.999"],
 ) -> List[dict]:
 
     parsed_csv_results = [
