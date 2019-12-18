@@ -734,6 +734,12 @@ workflows:
             - setup_env_for_content_diff
 
   international_prod_stage_content_diff:
+    triggers:
+      - schedule:
+          cron: "37 4 * * 1"
+          filters:
+            branches:
+              only: master
     jobs:
       - setup_env_for_content_diff
       - international_compare_prod_and_stage_pages:
@@ -743,7 +749,7 @@ workflows:
   international_prod_uat_content_diff:
     triggers:
       - schedule:
-          cron: "37 4 * * 1"
+          cron: "47 4 * * 1"
           filters:
             branches:
               only: master
@@ -756,7 +762,7 @@ workflows:
   international_stage_uat_content_diff:
     triggers:
       - schedule:
-          cron: "47 4 * * 1"
+          cron: "57 4 * * 1"
           filters:
             branches:
               only: master
@@ -769,7 +775,7 @@ workflows:
   international_stage_dev_content_diff:
     triggers:
       - schedule:
-          cron: "57 4 * * 1"
+          cron: "7 5 * * 1"
           filters:
             branches:
               only: master
