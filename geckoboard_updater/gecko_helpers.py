@@ -146,7 +146,7 @@ def widget_links(links: List[str]) -> str:
 def push_widget_text(push_url: str, api_key: str, widget_key: str, text: str):
     message = {
         "api_key": api_key,
-        "data": {"item": [{"text": text, "type": 0}]},
+        "data": {"item": [{"text": text.replace("\n", ""), "type": 0}]},
     }
     url = push_url + widget_key
     response = requests.post(url, json=message)
