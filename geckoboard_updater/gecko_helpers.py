@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from collections import namedtuple, OrderedDict
 from enum import Enum, EnumMeta
@@ -86,7 +87,7 @@ def widget_text_for_directory_tests(test_results: dict) -> str:
             status_color=job_status_color(result["status"]),
             **result,
         )
-    return table_template.format(rows=rows)
+    return table_template.format(rows=rows).replace("\n", "").replace('"', "'")
 
 
 def widget_text_for_service_build(build_results: dict) -> str:
@@ -127,7 +128,7 @@ def widget_text_for_service_build(build_results: dict) -> str:
             flake8=flake8,
             **results["Unit Tests"],
         )
-    return table_template.format(rows=rows)
+    return table_template.format(rows=rows).replace("\n", "").replace('"', "'")
 
 
 def widget_links(links: List[str]) -> str:
@@ -140,13 +141,13 @@ def widget_links(links: List[str]) -> str:
     rows = ""
     for link in links:
         rows += row_template.format(link=link)
-    return table_template.format(rows=rows)
+    return table_template.format(rows=rows).replace("\n", "").replace('"', "'")
 
 
 def push_widget_text(push_url: str, api_key: str, widget_key: str, text: str):
     message = {
         "api_key": api_key,
-        "data": {"item": [{"text": text.replace("\n", ""), "type": 0}]},
+        "data": {"item": [{"text": text, "type": 0}]},
     }
     url = push_url + widget_key
     response = requests.post(url, json=message)
