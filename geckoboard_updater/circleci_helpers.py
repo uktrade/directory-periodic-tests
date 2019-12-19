@@ -62,20 +62,20 @@ DIRECTORY_LOAD_TESTS_JOB_NAME_MAPPINGS = {
 }
 
 DIRECTORY_TESTS_JOB_NAME_MAPPINGS = {
-    "dev_parallel_browser_tests_using_circleci": "Dev browser",
+    "dev_parallel_browser_tests_using_circleci": "Browser Dev",
     "func_fas_test_dev": "Dev FAS",
     "func_international_test_dev": "Dev Int",
     "func_sso_test_dev": "Dev SSO",
     "func_sud_test_dev": "Dev SUD",
     "smoke_tests_dev": "Dev Smoke",
-    "stage_parallel_browser_tests_using_circleci": "Stage browser",
+    "stage_parallel_browser_tests_using_circleci": "Browser Stage",
     "browser_all_firefox_stage": "Stage Firefox",
     "func_fas_test_stage": "Stage FAS",
     "func_international_test_stage": "Stage Int",
     "func_sso_test_stage": "Stage SSO",
     "func_sud_test_stage": "Stage SUD",
     "smoke_tests_stage": "Stage Smoke",
-    "uat_parallel_browser_tests_using_circleci": "UAT browser",
+    "uat_parallel_browser_tests_using_circleci": "Browser UAT",
     "func_fas_test_uat": "UAT FAS",
     "func_international_test_uat": "UAT Int",
     "func_sso_test_uat": "UAT SSO",
