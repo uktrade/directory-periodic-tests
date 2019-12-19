@@ -53,6 +53,7 @@ def job_status_color(status: str) -> str:
         "failed": "red",
         "fixed": "green",
         "not_run": "grey",
+        "not_running": "grey",
         "queued": "purple",
         "running": "blue",
         "success": "green",
