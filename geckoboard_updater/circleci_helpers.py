@@ -378,18 +378,27 @@ def last_directory_service_build_results(
     }
 
 
+def parse_locust_stats_csv(csv_content: str) -> List[dict]:
+    return [
+        dict(endpoint) for endpoint in csv.DictReader(StringIO(csv_content))
+    ]
+
+
 def parse_result_distribution_csv(
     csv_content: str,
     test_name: str,
     test_date: str,
     *,
-    ignored_results: List[str] = ["total"],
-    ignored_percentiles: List[str] = ["66%", "80%", "98%", "99.9%", "99.99%", "99.999"],
+    ignored_results: List[str] = ["aggregated"],
+    ignored_columns: List[str] = [
+        "# failures", "Median response time", "Average response time",
+        "Min response time", "Max response time", "Average Content Size",
+        "Requests/s", "Requests Failed/s", "66%", "80%", "98%", "99.9%", "99.99%",
+        "99.999",
+    ],
 ) -> List[dict]:
 
-    parsed_csv_results = [
-        dict(endpoint) for endpoint in csv.DictReader(StringIO(csv_content))
-    ]
+    parsed_csv_results = parse_locust_stats_csv(csv_content)
 
     clean_results = []
     for result in parsed_csv_results:
@@ -400,12 +409,13 @@ def parse_result_distribution_csv(
         # accepts max 10 fields per dataset) we're replacing existing result
         # name with the "test name" e.g. "Load STAGE FAB" and set the endpoint
         # property to contain both HTTP Method and original result Name
-        result["endpoint"] = result["Name"]
+        result["endpoint"] = f'{result["Type"]} {result["Name"]}'
+        result.pop("Type")
         result.pop("Name")
 
         clean_result = {}
         for key, value in result.items():
-            if key in ignored_percentiles:
+            if key in ignored_columns:
                 continue
             clean_key = key.replace("# ", "").replace("%", "").strip().lower()
             if value == "N/A":
@@ -434,8 +444,11 @@ def parse_result_requests_csv(
     test_name: str,
     test_date: str,
     *,
-    ignored_results: List[str] = ["total"],
-    ignored_metrics: List[str] = ["average content size"],
+    ignored_results: List[str] = ["aggregated"],
+    ignored_metrics: List[str] = [
+        "average content size", "requests failed/s", "50%", "66%", "75%", "80%", "90%", "95%", "98%", "99%",
+        "99.9%", "99.99%", "99.999", "100%",
+    ],
 ) -> List[dict]:
     """Take Locust's requests.csv & convert it to Geckoboard friendly dataset.
 
@@ -486,9 +499,7 @@ def parse_result_requests_csv(
           'endpoint': 'GET api/internal/companies-house-search/?term=[term]'}
     ]
     """
-    parsed_csv_results = [
-        dict(endpoint) for endpoint in csv.DictReader(StringIO(csv_content))
-    ]
+    parsed_csv_results = parse_locust_stats_csv(csv_content)
 
     clean_results = []
     for result in parsed_csv_results:
@@ -499,8 +510,8 @@ def parse_result_requests_csv(
         # accepts max 10 fields per dataset) we're replacing existing result
         # name with the "test name" e.g. "Load STAGE FAB" and set the endpoint
         # property to contain both HTTP Method and original result Name
-        result["endpoint"] = f'{result["Method"]} {result["Name"]}'
-        result.pop("Method")
+        result["endpoint"] = f'{result["Type"]} {result["Name"]}'
+        result.pop("Type")
         result.pop("Name")
 
         clean_result = {}
@@ -533,7 +544,7 @@ def parse_result_requests_csv(
 def get_results_distribution(
     build_artifacts: dict,
     *,
-    artifact_filename: str = "results_distribution.csv",
+    artifact_filename: str = "results_stats.csv",
 ) -> List[dict]:
     results = []
     for friendly_name, artifacts in build_artifacts.items():
@@ -552,7 +563,7 @@ def get_results_distribution(
 
 
 def get_load_tests_requests_results(
-    build_artifacts: dict, *, artifact_filename: str = "results_requests.csv"
+    build_artifacts: dict, *, artifact_filename: str = "results_stats.csv"
 ) -> List[dict]:
     results = []
     for friendly_name, artifacts in build_artifacts.items():
