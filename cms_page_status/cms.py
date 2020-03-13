@@ -2,8 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import os
-import requests
 from datetime import datetime
+from typing import List
+
+import requests
+from termcolor import cprint
 
 TEST_ENV = os.environ["TEST_ENV"]
 
@@ -46,6 +49,11 @@ settings.configure(
 from directory_cms_client.client import cms_api_client
 
 
+def red(x: str):
+    """Print out a message in red to console."""
+    cprint(x, "red", attrs=["bold"])
+
+
 def camel_case_split(input: str) -> str:
     """Convert CamelCase string into a string with words separated by spaces"""
     words = [[input[0]]]
@@ -59,41 +67,63 @@ def camel_case_split(input: str) -> str:
     return " ".join("".join(word) for word in words)
 
 
+def get_pks_by_page_type(page_type: str) -> List[int]:
+    result = []
+    try:
+        response = cms_api_client.get(f"api/pages/?type={page_type}")
+    except requests.exceptions.HTTPError as ex:
+        red(f"ET api/pages/?type={page_type} -> Failed because of: {ex}")
+    else:
+        if response.status_code != 200:
+            red(f"GET api/pages/?type={page_type} -> {response.status_code} {response.reason}")
+        else:
+            result = response.json()
+    print(f"GET api/pages/?type={page_type} -> {result}")
+    return result
+
+
+def get_page_by_pk(pk: int) -> dict:
+    result = {}
+    try:
+        response = cms_api_client.get(f"api/pages/{pk}/")
+    except requests.exceptions.HTTPError as ex:
+        red(f"GET api/pages/{pk}/ -> Failed because of: {ex}")
+    else:
+        if response.status_code != 200:
+            red(f"GET api/pages/{pk}/ -> {response.status_code} {response.reason}")
+        else:
+            result = response.json()
+    return result
+
+
 def pages_status_report() -> dict:
-    types = cms_api_client.get("api/pages/types/").json()["types"]
-    international_types = set([t for t in types if t.startswith("great_international.")])
+    types = set(cms_api_client.get("api/pages/types/").json()["types"])
     skipped_types = {
         "wagtailcore.page",
         "components.bannercomponent",
-        "great_international.baseinternationalsectorpage",
-        "great_international.capitalinvestopportunitypage",
-        "great_international.internationalcapitalinvestlandingpage",
     }
 
-    result = {}
-    for page_type in sorted(international_types - skipped_types):
-        try:
-            print(page_type)
-            page_type_summary = []
-            resp = cms_api_client.get(f"api/pages/?type={page_type}").json()
-            if "items" not in resp:
+    page_status = {}
+    for page_type in sorted(types - skipped_types):
+        page_type_summary = []
+        pks_by_page_type = get_pks_by_page_type(page_type)
+        for pk in pks_by_page_type:
+            page = get_page_by_pk(pk)
+            if not page:
                 continue
-            for page in resp["items"]:
-                page_type_summary.append(
-                    {
-                        "id": page["id"],
-                        "title": page["title"],
-                        "languages": [l[0] for l in page["meta"]["languages"]],
-                        "url": page["meta"]["url"],
-                        "last_published_at": page["last_published_at"],
-                        "draft_token": page["meta"]["draft_token"],
-                        "camel_case_page_type": page["page_type"],
-                    })
-            result[page_type] = page_type_summary
-        except requests.exceptions.HTTPError as ex:
-            print(f"There was a problem with getting list of '{page_type}' pages: {ex}")
+            page_type_summary.append(
+                {
+                    "id": page["id"],
+                    "title": page["title"],
+                    "languages": [l[0] for l in page["meta"]["languages"]],
+                    "url": page["meta"]["url"],
+                    "last_published_at": page["last_published_at"],
+                    "draft_token": page["meta"]["draft_token"],
+                    "camel_case_page_type": page["page_type"],
+                })
+        page_status[page_type] = page_type_summary
 
-    return result
+    return page_status
 
 
 def generate_html_report(report: dict):
@@ -123,7 +153,7 @@ def generate_html_report(report: dict):
     tbodies = ""
     for long_page_type in sorted(report.keys()):
         app_name = long_page_type.split(".")[0].replace("_", " ").title()
-        summaries = report[long_page_type]
+        summaries = sorted(report[long_page_type], key=lambda x: x["id"])
         rows = ""
         formatted_page_type = ""
         for summary in summaries:
@@ -156,6 +186,8 @@ def save_report(content: str):
 
 
 if __name__ == "__main__":
-    report = pages_status_report()
-    html = generate_html_report(report)
+    pages_status = pages_status_report()
+    total_pages = sum(len(pages) for pages in pages_status.values())
+    print(f"Generating report for {total_pages} found pages")
+    html = generate_html_report(pages_status)
     save_report(html)
