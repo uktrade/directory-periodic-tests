@@ -4,19 +4,21 @@
 #
 #    pip-compile --output-file=requirements_cms_page_status.txt requirements_cms_page_status.in
 #
-certifi==2019.6.16        # via requests
+certifi==2019.11.28       # via requests
 chardet==3.0.4            # via requests
-directory-client-core==5.1.1  # via directory-cms-client
-directory-cms-client==10.1.0
-directory-constants==18.7.0
-django==1.11.23           # via directory-client-core, directory-constants, sigauth
-djangorestframework==3.10.2  # via sigauth
-idna==2.8                 # via requests
+directory-client-core==6.1.0  # via directory-cms-client
+directory-cms-client==11.1.1  # via -r requirements_cms_page_status.in
+directory-constants==20.11.0  # via -r requirements_cms_page_status.in
+django==2.2.11            # via directory-client-core, directory-constants, sigauth
+djangorestframework==3.11.0  # via sigauth
+idna==2.9                 # via requests
 mohawk==0.3.4             # via sigauth
 monotonic==1.5            # via directory-client-core
-pytz==2019.2              # via django
-requests==2.22.0
+pytz==2019.3              # via django
+requests==2.23.0          # via -r requirements_cms_page_status.in, directory-client-core
 sigauth==4.1.1            # via directory-client-core
-six==1.12.0               # via mohawk, w3lib
-urllib3==1.25.3           # via requests
+six==1.14.0               # via w3lib
+sqlparse==0.3.1           # via django
+termcolor==1.1.0          # via -r requirements_cms_page_status.in
+urllib3==1.25.8           # via requests
 w3lib==1.21.0             # via directory-client-core

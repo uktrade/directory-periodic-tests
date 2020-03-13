@@ -1,3 +1,4 @@
 directory-cms-client
 directory-constants
 requests
+termcolor
