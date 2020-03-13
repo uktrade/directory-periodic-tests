@@ -131,40 +131,40 @@ PYLINKVALIDATE_ENV_VARS_PROD := \
 
 PYLINKVALIDATE_ENV_VARS_UAT := \
 	export IGNORED_PREFIXES="\
-	https://great.uat.uktrade.io/international/static/,\
-	https://great.uat.uktrade.io/find-a-buyer/static/,\
-	https://great.uat.uktrade.io/profile/static/,\
-	https://great.uat.uktrade.io/sso/accounts/login/?next,\
-	https://great.uat.uktrade.io/sso/accounts/password/reset/?next,\
-	https://great.uat.uktrade.io/sso/accounts/signup/?next,\
-	https://great.uat.uktrade.io/sso/static/,\
-	https://great.uat.uktrade.io/static/,\
-	https://great.uat.uktrade.io/trade/search/?term=,\
-	https://great.uat.uktrade.io/trade/static/,\
-	https://great.uat.uktrade.io/trade/suppliers/,\
-	https://invest.great.uat.uktrade.io/static/,\
-	https://opportunities.export.great.uat.uktrade.io/assets/,\
-	https://opportunities.export.great.uat.uktrade.io/opportunities?,\
-	https://opportunities.export.great.uat.uktrade.io/opportunities/a,\
-	https://opportunities.export.great.uat.uktrade.io/opportunities/b,\
-	https://opportunities.export.great.uat.uktrade.io/opportunities/c,\
-	https://opportunities.export.great.uat.uktrade.io/opportunities/d,\
-	https://opportunities.export.great.uat.uktrade.io/opportunities/m,\
-	https://opportunities.export.great.uat.uktrade.io/opportunities/f,\
-	https://opportunities.export.great.uat.uktrade.io/opportunities/g,\
-	https://opportunities.export.great.uat.uktrade.io/opportunities/h,\
-	https://opportunities.export.great.uat.uktrade.io/opportunities/j,\
-	https://opportunities.export.great.uat.uktrade.io/opportunities/k,\
-	https://opportunities.export.great.uat.uktrade.io/opportunities/m,\
-	https://opportunities.export.great.uat.uktrade.io/opportunities/n,\
-	https://opportunities.export.great.uat.uktrade.io/opportunities/m,\
-	https://opportunities.export.great.uat.uktrade.io/opportunities/p,\
-	https://opportunities.export.great.uat.uktrade.io/opportunities/r,\
-	https://opportunities.export.great.uat.uktrade.io/opportunities/s,\
-	https://opportunities.export.great.uat.uktrade.io/opportunities/t,\
-	https://opportunities.export.great.uat.uktrade.io/opportunities/w,\
-	https://opportunities.export.great.uat.uktrade.io/opportunities/z,\
-	https://great.uat.uktrade.io/contact/selling-online-overseas/static/,\
+	https://great.uat.uktrade.digital/international/static/,\
+	https://great.uat.uktrade.digital/find-a-buyer/static/,\
+	https://great.uat.uktrade.digital/profile/static/,\
+	https://great.uat.uktrade.digital/sso/accounts/login/?next,\
+	https://great.uat.uktrade.digital/sso/accounts/password/reset/?next,\
+	https://great.uat.uktrade.digital/sso/accounts/signup/?next,\
+	https://great.uat.uktrade.digital/sso/static/,\
+	https://great.uat.uktrade.digital/static/,\
+	https://great.uat.uktrade.digital/trade/search/?term=,\
+	https://great.uat.uktrade.digital/trade/static/,\
+	https://great.uat.uktrade.digital/trade/suppliers/,\
+	https://invest.great.uat.uktrade.digital/static/,\
+	https://opportunities.export.great.uat.uktrade.digital/assets/,\
+	https://opportunities.export.great.uat.uktrade.digital/opportunities?,\
+	https://opportunities.export.great.uat.uktrade.digital/opportunities/a,\
+	https://opportunities.export.great.uat.uktrade.digital/opportunities/b,\
+	https://opportunities.export.great.uat.uktrade.digital/opportunities/c,\
+	https://opportunities.export.great.uat.uktrade.digital/opportunities/d,\
+	https://opportunities.export.great.uat.uktrade.digital/opportunities/m,\
+	https://opportunities.export.great.uat.uktrade.digital/opportunities/f,\
+	https://opportunities.export.great.uat.uktrade.digital/opportunities/g,\
+	https://opportunities.export.great.uat.uktrade.digital/opportunities/h,\
+	https://opportunities.export.great.uat.uktrade.digital/opportunities/j,\
+	https://opportunities.export.great.uat.uktrade.digital/opportunities/k,\
+	https://opportunities.export.great.uat.uktrade.digital/opportunities/m,\
+	https://opportunities.export.great.uat.uktrade.digital/opportunities/n,\
+	https://opportunities.export.great.uat.uktrade.digital/opportunities/m,\
+	https://opportunities.export.great.uat.uktrade.digital/opportunities/p,\
+	https://opportunities.export.great.uat.uktrade.digital/opportunities/r,\
+	https://opportunities.export.great.uat.uktrade.digital/opportunities/s,\
+	https://opportunities.export.great.uat.uktrade.digital/opportunities/t,\
+	https://opportunities.export.great.uat.uktrade.digital/opportunities/w,\
+	https://opportunities.export.great.uat.uktrade.digital/opportunities/z,\
+	https://great.uat.uktrade.digital/contact/selling-online-overseas/static/,\
 	https://www.contactus.trade.gov.uk/office-finder,\
 	http://www.export.org.uk/page/Market_Selection,\
 	https://www.gov.uk/tendering-for-public-sector-contracts/overview,\
@@ -188,72 +188,72 @@ PYLINKVALIDATE_ENV_VARS_UAT := \
 	https://www.pwc.co.uk/,https://www.rmlgroup.com\
 	" && \
 	export TEST_URLS="\
-	https://great.uat.uktrade.io/international/ \
-	https://great.uat.uktrade.io/international/content/industries/ \
-	https://great.uat.uktrade.io/international/content/how-to-setup-in-the-uk/ \
-	https://great.uat.uktrade.io/international/content/how-to-do-business-with-the-uk/ \
-	https://great.uat.uktrade.io/ \
-	https://great.uat.uktrade.io/community \
-	https://great.uat.uktrade.io/trade/ \
-	https://great.uat.uktrade.io/find-a-buyer/ \
-	https://great.uat.uktrade.io/sso/accounts/login/ \
-	https://great.uat.uktrade.io/profile/about/ \
-	https://great.uat.uktrade.io/contact/selling-online-overseas/ \
-	https://great.uat.uktrade.io/contact/selling-online-overseas/markets/results/ \
-	https://invest.great.uat.uktrade.io/ \
-	https://invest.great.uat.uktrade.io/high-potential-opportunities/lightweight-structures/ \
-	https://invest.great.uat.uktrade.io/high-potential-opportunities/food-production/ \
-	https://invest.great.uat.uktrade.io/high-potential-opportunities/rail-infrastructure/ \
-	https://opportunities.export.great.uat.uktrade.io/ \
-	https://opportunities.export.great.uat.uktrade.io/opportunities?s=shoes&areas[]=&commit=Find+opportunities \
+	https://great.uat.uktrade.digital/international/ \
+	https://great.uat.uktrade.digital/international/content/industries/ \
+	https://great.uat.uktrade.digital/international/content/how-to-setup-in-the-uk/ \
+	https://great.uat.uktrade.digital/international/content/how-to-do-business-with-the-uk/ \
+	https://great.uat.uktrade.digital/ \
+	https://great.uat.uktrade.digital/community \
+	https://great.uat.uktrade.digital/trade/ \
+	https://great.uat.uktrade.digital/find-a-buyer/ \
+	https://great.uat.uktrade.digital/sso/accounts/login/ \
+	https://great.uat.uktrade.digital/profile/about/ \
+	https://great.uat.uktrade.digital/contact/selling-online-overseas/ \
+	https://great.uat.uktrade.digital/contact/selling-online-overseas/markets/results/ \
+	https://invest.great.uat.uktrade.digital/ \
+	https://invest.great.uat.uktrade.digital/high-potential-opportunities/lightweight-structures/ \
+	https://invest.great.uat.uktrade.digital/high-potential-opportunities/food-production/ \
+	https://invest.great.uat.uktrade.digital/high-potential-opportunities/rail-infrastructure/ \
+	https://opportunities.export.great.uat.uktrade.digital/ \
+	https://opportunities.export.great.uat.uktrade.digital/opportunities?s=shoes&areas[]=&commit=Find+opportunities \
 	"
 
 
 PYLINKVALIDATE_ENV_VARS_STAGE := \
 	export IGNORED_PREFIXES="\
-	https://great.staging.uktrade.io/international/static/,\
-	https://great.staging.uktrade.io/find-a-buyer/static/,\
-	https://great.staging.uktrade.io/profile/static/,\
-	https://great.staging.uktrade.io/profile/enrol/?next=,\
-	https://great.staging.uktrade.io/sso/accounts/login/?next,\
-	https://great.staging.uktrade.io/sso/accounts/password/reset/?next,\
-	https://great.staging.uktrade.io/sso/accounts/signup/?next,\
-	https://great.staging.uktrade.io/sso/static/,\
-	https://great.staging.uktrade.io/static/,\
-	https://great.staging.uktrade.io/international/trade/search/?term=,\
-	https://great.staging.uktrade.io/international/trade/static/,\
-	https://great.staging.uktrade.io/international/trade/suppliers/,\
-	https://great.staging.uktrade.io/international/invest/static/,\
-	https://great.staging.uktrade.io/international/investment-support-directory/0,\
-	https://great.staging.uktrade.io/international/investment-support-directory/O,\
-	https://great.staging.uktrade.io/international/investment-support-directory/S,\
-	https://great.staging.uktrade.io/international/investment-support-directory/search/?,\
-	https://great.staging.uktrade.io/international/investment-support-directory/?q=,\
-	https://great.staging.uktrade.io/export-opportunities/opportunities?,\
-	https://great.staging.uktrade.io/export-opportunities/opportunities/a,\
-	https://great.staging.uktrade.io/export-opportunities/opportunities/b,\
-	https://great.staging.uktrade.io/export-opportunities/opportunities/c,\
-	https://great.staging.uktrade.io/export-opportunities/opportunities/d,\
-	https://great.staging.uktrade.io/export-opportunities/opportunities/m,\
-	https://great.staging.uktrade.io/export-opportunities/opportunities/f,\
-	https://great.staging.uktrade.io/export-opportunities/opportunities/g,\
-	https://great.staging.uktrade.io/export-opportunities/opportunities/h,\
-	https://great.staging.uktrade.io/export-opportunities/opportunities/j,\
-	https://great.staging.uktrade.io/export-opportunities/opportunities/k,\
-	https://great.staging.uktrade.io/export-opportunities/opportunities/m,\
-	https://great.staging.uktrade.io/export-opportunities/opportunities/n,\
-	https://great.staging.uktrade.io/export-opportunities/opportunities/m,\
-	https://great.staging.uktrade.io/export-opportunities/opportunities/p,\
-	https://great.staging.uktrade.io/export-opportunities/opportunities/r,\
-	https://great.staging.uktrade.io/export-opportunities/opportunities/s,\
-	https://great.staging.uktrade.io/export-opportunities/opportunities/t,\
-	https://great.staging.uktrade.io/export-opportunities/opportunities/w,\
-	https://great.staging.uktrade.io/export-opportunities/opportunities/z,\
-	https://great.staging.uktrade.io/export-opportunities/opportunities?s=,\
-	https://great.staging.uktrade.io/export-opportunities/opportunities?paged=,\
-	https://great.staging.uktrade.io/export-opportunities/assets/,\
-	https://great.staging.uktrade.io/selling-online-overseas/static/,\
-	https://great.staging.uktrade.io/contact/selling-online-overseas/static/,\
+	https://great.staging.uktrade.digital/international/static/,\
+	https://great.staging.uktrade.digital/find-a-buyer/static/,\
+	https://great.staging.uktrade.digital/profile/static/,\
+	https://great.staging.uktrade.digital/profile/enrol/?next=,\
+	https://great.staging.uktrade.digital/sso/accounts/login/?next,\
+	https://great.staging.uktrade.digital/sso/accounts/password/reset/?next,\
+	https://great.staging.uktrade.digital/sso/accounts/signup/?next,\
+	https://great.staging.uktrade.digital/sso/static/,\
+	https://great.staging.uktrade.digital/static/,\
+	https://great.staging.uktrade.digital/international/trade/search/?term=,\
+	https://great.staging.uktrade.digital/international/trade/static/,\
+	https://great.staging.uktrade.digital/international/trade/suppliers/,\
+	https://great.staging.uktrade.digital/international/invest/static/,\
+	https://great.staging.uktrade.digital/international/investment-support-directory/0,\
+	https://great.staging.uktrade.digital/international/investment-support-directory/O,\
+	https://great.staging.uktrade.digital/international/investment-support-directory/S,\
+	https://great.staging.uktrade.digital/international/investment-support-directory/search/?,\
+	https://great.staging.uktrade.digital/international/investment-support-directory/?q=,\
+	https://great.staging.uktrade.digital/export-opportunities/opportunities?,\
+	https://great.staging.uktrade.digital/export-opportunities/opportunities/a,\
+	https://great.staging.uktrade.digital/export-opportunities/opportunities/b,\
+	https://great.staging.uktrade.digital/export-opportunities/opportunities/c,\
+	https://great.staging.uktrade.digital/export-opportunities/opportunities/d,\
+	https://great.staging.uktrade.digital/export-opportunities/opportunities/m,\
+	https://great.staging.uktrade.digital/export-opportunities/opportunities/f,\
+	https://great.staging.uktrade.digital/export-opportunities/opportunities/g,\
+	https://great.staging.uktrade.digital/export-opportunities/opportunities/h,\
+	https://great.staging.uktrade.digital/export-opportunities/opportunities/j,\
+	https://great.staging.uktrade.digital/export-opportunities/opportunities/k,\
+	https://great.staging.uktrade.digital/export-opportunities/opportunities/m,\
+	https://great.staging.uktrade.digital/export-opportunities/opportunities/n,\
+	https://great.staging.uktrade.digital/export-opportunities/opportunities/m,\
+	https://great.staging.uktrade.digital/export-opportunities/opportunities/p,\
+	https://great.staging.uktrade.digital/export-opportunities/opportunities/r,\
+	https://great.staging.uktrade.digital/export-opportunities/opportunities/s,\
+	https://great.staging.uktrade.digital/export-opportunities/opportunities/t,\
+	https://great.staging.uktrade.digital/export-opportunities/opportunities/w,\
+	https://great.staging.uktrade.digital/export-opportunities/opportunities/z,\
+	https://great.staging.uktrade.digital/export-opportunities/opportunities?s=,\
+	https://great.staging.uktrade.digital/export-opportunities/opportunities?paged=,\
+	https://great.staging.uktrade.digital/export-opportunities/assets/,\
+	https://great.staging.uktrade.digital/selling-online-overseas/static/,\
+	https://great.staging.uktrade.digital/contact/selling-online-overseas/static/,\
 	https://www.contactus.trade.gov.uk/office-finder,\
 	http://www.export.org.uk/page/Market_Selection,\
 	https://www.gov.uk/tendering-for-public-sector-contracts/overview,\
@@ -277,24 +277,24 @@ PYLINKVALIDATE_ENV_VARS_STAGE := \
 	https://www.pwc.co.uk/,https://www.rmlgroup.com\
 	" && \
 	export TEST_URLS="\
-	https://great.staging.uktrade.io/international/ \
-	https://great.staging.uktrade.io/international/trade/ \
-	https://great.staging.uktrade.io/international/investment-support-directory/ \
-	https://great.staging.uktrade.io/international/content/industries/ \
-	https://great.staging.uktrade.io/international/content/how-to-setup-in-the-uk/ \
-	https://great.staging.uktrade.io/ \
-	https://great.staging.uktrade.io/community \
-	https://great.staging.uktrade.io/find-a-buyer/ \
-	https://great.staging.uktrade.io/sso/accounts/login/ \
-	https://great.staging.uktrade.io/profile/about/ \
-	https://great.staging.uktrade.io/contact/selling-online-overseas/ \
-	https://great.staging.uktrade.io/contact/selling-online-overseas/markets/results/ \
-	https://great.staging.uktrade.io/international/invest/ \
-	https://great.staging.uktrade.io/international/content/invest/high-potential-opportunities/lightweight-structures/ \
-	https://great.staging.uktrade.io/international/content/invest/high-potential-opportunities/food-production/ \
-	https://great.staging.uktrade.io/international/content/invest/high-potential-opportunities/rail-infrastructure/ \
-	https://opportunities.export.great.staging.uktrade.io/ \
-	https://opportunities.export.great.staging.uktrade.io/opportunities?s=shoes&areas[]=&commit=Find+opportunities \
+	https://great.staging.uktrade.digital/international/ \
+	https://great.staging.uktrade.digital/international/trade/ \
+	https://great.staging.uktrade.digital/international/investment-support-directory/ \
+	https://great.staging.uktrade.digital/international/content/industries/ \
+	https://great.staging.uktrade.digital/international/content/how-to-setup-in-the-uk/ \
+	https://great.staging.uktrade.digital/ \
+	https://great.staging.uktrade.digital/community \
+	https://great.staging.uktrade.digital/find-a-buyer/ \
+	https://great.staging.uktrade.digital/sso/accounts/login/ \
+	https://great.staging.uktrade.digital/profile/about/ \
+	https://great.staging.uktrade.digital/contact/selling-online-overseas/ \
+	https://great.staging.uktrade.digital/contact/selling-online-overseas/markets/results/ \
+	https://great.staging.uktrade.digital/international/invest/ \
+	https://great.staging.uktrade.digital/international/content/invest/high-potential-opportunities/lightweight-structures/ \
+	https://great.staging.uktrade.digital/international/content/invest/high-potential-opportunities/food-production/ \
+	https://great.staging.uktrade.digital/international/content/invest/high-potential-opportunities/rail-infrastructure/ \
+	https://opportunities.export.great.staging.uktrade.digital/ \
+	https://opportunities.export.great.staging.uktrade.digital/opportunities?s=shoes&areas[]=&commit=Find+opportunities \
 	"
 
 PYLINKVALIDATE_ENV_VARS_DEV := \
