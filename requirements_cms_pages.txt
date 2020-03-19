@@ -9,9 +9,9 @@ attrs==19.1.0             # via packaging, pytest
 certifi==2019.6.16        # via requests
 chardet==3.0.4            # via requests
 directory-client-core==5.1.1  # via directory-cms-client
-directory-cms-client==10.1.0
-directory-constants==18.4.0
-django==1.11.23           # via directory-client-core, directory-constants, sigauth
+directory-cms-client==10.1.0  # via -r requirements_cms_pages.in
+directory-constants==18.4.0  # via -r requirements_cms_pages.in
+django==1.11.28           # via directory-client-core, directory-constants, sigauth
 djangorestframework==3.10.2  # via sigauth
 idna==2.8                 # via requests
 importlib-metadata==0.19  # via pluggy, pytest
@@ -22,11 +22,11 @@ packaging==19.1           # via pytest
 pluggy==0.12.0            # via pytest
 py==1.8.0                 # via pytest
 pyparsing==2.4.2          # via packaging
-pytest==5.0.1
+pytest==5.0.1             # via -r requirements_cms_pages.in
 pytz==2019.2              # via django
-requests==2.22.0
+requests==2.22.0          # via -r requirements_cms_pages.in, directory-client-core
 sigauth==4.1.1            # via directory-client-core
-six==1.12.0               # via mohawk, packaging, w3lib
+six==1.12.0               # via packaging, w3lib
 urllib3==1.25.3           # via requests
 w3lib==1.20.0             # via directory-client-core
 wcwidth==0.1.7            # via pytest
