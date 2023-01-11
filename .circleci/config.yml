@@ -470,20 +470,20 @@ jobs:
 workflows:
   version: 2
 
-#  refresh_geckoboard_periodically:
-#    triggers:
-#    - schedule:
-#        cron: "0 8,13 * * 1-5"
-#        filters:
-#          branches:
-#            only: master
-#    jobs:
-#    - refresh_geckoboard
-#
-#  refresh_geckoboard_ad_hoc:
-#    jobs:
-#    - refresh_geckoboard
-#
+  refresh_geckoboard_periodically:
+    triggers:
+    - schedule:
+        cron: "0 8,13 * * 1-5"
+        filters:
+          branches:
+            only: master
+    jobs:
+    - refresh_geckoboard
+
+  refresh_geckoboard_ad_hoc:
+    jobs:
+    - refresh_geckoboard
+
 #  prod_check_for_dead_links_ad_hoc:
 #    jobs:
 #      - setup_env_for_dead_links_checker
