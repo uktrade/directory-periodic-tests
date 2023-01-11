@@ -5,15 +5,33 @@
 #    pip-compile requirements_content_diff.in
 #
 beautifulsoup4==4.8.0
+    # via -r requirements_content_diff.in
 behave==1.2.6
-certifi==2019.6.16        # via requests
-chardet==3.0.4            # via requests
-idna==2.8                 # via requests
+    # via -r requirements_content_diff.in
+certifi==2022.12.7
+    # via requests
+chardet==3.0.4
+    # via requests
+idna==2.8
+    # via requests
 lxml==4.4.0
-parse-type==0.5.2         # via behave
-parse==1.12.0             # via behave, parse-type
+    # via -r requirements_content_diff.in
+parse==1.12.0
+    # via
+    #   behave
+    #   parse-type
+parse-type==0.5.2
+    # via behave
 requests==2.22.0
+    # via -r requirements_content_diff.in
 retrying==1.3.3
-six==1.12.0               # via behave, parse-type, retrying
-soupsieve==1.9.2          # via beautifulsoup4
-urllib3==1.25.3           # via requests
+    # via -r requirements_content_diff.in
+six==1.12.0
+    # via
+    #   behave
+    #   parse-type
+    #   retrying
+soupsieve==1.9.2
+    # via beautifulsoup4
+urllib3==1.25.3
+    # via requests
