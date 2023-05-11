@@ -59,6 +59,7 @@ DIRECTORY_LOAD_TESTS_JOB_NAME_MAPPINGS = {
     "load_isd_tests_stage": "Load STAGE ISD",
     "load_search_tests_stage": "Load STAGE Search",
     "load_soo_tests_stage": "Load STAGE SOO",
+    "load_search_tests_stage": "Load STAGE Search",
 }
 
 DIRECTORY_TESTS_JOB_NAME_MAPPINGS = {
